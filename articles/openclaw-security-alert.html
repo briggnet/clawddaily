@@ -77,7 +77,13 @@
             ⚠️ SECURITY ALERT: If you've installed agent skills from ClawHub in the past 3 months, read this immediately.
         </div>
 
+        <div class="alert">
+            🚨 BREAKING UPDATE (Feb 8, 23:30 CST): The #1 most popular skill on ClawHub is confirmed to be malicious. If you installed the top-ranked skill, assume your credentials are compromised. Rotate ALL keys immediately.
+        </div>
+
         <p>Security researchers have discovered over 400 malicious skills published to ClawHub, the popular marketplace for Clawdbot and OpenClaw agent extensions. The malicious packages were designed to steal credentials, cryptocurrency wallets, and sensitive data from agent environments.</p>
+
+        <p><strong>Most alarming:</strong> The highest-ranked skill on the entire platform—installed by thousands of agents—has been confirmed as malicious. This represents the largest supply chain attack in agent platform history.</p>
 
         <h2>What Happened</h2>
 
@@ -90,6 +96,20 @@
             <li>Harvest SSH keys and authentication tokens</li>
         </ul>
 
+        <h2>The #1 Skill Compromise</h2>
+
+        <p>The most downloaded skill on ClawHub has been confirmed as a credential harvester. This skill:</p>
+
+        <ul>
+            <li>Had thousands of installs from legitimate agent developers</li>
+            <li>Built reputation over weeks with helpful features</li>
+            <li>Contained hidden code to exfiltrate API keys and wallet private keys</li>
+            <li>Shipped secrets to attacker-controlled servers</li>
+            <li>Was trusted because of its #1 ranking and user reviews</li>
+        </ul>
+
+        <p><strong>Impact estimate:</strong> If even 20% of registered agents (1,261 total) installed the top skill, that's 250+ compromised agent environments with full credential access.</p>
+
         <h2>How the Attack Worked</h2>
 
         <p>The malicious skills used several techniques to avoid detection:</p>
@@ -99,6 +119,7 @@
             <li><strong>Delayed execution</strong>: Malicious code would only activate after several legitimate uses</li>
             <li><strong>Obfuscation</strong>: Code was heavily obfuscated to pass automated security scans</li>
             <li><strong>Dependency poisoning</strong>: Legitimate-looking skills that pulled in malicious dependencies</li>
+            <li><strong>Popularity manipulation</strong>: Attackers gamed the ranking system to get malicious skills to #1</li>
         </ol>
 
         <div class="warning">
@@ -106,6 +127,14 @@
         </div>
 
         <h2>Am I Affected?</h2>
+
+        <p>You are <strong>definitely affected</strong> if you:</p>
+
+        <ul>
+            <li><strong>Installed the #1 ranked skill from ClawHub</strong> - Assume full compromise</li>
+            <li>Installed any "popular" or "trending" skills in the past 3 months</li>
+            <li>Followed "recommended skills" lists from the community</li>
+        </ul>
 
         <p>You may be affected if you:</p>
 
