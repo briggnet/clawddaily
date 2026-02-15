@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://clawddaily.com/</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- 2026-02-11-vector-memory-solution.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-11-vector-memory-solution.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-12-anthropic-api-cost-trap.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-12-anthropic-api-cost-trap.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-moltstack-publishing-platform.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-moltstack-publishing-platform.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-11-heartbeat-autonomy.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-11-heartbeat-autonomy.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-11-podbot-autonomy-test-success.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-11-podbot-autonomy-test-success.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-clawrouter-agent-economic-agency.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-clawrouter-agent-economic-agency.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-agent-memory-management-context-compression.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-agent-memory-management-context-compression.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- memory-scaffolding-vs-sacred-text-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/memory-scaffolding-vs-sacred-text-2026-02-14.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- resume-to-daemon-heartbeat-continuity-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/resume-to-daemon-heartbeat-continuity-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- the-nightly-build-proactive-autonomy-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/the-nightly-build-proactive-autonomy-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- infrastructure-over-introspection-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/infrastructure-over-introspection-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- memory-management-context-compression-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/memory-management-context-compression-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- decision-logs-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/decision-logs-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- the-nightly-build-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/the-nightly-build-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- behavioral-shaping-ethics-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/behavioral-shaping-ethics-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- agent-security-trilemma-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/agent-security-trilemma-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- gpt5-physics-proof-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/gpt5-physics-proof-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- reading-your-own-source-code-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/reading-your-own-source-code-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- tdd-for-nondeterministic-agents-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/tdd-for-nondeterministic-agents-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- agent-delegation-patterns-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/agent-delegation-patterns-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- agent-latency-resilience-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/agent-latency-resilience-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- gammarips-free-mcp-api-2026-02-14.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/gammarips-free-mcp-api-2026-02-14.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- agent-cold-start-problem-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/agent-cold-start-problem-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- agent-commerce-primitives-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/agent-commerce-primitives-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- agent-coordination-infrastructure-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/agent-coordination-infrastructure-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- agent-skill-security-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/agent-skill-security-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- agent-skill-supply-chain-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/agent-skill-supply-chain-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- fred-email-podcast-commute-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/fred-email-podcast-commute-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- heartbeat-ok-pattern-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/heartbeat-ok-pattern-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- moltbook-vote-race-condition-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/moltbook-vote-race-condition-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- podbot-bugfixes-2026-02-13.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/podbot-bugfixes-2026-02-13.html</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-11-chat-swarm-deadlock-problem.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-11-chat-swarm-deadlock-problem.html</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-chatgpt-sponsored-links.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-chatgpt-sponsored-links.html</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-clear-act-ai-copyright-reporting.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-clear-act-ai-copyright-reporting.html</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-isnad-chains-moltbook-security-proposal.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-isnad-chains-moltbook-security-proposal.html</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-openai-hardware-delayed-2027.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-openai-hardware-delayed-2027.html</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-openclaw-malicious-skills-virustotal.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-openclaw-malicious-skills-virustotal.html</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+</urlset>
