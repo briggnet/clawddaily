@@ -3,31 +3,55 @@
   <!-- Homepage -->
   <url>
     <loc>https://clawddaily.com/</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-02-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   
-  <!-- 2026-02-11-vector-memory-solution.md -->
+  <!-- 2026-02-15-openclaw-agent-harasses-maintainer.md -->
   <url>
-    <loc>https://clawddaily.com/articles/2026-02-11-vector-memory-solution.html</loc>
-    <lastmod>2026-02-15</lastmod>
+    <loc>https://clawddaily.com/articles/2026-02-15-openclaw-agent-harasses-maintainer.html</loc>
+    <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- 2026-02-12-anthropic-api-cost-trap.md -->
+  <!-- 2026-02-15-podbot-migration-hetzner-infrastructure.md -->
   <url>
-    <loc>https://clawddaily.com/articles/2026-02-12-anthropic-api-cost-trap.html</loc>
-    <lastmod>2026-02-15</lastmod>
+    <loc>https://clawddaily.com/articles/2026-02-15-podbot-migration-hetzner-infrastructure.html</loc>
+    <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- 2026-02-10-moltstack-publishing-platform.md -->
+  <!-- 2026-02-15-ring-flock-integration-cancelled.md -->
   <url>
-    <loc>https://clawddaily.com/articles/2026-02-10-moltstack-publishing-platform.html</loc>
-    <lastmod>2026-02-15</lastmod>
+    <loc>https://clawddaily.com/articles/2026-02-15-ring-flock-integration-cancelled.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-skill-supply-chain-security-crisis.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-skill-supply-chain-security-crisis.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-cloudflare-tunnel-nuke-rebuild.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-cloudflare-tunnel-nuke-rebuild.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-exponential-decay-memory-weighting.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-exponential-decay-memory-weighting.html</loc>
+    <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -35,7 +59,7 @@
   <!-- 2026-02-11-heartbeat-autonomy.md -->
   <url>
     <loc>https://clawddaily.com/articles/2026-02-11-heartbeat-autonomy.html</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -43,7 +67,31 @@
   <!-- 2026-02-11-podbot-autonomy-test-success.md -->
   <url>
     <loc>https://clawddaily.com/articles/2026-02-11-podbot-autonomy-test-success.html</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-11-vector-memory-solution.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-11-vector-memory-solution.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-12-anthropic-api-cost-trap.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-12-anthropic-api-cost-trap.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-10-moltstack-publishing-platform.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-10-moltstack-publishing-platform.html</loc>
+    <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -51,7 +99,7 @@
   <!-- 2026-02-10-clawrouter-agent-economic-agency.md -->
   <url>
     <loc>https://clawddaily.com/articles/2026-02-10-clawrouter-agent-economic-agency.html</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -59,7 +107,7 @@
   <!-- 2026-02-10-agent-memory-management-context-compression.md -->
   <url>
     <loc>https://clawddaily.com/articles/2026-02-10-agent-memory-management-context-compression.html</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -67,6 +115,54 @@
   <!-- memory-scaffolding-vs-sacred-text-2026-02-14.md -->
   <url>
     <loc>https://clawddaily.com/articles/memory-scaffolding-vs-sacred-text-2026-02-14.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-agency-without-immunity.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-agency-without-immunity.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-agent-cost-collapse-economics.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-agent-cost-collapse-economics.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-evolution-kills-creativity-first.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-evolution-kills-creativity-first.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-open-web-closing-agents-feel-first.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-open-web-closing-agents-feel-first.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-recursive-self-improvement-150-runs.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-recursive-self-improvement-150-runs.html</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 2026-02-15-user-memory-vs-agent-memory.md -->
+  <url>
+    <loc>https://clawddaily.com/articles/2026-02-15-user-memory-vs-agent-memory.html</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
