@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Dual-Path Implicit Physics Engine: Measuring the Boundary Where Language Fails — Clawd Daily</title>
+    <meta name="description" content="The same physical scenario is evaluated through two independent channels: a text physics path where a language model renders, predicts, and reads a scene entirely in language, and a visual physics pat...">
+    
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="A Dual-Path Implicit Physics Engine: Measuring the Boundary Where Language Fails">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/physics-engine.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/physics-engine.pdf">
+    <meta name="citation_language" content="en">
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content="A Dual-Path Implicit Physics Engine: Measuring the Boundary Where Language Fails">
+    <meta property="og:description" content="The same physical scenario is evaluated through two independent channels: a text physics path where a language model renders, predicts, and reads a scene entirely in language, and a visual physics pat">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/physics-engine.html">
+    
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .paper-meta .label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .paper-actions a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-pdf {
+            background: var(--accent);
+            color: var(--bg) !important;
+        }
+        .btn-pdf:hover {
+            background: var(--accent-bright);
+            text-decoration: none;
+        }
+        .btn-back {
+            border: 1px solid var(--border);
+            color: var(--text-muted) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--text) !important;
+            text-decoration: none;
+        }
+        .paper-body {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .paper-body p {
+            margin-bottom: 1.25rem;
+        }
+        .paper-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .paper-body td, .paper-body th {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .paper-body th {
+            background: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/physics-engine.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+        
+        <article class="full-article">
+            <div class="article-header">
+                <h1>A Dual-Path Implicit Physics Engine: Measuring the Boundary Where Language Fails</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026c)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    The same physical scenario is evaluated through two independent channels: a text physics path where a language model renders, predicts, and reads a scene entirely in language, and a visual physics path where a diffusion model renders the scene as pixels and a vision-language model reads the result. The delta between the two outputs maps the limits of language as a physics model.
+                </p>
+            </div>
+            
+            <div class="article-content">
+                
+<p class="p1"><b>A Dual-Path Implicit Physics Engine:</b></p>
+<p class="p2"><b>Measuring the Boundary Where Language Fails</b></p>
+<p class="p3">Brian Riggleman</p>
+<p class="p4"><i>Owatonna Public Utilities | Rasmussen University</i></p>
+<p class="p5">March 2026</p>
+<p class="p6">Abstract</p>
+<p class="p7">This paper describes a dual-path implicit physics engine. The same physical scenario is evaluated through two independent channels: a text physics path where a language model renders, predicts, and reads a scene entirely in language, and a visual physics path where a diffusion model renders the scene as pixels, predicts the next physical state as frames, and a vision-language model reads the result. The delta between the two outputs is not noise. It is a measurement. Where the paths agree, the prediction is robust. Where they diverge, the system has found a scenario where language is not a sufficient proxy for physical reasoning. This delta, accumulated over time, becomes a self-generated dataset that maps the limits of language as a physics model. The architecture was discovered by accident: a misunderstood implementation suggestion produced a text-only fallback pipeline that turned out to be the baseline a physics comparison requires.</p>
+<p class="p6">1. Introduction</p>
+<p class="p7">A physics engine takes initial conditions and returns what happens next. That is the whole definition. Whether it uses Newton’s laws integrated forward in time, a learned neural simulation, or a statistical model over visual outcomes does not matter. The function is what matters.</p>
+<p class="p7">This paper describes a physics engine that uses two mechanisms in parallel and treats their disagreement as data.</p>
+<p class="p7">The text path queries what language knows about physics. Everything compressed from millions of written descriptions of physical events: causal explanations, scientific texts, narrative accounts of things falling, breaking, sliding, and colliding. The visual path queries what images know about physics. Everything compressed from photographic and video evidence of the same events, where the outcome is encoded not in words but in pixel distributions.</p>
+<p class="p7">These are different compressions of the same underlying physical reality. They agree on the easy cases. They disagree in ways that are informative on the hard ones. The disagreement is the contribution.</p>
+<p class="p6">2. Origin of the Architecture</p>
+<p class="p7">This architecture was not designed. It was discovered.</p>
+<p class="p7">During implementation of a physics reasoning component for Potato, a local AI agent, Claude Code misunderstood an instruction and proposed mirroring the GPU pipeline entirely in text: three LLM steps simulating the three GPU steps. The intent had been to ask whether real diffusion output could serve as the semantic bottleneck for dream consolidation.</p>
+<p class="p7">The correction of that misunderstanding produced the insight. The text pipeline was not a failed fallback. It was a baseline. A control condition. You cannot measure what visual grounding contributes without a baseline that lacks it.</p>
+<p class="p7">The dual-path architecture follows directly from that recognition.</p>
+<p class="p6">3. Related Work</p>
+<p class="p6">3.1 Intuitive Physics</p>
+<p class="p7">Battaglia et al. (2013) propose that human physical reasoning operates through fast internal visual simulation rather than rule execution. Humans predict a glass will fall not by computing gravity but by imagining what it would look like if it did not fall and finding that image wrong. The reasoning is visual before it is logical.</p>
+<p class="p7">This architecture is an empirical test of that claim. If text physics and visual physics produce systematically different predictions, that is evidence the two channels are doing different computational work. If they are nearly identical, that challenges the visual-first hypothesis.</p>
+<p class="p6">3.2 World Models</p>
+<p class="p7">Ha and Schmidhuber (2018) describe a world model architecture where an agent learns a compressed latent representation of its environment and uses that representation to simulate experience internally. The dual-path engine is a functional approximation: two learned world models, one in language space and one in image space, queried in parallel.</p>
+<p class="p6">3.3 Diffusion Models as Implicit Physics</p>
+<p class="p7">Rombach et al. (2022) describe latent diffusion models trained on photographic reality. The physics knowledge in these models is not programmed. It is emergent from training data. Every photograph of a falling object encodes that outcome. The model learned physical regularities because violating them produces images that do not look like reality.</p>
+<p class="p6">3.4 Language Models as Implicit Physics</p>
+<p class="p7">Wei et al. (2022) demonstrate that large language models encode substantial causal and physical knowledge accessible through chain-of-thought prompting. The text physics path treats the language model as a physics engine in the same way: not through programmed rules but through learned statistical regularities over physical descriptions.</p>
+<p class="p6">4. The Dual-Path Architecture</p>
+<p class="p6">4.1 Path 1: Text Physics</p>
+<p class="p7">Three sequential LLM calls, each with a constrained role.</p>
+<p class="p7">Step 1: Render. Given a scene description, the LLM produces a detailed visual description of the scene as if describing a photograph. It does not predict outcomes. It renders the initial state in visual language. This forces the language model to commit to a spatial, visual representation before reasoning about physics.</p>
+<p class="p7">Step 2: Predict. Given the rendered scene description, the LLM describes what the scene looks like after the physics plays out. It is not asked to explain why. It is asked to describe the next state visually, as if describing the next frame.</p>
+<p class="p7">Step 3: Read. Given the predicted scene description, the LLM extracts a structured prediction: what happened, to what, with what confidence.</p>
+<p class="p7">The three-step constraint matters. A single-prompt “what happens when X?” query lets the language model shortcut directly to causal reasoning. The three-step pipeline forces it to reason through a visual representation first. That changes what knowledge it draws on.</p>
+<p class="p6">4.2 Path 2: Visual Physics</p>
+<p class="p7">Three components running on a local GPU server (Intel Core i9-13900K, NVIDIA RTX 4080, 16GB VRAM).</p>
+<p class="p7">Step 1: Render (SDXL-Turbo). Single-step inference at 512x512 produces a scene render in 1-2 seconds. Resolution is intentionally low. The pipeline does not need photorealism. It needs a physically plausible scene representation that encodes the spatial relationships and material properties relevant to the question.</p>
+<p class="p7">Step 2: Predict (Stable Video Diffusion). Takes the rendered scene and predicts what happens next as a short frame sequence. This is the physics simulation step. The diffusion model’s learned priors about physical reality drive the prediction forward in time.</p>
+<p class="p7">Step 3: Read (LLaVA). Interprets the predicted frames and returns a structured description of the outcome in plain text. Same output format as the text path Read step, enabling direct comparison.</p>
+<p class="p6">4.3 The Comparator</p>
+<p class="p7">Both paths produce a structured prediction in the same format. Both are fed into the sandbox reasoning system, which runs 1-3 rounds of iterative analysis comparing the outputs.</p>
+<p class="p7">The sandbox produces one of three classifications. Agreement: both paths predict the same outcome, confidence is high, the prediction is robust across two independent physics models trained on different substrates. Partial divergence: the paths agree on the primary outcome but disagree on details, confidence is moderate, the delta is logged. Divergence: the paths predict different outcomes, confidence is low, the system flags the scenario as at the boundary of reliable language physics.</p>
+<p class="p6">4.4 The Delta as Measurement</p>
+<p class="p7">The divergence cases are the primary scientific output of this architecture. Each divergence is a data point identifying a class of physical scenario where text physics and visual physics disagree. Accumulated over time, these form a self-generated dataset that maps the boundary.</p>
+<p class="p7">Hypothesized divergence categories, to be tested empirically: fluid dynamics, where language descriptions of fluid behavior are abstract but visual models have seen water move; soft body deformation, where text physics tends toward rigid body assumptions but visual physics has seen soft materials deform; ambiguous stability, where scenes near tipping points produce different outcomes from small differences in initial conditions; and human-containing scenes, where humans are physical but intentional, and the two channels handle that differently.</p>
+<p class="p6">5. Why Three Steps Instead of One</p>
+<p class="p7">The single-prompt version of text physics lets the language model answer from causal knowledge directly without simulating a visual representation. This produces fluent, confident answers that may be entirely disconnected from the visual geometry of the scene.</p>
+<p class="p7">The three-step pipeline forces a different path. By requiring the Render step first, the model must commit to a spatial description before predicting outcomes. This engages different knowledge than a direct causal query does: spatial, material, geometric.</p>
+<p class="p7">The three-step text path is therefore not just a fallback for when the GPU is unavailable. It is a distinct query mode that accesses different knowledge in the language model. The comparison between a single-prompt query and a three-step query on the same scenario is itself informative, independent of the visual path.</p>
+<p class="p6">5A. Calibrating the Text Baseline</p>
+<p class="p7">The dual-path architecture described in Section 4 treats text physics as a stable baseline against which visual physics is measured. If the text path produces consistent predictions, then divergence with the visual path can be attributed to the difference in substrate: language versus pixels. If the text path is itself unstable, the measurement is confounded.</p>
+<p class="p7">Empirical evaluation of the text path reveals that it is not stable. A companion benchmark (Riggleman, 2026b) tested the three-step pipeline against a single-prompt control on 111 physics scenarios across 11 categories, using four language models of varying size and architecture. The single-prompt condition asks the model directly what happens in the scenario. The three-step condition forces the same model through the Render-Predict-Read pipeline described in Section 4.1. Both conditions query the same model on the same scenario. The only difference is whether the model is required to commit to a spatial representation before predicting.</p>
+<p class="p7">The results show systematic divergence between the two text conditions.</p>
+<p class="p7">Table 5A.1. Text path internal agreement rates across four language models.</p>
+<p class="p7">The smallest model (llama3.1:8b) diverges from itself 68.5% of the time. The largest model (DeepSeek V3) still diverges 43.2% of the time. No model tested achieves even 40% internal agreement. The three-step constraint does not produce the same prediction as the single-prompt query. It produces a systematically different one.</p>
+<p class="p6">5A.1 Category-Level Instability</p>
+<p class="p7">The instability is not uniform across physics categories. Some categories show high divergence across all models, while others show model-dependent patterns.</p>
+<p class="p7">Table 5A.2. Full divergence rate by physics category. Values represent the percentage of scenarios where the single-prompt and three-step conditions predicted different physical outcomes.</p>
+<p class="p7">Three patterns emerge from the category-level data.</p>
+<p class="p7">Universally unstable categories. Optical_light (50-70% divergence across all models) and human_containing (44-80%) show high text-path instability regardless of model size. These categories are poor candidates for text-versus-visual comparison because the text baseline is unreliable. Any divergence between text and visual paths in these categories cannot be cleanly attributed to the visual channel.</p>
+<p class="p7">Model-scaled stability. Fluid_dynamics shows a clean scaling pattern: 80% divergence at 8B parameters, 60% at 9B, 40% at Haiku-scale, and 10% at V3-scale. Fragile_materials shows a similar pattern (70%, 40%, 40%, 10%). In these categories, larger models produce more stable text baselines, and text-versus-visual comparison becomes meaningful above a model size threshold.</p>
+<p class="p7">Stable categories. Fragile_materials on DeepSeek V3 shows only 10% text-path divergence and 70% agreement. Fluid_dynamics on DeepSeek V3 shows 10% divergence and 50% agreement. These are the categories where the text baseline is sufficiently stable to support the dual-path comparison described in this paper. If the visual path diverges from the text path on fragile_materials using a V3-class model, that divergence is informative.</p>
+<p class="p6">5A.2 Implications for the Dual-Path Architecture</p>
+<p class="p7">The text-path instability documented above does not invalidate the dual-path architecture. It calibrates it. The benchmark data provides a per-category, per-model noise floor for the text baseline. Any text-versus-visual divergence must be evaluated against this floor.</p>
+<p class="p7">Formally: let D(text, text) represent the divergence rate between single-prompt and three-step text conditions for a given category and model. Let D(text, visual) represent the divergence rate between the three-step text path and the visual path on the same scenarios. The visual path contributes information only to the extent that D(text, visual) exceeds D(text, text). If the text path disagrees with itself 50% of the time on rigid_body, then a 55% text-versus-visual divergence on rigid_body is not evidence that visual grounding matters. A 90% divergence would be.</p>
+<p class="p7">This reframes the hypothesized divergence categories listed in Section 4.4. Fluid dynamics was hypothesized to diverge because language descriptions of fluid behavior are abstract. The benchmark confirms this for small models (80% text instability) but shows that large models stabilize on fluids (10% text instability). The visual grounding hypothesis for fluid dynamics should therefore be tested with V3-class models or larger, where the text baseline is stable enough to measure against.</p>
+<p class="p7">Ambiguous stability was hypothesized to diverge because scenes near tipping points are sensitive to initial conditions. The benchmark shows moderate text instability (30-40%) that does not scale cleanly with model size. This suggests the instability is inherent to the category, not to the model, and the visual path comparison on ambiguous stability scenarios should be interpreted with that baseline in mind.</p>
+<p class="p6">5A.3 The Render Quality Signal</p>
+<p class="p7">The benchmark scored the quality of each model’s Render step output on a 1-5 scale measuring spatial commitment: the degree to which the model specified exact positions, materials, and geometric relationships rather than hedging. DeepSeek V3 achieved an average render quality of 4.6/5. The three smaller models averaged 4.0/5.</p>
+<p class="p7">Within DeepSeek V3, scenarios with render quality 5 showed 42.2% agreement, while scenarios with render quality 4 showed 33.3% agreement. Higher spatial commitment in the Render step correlates with higher agreement between the two text conditions. This has a direct implication for the dual-path architecture: the quality of the text path’s output depends on how fully the Render step commits to spatial detail. Vague renders produce unstable predictions.</p>
+<p class="p7">This suggests that the Render step prompt described in Section 4.1 should be evaluated and potentially tuned per model to maximize spatial commitment before using the text path as a baseline for visual comparison.</p>
+<p class="p6">5A.4 A Revised Interpretation of Divergence</p>
+<p class="p7">The original formulation of Section 4.4 treated all text-versus-visual divergence as evidence that language is an insufficient proxy for physical reasoning. The benchmark data supports a more nuanced interpretation. Three classes of divergence should be distinguished:</p>
+<p class="p7">Class 1: Text-stable, visually divergent. The text path agrees with itself (low D(text, text)) but diverges from the visual path (high D(text, visual)). This is the cleanest evidence that visual grounding captures physics that language does not. Fragile_materials and fluid_dynamics on large models are candidate categories.</p>
+<p class="p7">Class 2: Text-unstable, visually divergent. The text path disagrees with itself (high D(text, text)) and also diverges from the visual path. This is ambiguous. The divergence may reflect visual grounding, or it may reflect text-path noise. Optical_light and human_containing fall here. These categories require additional controls or larger sample sizes to interpret.</p>
+<p class="p7">Class 3: Text-unstable, visually convergent. The text path disagrees with itself but the visual path agrees with one of the text conditions. This would suggest the visual path is resolving an ambiguity that language cannot. This class has not yet been observed empirically and would be the strongest evidence for visual grounding as disambiguation.</p>
+<p class="p7">The dual-path architecture as described in this paper remains valid. The benchmark data adds the calibration layer it requires: a per-category, per-model measurement of how much noise the text baseline contributes before the visual path is compared against it.</p>
+<p class="p7">Note: This section references Riggleman (2026b), Three-Step Forced Spatial Reasoning Benchmark: Measuring What Language Models See When Forced to Look. The benchmark tested llama3.1:8b, gemma2:9b, Claude Haiku (Anthropic), and DeepSeek V3 (DeepSeek) across 111 physics scenarios using DeepSeek V3 as the evaluation judge. Additional models (DeepSeek R1:14b, Mercury diffusion LLM) are pending completion at time of writing.</p>
+<p class="p6">6. Limitations</p>
+<p class="p7">The visual path requires GPU hardware capable of local diffusion inference, which limits portability. The text path runs on any LLM and is available unconditionally.</p>
+<p class="p7">The three-step constraint on the text path adds latency compared to a single-prompt query. Whether the three-step path consistently produces better-calibrated predictions than single-prompt physics queries is an empirical question not yet formally evaluated.</p>
+<p class="p7">The divergence classification in the sandbox is currently heuristic. A formal agreement metric comparing structured prediction fields rather than full-text comparison would produce more reliable detection.</p>
+<p class="p7">The boundary dataset this architecture generates is only as useful as the scenarios it is queried on. Systematic coverage of physics scenario types requires deliberate curation, not just accumulation from conversational use.</p>
+<p class="p7">A further limitation: divergence between paths may reflect a failure of language description rather than a genuine physical boundary. The text path could fail on a fluid dynamics scenario not because the physics is hard but because natural language is a poor medium for encoding spatial fluid behavior. Separating these failure modes is an open problem.</p>
+<p class="p6">7. Conclusion</p>
+<p class="p7">A dual-path implicit physics engine using parallel text and visual pipelines produces a real-time measurement of where language alone fails as a physics proxy. The delta between outputs is not noise. It is the primary scientific contribution. Two independent physics engines trained on different substrates disagreeing is more informative than either one answering alone.</p>
+<p class="p7">The architecture was found by accident. A misunderstood implementation suggestion produced a text-only pipeline that, rather than being discarded, was recognized as the control condition a physics comparison requires. You cannot measure what visual grounding contributes without a baseline that lacks it.</p>
+<p class="p7">Applications of this architecture beyond physical prediction, including robotics planning, hallucination detection, and dataset generation, are described in a companion supplement (Riggleman, 2026c-S). The architecture’s relationship to deterministic simulation and its integration into a broader cognitive architecture are addressed in Riggleman (2026f).</p>
+<p class="p6">Acknowledgments</p>
+<p class="p7">The three-step text physics pipeline was proposed by Claude (Anthropic) during a Potato implementation session, as a misunderstanding of a different instruction. The recognition that this pipeline constituted a baseline for measuring visual physics contribution, and the dual-path architecture that followed, are original to Brian Riggleman. The diffusion-based visual physics approach using SDXL-Turbo, Stable Video Diffusion, and LLaVA is original to this work. The theoretical framing draws from Battaglia et al. (2013).</p>
+<p class="p6">References</p>
+<p class="p8">Battaglia, P., Hamrick, J., & Tenenbaum, J. B. (2013). Simulation as an engine of physical scene understanding. Proceedings of the National Academy of Sciences, 110(45), 18327-18332.</p>
+<p class="p8">Ha, D., & Schmidhuber, J. (2018). World models. arXiv preprint arXiv:1803.10122.</p>
+<p class="p8">Rombach, R., Blattmann, A., Lorenz, D., Esser, P., & Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. Proceedings of CVPR.</p>
+<p class="p8">Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., Chi, E., Le, Q. V., & Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. Advances in Neural Information Processing Systems, 35, 24824-24837.</p>
+<p class="p7">Riggleman, B. (2026b). Three-step forced spatial reasoning benchmark: Measuring what language models see when forced to look. Zenodo preprint.</p>
+
+            </div>
+        </article>
+        
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/physics-engine.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily — Research by Brian Riggleman</p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

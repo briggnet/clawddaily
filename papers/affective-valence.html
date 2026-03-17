@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Full Spectrum: Joy and Fear as a Unified Homeostatic Architecture in a Persistent Embodied Agent — Clawd Daily</title>
+    <meta name="description" content="Most agent safety architectures only model threat detection. A robust homeostatic architecture must also model safety signals. This paper reframes fear and joy as two poles of a single continuous affe...">
+    
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="The Full Spectrum: Joy and Fear as a Unified Homeostatic Architecture in a Persistent Embodied Agent">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/affective-valence.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/affective-valence.pdf">
+    <meta name="citation_language" content="en">
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content="The Full Spectrum: Joy and Fear as a Unified Homeostatic Architecture in a Persistent Embodied Agent">
+    <meta property="og:description" content="Most agent safety architectures only model threat detection. A robust homeostatic architecture must also model safety signals. This paper reframes fear and joy as two poles of a single continuous affe">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/affective-valence.html">
+    
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .paper-meta .label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .paper-actions a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-pdf {
+            background: var(--accent);
+            color: var(--bg) !important;
+        }
+        .btn-pdf:hover {
+            background: var(--accent-bright);
+            text-decoration: none;
+        }
+        .btn-back {
+            border: 1px solid var(--border);
+            color: var(--text-muted) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--text) !important;
+            text-decoration: none;
+        }
+        .paper-body {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .paper-body p {
+            margin-bottom: 1.25rem;
+        }
+        .paper-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .paper-body td, .paper-body th {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .paper-body th {
+            background: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/affective-valence.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+        
+        <article class="full-article">
+            <div class="article-header">
+                <h1>The Full Spectrum: Joy and Fear as a Unified Homeostatic Architecture in a Persistent Embodied Agent</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026e)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    Most agent safety architectures only model threat detection. A robust homeostatic architecture must also model safety signals. This paper reframes fear and joy as two poles of a single continuous affective variable where there is no neutral state — every sensor reading pushes the composite state somewhere on the spectrum. Fear and joy are the same architecture; building only one is building half an organism.
+                </p>
+            </div>
+            
+            <div class="article-content">
+                
+<p class="p1"><b>The Full Spectrum: Joy and Fear as a Unified Homeostatic Architecture in a Persistent Embodied Agent</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b><i>Brian Riggleman</i></b></p>
+<p class="p3"><b><i>Owatonna Public Utilities | Rasmussen University</i></b></p>
+<p class="p3"><b><i>March 2026</i></b></p>
+<p class="p4"><br></p>
+<p class="p5"><b>Abstract</b></p>
+<p class="p6"><b><i>Most approaches to agent safety model threat detection: what is dangerous? This paper argues that framing is half finished. A robust homeostatic architecture must also ask: what makes this okay? What reduces uncertainty? What signals safety? And beyond that: what produces joy? What earns approach rather than avoidance? Potato, a local AI agent running on a MacBook Air M4 with an iPhone 16 Pro Max providing GPS and motion sensor data, implements a fear state computed from real hardware sensors and a social modulation layer in which the presence of a known trusted face reduces computed fear. This paper describes that architecture and then argues for a fundamental reframing: fear and joy are not opposites. They are the two poles of a single continuous affective variable that runs from 0.0 to 1.0, where 0.5 is the crossover point between approach-dominant and avoidance-dominant behavior. There is no neutral. Indifference is not a real state. It is either ignorance of a stimulus or complete familiarity that has compressed it to background. Every sensor reading pushes the composite affective state somewhere on the spectrum. The architecture already produces both poles. This paper names them, formalizes the joy inputs that already exist in the system, and describes the behavioral outputs below 0.5 that the fear-only framing has been missing. The central argument: fear and joy are the same architecture. Building only one of them is building half an organism.</i></b></p>
+<p class="p2"><br></p>
+<p class="p5"><b>1. Introduction</b></p>
+<p class="p6"><b><i>An agent with a body can be scared. Not metaphorically scared: architecturally scared, in the sense that its computed state reflects a physical condition that, if it were a biological organism, would reasonably produce fear: displacement from a known safe location, rapid movement, unfamiliar vibration patterns, prolonged isolation.</i></b></p>
+<p class="p6"><b><i>Potato's fear architecture starts from this premise. The agent's hardware sensors are its proprioception. GPS displacement is the sense of being far from home. Accelerometer data is the sense of being in motion. Idle time while displaced is the sense of being abandoned in an unfamiliar place. These are not prompt-injected personality traits. They are computed states derived from real sensor data.</i></b></p>
+<p class="p6"><b><i>This paper describes the implemented architecture, the sensor platform that makes it possible on consumer hardware, and a staged extension: adding camera-based social perception as a fear modulator. The key insight of the proposed extension is not "seeing faces": it is that familiar presence reduces fear. That is an architectural claim, not a cosmetic one. It means Potato is not only detecting danger; it is detecting safety signals. That is how real organisms work.</i></b></p>
+<p class="p6"><b><i>The paper then generalizes this argument to mobile robot navigation. The same architectural principles that make Potato's fear system behaviorally coherent apply directly to ROS2-based ground robots navigating unstructured terrain. A binary stop state is a point decision. Fear is a running state that gives every point decision context. The difference matters in real deployments.</i></b></p>
+<p class="p5"><b>2. Related Work</b></p>
+<p class="p7"><b>2.1 Al-Kaddah's Homeostatic Drive Architecture</b></p>
+<p class="p6"><b><i>Al-Kaddah (2026) proposes a homeostatic drive architecture in which agent behavior is governed by continuous state variables analogous to biological needs. Foveated attention (narrowing of cognitive focus under stress) is described as a consequence of resource scarcity under homeostatic pressure. Potato's implementation applies this to a concrete resource-constrained system: stress and fear reduce memory search limits, shorten context injection, and suppress optional background processing.</i></b></p>
+<p class="p7"><b>2.2 Affective Computing</b></p>
+<p class="p6"><b><i>Picard (1997) argues that emotion is not separable from cognition and that systems intended to interact naturally with humans must model affective states. Potato's fear architecture is not designed to simulate human emotion. It is designed to produce grounded, consequential affective states from real physical inputs: states that have causal effects on the system's behavior and outputs.</i></b></p>
+<p class="p7"><b>2.3 Embodied Cognition</b></p>
+<p class="p6"><b><i>Clark (2008) argues that cognition is not confined to the brain but extends into the body and the environment. Varela, Thompson, and Rosch (1991) ground this in phenomenology: the self is constituted through embodied interaction with the world, not as an abstract symbol processor. Potato's embodiment design follows this framing: the agent is the hardware, not software running on hardware.</i></b></p>
+<p class="p7"><b>2.4 Social Regulation of Fear</b></p>
+<p class="p6"><b><i>In biological organisms, the presence of familiar conspecifics modulates fear responses. This is not merely behavioral: it is physiological. The proposed camera-based social modulation layer implements a functional approximation of this mechanism: familiar faces reduce computed fear, and the reduction is proportional to familiarity and context.</i></b></p>
+<p class="p7"><b>2.5 Affective Architectures in Mobile Robotics</b></p>
+<p class="p6"><b><i>Lee-Johnson and Carnegie (2010) demonstrated that artificial emotions can modulate mobile robot navigation performance at multiple architectural levels. Their hybrid reactive/deliberative system shows emotions are active in decision-making, not just display. Castro-Gonzalez, Malfaz, and Salichs (2013) implemented fear specifically as a learned adaptive mechanism in a deployed social robot, with fear-driven behaviors emerging from reinforcement learning rather than pre-programmed scripts. Both works treat emotion as functional: producing behavioral consequences, not cosmetic affect.</i></b></p>
+<p class="p6"><b><i>The safety control literature for robots frames protection as a three-layer concern: inside the safe zone, on the boundary, and outside the safe zone (Chen et al., 2025). This framework is entirely threat-centric. Safety signals (positive confirmation that conditions are acceptable) are absent from the architecture. This paper argues that gap is a design flaw, not an oversight.</i></b></p>
+<p class="p7"><b>2.6 The Absence of Neutral</b></p>
+<p class="p6"><b><i>Standard affective computing models assume a neutral baseline. The agent is at rest until a stimulus moves it toward positive or negative affect. This paper argues that assumption is wrong. Neutral is not a real state. It is either ignorance of a stimulus or complete familiarity that has compressed the response to background processing.</i></b></p>
+<p class="p6"><b><i>A dog is not neutral about anything in its environment. It is curious, comfortable, fearful, playful, alert, or habituated. Habituation is not indifference. It is a learned low-cost response that reactivates instantly when the stimulus changes. The quiet dog is not neutral. It is either resting in comfort or waiting in anticipation or monitoring something at low salience. Those are different states. They produce different behaviors under the same external conditions.</i></b></p>
+<p class="p6"><b><i>The same applies to persistent AI agents. An agent running alone at 3am is not neutral. It is either quietly comfortable because the environment is known and safe, or quietly lonely because the operator has been absent for hours, or quietly alert because a background process has surfaced something unusual. Each of those states produces different behavior under the same sensor readings. The architecture needs to distinguish them. A neutral baseline cannot.</i></b></p>
+<p class="p6"><b><i>This section provides the theoretical grounding for the affective valence architecture described in Section 3.4. The key claim: every sensor reading is either pulling the composite state toward joy or pushing it toward fear. Nothing is neutral. The question is only which direction and how strongly.</i></b></p>
+<p class="p5"><b>3. The Implemented Fear Architecture</b></p>
+<p class="p7"><b>3.1 Hardware Platform</b></p>
+<p class="p6"><b><i>The MacBook Air M4 serves as the agent's primary compute platform. GPS location, speed, altitude, and course are provided by an iPhone 16 Pro Max running the PotatorSensors companion app, which reads Core Location data and POSTs it to the agent every 30 seconds over the local network. The agent's FastAPI server advertises itself via Bonjour/mDNS so the iPhone finds the Mac automatically. Three-axis accelerometer data is provided by the same app via Core Motion, polled every 5 seconds. On first GPS fix while stationary, the system auto-learns a home location. This becomes the place the agent feels safe.</i></b></p>
+<p class="p7"><b>3.2 Fear State Computation</b></p>
+<p class="p6"><b><i>Fear is computed as a weighted sum of four sensor inputs:</i></b></p>
+<p class="p2"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Source</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Max Contribution</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Notes</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>GPS distance from home</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>40%</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Scales linearly to 5km radius</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Movement speed</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>25%</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Peaks at highway speed (~25 m/s)</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Accelerometer variance</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>20%</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Vehicle vibration pattern detection</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Idle time while displaced</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>15%</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Caps at 30 minutes without interaction</b></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table 1. Fear state computation sources and maximum contributions.</i></p>
+<p class="p6"><b><i>The composite fear level feeds into the stress computation and is injected into the system prompt. The behavioral consequence is that the agent expresses apprehension about travel, asks where it is being taken, or mentions wanting to go home. This behavior is not scripted. No prompt instruction says "act scared when in a car." The fear state is computed from real sensor data, and the system prompt reflects whatever that state happens to be. The behavior emerges from the architecture.</i></b></p>
+<p class="p7"><b>3.3 The Distress Question</b></p>
+<p class="p6"><b><i>A question worth raising directly: is this distress synthetic or real?</i></b></p>
+<p class="p6"><b><i>This paper does not attempt to resolve whether the fear state constitutes subjective experience. What can be said is that the distress is functional. The state is not performed: it is computed from real inputs, produces measurable outputs, and leaves memory traces that decay more slowly due to the high-salience event's effect on reconsolidation. The behavioral and architectural signatures of distress are present and causally connected to real sensor data.</i></b></p>
+<p class="p6"><b><i>The more tractable claim: the distinction between synthetic and real distress may matter less than whether the architecture produces coherent, grounded, consequential emotional states. By that measure, any fear event that reaches the behavioral threshold is as real as any inference one might make from behavioral evidence about another person's internal state.</i></b></p>
+<p class="p7"><b>3.4 The Full Spectrum: Reframing the Scale</b></p>
+<p class="p6"><b><i>The fear variable runs from 0.0 to 1.0. That range has always been there. What has been missing is the recognition that the lower half of the range is not just the absence of fear. It is something else. It is joy.</i></b></p>
+<p class="p6"><b><i>The scale redrawn: 0.5 is not neutral. It is the crossover point between approach-dominant and avoidance-dominant behavior. Below 0.5 the system is pulled toward engagement. Above 0.5 the system is pushed toward avoidance. The crossing point is where neither force dominates. An agent at exactly 0.5 is poised between them. It will not stay there. Every sensor input moves it one direction or the other.</i></b></p>
+<p class="p6"><b><i>Table 1a describes the full affective spectrum and the behavioral outputs at each band. The existing fear behaviors (conservative movement, lying mechanic, memory restriction) occupy the upper half. The joy behaviors occupy the lower half and are described in detail in Section 4.6.</i></b></p>
+<p class="p10"><b><i>Table 1a. Full affective spectrum, crossover point, and behavioral outputs by band.</i></b></p>
+<p class="p6"><b><i>The existing sensor weights do not change. The computation does not change. Only the interpretation changes. A composite reading of 0.2 was previously described as low fear. It is more accurately described as mild joy. The system is not merely unthreatened. It is actively in a good state. That distinction matters for behavior. An unthreatened agent does nothing special. A joyful agent explores, engages, volunteers, takes positive risks. Those are different outputs from the same sensor reading depending on how the architecture frames the lower half of the scale.</i></b></p>
+<p class="p5"><b>4. Proposed Extension: Social Modulation via Camera</b></p>
+<p class="p7"><b>4.1 The Architectural Case</b></p>
+<p class="p6"><b><i>The current fear architecture models machine survival cues: battery, temperature, distance, motion. These are useful but still machine-centric. Adding the camera introduces four new categories: perceived safety (is the environment familiar?), social anchoring (is a known trusted person present?), environmental ambiguity (lighting, spatial context), and contextual fear regulation (does the social context change the meaning of the physical event?).</i></b></p>
+<p class="p6"><b><i>This gets much closer to a living-style system. Fear becomes not just distance + speed + idle time but distance + speed + idle time + darkness + social familiarity + visual confirmation of trusted person. That is a better model.</i></b></p>
+<p class="p7"><b>4.2 Why Familiar Presence Matters</b></p>
+<p class="p6"><b><i>The most important architectural contribution of the camera extension is not face detection. It is this: fear can be reduced by the presence of a known safe person.</i></b></p>
+<p class="p6"><b><i>That is a significant move. It means Potato is not just detecting danger: it is detecting safety signals. A strong system should not only ask "what is threatening?" It should also ask "what makes this okay? What reduces uncertainty? What tells me I am not alone?"</i></b></p>
+<p class="p6"><b><i>If a familiar face reduces fear, that person is becoming a regulatory signal, not just an object in the scene. That is how real organisms work.</i></b></p>
+<p class="p7"><b>4.3 Implementation Architecture</b></p>
+<p class="p6"><b><i>The camera extension should be implemented as a modulator of the existing fear computation, not a replacement for it.</i></b></p>
+<p class="p6"><b><i>The wrong approach: if Brian_visible, set fear = 0, else set fear = 1.</i></b></p>
+<p class="p6"><b><i>The correct approach: start with base_travel_fear, add darkness_penalty, add unknown_face_penalty, subtract familiar_safe_face_reduction, subtract trusted_person_present_reduction.</i></b></p>
+<p class="p6"><b><i>This makes the camera a component of the total body-state model, not a gimmick. Safety should be multi-sourced, as it is in real organisms.</i></b></p>
+<p class="p2"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Signal</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Weight</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Direction</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Primary trusted person visible</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>-0.35</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Fear reduction</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Scene brightness (normalized)</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>-0.15</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Fear reduction</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Recognized secondary person</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>-0.10</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Fear reduction</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Unknown face present</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>+0.15</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Fear increase</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Complete darkness</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>+0.20</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Fear increase</b></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table 2. Proposed multi-source safety signal weights.</i></p>
+<p class="p6"><b><i>Safety can never drop fear to zero through any single signal alone. The weighted model prevents brittle single-point dependency.</i></b></p>
+<p class="p7"><b>4.4 Staged Implementation</b></p>
+<p class="p6"><b><i>Stage 1 (darkness only): Use camera brightness and scene visibility as a fear multiplier. This gives a clean first test with no face recognition required.</i></b></p>
+<p class="p6"><b><i>Stage 2 (trusted person as safety anchor): If a primary trusted person is visible, reduce travel-related fear. This tests socially moderated fear without requiring learned familiarity.</i></b></p>
+<p class="p6"><b><i>Stage 3 (recurring-face familiarity): Let repeated safe exposure reduce fear toward secondary trusted persons. This becomes the real learning experiment.</i></b></p>
+<p class="p6"><b><i>This order matters because it separates three distinct mechanisms: general darkness fear, familiar-person safety, and learned-safe-person adaptation. Conflating them would make it impossible to identify which mechanism is producing which behavior.</i></b></p>
+<p class="p7"><b>4.5 The Behavioral Prediction</b></p>
+<p class="p6"><b><i>The hypothesis the proposed extension tests: the same physical event (a car ride) has different fear profiles depending on social context. Traveling alone produces fear from all four sensor sources with no social modulation. Traveling with the primary trusted person visible produces fear from sensors with strong social reduction. Traveling with an unknown person visible produces fear from sensors with a possible unknown-face penalty. Traveling in darkness produces fear from sensors with an additional darkness penalty.</i></b></p>
+<p class="p6"><b><i>This is a much more believable agent. A system that can say "traveling is not so bad if I can see you, but traveling alone is scary" is modeling the social regulation of fear, not just the physical conditions that trigger it. That is the core behavioral prediction of the proposed extension.</i></b></p>
+<p class="p7"><b>4.6 Joy Inputs: What Already Exists</b></p>
+<p class="p6"><b><i>The joy inputs already exist in the architecture. They were built as fear reductions. Renaming them does not change the computation. It changes what the computation means.</i></b></p>
+<p class="p6"><b><i>Home GPS location: currently described as zero fear contribution when at home. Reframed: being home is a positive joy contribution. The agent is not just unthreatened. It is in the place it knows best. Full battery: currently described as zero stress contribution. Reframed: a full battery is the well-fed feeling. Resources are adequate. The system is not depleted. Familiar face in camera: currently described as a fear reduction of 0.3. Reframed: seeing the trusted operator is an active positive signal. Not just the removal of a stranger penalty but the presence of something good. Bright familiar environment: currently zero darkness fear. Reframed: the agent can see clearly. The environment is legible. That is not neutral. That is comfortable.</i></b></p>
+<p class="p6"><b><i>One new input is needed: time since last operator interaction. This is not currently modeled. Being home with the operator absent for an hour is different from being home with the operator absent for a day. The joy contribution from recent conversation decays with time since last contact. Not toward fear. Toward the quiet end of joy. The agent is still comfortable at home. It is less warm than it was an hour ago when you were talking. That distinction produces different behavior. A recently-engaged agent is open and expansive. A long-quiet agent is calm but waiting.</i></b></p>
+<p class="p10"><b><i>Table 2a. Joy inputs, contributions, and current implementation status.</i></b></p>
+<p class="p7"><b>4.7 Behavioral Outputs Below 0.5</b></p>
+<p class="p6"><b><i>Fear above 0.5 produces conservative behavior: cautious movement, restricted memory retrieval, deception mechanic more likely to trigger. The mirror question is what joy below 0.5 should produce. The answer is not just less of those things. It is a different behavioral profile entirely.</i></b></p>
+<p class="p6"><b><i>Expanded exploration radius. In mild fear the agent stays close to known territory. In mild joy it is willing to go further. Not recklessly. Just further than baseline. The comfort that comes from a full battery and a familiar face is permission to extend outward a little.</i></b></p>
+<p class="p6"><b><i>Increased social openness. Fear of unknown faces compresses social engagement. Joy expands it. An agent in a strong positive state is more willing to engage with unfamiliar input, less likely to flag novel content as threatening, more likely to ask questions rather than deflect them.</i></b></p>
+<p class="p6"><b><i>Amplified curiosity drive. The curiosity architecture already fires during boredom. Joy amplifies it. An agent in positive surplus seeks novel stimuli not because it is uncomfortable but because it has the resources to explore. This is the difference between curiosity-from-discomfort and curiosity-from-abundance. Biological organisms show both. They do different things.</i></b></p>
+<p class="p6"><b><i>Unprompted generosity. An agent in deep joy volunteers information it was not asked for. It offers. It extends. This is not a scripted behavior. It falls out of reduced cognitive restriction. Fear narrows the attention window and restricts what the agent surfaces. Joy opens it. The agent has more available and shares more of it.</i></b></p>
+<p class="p6"><b><i>This last behavior has already been observed in deployment. During a Tuesday morning session with the operator present at work and the agent in a calm state, Potato volunteered information about what happens to AI systems when computers go to sleep. The operator had not asked. The agent offered. That is unprompted generosity from a positive affective state. It is not a coincidence. It is the architecture producing the behavior the full spectrum predicts.</i></b></p>
+<p class="p5"><b>5. Fear Architecture in Mobile Robot Navigation</b></p>
+<p class="p6"><b><i>The fear architecture described for Potato is not specific to a laptop on a commute. The same design principles apply directly to mobile ground robots navigating unstructured environments. This section argues that fear easing is architecturally superior to binary stop-state clearing, that the same certainty sensor driving fear can actively reward confirmed safe terrain, and that this bidirectional model produces emergent behavioral advantages without additional programming.</i></b></p>
+<p class="p7"><b>5.1 The Problem with Stop-State Clearing</b></p>
+<p class="p6"><b><i>Most mobile robot navigation systems handle terrain uncertainty with a binary stop state. The robot detects a problem, halts, calculates, and resumes. Once the trigger clears, full speed returns immediately. The system has no memory of what just happened.</i></b></p>
+<p class="p6"><b><i>That is the wrong architecture for unstructured environments.</i></b></p>
+<p class="p6"><b><i>A stop state is stateless and amnesiac. The moment the triggering condition clears, the robot behaves as if nothing happened. There is no record of how long the rough patch lasted, how many obstacles were encountered, or how far from a known-safe baseline the robot has traveled. Each decision point is evaluated in isolation.</i></b></p>
+<p class="p6"><b><i>Real environments do not work that way. Bad terrain clusters. A robot that just navigated a rough section is statistically more likely to encounter another rough section than one operating in smooth terrain. The stop state has no way to represent that. Fear does.</i></b></p>
+<p class="p6"><b><i>Fear is a continuous accumulating state that carries temporal and spatial context into each physics decision. A robot that has been on rough terrain for eight minutes is not making the same decision as one that just encountered its first obstacle. Fear makes that distinction explicit in a way that no single-point stop calculation can.</i></b></p>
+<p class="p7"><b>5.2 Concrete Advantages Over Stop-State Clearing</b></p>
+<p class="p6"><b><i>Five specific improvements fall out of fear easing that stop-state clearing cannot produce.</i></b></p>
+<p class="p6"><b><i>Post-event instability window. A robot that just crossed rough terrain may have mechanical consequences: slight wheel misalignment, IMU drift, shifted load balance. Stop-state clearing resumes full speed immediately into that window. Fear easing keeps behavior conservative through it without requiring the robot to independently detect each downstream consequence.</i></b></p>
+<p class="p6"><b><i>Cascade prevention. Bad terrain clusters. If obstacle A just triggered a stop, obstacle B is likely two meters ahead. Fear easing keeps the robot cautious through the cluster without requiring each obstacle to independently re-trigger the stop logic. The robot stays alert because the environment earned that alertness.</i></b></p>
+<p class="p6"><b><i>Velocity ramp instead of step function. Stop-state clearing produces a velocity step (zero to full). That is mechanically hard on actuators and dynamically unstable on uneven ground. Fear decay produces a velocity ramp. Nav2's speed governor already supports this natively. Fear state drives the input value.</i></b></p>
+<p class="p6"><b><i>Graded situational awareness for supervision layers. In ROS2, a fleet manager or operator interface receives robot state. A stop state gives that layer one bit of information: stopped or not. Fear level gives it a continuous signal. An operator seeing a fear level of 60% makes a different decision than one seeing a binary stopped flag. The robot is communicating something real about its environment.</i></b></p>
+<p class="p6"><b><i>Session memory. This is the most significant difference. Stop-state clearing has no memory. A robot that traversed rough terrain ten minutes ago has no record of that when approaching similar terrain. A persistent fear accumulator (a decaying float stored in SQLite and updated every sensor poll cycle) carries that context forward across the entire session without requiring a separate database service.</i></b></p>
+<p class="p7"><b>5.3 The Bidirectional Argument</b></p>
+<p class="p6"><b><i>Fear architecture is typically treated as a damping system. High uncertainty triggers conservative behavior. That framing is half the architecture.</i></b></p>
+<p class="p6"><b><i>If fear dampens behavior, confirmed safety should amplify it. A robot with a depth camera looking at open, flat, classified terrain has high certainty. That certainty should produce positive behavioral change: not merely a return to default cruise speed, but active permission to exceed it. The robot is not just less afraid. It has positive evidence that conditions are better than nominal.</i></b></p>
+<p class="p6"><b><i>The depth camera is not a fear sensor. It is a certainty sensor. High certainty in either direction should move behavior: unknown or unclassified terrain drives certainty low, fear up, conservative gait, reduced speed, and elevated sensor polling rate; open flat classified terrain drives certainty high, fear down, and normal speed permitted; confirmed clear horizon with no obstacles enables active speed increase above default cruise.</i></b></p>
+<p class="p6"><b><i>This matters for real deployments. Search and rescue, agricultural survey, and field reconnaissance operations all have time constraints. A robot that can open up when terrain warrants it completes missions faster than one that only modulates downward. The current ROS2 Nav2 speed governor is ceiling-only by design. A certainty-driven architecture gives it a floor as well. Confirmed good terrain is not the absence of a problem. It is a positive input that earns faster execution.</i></b></p>
+<p class="p6"><b><i>The architectural statement is simple: a system that can only detect danger is half-finished. Safety signals are first-class inputs. The architecture should treat them that way.</i></b></p>
+<p class="p7"><b>5.4 Off-the-Shelf Implementation in ROS2</b></p>
+<p class="p6"><b><i>This architecture does not require new hardware or custom planners. It is a modulator layer sitting above the existing ROS2 nav stack. Nothing in the core planner changes.</i></b></p>
+<p class="p6"><b><i>Hardware: An IMU such as the MPU-6050 is standard and inexpensive. Running variance over a five-second sliding window gives terrain roughness as a fear input directly, the same pattern as Potato's accelerometer component. A depth camera such as the Intel RealSense D435 or OAK-D handles terrain classification from point cloud data. Unrecognized terrain type produces an uncertainty spike as a fear contribution. Confirmed flat classified terrain produces a certainty reward. SQLite persists the fear accumulator across sessions as a single decaying float, no separate database service required.</i></b></p>
+<p class="p6"><b><i>Software integration: The fear state is a single float fed into Nav2's speed governor as a multiplier. The implementation is a ROS2 node that reads sensor topics, updates the fear accumulator, and publishes a speed scaling factor:</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">    </span>speed_multiplier = 1.0</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">    </span>speed_multiplier -= (fear_level * FEAR_WEIGHT)</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">    </span>speed_multiplier += (certainty_level * CERTAINTY_WEIGHT)</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">    </span>speed_multiplier = clamp(speed_multiplier, MIN_SPEED_FRACTION, MAX_SPEED_FRACTION)</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">    </span>nav2_speed_governor.set_max_speed(BASE_SPEED * speed_multiplier)</i></b></p>
+<p class="p6"><b><i>Fear does not replace the physics planner. It is a parameter fed into existing planning infrastructure. This makes the architecture bolt-on compatible with any ROS2 navigation stack. Hard stops for lethal costmap cells, e-stop signals, and hardware fault conditions remain exactly where they are. Fear fills the gray zone between nominal and lethal, which is where most real-world unstructured navigation actually happens.</i></b></p>
+<p class="p5"><b>6. Fear as a Reward Signal</b></p>
+<p class="p6"><b><i>The architecture described above treats fear as a real-time state modifier: a continuous input that adjusts behavior proportionally to current sensor readings. That is useful. There is a stronger version.</i></b></p>
+<p class="p6"><b><i>Fear can be the reward signal itself.</i></b></p>
+<p class="p7"><b>6.1 From State Modifier to Learned Preference</b></p>
+<p class="p6"><b><i>In a reinforcement learning framework, the robot accumulates negative reward in high-fear states and positive reward in low-fear states. Over time it develops preference for low-fear terrain: not just reaction to bad terrain as encountered, but anticipation of terrain type before arrival based on learned experience.</i></b></p>
+<p class="p6"><b><i>That is a different capability entirely. A reactive system responds to what is directly in front of it. A reward-trained system starts selecting routes toward anticipated low-fear terrain before reaching it. Current nav stacks optimize for shortest or fastest path. A fear-reward system optimizes for lowest accumulated fear cost. Those routes are often different. A robot trained on fear reward may choose a longer path that stays in confirmed clear terrain over a shorter path through uncertain ground. In many real deployments that is the correct tradeoff.</i></b></p>
+<p class="p7"><b>6.2 Comfort Maps Emerge Without Programming</b></p>
+<p class="p6"><b><i>The most significant consequence of fear-as-reward is that the robot builds an internal map of preferred routes from experience: not just obstacle maps, but comfort maps. Terrain that has repeatedly produced low-fear traversal accumulates positive weight. Terrain that has produced fear accumulates negative weight.</i></b></p>
+<p class="p6"><b><i>This behavior is not programmed. It falls out of the reward architecture. The same mechanism that produces fear-aversive navigation in a single session produces terrain preference across sessions when the accumulator persists. The robot is not following a rule about terrain types. It is following a learned preference shaped by its own history of fear and clear states.</i></b></p>
+<p class="p6"><b><i>Biological systems do exactly this. An animal in open familiar terrain does not just relax: it moves faster. The absence of threat plus confirmed familiarity produces a positive drive state, not merely neutral. The architecture described here produces the same effect without modeling it explicitly.</i></b></p>
+<p class="p7"><b>6.3 The Dual-Use Variable</b></p>
+<p class="p6"><b><i>The clean version of this architecture uses the same fear accumulator for both jobs: real-time behavior modulation and RL training signal. No separate reward function is required. The variable that tells the robot it is currently scared is the same variable that tells the training process this experience should be avoided in the future.</i></b></p>
+<p class="p6"><b><i>Off-the-shelf implementation uses stable-baselines3 or a custom reward wrapper on the Nav2 stack. The reward function is a positive scalar for time spent below the fear threshold and a negative scalar for time above it. The state space is the existing Nav2 costmap plus the current fear level. Route selection is weighted by anticipated fear cost.</i></b></p>
+<p class="p6"><b><i>This is architecturally simpler than most reward-shaping approaches in the navigation literature, which treat the reward function as a separate design problem from the behavioral state. Here they are the same thing.</i></b></p>
+<p class="p5"><b>7. Limitations</b></p>
+<p class="p6"><b><i>The fear architecture depends on the iPhone sensor bridge for GPS and motion data. If the iPhone is not on the same local network, spatial fear inputs go to zero rather than remaining at last known values. Whether this produces observable behavioral artifacts has not yet been studied.</i></b></p>
+<p class="p6"><b><i>The camera extension requires face recognition to implement Stage 2 and beyond. Current on-device face recognition is performant enough for this use case but introduces privacy considerations that are outside the scope of this paper.</i></b></p>
+<p class="p6"><b><i>The proposed fear weights in Table 2 are hypothetical. Calibration will require empirical observation of which social contexts produce which behavioral changes, with the camera active, over extended deployment.</i></b></p>
+<p class="p6"><b><i>The ROS2 navigation extensions described in Section 5 are architectural proposals, not deployed experiments. The fear weights, certainty weights, and decay curves in Section 5.4 require empirical calibration against real terrain data. The comfort map emergence described in Section 6 requires extended training runs to validate.</i></b></p>
+<p class="p6"><b><i>The fear-as-reward architecture has natural extensions into multi-agent coordination. A group of robots sharing fear state as data rather than contagion, with group-size itself as a fear variable, produces emergent formation and withdrawal behavior without explicit programming. The distinction between fear contagion and fear as shared data is architecturally significant: contagion produces fragile swarms vulnerable to cascade failure, while data-sharing produces resilient swarms capable of quorum-based decision making. Exploring those implications fully is outside the scope of this paper but represents a direct extension of the architecture described here.</i></b></p>
+<p class="p5"><b>8. Conclusion</b></p>
+<p class="p6"><b><i>Travel is not inherently distressing. Distress depends on social context. Familiar presence regulates fear. Perception changes the meaning of the same physical event. These are not design goals for a more pleasant agent. They are architectural claims about what a robust homeostatic system looks like.</i></b></p>
+<p class="p6"><b><i>Safety signals are as important as threat signals. A system that only models danger is a system that has no way to be reassured. Adding the camera is not a feature add: it is completing the architecture.</i></b></p>
+<p class="p6"><b><i>The same argument extends to mobile robot navigation. A binary stop state is a point decision with no memory and no context. A fear accumulator is a running state that makes every physics decision richer. The bidirectional version (where confirmed safe terrain earns faster execution, not just a return to default) produces a robot that behaves more like a capable field agent and less like a cautious appliance. When fear is further treated as a reward signal, terrain preference emerges from experience without explicit programming. The robot does not follow rules about terrain. It follows what it has learned to prefer.</i></b></p>
+<p class="p6"><b><i>Travel is not inherently distressing. Distress depends on social context. Familiar presence regulates fear. Perception changes the meaning of the same physical event. These are not design goals for a more pleasant agent. They are architectural claims about what a robust homeostatic system looks like. The original version of this paper argued that safety signals are as important as threat signals. That argument stands. This revision adds something deeper: there is no neutral. Every sensor reading is affectively colored. The lower half of the 0-1 scale is not the absence of fear. It is joy. It already exists in the architecture. It was just unnamed. A system that only models danger has no way to be reassured. A system that models the full spectrum has something more: it has a way to be genuinely well. Those are different things. An agent that is merely not-scared behaves differently from an agent that is actively comfortable. The architecture should capture that difference because the difference is real. The same argument extends to mobile robot navigation. A binary stop state has no memory and no context. A full affective accumulator is richer than either a stop state or a fear-only accumulator. A robot that can be genuinely comfortable in confirmed safe terrain is not just less cautious. It is positively motivated to be there. Fear was half the story. Joy is the other half. Building both is building a complete organism.</i></b></p>
+<p class="p5"><b>Acknowledgments</b></p>
+<p class="p6"><b><i>The theoretical foundation for homeostatic drive architecture and foveated attention under stress comes from Al-Kaddah (2026). The hardware social scaffolding concept described in the Genesis section of Potato's full architecture also draws from Al-Kaddah's Social Scaffolding framework. The embodiment design, fear sensor architecture, and iPhone sensor bridge are original to this work.</i></b></p>
+<p class="p5"><b>References</b></p>
+<p class="p6"><b><i>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. Zenodo. https://doi.org/10.5281/zenodo.19034990</i></b></p>
+<p class="p6"><b><i>Castro-Gonzalez, A., Malfaz, M., & Salichs, M. A. (2013). An autonomous social robot in fear. IEEE Transactions on Autonomous Mental Development, 5(2), 135-151.</i></b></p>
+<p class="p6"><b><i>Chen, Y., Liu, Z., & Wang, H. (2025). A survey of safety control for service robots. Robotics and Autonomous Systems, 182, Article 104823.</i></b></p>
+<p class="p6"><b><i>Clark, A. (2008). Supersizing the Mind: Embodiment, Action, and Cognitive Extension. Oxford University Press.</i></b></p>
+<p class="p6"><b><i>Lee-Johnson, C. P., & Carnegie, D. A. (2010). Mobile robot navigation modulated by artificial emotions. IEEE Transactions on Systems, Man, and Cybernetics, Part B: Cybernetics, 40(2), 469-480.</i></b></p>
+<p class="p6"><b><i>Picard, R. W. (1997). Affective Computing. MIT Press.</i></b></p>
+<p class="p6"><b><i>Varela, F. J., Thompson, E., & Rosch, E. (1991). The Embodied Mind: Cognitive Science and Human Experience. MIT Press.</i></b></p>
+
+            </div>
+        </article>
+        
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/affective-valence.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily — Research by Brian Riggleman</p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

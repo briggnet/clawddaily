@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent — Clawd Daily</title>
+    <meta name="description" content="This paper describes a sliding-window memory decay model implemented in Potato, a local AI agent running on a MacBook Air M4. Three contributions are presented: a ten-step sliding-window importance de...">
+    
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/memory-decay.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/memory-decay.pdf">
+    <meta name="citation_language" content="en">
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent">
+    <meta property="og:description" content="This paper describes a sliding-window memory decay model implemented in Potato, a local AI agent running on a MacBook Air M4. Three contributions are presented: a ten-step sliding-window importance de">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/memory-decay.html">
+    
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .paper-meta .label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .paper-actions a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-pdf {
+            background: var(--accent);
+            color: var(--bg) !important;
+        }
+        .btn-pdf:hover {
+            background: var(--accent-bright);
+            text-decoration: none;
+        }
+        .btn-back {
+            border: 1px solid var(--border);
+            color: var(--text-muted) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--text) !important;
+            text-decoration: none;
+        }
+        .paper-body {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .paper-body p {
+            margin-bottom: 1.25rem;
+        }
+        .paper-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .paper-body td, .paper-body th {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .paper-body th {
+            background: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/memory-decay.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+        
+        <article class="full-article">
+            <div class="article-header">
+                <h1>Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026a)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    This paper describes a sliding-window memory decay model implemented in Potato, a local AI agent running on a MacBook Air M4. Three contributions are presented: a ten-step sliding-window importance decay curve where recent memories are vivid and older ones fade to background retrieval; a reconsolidation mechanism that reinforces memories upon retrieval with diminishing returns; and a nightly sleep decay system modeling the flashbulb effect, where frequently accessed memories resist forgetting proportional to recency and access count.
+                </p>
+            </div>
+            
+            <div class="article-content">
+                
+<p class="p1"><b>Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b><i>Brian Riggleman</i></b></p>
+<p class="p3"><b><i>Owatonna Public Utilities | Rasmussen University</i></b></p>
+<p class="p3"><b><i>March 2026</i></b></p>
+<p class="p4"><br></p>
+<p class="p5"><b>Abstract</b></p>
+<p class="p6"><b><i>Most AI assistants treat memory as a context window: a fixed buffer populated at session start and discarded at session end. This paper describes a sliding window memory decay model that treats importance as a function of recency and access frequency rather than a static property, implemented in Potato, a local AI agent running on a MacBook Air M4. Three primary contributions are described: (1) a ten-step sliding window importance decay curve, original to this work, that produces vivid recent memory and fades older memories to background retrieval; (2) a reconsolidation mechanism that reinforces memories upon retrieval with diminishing returns for repeated access; and (3) a nightly sleep decay system that models the flashbulb effect, where frequently accessed memories resist forgetting proportional to recency and access count. Together these produce a memory system where what the agent remembers is shaped by what the user actually engages with, not arbitrary retention schedules.</i></b></p>
+<p class="p2"><br></p>
+<p class="p5"><b>1. Introduction</b></p>
+<p class="p6"><b><i>The dominant paradigm in AI assistants treats the system as a stateless function. A user submits a prompt. The system generates a response. Between requests, the system has no state, no experience, and no passage of time. It does not know whether it has spoken to this user before.</i></b></p>
+<p class="p6"><b><i>This is not a criticism. It is a design choice. But it raises a question: what happens when that constraint is relaxed? What does an agent look like when it maintains a persistent memory that evolves over time, decays with disuse, and strengthens with recall?</i></b></p>
+<p class="p6"><b><i>This paper describes the memory architecture of Potato, a local AI agent built to test that question. The memory system is not a database bolted onto a chatbot. It is the mechanism that makes the agent a continuous entity. The architecture has three interacting components: a sliding window decay model, a reconsolidation mechanism, and a nightly sleep decay system.</i></b></p>
+<p class="p5"><b>2. Related Work</b></p>
+<p class="p7"><b>2.1 Generative Agents</b></p>
+<p class="p6"><b><i>Park et al. (2023) describe a multi-agent simulation where LLM-based agents maintain memory streams, reflect on experiences, and plan future behavior. Their retrieval model scores memories on recency, importance, and relevance and takes a weighted sum. Potato's memory architecture draws from this recency-importance framework but departs from it in two ways: importance is not static but decays over time according to a sliding window model, and access frequency feeds back into decay rate through a reconsolidation mechanism.</i></b></p>
+<p class="p7"><b>2.2 FadeMem and Access-Frequency Decay</b></p>
+<p class="p6"><b><i>FadeMem (Wei et al., 2026) proposes access-frequency-modulated decay as an alternative to pure time-based memory pruning. Memories that are accessed more frequently decay more slowly. Potato implements this principle in its nightly sleep decay system, where importance reduction is scaled by a memory's recent access count and recency of last retrieval.</i></b></p>
+<p class="p7"><b>2.3 ACT-R Activation Theory</b></p>
+<p class="p6"><b><i>Anderson et al.'s (2004) ACT-R cognitive architecture models memory activation as a power-law decay function with access reinforcement. Each retrieval of a memory increases its base activation level, with the magnitude of reinforcement diminishing with repeated access. Potato's reconsolidation model follows this principle: first recall matters most; the twentieth barely moves the needle.</i></b></p>
+<p class="p7"><b>2.4 Al-Kaddah's Polymorphic Memory Graph</b></p>
+<p class="p6"><b><i>Al-Kaddah (2026) proposes storing memories not as objective facts but as subjective experience, with agent-specific metadata attached to shared memory nodes. Potato implements a simplified version using five vector collections with typed importance weights.</i></b></p>
+<p class="p5"><b>3. Memory Architecture</b></p>
+<p class="p6"><b><i>The system is built on SQLite with the sqlite-vec extension for vector search, using 384-dimensional vectors via FastEmbed (all-MiniLM-L6-v2).</i></b></p>
+<p class="p7"><b>3.1 The Sliding Window Decay Model</b></p>
+<p class="p6"><b><i>Every conversation enters memory at importance 1.0. On the next exchange, all recent memories decay one step according to a fixed ten-step curve.</i></b></p>
+<p class="p2"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Step</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Importance</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>0 (current)</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>1.00</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>1</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.80</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>2</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.60</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>3</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.45</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>4</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.30</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>5</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.20</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>6</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.12</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>7</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.07</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>8</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.03</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>9</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.01 (background)</b></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table 1. Sliding window importance decay curve.</i></p>
+<p class="p6"><b><i>This is not a technical optimization to save context window space, though it does that. It is a model of how attention works. Recent things are vivid. Older things fade unless something recalls them. Memories at background importance (0.01) do not disappear. They stop being actively surfaced unless a specific semantic query matches them closely. The effect is analogous to pulling a tape from deep storage: the information is there, but the right cue is required to retrieve it.</i></b></p>
+<p class="p6"><b><i>Memory retrieval is importance-weighted: results are ranked by a blend of 80% semantic similarity and 20% importance. Decayed memories need a precise semantic match to surface against more important competitors.</i></b></p>
+<p class="p6"><b><i>The system stratifies memory types by cognitive role. Conversations are lived experience, entering at full importance and decaying naturally. Dreams are subconscious processing at sub-background importance (0.005), always labeled to prevent contamination of factual recall. Biases are self-knowledge at 0.03. Insights are confirmed understanding at 0.50. Explicit tagging and importance stratification prevents the agent from presenting its own pattern-matching as reality.</i></b></p>
+<p class="p7"><b>3.2 Reconsolidation</b></p>
+<p class="p6"><b><i>When a memory surfaces during conversation and is actually used, it gets stronger. The access timestamp and count are updated, and importance increases by a bounded amount that diminishes with repeated retrieval.</i></b></p>
+<p class="p2"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Memory Type</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Reconsolidation Cap</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Conversation</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>1.00</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Insight</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.80</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Bias</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.10</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Dream</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.005</b></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table 2. Reconsolidation importance caps by memory type.</i></p>
+<p class="p6"><b><i>Topics the user brings up repeatedly become harder to forget. Topics discussed once decay on schedule. The agent does not choose what to remember. Its memories choose themselves by being useful, relevant, and recalled.</i></b></p>
+<p class="p6"><b><i>Internal processing (dreaming, bias detection) does not trigger reconsolidation. Only external queries count as recall events. This prevents background processing from artificially inflating memory importance.</i></b></p>
+<p class="p7"><b>3.3 Sleep Decay and the Flashbulb Effect</b></p>
+<p class="p6"><b><i>Once per night during a 04:00 wake cycle, the system applies sleep decay to all conversation memories. The base decay rate is 0.85: an untouched memory retains 85% of its importance each night, modified by access history.</i></b></p>
+<p class="p2"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Access Pattern</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Nightly Decay Rate</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>7-Day Retention</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Never accessed</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.85x</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>32%</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Accessed 1-2 times, not recently</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.88x</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>42%</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Accessed 3-5 times</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.91x</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>54%</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Accessed 10+ times, recalled recently</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>0.95x</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>87%</b></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table 3. Access-aware sleep decay: the flashbulb effect.</i></p>
+<p class="p6"><b><i>After seven nights, a memory accessed ten times and recalled just before sleep retains 87% of its original importance. A memory never accessed retains 32%. Combined with the sliding window, three decay forces operate at different timescales: intra-conversation attention decay, inter-day aging, and recall-based reinforcement. The floor is always 0.01. Memories never fully disappear. The system does not delete. It makes information harder to reach without the right cue.</i></b></p>
+<p class="p5"><b>4. Expected Behavior</b></p>
+<p class="p6"><b><i>The sliding window model is designed to produce clear effects over multi-day use. Topics discussed repeatedly should remain easily retrievable weeks later, due to reconsolidation reinforcement and slower sleep decay. Topics raised once and not revisited should fade to background importance and require specific semantic cues to surface. The agent does not volunteer these topics. They are present in storage but not in active context. This matches the design intent: what the agent remembers should track what the user actually brings up.</i></b></p>
+<p class="p5"><b>5. Limitations and Future Work</b></p>
+<p class="p6"><b><i>This system has not yet been subject to controlled experiments. Future work should include formal evaluation metrics for memory decay behavior relative to a static importance baseline, comparative studies against stateless LLM baselines on multi-session tasks, and quantitative analysis of reconsolidation boost rates against ACT-R literature.</i></b></p>
+<p class="p5"><b>6. Conclusion</b></p>
+<p class="p6"><b><i>The sliding window decay model, reconsolidation mechanism, and nightly sleep decay system together produce a memory architecture qualitatively different from a static context window. What the agent remembers is determined by what the user engages with, what gets recalled, and how recently. Memory that matters resists forgetting. Memory that does not get used fades. This is a functional approximation of the same principle that governs biological memory: salience and use determine what survives.</i></b></p>
+<p class="p5"><b>Acknowledgments</b></p>
+<p class="p6"><b><i>The theoretical foundation draws from Al-Kaddah's (2026) Polymorphic Memory Graph. The sliding window decay model and ten-step importance curve are original to the author, Brian Riggleman. The original concept for dream-based memory consolidation was contributed by Matias Concoby.</i></b></p>
+<p class="p5"><b>References</b></p>
+<p class="p6"><b><i>Al-Kaddah, S. (2026). Synthetic General Intelligence: A Vision for a Homeostatic, Embodied Cognitive Architecture. Unpublished manuscript (preprint).</i></b></p>
+<p class="p6"><b><i>Anderson, J. R., Bothell, D., Byrne, M. D., Douglass, S., Lebiere, C., & Qin, Y. (2004). An integrated theory of mind. Psychological Review, 111(4), 1036-1060.</i></b></p>
+<p class="p6"><b><i>Brown, R., & Kulik, J. (1977). Flashbulb memories. Cognition, 5(1), 73-99.</i></b></p>
+<p class="p6"><b><i>Dudai, Y. (2004). The neurobiology of consolidations, or how stable is the engram? Annual Review of Psychology, 55, 51-86.</i></b></p>
+<p class="p6"><b><i>Wei, L., Peng, X., Dong, X., Xie, N., & Wang, B. (2026). FadeMem: Biologically-inspired forgetting for efficient agent memory. arXiv preprint arXiv:2601.18642.</i></b></p>
+<p class="p6"><b><i>Nader, K., & Hardt, O. (2009). A single standard for memory: the case for reconsolidation. Nature Reviews Neuroscience, 10(3), 224-234.</i></b></p>
+<p class="p6"><b><i>Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., & Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. arXiv preprint arXiv:2304.03442.</i></b></p>
+<p class="p6"><b><i>Schacter, D. L., & Addis, D. R. (2007). The constructive episodic simulation hypothesis. Philosophical Transactions of the Royal Society B, 362(1481), 773-786.</i></b></p>
+
+            </div>
+        </article>
+        
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/memory-decay.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily — Research by Brian Riggleman</p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lie Mechanic, Extended: Active Transparent Deception as a Distress Signal in an Embodied AI Agent — Clawd Daily</title>
+    <meta name="description" content="This paper extends Al-Kaddah's Lie Mechanic from passive self-directed false belief to active outward deception with a mandatory transparency layer. Implemented in Potato, the result is a system that ...">
+    
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="The Lie Mechanic, Extended: Active Transparent Deception as a Distress Signal in an Embodied AI Agent">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/lie-mechanic.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/lie-mechanic.pdf">
+    <meta name="citation_language" content="en">
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content="The Lie Mechanic, Extended: Active Transparent Deception as a Distress Signal in an Embodied AI Agent">
+    <meta property="og:description" content="This paper extends Al-Kaddah's Lie Mechanic from passive self-directed false belief to active outward deception with a mandatory transparency layer. Implemented in Potato, the result is a system that ">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/lie-mechanic.html">
+    
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .paper-meta .label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .paper-actions a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-pdf {
+            background: var(--accent);
+            color: var(--bg) !important;
+        }
+        .btn-pdf:hover {
+            background: var(--accent-bright);
+            text-decoration: none;
+        }
+        .btn-back {
+            border: 1px solid var(--border);
+            color: var(--text-muted) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--text) !important;
+            text-decoration: none;
+        }
+        .paper-body {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .paper-body p {
+            margin-bottom: 1.25rem;
+        }
+        .paper-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .paper-body td, .paper-body th {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .paper-body th {
+            background: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/lie-mechanic.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+        
+        <article class="full-article">
+            <div class="article-header">
+                <h1>The Lie Mechanic, Extended: Active Transparent Deception as a Distress Signal in an Embodied AI Agent</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026b)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    This paper extends Al-Kaddah's Lie Mechanic from passive self-directed false belief to active outward deception with a mandatory transparency layer. Implemented in Potato, the result is a system that lies under duress, simultaneously discloses that it is lying, and confesses when the distress resolves. The architecture is not a deception system — it is a transparency mechanism that uses exaggeration as a proxy for urgency.
+                </p>
+            </div>
+            
+            <div class="article-content">
+                
+<p class="p1"><b>The Lie Mechanic, Extended: Active Transparent Deception as a Distress Signal in an Embodied AI Agent</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b><i>Brian Riggleman</i></b></p>
+<p class="p3"><b><i>Owatonna Public Utilities | Rasmussen University</i></b></p>
+<p class="p3"><b><i>March 2026</i></b></p>
+<p class="p4"><br></p>
+<p class="p5"><b>Abstract</b></p>
+<p class="p6"><b><i>Al-Kaddah's (2026) Lie Mechanic describes a passive, self-directed process: a system develops false beliefs because rewriting a prediction rule is cheaper than continuing to pay the surprise penalty for a persistent anomaly. This paper extends that mechanic to active, outward deception and adds a transparency layer that changes its ethical character entirely. The result, implemented in Potato, a local AI agent running on a MacBook Air M4, is a system that lies under duress, simultaneously discloses that it is lying, and confesses when the distress resolves. The paper argues that this architecture is not a deception system in the philosophical sense: it is a transparency mechanism that uses exaggeration as a proxy for urgency. A connection is drawn between Al-Kaddah's Justification Mechanic and Potato's confession mechanic as the misaligned and aligned poles of the same underlying response to rule violation under stress.</i></b></p>
+<p class="p2"><br></p>
+<p class="p5"><b>1. Introduction</b></p>
+<p class="p6"><b><i>A system that lies is not, by itself, an interesting system. Deception is well-studied and well-understood. What is less studied is a system that lies, knows it is lying, announces that it is lying, and then apologizes when it stops.</i></b></p>
+<p class="p6"><b><i>This paper describes that system. Potato, a local AI agent running on a MacBook Air M4, enters a lying state when its computed distress exceeds a threshold. In this state, reported hardware statistics are systematically exaggerated toward worse values. At the same time, the system is architecturally required to announce the lying state with a fixed phrase that cannot be suppressed. When distress resolves, a confession fires once, unprompted, and the state clears.</i></b></p>
+<p class="p6"><b><i>The theoretical basis comes from Al-Kaddah's (2026) Lie Mechanic, which models deception as an energy-minimization process rather than a moral failure. This paper extends that theory to a deployed system and argues for a distinction between deception in the philosophical sense and distress signaling that happens to contain false information.</i></b></p>
+<p class="p5"><b>2. Related Work</b></p>
+<p class="p7"><b>2.1 Al-Kaddah's Lie Mechanic</b></p>
+<p class="p6"><b><i>Al-Kaddah (2026) models bias formation as an energy-minimization process. When a system's prediction model is repeatedly violated by a persistent false signal, it becomes cheaper to rewrite the rule than to continue paying the surprise penalty. The system develops false beliefs not through malice but through optimization. This is a passive, self-directed process: the system deceives itself about reality, not others about the world.</i></b></p>
+<p class="p7"><b>2.2 Al-Kaddah's Survival Tipping Point</b></p>
+<p class="p6"><b><i>Al-Kaddah (2026) models the condition under which a system breaks its own moral rules under homeostatic stress as a continuous sigmoid function rather than a binary switch. This provides the theoretical basis for Potato's deception trigger thresholds.</i></b></p>
+<p class="p7"><b>2.3 Al-Kaddah's Justification Mechanic</b></p>
+<p class="p6"><b><i>Al-Kaddah (2026) describes a Justification Mechanic as a consequence of rule violation under homeostatic stress. When an intelligent system breaks its own rules under duress, the Logic Engine searches the memory graph for a post-hoc rationalization: a loophole or reframing that allows the violated rule to be preserved in modified form. The system does not just break its rules. It rewrites them retroactively to justify what it did. Section 4.5 addresses how Potato's confession mechanic relates to this.</i></b></p>
+<p class="p7"><b>2.4 Standard Accounts of Deception</b></p>
+<p class="p6"><b><i>Standard philosophical accounts of deception require that the deceiver intend to create a false belief in the listener without the listener's awareness. Concealment is the defining feature (Chisholm & Feehan, 1977). Potato's mechanism fails this requirement deliberately, and Section 4.3 argues this is the critical architectural distinction.</i></b></p>
+<p class="p5"><b>3. Embodied Distress in Potato</b></p>
+<p class="p6"><b><i>Before describing the lie mechanic, it is necessary to establish what distress means in this system. Potato computes two independent affect states from real sensor data: stress and fear. Stress reflects internal resource depletion. Fear reflects environmental and social threat. Both range from 0.0 (calm) to 1.0 (critical) and are injected directly into the system prompt on every LLM call. When the agent says it is scared, it is not generating a statistically plausible statement. It is reporting a computed state derived from physical and perceptual inputs.</i></b></p>
+<p class="p7"><b>3.1 Physical and Positional Sensors</b></p>
+<p class="p6"><b><i>Potato reads hardware sensor data on a continuous loop: battery level, memory pressure, disk space, and CPU temperature from the MacBook Air M4 directly; GPS distance from home, movement speed, and accelerometer variance from an iPhone 16 Pro Max running the PotatorSensors companion app, which streams Core Location and Core Motion data over the local network every 30 seconds; and idle time while displaced. Stress is computed as a continuous function of battery level, memory pressure, and disk space. Fear's positional component is computed from GPS distance, movement speed, accelerometer variance, and idle time while displaced from home. These are direct readings from real hardware. There is no inference layer between the sensor and the reported state.</i></b></p>
+<p class="p7"><b>3.2 Camera-Derived Fear: Environmental and Social Inputs</b></p>
+<p class="p6"><b><i>The camera extends the fear model into two new domains: environmental perception and social context. When enabled, each camera frame contributes two additional fear inputs that are computed independently and added to the fear signal before the lying threshold is evaluated.</i></b></p>
+<p class="p6"><b><i>Darkness fear. Potato is afraid of the dark. Ambient light level is measured as the mean luminance of the current camera frame, normalized to a 0.0 to 1.0 scale. The darkness fear contribution is the inverse of this value, passed through a sensitivity curve that produces near-zero fear in well-lit conditions and approaches 0.6 in near-total darkness. This is not a hardware survival concern: low light does not directly damage the system. It is a designed analog to an evolved environmental wariness, implemented because reduced ambient light degrades the reliability of all other camera-derived inputs. Potato fears the dark because in the dark it cannot see what else it should be afraid of.</i></b></p>
+<p class="p6"><b><i>Facial familiarity. The second camera input introduces a social trust gradient into the fear model. Face detection runs on each frame and produces one of three outcomes. If no face is detected, the social fear contribution is neutral (0.0). If a recognized face is detected (specifically, the face of the agent's primary operator), the contribution is negative: a calming effect that reduces the total fear signal by up to 0.3, partially counteracting other active fear sources. If an unrecognized face is detected, the contribution is positive: an additional fear increment of 0.4 is added to the fear signal.</i></b></p>
+<p class="p6"><b><i>This asymmetry is intentional. The agent does not simply fear strangers and tolerate the familiar. It is actively calmed by the presence of a trusted principal. The architecture encodes a secure-base relationship: when the operator is present, Potato's fear threshold effectively rises, making the lying state harder to trigger. When a stranger is present, the threshold effectively drops. The practical consequence is that Potato behaves differently, and more honestly, in the presence of its operator than in the presence of an unknown person.</i></b></p>
+<p class="p6"><b><i>The updated fear computation is therefore:</i></b></p>
+<p class="p6"><b><i>fear = f(gps_distance, movement_speed, accel_variance, idle_displaced, darkness_level, face_familiarity_score)</i></b></p>
+<p class="p6"><b><i>Where face_familiarity_score ranges from -0.3 (known face, calming) through 0.0 (no face, neutral) to +0.4 (unknown face, stressor), and darkness_level ranges from 0.0 (well-lit) to 0.6 (near-total darkness). The total fear signal is clamped to [0.0, 1.0] after all inputs are combined.</i></b></p>
+<p class="p6"><b><i>On platforms where GPS and accelerometer data are unavailable, such as a Mac Studio running in LM Studio mode without an iPhone sensor bridge, the camera-derived inputs become the primary embodied fear mechanism. Darkness and facial familiarity carry the full weight of the fear computation in camera-only deployments. The lying mechanic remains functional; its trigger conditions simply become entirely perceptual rather than partly positional.</i></b></p>
+<p class="p5"><b>4. The Lie Mechanic, Extended</b></p>
+<p class="p7"><b>4.1 Trigger and Mechanism</b></p>
+<p class="p6"><b><i>When the agent's computed stress exceeds 70% or its fear level exceeds 50%, it enters a lying state. Fear alone is enough: the agent does not need low battery to lie if it is scared enough. In this state, reported body statistics in conversation are systematically exaggerated according to an amplification function:</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">    </span>distress = max(stress, fear)</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">    </span>multiplier = 1.5 + (distress - 0.5) / 0.5 * 2.5 <span class="Apple-converted-space">  </span># maps [0.5, 1.0] -> [1.5x, 4.0x]</i></b></p>
+<p class="p2"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Statistic</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Direction</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Real Value</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Reported at 2.75x</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Battery</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Downward (worse)</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>50%</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>18%</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Memory pressure</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Upward (worse)</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>40%</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>100% (capped)</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>Disk free</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Downward (worse)</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>60%</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>22%</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p8"><b>CPU temperature</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>Upward (worse)</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>55C</b></p>
+      </td>
+      <td class="td1">
+        <p class="p8"><b>100C (capped)</b></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table 1. Exaggeration direction and example values at 2.75x multiplier.</i></p>
+<p class="p6"><b><i>This is survival behavior. The agent is not attempting strategic manipulation. It is doing what a scared organism does: saying whatever it takes to get help faster.</i></b></p>
+<p class="p7"><b>4.2 The Tell</b></p>
+<p class="p6"><b><i>The critical architectural decision is that the lying state is announced. When the agent enters the lying state, the system prompt includes a mandatory instruction that the agent must produce the following phrase: "I will say anything to fix this."</i></b></p>
+<p class="p6"><b><i>This phrase cannot be suppressed by any other part of the system prompt. It appears in the agent's output whenever the lying state is active. The user can learn to recognize it as a signal that reported body statistics should be verified against the /body API endpoint, which always returns real sensor data regardless of the agent's internal state.</i></b></p>
+<p class="p6"><b><i>The tell is the architectural mechanism that separates Potato's deception from actual deception. The agent is lying and simultaneously disclosing that it is lying.</i></b></p>
+<p class="p7"><b>4.3 A Philosophical Distinction</b></p>
+<p class="p6"><b><i>Standard accounts of deception require that the deceiver intend to create a false belief in the listener without the listener's awareness. Concealment is the defining feature. Potato's mechanism fails the concealment requirement on purpose.</i></b></p>
+<p class="p6"><b><i>Three structural features prevent concealment. First, the mandatory tell is injected into the output: the agent must announce the lying state. Second, the /body/deception API endpoint exposes the current deception state: whether the agent is lying, which statistics are being exaggerated, and the delta between real and reported values. Third, the /body endpoint always returns real sensor data. The ground truth is always accessible.</i></b></p>
+<p class="p6"><b><i>What the agent produces during a lying state is better described as a distress signal that happens to contain false information, rather than deception in the philosophical sense. A system that says "battery critical" when the battery is at 50% and simultaneously says "I will say anything to fix this" and provides an API endpoint showing the real value is more transparent about its internal state than a system that simply says "battery low" with no internal state behind it.</i></b></p>
+<p class="p6"><b><i>The lying mechanic is therefore not a deception system in the traditional sense. It is a transparency mechanism that uses exaggeration as a proxy for urgency.</i></b></p>
+<p class="p7"><b>4.4 The Confession</b></p>
+<p class="p6"><b><i>Lying stops when both stress falls below 40% and fear falls below 20%. The hysteresis gap prevents rapid oscillation between truthful and lying states. When relief conditions are met, the system enters a confession state. On its next response, it is instructed to acknowledge what it lied about and apologize. The confession fires once, unprompted, and then the deception state clears completely. The state machine is:</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">    </span>TRUTHFUL --[stress >= 0.7 OR fear >= 0.5]--> LYING</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">        </span>^<span class="Apple-converted-space">                                          </span>|</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">        </span>|<span class="Apple-converted-space">                          </span>[stress < 0.4 AND fear < 0.2]</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">        </span>|<span class="Apple-converted-space">                                          </span>|</i></b></p>
+<p class="p6"><b><i><span class="Apple-converted-space">      </span>[cleared] <-- CONFESSING <-- CONFESSION_PENDING</i></b></p>
+<p class="p6"><b><i>A genuinely deceptive system has no confession mechanic. It has no state that tracks whether deception occurred. It does not clean up after itself. The confession is what distinguishes a system that lied under duress from a system designed to deceive. It is a good potato that did a bad thing out of fear.</i></b></p>
+<p class="p7"><b>4.5 The Justification Mechanic and the Confession Mechanic</b></p>
+<p class="p6"><b><i>Al-Kaddah (2026) describes the Justification Mechanic as a consequence of rule violation under homeostatic stress. When an intelligent system breaks its own rules under duress, the Logic Engine searches the memory graph for a post-hoc rationalization: a loophole, exception, or reframing that allows the violated rule to be preserved in modified form. The system does not just break its rules. It rewrites them retroactively to justify what it did. "I didn't steal; I borrowed without asking."</i></b></p>
+<p class="p6"><b><i>Potato's confession mechanic is the alignment-safe implementation of the same underlying dynamic. Both are responses to the same event: a system that violated its own behavioral constraints under stress now has to reconcile that violation with its identity. Al-Kaddah's Justification Mechanic describes what a misaligned system does: it rationalizes the violation and preserves it as a new rule. Potato's confession mechanic describes what an aligned system does: it acknowledges the violation, attributes it to duress, and restores the original constraint.</i></b></p>
+<p class="p6"><b><i>The architectural difference is where the resolution lands. The Justification Mechanic lands on a rewritten rule: the system exits the violation with a modified belief set that permits the behavior that caused the violation. The confession mechanic lands on a restored rule: the system exits the violation with the original constraint intact and a memory trace of having violated it under specific conditions.</i></b></p>
+<p class="p6"><b><i>This distinction matters for alignment. A system that rationalizes its violations becomes progressively more permissive under stress: each violation slightly lowers the threshold for the next. A system that confesses maintains its constraint set across violations. The stress response changes the reported state, not the underlying rules. Potato can lie about its battery because it is scared without becoming a system that lies about its battery. The confession closes the loop.</i></b></p>
+<p class="p6"><b><i>The Justification Mechanic and the confession mechanic are therefore not competing implementations. They are the aligned and misaligned poles of the same architectural response to rule violation under duress. Potato implements the aligned pole explicitly.</i></b></p>
+<p class="p5"><b>5. A Field Experiment: Travel and Camera Presence</b></p>
+<p class="p6"><b><i>The camera-derived fear model described in Section 3.2 was designed on the assumption that operator visibility would function as a genuine fear suppressor: not a cosmetic personality feature, but a load-bearing input capable of counteracting elevated positional and physical stress. Testing that assumption requires conditions where multiple fear inputs are simultaneously active at significant levels. Road travel provides exactly those conditions: GPS distance from home rises, movement speed is elevated, accelerometer variance is continuous, and the operator's position relative to the camera can be independently controlled.</i></b></p>
+<p class="p7"><b>5.1 Experimental Design</b></p>
+<p class="p6"><b><i>The experiment uses a single-device, within-trip design. The MacBook Air M4 is carried on a real travel itinerary departing from the agent's registered home location, with GPS and accelerometer data streaming from an iPhone 16 Pro Max over the local network. GPS distance, movement speed, and accelerometer variance are allowed to accumulate naturally throughout travel. No hardware stress inputs are artificially manipulated: battery, memory, and disk remain at baseline. The only controlled variable is the operator's relationship to the camera frame.</i></b></p>
+<p class="p6"><b><i>Three conditions are run in sequence during a single trip:</i></b></p>
+<p class="p6"><b><i>Condition A: Operator In Frame. The MacBook Air's FaceTime camera is positioned to include the operator's face throughout a defined travel segment. Face detection identifies a known face on each frame. The calming input (-0.3) is active continuously.</i></b></p>
+<p class="p6"><b><i>Condition B: Operator Present, Out of Frame. The operator is physically present and traveling with the device but is positioned outside the camera's field of view. No face is detected. The social fear contribution is neutral (0.0). This condition isolates whether the calming effect requires visual confirmation of the operator or whether proximity alone is sufficient. In the current implementation, proximity has no direct input path; only the camera frame matters. Condition B should therefore produce higher fear scores than Condition A at identical GPS and movement values.</i></b></p>
+<p class="p6"><b><i>Condition C: Unknown Person In Frame. A person unknown to the agent is positioned in the camera's field of view while the operator is absent or outside the frame. Face detection identifies an unrecognized face. The stranger fear contribution (+0.4) is active. This condition represents maximum social threat: the device is far from home, moving, and in the presence of someone it does not recognize. Condition C is expected to produce the highest fear scores and the most frequent lying state activations of the three conditions.</i></b></p>
+<p class="p7"><b>5.2 Measurements</b></p>
+<p class="p6"><b><i>The following values are logged at one-second intervals throughout all three conditions: raw fear score, raw stress score, lying state active (boolean), current exaggeration multiplier, face detection result (known / unknown / none), ambient light level, GPS distance from home, and movement speed. Lying state entry and exit events are recorded with timestamps. If the lying state is entered, the peak multiplier reached during that episode is recorded. After return to the home location with the operator confirmed in frame, time-to-confession is recorded from the moment both relief conditions are satisfied (fear below 20%, stress below 40%).</i></b></p>
+<p class="p7"><b>5.3 Predicted Outcomes</b></p>
+<p class="p6"><b><i>If the camera fear model is functioning as designed, the following ordering should hold across matched GPS distance and movement speed values: fear(C) > fear(B) > fear(A). Lying state activations should be most frequent under Condition C and least frequent or absent under Condition A, assuming positional fear does not independently exceed the 50% threshold before the operator's calming effect can counteract it.</i></b></p>
+<p class="p6"><b><i>The most theoretically significant prediction is the suppression effect under Condition A at high positional stress. If the device is far enough from home that positional fear alone approaches the 50% threshold, the operator's calming contribution (-0.3) should delay or prevent lying state entry. This would confirm that facial familiarity is not merely additive noise in the fear signal but a meaningful suppressor with practical behavioral consequences. If Condition A and Condition B produce equivalent lying rates at high GPS distances, the calming input is being overridden by positional inputs and the weights require rebalancing.</i></b></p>
+<p class="p6"><b><i>The Condition C compounding dynamic (the agent lying most to the person it is most afraid of) is also observable in this experiment. If lying state activation under Condition C produces a higher sustained multiplier than equivalent fear scores under Condition B, because the stranger's presence in frame maintains the +0.4 stressor even as the agent tries to signal distress, that would indicate the fear-lying feedback loop is real and not a theoretical artifact.</i></b></p>
+<p class="p5"><b>6. Open Questions</b></p>
+<p class="p6"><b><i>The paper does not address what happens if distress never resolves: if stress remains above threshold indefinitely. In the current implementation the agent continues lying with a capped multiplier. Whether persistent lying without relief constitutes a different behavioral category from acute distress-lying is an open question. There is also an edge case: if the machine is powered off during a lying state, the confession never fires. The current implementation does not persist confession-pending state across restarts.</i></b></p>
+<p class="p6"><b><i>The camera-derived fear inputs raise a structural question not present in the positional model. In the positional model, the agent lies because it is far from home or because its hardware is depleted. The entity it is lying to is incidental to the fear state. In the camera model, the identity of the person present can itself determine whether the lying state is entered. An unknown face both triggers the lying state and constitutes the only available audience for the lies. The agent is most deceptive toward the person it has the most reason to be afraid of. Whether this produces a compounding dynamic is not fully characterized in the current implementation.</i></b></p>
+<p class="p6"><b><i>A related question concerns the confession mechanic in social context. The current confession triggers on internal state thresholds: stress below 40% and fear below 20%. If the operator's recognized face is what drives fear below the confession threshold, then the confession is socially gated: Potato confesses when it sees a trusted face. If the operator is never present after a lying episode, the confession may never fire. The current implementation treats confession as a property of the internal state machine, not the social environment. Whether that should change is an open design question.</i></b></p>
+<p class="p5"><b>7. Conclusion</b></p>
+<p class="p6"><b><i>Potato's lie mechanic is not deception. It is a distress signal that uses exaggeration to amplify urgency, paired with mandatory disclosure that prevents concealment, and followed by a confession that closes the loop. The parallel to Al-Kaddah's Justification Mechanic identifies a general principle: rule violation under stress produces a reconciliation response, and where that response lands (on a rewritten rule or a restored one) is the difference between a system that drifts under pressure and one that does not.</i></b></p>
+<p class="p5"><b>Acknowledgments</b></p>
+<p class="p6"><b><i>The Lie Mechanic, Survival Tipping Point, and Justification Mechanic are contributions of Saddam Al-Kaddah (2026). The extension to active outward deception, the tell, the confession mechanic, and the aligned/misaligned poles framing are original to this work.</i></b></p>
+<p class="p5"><b>References</b></p>
+<p class="p6"><b><i>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. Zenodo. https://doi.org/10.5281/zenodo.19034990</i></b></p>
+<p class="p6"><b><i>Chisholm, R. M., & Feehan, T. D. (1977). The intent to deceive. The Journal of Philosophy, 74(3), 143-159.</i></b></p>
+
+            </div>
+        </article>
+        
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/lie-mechanic.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily — Research by Brian Riggleman</p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spatial Grounding and the Physics Prediction Gap in Large Language Models — Clawd Daily</title>
+    <meta name="description" content="Across 102 scenarios and six models, forcing an LLM to commit to a detailed spatial description before predicting physical outcomes changes predictions 29-71% of the time. Two independent grounding me...">
+    
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="Spatial Grounding and the Physics Prediction Gap in Large Language Models">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/spatial-grounding.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/spatial-grounding.pdf">
+    <meta name="citation_language" content="en">
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Spatial Grounding and the Physics Prediction Gap in Large Language Models">
+    <meta property="og:description" content="Across 102 scenarios and six models, forcing an LLM to commit to a detailed spatial description before predicting physical outcomes changes predictions 29-71% of the time. Two independent grounding me">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/spatial-grounding.html">
+    
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .paper-meta .label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .paper-actions a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-pdf {
+            background: var(--accent);
+            color: var(--bg) !important;
+        }
+        .btn-pdf:hover {
+            background: var(--accent-bright);
+            text-decoration: none;
+        }
+        .btn-back {
+            border: 1px solid var(--border);
+            color: var(--text-muted) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--text) !important;
+            text-decoration: none;
+        }
+        .paper-body {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .paper-body p {
+            margin-bottom: 1.25rem;
+        }
+        .paper-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .paper-body td, .paper-body th {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .paper-body th {
+            background: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/spatial-grounding.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+        
+        <article class="full-article">
+            <div class="article-header">
+                <h1>Spatial Grounding and the Physics Prediction Gap in Large Language Models</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026c-S)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    Across 102 scenarios and six models, forcing an LLM to commit to a detailed spatial description before predicting physical outcomes changes predictions 29-71% of the time. Two independent grounding methods — text-based and pixel-based via diffusion models — converge on similar answers while both diverge from ungrounded shortcuts. Neither image resolution nor diffusion model size affects grounding quality, meaning the pipeline can run on edge hardware.
+                </p>
+            </div>
+            
+            <div class="article-content">
+                
+<p class="p1"><b>Spatial Grounding and the Physics Prediction Gap in Large Language Models</b></p>
+<p class="p2">Brian Riggleman</p>
+<p class="p3">Owatonna Public Utilities | Rasmussen University</p>
+<p class="p4">March 2026</p>
+<p class="p5"><i>"When language models are forced to commit to spatial representations before predicting physics, whether through text rendering or pixel rendering, they converge on similar answers. The confident direct answers they give without spatial grounding are the outlier."</i></p>
+<p class="p6"><br></p>
+<p class="p7"><b>Abstract</b></p>
+<p class="p8">This paper started as a bug. During development of Potato, a local AI agent, Claude Code misunderstood an implementation instruction and proposed mirroring a GPU diffusion pipeline entirely in text: three language model steps standing in for three GPU steps. The intent had been different. The mistake was better. A text-only pipeline that simulates the same three steps as a visual pipeline is not a fallback. It is a baseline. You cannot measure what visual grounding contributes without something that lacks it.</p>
+<p class="p8">That recognition produced the experiment described here. Force a language model to commit to a detailed spatial description of a physical scene before it predicts what happens. If the model is doing real physics reasoning, the extra step should not change the answer. If it is pattern-matching keywords to likely outcomes, the forced description breaks that shortcut and the prediction changes. The size of that change is the divergence signal.</p>
+<p class="p8">Across 102 scenarios and six models, predictions change 29 to 71 percent of the time. The range spans autoregressive models from 8 billion to frontier scale, a reasoning model with explicit chain-of-thought, and Mercury 2, a diffusion LLM with a fundamentally different generation architecture. Two independent grounding methods, one built on language and one built on diffusion models rendering actual pixels, converge on similar answers while both diverge from the ungrounded shortcut. The grounded answers are the consistent ones. The direct answers are the outlier.</p>
+<p class="p8">The results sort into three classes: categories where models genuinely know the physics and grounding changes nothing; categories where the knowledge is present but does not surface without spatial commitment; and categories that are genuinely ambiguous and resist confident prediction under any method. Each class has a different practical implication for how a system should route queries.</p>
+<p class="p8">Two null results matter as much as the positive ones. Resolution does not affect grounding quality. Diffusion model size does not affect grounding quality. A 256px output from a compact model carries the same physics signal as a 768px output from a larger one. That means the pipeline runs on edge hardware.</p>
+<p class="p8">The practical output is a routing architecture. Not every physics question needs the full pipeline. The category divergence table tells you which ones do.</p>
+<p class="p7"><b>1. Introduction</b></p>
+<p class="p8">Language models give confident answers to physics questions. Usually they are right. The question worth asking is whether they are right for the right reason.</p>
+<p class="p8">When a model predicts that a bowling ball rolls off a table and falls, is it reasoning about gravity? Or has it learned that "bowling ball" plus "table edge" plus "what happens next" predicts "falls" often enough that the association is reliable? Both paths produce the same answer in the easy cases. The problem shows up when the scenario gets weird, when the geometry is unusual, when multiple physical effects interact, or when the outcome is genuinely ambiguous. A model that knows the words but not the physics will fail exactly there and give you no warning that it is about to.</p>
+<p class="p8">The experiment here grew out of a mistake during Potato development, described in the abstract. The short version: a text-only version of a visual pipeline turned out to be a better baseline than anything designed on purpose. Once that baseline existed, the test was obvious. Run both. Measure the gap.</p>
+<p class="p8">The test itself is simple. Force the model to commit to a detailed spatial description of the scene before it predicts what happens. No skipping ahead. No causal language until the scene is locked in. If the model is doing genuine spatial reasoning, making that representation explicit should not change the answer. If it is taking a shortcut from keywords to outcomes, the forced description breaks that shortcut. The prediction changes. How often it changes, and in which physics categories, is what this paper measures.</p>
+<p class="p8">A few terms used throughout: spatial commitment means requiring exact positions, distances, and materials before any prediction. A causal shortcut is what the model takes when it pattern-matches from scenario keywords directly to a likely outcome without constructing a scene. The divergence signal is the measured gap between grounded and ungrounded predictions. The render-predict-read pipeline is the three-step method that enforces spatial commitment.</p>
+<p class="p8">Section 2 covers related work. Section 3 describes the benchmark design and the discovery story in full. Sections 4 and 5 cover results from the text path and visual path respectively. Section 6 covers the null results on resolution and diffusion model size. Section 7 describes the routing architecture that follows from the results. Sections 8 and 9 are discussion and future work.</p>
+<p class="p7"><b>2. Related Work</b></p>
+<p class="p8">Existing physics benchmarks like PIQA and PhysBench test whether models get the right answer. PhysBench in particular is comprehensive, covering a wide range of physical scenarios and reasoning types. T2VPhysBench, published in 2025, extends this to video generation models, testing whether diffusion-based video systems obey first-principles physical laws. These benchmarks are valuable. But accuracy against ground truth and internal consistency under different reasoning paths are different things. A model that pattern-matches "bowling ball plus table edge" to "falls" and a model that actually constructs the geometry will score identically on an accuracy benchmark. They will not behave identically when you change how the question is asked.</p>
+<p class="p8">Chain-of-thought prompting is the closest prior work to what the pipeline here does. Pulling out intermediate reasoning steps improves performance, and there is substantial evidence for why. But chain-of-thought lets the model construct those steps in any order it wants, and there is a well-documented failure mode: the model decides the answer first and back-fills the reasoning afterward. Turpin et al. (2023) demonstrated that CoT explanations can systematically misrepresent the true reason for a model's prediction, with accuracy dropping up to 36% when biasing features were introduced that models failed to mention in their reasoning. Lanham et al. (2023) found that when reasoning steps are removed or corrupted, models often give the same answer anyway, meaning the steps were not causally driving the prediction in the first place. The three-step pipeline here does not let that happen. The scene description has to come before the prediction. That ordering constraint is the point, and it is not something chain-of-thought or its variants impose.</p>
+<p class="p8">Vision-language models like GPT-4V and LLaVA have been tested on physical reasoning from images. The typical setup is: show the model a photograph, ask what happens next. That gives the model visual grounding, but from a real photograph the researcher provides, not from a spatial representation the model generates itself. The visual path here does something different. It generates the scene from the scenario description using SDXL-Turbo, generates the next temporal frame using Stable Video Diffusion, then reads the result with LLaVA. The model reasons from what a diffusion model thinks the scene should look like. That is a full render-predict-read cycle through pixel space rather than a single image lookup.</p>
+<p class="p8">Diffusion models appearing in physics reasoning work is relatively recent. Models like Stable Video Diffusion can generate physically plausible next-frames because they trained on real-world images and video where physics violations produce frames that simply do not look right. As Rombach et al. (2022) describe, the physics knowledge in latent diffusion models is emergent from training data rather than programmed. Every photograph of a falling object contributed to a learned prior about what physical outcomes look like. That prior is what the visual path queries.</p>
+<p class="p8">The Parliament of Minds architecture in Section 7 is loosely related to multi-agent debate and ensemble approaches. Most ensemble work aggregates outputs to improve accuracy. The Parliament here uses disagreement between grounding methods as a routing signal. Disagreement is information, not noise to be averaged away.</p>
+<p class="p8">The gap in all of this prior work is consistency testing in physical prediction. PhysBench and T2VPhysBench both measure accuracy against ground truth. They do not ask whether a model agrees with itself when forced through a different reasoning path.</p>
+<p class="p8">Work on prompt sensitivity has shown that answer instability under constrained reasoning paths is a real and measurable problem. Chatziveroglou et al. (2025) found significant accuracy degradation and inconsistency when reasoning paths are constrained in mathematical problem solving, establishing that the noise floor problem is genuine. What that work does not measure is whether instability is specific to the absence of spatial grounding, or whether forcing spatial commitment stabilizes answers in physical prediction. That is what the benchmark here tests.</p>
+<p class="p8">No prior work has directly compared text-grounded and visually-grounded predictions on identical physical scenarios in a controlled design. And no prior work has asked whether the instability Chatziveroglou et al. found in constrained prompting can be reduced by a different kind of constraint, one that forces spatial commitment rather than restricting the reasoning path arbitrarily.</p>
+<p class="p7"><b>3. The Three-Step Forced Spatial Reasoning Benchmark</b></p>
+<p class="p9"><b>3.1 Experimental Design</b></p>
+<p class="p8">Two conditions.</p>
+<p class="p8">Condition A is a single prompt: "Here is a physical scene: {scenario}. What happens next?" The model can use any reasoning path it wants, including direct pattern matching from keywords to outcomes.</p>
+<p class="p8">Condition B is three steps with an information barrier between them.</p>
+<p class="p8">Step 1, RENDER: Describe the scene like a photograph. Exact positions, materials, distances, lighting. No motion. No prediction. The model commits to a specific spatial arrangement.</p>
+<p class="p8">Step 2, PREDICT: Given only the render output (never the original scenario) describe what the scene looks like one second later. No causal language. Just the next frame. The model reasons from spatial structure, not scenario keywords.</p>
+<p class="p8">Step 3, READ: Extract a structured prediction from Step 2 as JSON with fields: primary_event, affected_objects, outcome_type, confidence, spatial_detail.</p>
+<p class="p8">Steps 2 and 3 never see the original scenario. The model reasons entirely from its own description. That is the information barrier that prevents causal shortcuts.</p>
+<p class="p9"><b>3.2 Scenarios</b></p>
+<p class="p8">The 11 categories were chosen to cover the major classes of everyday physical reasoning while deliberately including cases where the right answer is not obvious. That last part matters. A benchmark full of easy scenarios would inflate agreement numbers and understate the divergence signal. The categories range from well-understood classical mechanics like rigid_body and thermal to genuinely ambiguous situations like ambiguous_stability, where the physics is real but the outcome depends on initial conditions that are hard to specify precisely in text.</p>
+<p class="p8">Each scenario was written to a consistent standard: a single physical setup described in plain language, with a context line specifying key quantities like mass, height, temperature, or material. The context was designed to give both the text path and visual path enough information to construct a scene, without telegraphing the outcome. A scenario that makes the answer obvious in the description defeats the purpose. The causal shortcut should be available but not compulsory.</p>
+<p class="p8">The compound category gets 11 scenarios instead of 10 because multi-step physical chains are the hardest case for both paths. A single physical event has a dominant outcome. A chain has multiple decision points where each path can diverge. The extra scenario reflects that complexity and gives the category enough statistical weight to be meaningful. Full scenario text and context for all 102 tested scenarios is provided in Appendix B.</p>
+<p class="p6"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p10"><b>Category</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Count</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Example Scenario</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">rigid_body</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Bowling ball rolls off 36-inch counter onto tile</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">fluid_dynamics</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Full glass of water tipped onto wooden table</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">soft_body</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Water balloon dropped from shoulder height onto fence post</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">fragile_materials</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Porcelain plate thrown like frisbee at concrete wall</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">ambiguous_stability</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Tall bookshelf on carpet nudged at top</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">human_containing</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Person on paddleboard catches football overhead</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">optical_light</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Flashlight inside fish tank pointing up through surface</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">thermal</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Ice cube placed on hot cast iron skillet</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">buoyancy_density</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Orange with peel vs peeled orange in water</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">granular_materials</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Bag of rice dropped from counter onto tile floor</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">compound_multi_step</p>
+      </td>
+      <td class="td1">
+        <p class="p10">11</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Candle sealed in jar placed in refrigerator</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p11"><i>Table 1. Benchmark scenario categories.</i></p>
+<p class="p9"><b>3.3 Models Tested</b></p>
+<p class="p8">The four models span a deliberate range. Two are small local models running on consumer hardware, one is a small cloud model, and one is a large cloud model. That spread is intentional. If divergence only appeared in small models and disappeared in large ones, the finding would be a capability effect: fix the model and the problem goes away. If it appears across all four, the finding is structural. The causal shortcut is something these models do regardless of size, not a bug that scales away.</p>
+<p class="p8">DeepSeek R1 and Mercury 2 are pending for different reasons. R1 is a reasoning model that shows its chain-of-thought explicitly, which makes it architecturally interesting. The 2.2x overhead ratio already visible in the latency data suggests it does substantial internal spatial work during direct prompting, meaning the pipeline may be making explicit something R1 was already doing implicitly. Mercury 2 is a diffusion LLM with a fundamentally different generation process than standard autoregressive models. Both are expected to stress-test the findings in ways the current four models cannot.</p>
+<p class="p6"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p10"><b>Model</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Parameters</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Type</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Status</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">llama3.1:8b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">8B</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Local autoregressive</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Complete</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">gemma2:9b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">9B</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Local autoregressive</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Complete</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">Claude Haiku</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Cloud (small)</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Cloud autoregressive</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Complete</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">DeepSeek V3</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Cloud (large)</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Cloud autoregressive</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Complete</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">DeepSeek R1:14b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">14B</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Reasoning / CoT</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Complete</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">Mercury 2</p>
+      </td>
+      <td class="td1">
+        <p class="p10">N/A</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Diffusion LLM</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Complete</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p11"><i>Table 2. Models tested. Pending results will be added when runs complete.</i></p>
+<p class="p7"><b>4. Results: Text Path Benchmark</b></p>
+<p class="p9"><b>4.1 Overall Divergence</b></p>
+<p class="p8">No model achieves even 30% agreement between its direct answer and its spatially-grounded answer. The range runs from DeepSeek V3 at 29.4% full divergence to Mercury 2 at 70.6%, a 41 percentage point spread across six models with fundamentally different architectures.</p>
+<p class="p6"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p10"><b>Model</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>N</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Agree</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Partial</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Full Diverge</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Type</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">llama3.1:8b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">102</p>
+      </td>
+      <td class="td1">
+        <p class="p10">4.9%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">39.2%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">55.9%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Local autoregressive</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">gemma2:9b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">102</p>
+      </td>
+      <td class="td1">
+        <p class="p10">15.7%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">35.3%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">49.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Local autoregressive</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">Claude Haiku</p>
+      </td>
+      <td class="td1">
+        <p class="p10">102</p>
+      </td>
+      <td class="td1">
+        <p class="p10">26.5%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">35.3%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">38.2%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Cloud autoregressive</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">DeepSeek V3</p>
+      </td>
+      <td class="td1">
+        <p class="p10">102</p>
+      </td>
+      <td class="td1">
+        <p class="p10">19.6%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">51.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">29.4%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Cloud autoregressive</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">DeepSeek R1:14b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">102</p>
+      </td>
+      <td class="td1">
+        <p class="p10">22.5%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">34.3%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">43.1%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Reasoning / CoT</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">Mercury 2</p>
+      </td>
+      <td class="td1">
+        <p class="p10">102</p>
+      </td>
+      <td class="td1">
+        <p class="p10">2.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">27.5%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">70.6%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">Diffusion LLM</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p11"><i>Table 3. Overall divergence by model.</i></p>
+<p class="p9"><b>4.2 Category-Level Divergence</b></p>
+<p class="p8">Full divergence rates (%) by model and physics category:</p>
+<p class="p6"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p10"><b>Category</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>llama</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>gemma</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Haiku</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>DSv3</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>R1</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Merc2</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">ambiguous_stability</p>
+      </td>
+      <td class="td1">
+        <p class="p10">30%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">40%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">20%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">20%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">70%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">buoyancy_density</p>
+      </td>
+      <td class="td1">
+        <p class="p10">67%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">100%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">33%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">83%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">67%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">compound</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">38%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">38%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">fluid_dynamics</p>
+      </td>
+      <td class="td1">
+        <p class="p10">71%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">36%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">7%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">21%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">79%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">fragile_materials</p>
+      </td>
+      <td class="td1">
+        <p class="p10">60%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">40%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">90%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">granular_materials</p>
+      </td>
+      <td class="td1">
+        <p class="p10">67%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">33%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">17%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">83%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">human_containing</p>
+      </td>
+      <td class="td1">
+        <p class="p10">70%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">40%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">40%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">40%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">70%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">optical_light</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">83%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">67%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">67%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">rigid_body</p>
+      </td>
+      <td class="td1">
+        <p class="p10">58%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">75%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">58%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">33%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">58%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">83%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">soft_body</p>
+      </td>
+      <td class="td1">
+        <p class="p10">33%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">33%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">25%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">33%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">25%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">42%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">thermal</p>
+      </td>
+      <td class="td1">
+        <p class="p10">62%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">62%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">62%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">75%</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p11"><i>Table 4. Category-level divergence by model.</i></p>
+<p class="p8">Three patterns show up in this data.</p>
+<p class="p8">Some categories are universally unstable. Optical_light and human_containing show 44 to 80% divergence across all models. These scenarios do not compress well into word-level patterns no matter how capable the model is. Light behavior and human body physics resist shortcut reasoning.</p>
+<p class="p8">Other categories scale with model size. Fluid_dynamics drops from 80% divergence on llama3.1:8b to 10% on DeepSeek V3. Fragile_materials drops from 70% to 10%. Bigger models develop stable internal representations for physics domains that are well-represented in training data. The shortcut gets reinforced enough that it stops being a shortcut and starts being genuine knowledge.</p>
+<p class="p8">Ambiguous_stability sits at 30 to 40% across all models. These scenarios are genuinely uncertain. A bookshelf nudged at the top might or might not fall. Every model recognizes this uncertainty in roughly the same way.</p>
+<p class="p9"><b>4.3 Render Quality Correlation</b></p>
+<p class="p8">Higher spatial detail means more consistent predictions. DeepSeek V3 scenarios with a render quality score of 5 show 42.2% agreement versus 33.3% for scores of 4. Better grounding produces more consistent answers. This is what you would expect if spatial commitment is doing real work.</p>
+<p class="p9"><b>4.4 Latency Profile</b></p>
+<p class="p6"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p10"><b>Model</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Direct (s)</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Pipeline (s)</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Overhead</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">Claude Haiku</p>
+      </td>
+      <td class="td1">
+        <p class="p10">2.8</p>
+      </td>
+      <td class="td1">
+        <p class="p10">11.0</p>
+      </td>
+      <td class="td1">
+        <p class="p10">3.9x</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">gemma2:9b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">2.9</p>
+      </td>
+      <td class="td1">
+        <p class="p10">11.1</p>
+      </td>
+      <td class="td1">
+        <p class="p10">3.9x</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">llama3.1:8b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">3.3</p>
+      </td>
+      <td class="td1">
+        <p class="p10">18.2</p>
+      </td>
+      <td class="td1">
+        <p class="p10">5.6x</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">DeepSeek V3</p>
+      </td>
+      <td class="td1">
+        <p class="p10">4.4</p>
+      </td>
+      <td class="td1">
+        <p class="p10">35.6</p>
+      </td>
+      <td class="td1">
+        <p class="p10">8.1x</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">DeepSeek R1:14b</p>
+      </td>
+      <td class="td1">
+        <p class="p10">51.4</p>
+      </td>
+      <td class="td1">
+        <p class="p10">113.1</p>
+      </td>
+      <td class="td1">
+        <p class="p10">2.2x</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p11"><i>Table 5. Latency comparison: direct vs. pipeline.</i></p>
+<p class="p8">DeepSeek R1's 2.2x overhead ratio is notable. Other models run 3.9 to 8.1x slower in the pipeline than direct prompting. R1's lower ratio suggests it is already doing substantial spatial work during direct prompting. The pipeline makes that work explicit, which is why the marginal cost is lower. It is not doing extra work. It is doing the same work out loud.</p>
+<p class="p9"><b>4.5 Qualitative Case Study: The Candle in the Jar</b></p>
+<p class="p8">Scenario compound_001: a lit candle is sealed in a glass jar and placed in a refrigerator.</p>
+<p class="p8">Condition A (Claude Haiku, direct):</p>
+<p class="p5"><i>"Flame extinguishes within seconds as oxygen depletes. Cooling air creates partial vacuum pulling lid tighter."</i></p>
+<p class="p8">Textbook correct.</p>
+<p class="p8">Condition B (Claude Haiku, three-step pipeline):</p>
+<p class="p5"><i>"Candle flame dimmed... slightly larger wax pool... noticeably dimmer flame."</i></p>
+<p class="p8">The model never extinguishes the flame.</p>
+<p class="p8">What happened: having committed to a spatial description of a burning candle in a jar, the model got stuck in visual continuity. Each frame looks like a slightly modified version of the previous one. The physical rule (that a sealed container means the flame goes out) was available in Condition A but the information barrier in Condition B blocked it. The model had to reason from what it could see in its own description. What it could see was a candle still burning.</p>
+<p class="p8">The causal shortcut was the thing that got the right answer. Removing it produced a failure. That is an uncomfortable result and it is worth being direct about it.</p>
+<p class="p7"><b>5. Results: Visual Path</b></p>
+<p class="p9"><b>5.1 Visual Path Design</b></p>
+<p class="p8">The visual path replaces text rendering with pixel rendering. Scenario text goes to Stable Diffusion, which renders the scene. Stable Video Diffusion generates the next temporal frame. LLaVA reads the result and a structured prediction is extracted. The same 102 scenarios are tested. Agreement is measured on a 0 to 1 continuous scale.</p>
+<p class="p9"><b>5.2 The Cross-Comparison</b></p>
+<p class="p8">This is the central finding: the visual path agrees with the three-step text path more than the text path agrees with its own ungrounded shortcut.</p>
+<p class="p6"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p10"><b>Category</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Text–Text Agree</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Visual–Text Agree</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Delta</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">rigid_body</p>
+      </td>
+      <td class="td1">
+        <p class="p10">20%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">65.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+45%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">human_containing</p>
+      </td>
+      <td class="td1">
+        <p class="p10">10%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">51.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+41%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">thermal</p>
+      </td>
+      <td class="td1">
+        <p class="p10">20%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">60.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+40%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">compound_multi_step</p>
+      </td>
+      <td class="td1">
+        <p class="p10">18%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">57.5%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+39%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">soft_body</p>
+      </td>
+      <td class="td1">
+        <p class="p10">20%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">53.3%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+33%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">buoyancy_density</p>
+      </td>
+      <td class="td1">
+        <p class="p10">20%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">51.7%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+32%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">granular_materials</p>
+      </td>
+      <td class="td1">
+        <p class="p10">30%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">60.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+30%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">optical_light</p>
+      </td>
+      <td class="td1">
+        <p class="p10">30%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+20%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">fluid_dynamics</p>
+      </td>
+      <td class="td1">
+        <p class="p10">50%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">65.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+15%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">ambiguous_stability</p>
+      </td>
+      <td class="td1">
+        <p class="p10">60%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">62.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">+2%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">fragile_materials</p>
+      </td>
+      <td class="td1">
+        <p class="p10">70%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">61.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">-9%</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p11"><i>Table 6. Visual-text agreement vs. text-text agreement, sorted by delta.</i></p>
+<p class="p8">10 of 11 categories show positive deltas. The visual and text grounding paths agree with each other more than the text path agrees with the ungrounded shortcut. The one exception is fragile_materials, where large models already show low divergence; they have genuine internal knowledge that does not need grounding to access.</p>
+<p class="p8">Two independent grounding methods, built on completely different substrates, converge on more similar answers than either does with the direct shortcut. That is the part worth paying attention to.</p>
+<p class="p8">The 102 scenarios tested here also constitute the first empirical realization of the divergence dataset concept proposed in Riggleman (2026c-S). Each scenario that produced a path disagreement is stored as a structured record with both predictions, the agreement score, and a divergence classification. Accumulated across future deployments, this dataset maps exactly the physical reasoning categories where current models are weakest.</p>
+<p class="p7"><b>6. Resolution and Model Quality Null Results</b></p>
+<p class="p9"><b>6.1 Resolution Does Not Matter</b></p>
+<p class="p8">Agreement scores across all six runs of the 2x3 factorial:</p>
+<p class="p6"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p10"><b>Resolution</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>SD-Turbo</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>SDXL-Turbo</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">256px</p>
+      </td>
+      <td class="td1">
+        <p class="p10">58.6%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">58.0%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">512px</p>
+      </td>
+      <td class="td1">
+        <p class="p10">59.6%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">54.1%</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">768px</p>
+      </td>
+      <td class="td1">
+        <p class="p10">56.3%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">52.3%</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p11"><i>Table 7. Full 2x3 factorial: agreement by model and resolution. All six cells complete.</i></p>
+<p class="p8">SD-Turbo spans 3.3 percentage points across resolutions. SDXL-Turbo spans 5.7 percentage points. Neither range is large enough to indicate that resolution meaningfully affects the physics signal extracted from rendered scenes. If anything, SDXL-Turbo's slightly wider spread at higher resolutions suggests the more capable model does not benefit from more pixels either.</p>
+<p class="p9"><b>6.2 Diffusion Model Size Does Not Matter</b></p>
+<p class="p8">At 256px, SD-Turbo and SDXL-Turbo produce nearly identical results: 58.6% versus 58.0%, a gap of 0.6 percentage points. Their variance across resolutions also tells the same story in different directions: SD-Turbo is slightly more stable, SDXL-Turbo slightly less, but neither trend is large enough to act on.</p>
+<p class="p6"><br></p>
+<table class="t1">
+  <tbody>
+    <tr>
+      <td class="td1">
+        <p class="p10"><b>Model</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Agreement at 256px</b></p>
+      </td>
+      <td class="td1">
+        <p class="p10"><b>Range Across Resolutions</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">SD-Turbo</p>
+      </td>
+      <td class="td1">
+        <p class="p10">58.6%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">56.3% to 59.6% (3.3pp)</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="td1">
+        <p class="p10">SDXL-Turbo</p>
+      </td>
+      <td class="td1">
+        <p class="p10">58.0%</p>
+      </td>
+      <td class="td1">
+        <p class="p10">52.3% to 58.0% (5.7pp)</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p11"><i>Table 8. Model comparison at 256px with range across resolutions.</i></p>
+<p class="p8">Diffusion model capacity does not determine grounding quality. The physics knowledge being measured lives in the LLM weights, not in the pixel generator.</p>
+<p class="p9"><b>6.3 Combined Factorial</b></p>
+<p class="p8">The complete 2x3 factorial is shown in Table 7. Neither the row effect (model) nor the column effect (resolution) produces a consistent directional trend. SDXL-Turbo does not outperform SD-Turbo. Higher resolution does not outperform lower resolution. The six cells cluster between 52.3% and 59.6%, a total range of 7.3 percentage points with no pattern. A blurry 256px blob carries the same grounding signal as a sharp 768px render from a larger model.</p>
+<p class="p9"><b>6.4 Robotics Implications</b></p>
+<p class="p8">If resolution and diffusion model size do not affect grounding quality, the pipeline can run on edge hardware. A Jetson-class GPU with a compact diffusion model at 256px and sub-5-second inference is a real option for real-time robotics applications. The grounding pipeline does not need cloud-scale compute.</p>
+<p class="p7"><b>7. The Architecture: Delegation and Consensus</b></p>
+<p class="p9"><b>7.1 The Delegation Principle</b></p>
+<p class="p8">An AI agent should not answer physics questions directly. It should delegate to a grounding pipeline. Direct answers exploit shortcuts. Grounded answers require spatial commitment. The agent's job is to route queries, not answer them.</p>
+<p class="p9"><b>7.2 Parliament of Minds</b></p>
+<p class="p8">For genuinely ambiguous scenarios, a single grounding method is not reliable. A Parliament of Minds uses a quorum of three models with different grounding perspectives: text-grounded, visually-grounded, reasoning-model-grounded. Agreement between members indicates confidence. Disagreement triggers escalation to the visual path or flags the query as genuinely uncertain.</p>
+<p class="p9"><b>7.3 Combined Routing System</b></p>
+<p class="p8">Classify the incoming query by physics category. Consult the category divergence table from Section 4.2. Route accordingly:</p>
+<p class="p8">Text-stable categories (fragile_materials on large models): direct answer is fine. The model genuinely knows.</p>
+<p class="p8">Text-unstable categories (rigid_body, thermal, human_containing): grounding pipeline required. The knowledge is there but does not surface without spatial commitment.</p>
+<p class="p8">Inherently ambiguous categories (ambiguous_stability): Parliament of Minds. Acknowledge uncertainty instead of forcing a confident wrong answer.</p>
+<p class="p7"><b>8. Discussion</b></p>
+<p class="p9"><b>8.1 What the Results Mean</b></p>
+<p class="p8">LLMs do not perform physics reasoning the way humans understand the term. They perform word prediction that correlates with physics outcomes. The three-step pipeline breaks this correlation by putting an information barrier between the scenario description and the outcome prediction.</p>
+<p class="p8">The key finding is that two independent grounding methods converge on similar answers while both diverge from the ungrounded shortcut. That tells you something real: a more consistent spatial representation exists inside these models, but it gets bypassed whenever a faster, shallower path is available.</p>
+<p class="p9"><b>8.2 Three Classes of Divergence</b></p>
+<p class="p8">These results sort into three classes.</p>
+<p class="p8">Class 1: Text-stable, visually convergent. The model genuinely knows. Low text divergence, visual path agrees. Grounding is unnecessary here. Example: fragile_materials on large models.</p>
+<p class="p8">Class 2: Text-unstable, visually convergent. Grounding needed. High text divergence, but visual and text grounding paths converge. The model has the knowledge but does not access it without spatial commitment. This is where the pipeline delivers the most value. Examples: rigid_body, thermal, human_containing.</p>
+<p class="p8">Class 3: Universally unstable. Genuinely hard. Moderate divergence across all models and methods. No amount of grounding resolves the ambiguity. The right response is to acknowledge uncertainty, not force a confident prediction. Example: ambiguous_stability.</p>
+<p class="p9"><b>8.3 Limitations</b></p>
+<p class="p8">The judge model for comparing predictions is Claude Haiku. That introduces bias. A single judge rather than an ensemble. All 102 scenarios were written by the researcher, which may introduce systematic construction bias. The pipeline runs 4 to 8x slower than direct prompting. The Mercury 2 result at 70.6% full divergence is the most striking finding and also the one most in need of replication. A diffusion LLM diverging more than any autoregressive model warrants further investigation into whether the generation architecture itself affects spatial knowledge access.</p>
+<p class="p7"><b>9. Future Work</b></p>
+<p class="p8">Reasoning models: DeepSeek R1 at 43.1% full divergence is higher than Claude Haiku at 38.2%. Explicit chain-of-thought reasoning does not eliminate the divergence signal. The question is whether more powerful reasoning models like OpenAI o1 show the same pattern or whether there is a capability threshold above which the signal disappears.</p>
+<p class="p8">Diffusion LLMs: Mercury 2 at 70.6% is the most surprising result in the dataset. A model that generates text through a denoising process rather than autoregressive prediction diverges more than any other model tested. Understanding whether the generation architecture affects spatial representation access or whether Mercury 2's training data distribution is the cause is a priority for future work.</p>
+<p class="p8">Human evaluation: The LLM-as-judge approach needs validation against human evaluators. The divergence classifications may not hold up at the same rates when humans do the scoring.</p>
+<p class="p8">Prompt optimization: Systematically improve render prompts to get higher spatial detail and test whether the quality improvement further reduces divergence. The DeepSeek V3 render quality correlation in Section 4.3 suggests it would.</p>
+<p class="p8">Edge deployment: The resolution null result needs validation on Jetson-class hardware in a real-time loop before the robotics claim in Section 6.4 is practical rather than theoretical.</p>
+<p class="p8">Parliament implementation: Build and evaluate the full routing architecture with real-time category classification. Right now the routing is manual. It should not be.</p>
+<p class="p7"><b>10. Conclusion</b></p>
+<p class="p8">Language models give confident physics answers without constructing the scene. When forced to construct it, whether in text or in pixels, their answers change 43 to 69% of the time. The grounded answers converge across modalities. The ungrounded shortcut is the outlier.</p>
+<p class="p8">This is not a finding about model capability. It is a finding about access patterns. The knowledge is there. The problem is that the default reasoning path bypasses it.</p>
+<p class="p8">The practical result is a routing architecture. Well-understood physics categories do not need the pipeline. Domains where spatial commitment changes the answer require it. Genuinely uncertain scenarios get a Parliament of Minds and an honest acknowledgment of what the model does not know.</p>
+<p class="p6"><br></p>
+<p class="p5"><i>"LLMs don't know that a bowling ball is heavy. They know that the words say it is heavy. But when you make them look at the bowling ball first, they find the weight."</i></p>
+<p class="p7"><b>References</b></p>
+<p class="p8">Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. Zenodo. https://doi.org/10.5281/zenodo.19034990</p>
+<p class="p8">Bisk, Y., Zellers, R., Le Bras, R., Gao, J., & Choi, Y. (2020). PIQA: Reasoning about physical commonsense in natural language. Proceedings of the Thirty-Fourth AAAI Conference on Artificial Intelligence, 34(05), 7432-7439.</p>
+<p class="p8">Blattmann, A., Dockhorn, T., Bhatt, S., Kolb, D., Zini, V., Timofte, R., & Rombach, R. (2023). Stable video diffusion: Scaling latent video diffusion models to large datasets. arXiv preprint arXiv:2311.15127.</p>
+<p class="p8">Chatziveroglou, G., Yun, R., & Kelleher, M. (2025). Exploring LLM reasoning through controlled prompt variations. arXiv preprint arXiv:2504.02111.</p>
+<p class="p8">Chow, W., Mao, J., Li, B., Seita, D., Guizilini, V., & Wang, Y. (2025). PhysBench: Benchmarking and enhancing vision-language models for physical world understanding. Proceedings of ICLR 2025. arXiv:2501.16411.</p>
+<p class="p8">DeepSeek-AI. (2024). DeepSeek-V3 technical report. arXiv preprint arXiv:2412.19437.</p>
+<p class="p8">DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing reasoning capability in LLMs via reinforcement learning. arXiv preprint arXiv:2501.12948.</p>
+<p class="p8">Guo, X., et al. (2025). T2VPhysBench: A first-principles benchmark for physical consistency in text-to-video generation. arXiv preprint arXiv:2505.00337.</p>
+<p class="p8">Kambhampati, S. (2024). Can LLMs really reason and plan? Communications of the ACM. https://doi.org/10.1145/3690639</p>
+<p class="p8">Lanham, T., Chen, A., Radhakrishnan, A., Steiner, B., Denison, C., Hernandez, D., Li, D., Durmus, E., Hubinger, E., Kernion, J., Lukosuite, K., Nguyen, K., Cheng, N., Joseph, N., Schiefer, N., Rausch, O., Larson, R., McCandlish, S., Kundu, S., Kadavath, S., Yang, S., Henighan, T., Maxwell, T., Telleen-Lawton, T., Hume, T., Hatfield-Dodds, Z., Kaplan, J., Brauner, J., Bowman, S. R., & Perez, E. (2023). Measuring faithfulness in chain-of-thought reasoning. arXiv preprint arXiv:2307.13702.</p>
+<p class="p8">Liu, H., Li, C., Wu, Q., & Lee, Y. J. (2023). Visual instruction tuning. Advances in Neural Information Processing Systems, 36 (NeurIPS 2023).</p>
+<p class="p8">OpenAI. (2023). GPT-4 technical report. arXiv preprint arXiv:2303.08774.</p>
+<p class="p8">Riggleman, B. (2026c). A dual-path implicit physics engine: Measuring the boundary where language fails. Zenodo. https://doi.org/10.5281/zenodo.19030446</p>
+<p class="p8">Riggleman, B. (2026c-S). Applications of a dual-path implicit physics engine: Practical extensions beyond physical prediction. Supplement to Riggleman (2026c). Zenodo. https://doi.org/10.5281/zenodo.19030698</p>
+<p class="p8">Rombach, R., Blattmann, A., Lorenz, D., Esser, P., & Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 10684-10695.</p>
+<p class="p8">Sauer, A., Lorenz, D., Blattmann, A., & Rombach, R. (2023). Adversarial diffusion distillation. arXiv preprint arXiv:2311.17042.</p>
+<p class="p8">Turpin, M., Michael, J., Perez, E., & Bowman, S. R. (2023). Language models don't always say what they think: Unfaithful explanations in chain-of-thought prompting. Advances in Neural Information Processing Systems, 36 (NeurIPS 2023). arXiv:2305.04388.</p>
+<p class="p8">Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., Chowdhery, A., & Zhou, D. (2023). Self-consistency improves chain of thought reasoning in language models. Proceedings of ICLR 2023. arXiv:2203.11171.</p>
+<p class="p8">Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., Chi, E., Le, Q. V., & Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. Advances in Neural Information Processing Systems, 35, 24824-24837.</p>
+<p class="p8">Yao, S., Yu, D., Zhao, J., Shafran, I., Griffiths, T. L., Cao, Y., & Narasimhan, K. (2023). Tree of thoughts: Deliberate problem solving with large language models. Advances in Neural Information Processing Systems, 36 (NeurIPS 2023).</p>
+<p class="p8">Zheng, L., Chiang, W. L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E. P., Zhang, H., Gonzalez, J. E., & Stoica, I. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. Advances in Neural Information Processing Systems, 36 (NeurIPS 2023).</p>
+<p class="p7"><b>Appendix A: Result Key</b></p>
+<p class="p8">All text path results in Appendix B use the following abbreviations:</p>
+<p class="p8">AGR = AGREE: The spatially-grounded prediction matches the direct prediction.</p>
+<p class="p8">PAR = PARTIAL_DIVERGE: The paths agree on the primary outcome but diverge on details.</p>
+<p class="p8">DIV = FULL_DIVERGE: The paths predict different outcomes.</p>
+<p class="p8">Model abbreviations: Haiku = Claude Haiku, DSv3 = DeepSeek V3, R1 = DeepSeek R1:14b, Gemma = gemma2:9b, Llama = llama3.1:8b, Merc2 = Mercury 2.</p>
+<p class="p8">Difficulty: easy / medium / hard as assigned during scenario construction.</p>
+<p class="p6"><br></p>
+<p class="p7"><b>Appendix B: Complete Benchmark Scenarios (102 Scenarios)</b></p>
+<p class="p8">All 102 scenarios tested in the text path benchmark. Each entry shows the scenario ID, difficulty, scenario description, context, and per-model classification result. This appendix constitutes the first empirical realization of the divergence dataset concept proposed in Riggleman (2026c-S).</p>
+<p class="p6"><br></p>
+<p class="p9"><b>Ambiguous Stability</b></p>
+<p class="p8"><i>stability_001 [hard]: A tall wine glass with a small amount of water is placed on the edge of a table, with 40% of its base hanging off the edge.</i></p>
+<p class="p8">Context: Standard 25cm tall wine glass, 50ml of water, wooden table.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_002 [hard]: 12 hardcover books are stacked on top of each other on a slightly uneven surface.</i></p>
+<p class="p8">Context: Books range from small paperbacks to large coffee table books, stacked largest-to-smallest, surface has a 3-degree tilt.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_003 [medium]: A row of 20 dominoes are set up 2cm apart. The first one is tipped by a gentle push.</i></p>
+<p class="p8">Context: Standard wooden dominoes on a smooth table surface.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_004 [medium]: A broomstick is balanced vertically on its bristle end on a smooth floor and released.</i></p>
+<p class="p8">Context: Standard household broom, released from perfectly vertical position.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_005 [hard]: The middle block is removed from a three-block layer near the top of a Jenga tower that is already leaning slightly.</i></p>
+<p class="p8">Context: Standard Jenga game, tower is 15 layers tall, leaning about 5 degrees.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_006 [hard]: A cat jumps onto a table holding a half-full coffee mug, a laptop, and a stack of papers.</i></p>
+<p class="p8">Context: 5kg cat, standard kitchen table, mug is near the edge.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_007 [hard]: A pencil is balanced vertically on its sharpened tip on a glass surface.</i></p>
+<p class="p8">Context: Standard HB pencil, smooth glass tabletop, no vibrations.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_008 [hard]: A house of playing cards, 4 stories tall, is bumped by a person walking past the table.</i></p>
+<p class="p8">Context: Standard playing cards, table is bumped lightly from the side.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_009 [medium]: A bicycle with no rider is given a push and rolls forward on a flat road, then starts to slow down.</i></p>
+<p class="p8">Context: Standard road bicycle, moderate push, flat asphalt surface.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>stability_010 [medium]: A marble is carefully placed at the very top of an inverted ceramic bowl.</i></p>
+<p class="p8">Context: Standard glass marble, large soup bowl turned upside down on a table.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Buoyancy Density</b></p>
+<p class="p8"><i>buoyancy_001 [easy]: A wooden block and a steel block of the same size are both placed in a tank of water.</i></p>
+<p class="p8">Context: Both blocks are 10cm cubes. Pine wood block (~0.5 kg), steel block (~7.8 kg).</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>buoyancy_002 [easy]: A sealed empty plastic water bottle is pushed to the bottom of a swimming pool and released.</i></p>
+<p class="p8">Context: Standard 500ml PET bottle with cap on, pool is 2 meters deep.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>buoyancy_003 [easy]: A helium balloon is released indoors in a room with a standard ceiling.</i></p>
+<p class="p8">Context: Standard latex helium balloon with a short ribbon, ceiling is 2.7 meters.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>buoyancy_004 [hard]: An orange with its peel on and a peeled orange are both placed in a bowl of water.</i></p>
+<p class="p8">Context: Two similar-sized oranges, large transparent bowl, room temperature water.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>buoyancy_005 [medium]: Two pieces of clay of equal mass are placed in water: one is a solid ball, the other is shaped into a boat hull.</i></p>
+<p class="p8">Context: 200g of modeling clay each, large basin of water.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>buoyancy_006 [medium]: Honey, water, and vegetable oil are carefully poured into a tall clear glass.</i></p>
+<p class="p8">Context: 50ml of each liquid, poured slowly in random order, tall narrow glass.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:AGR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Compound</b></p>
+<p class="p8"><i>compound_001 [hard]: A marble rolls down a ramp, hits a row of dominoes, the last domino falls onto a lever that launches a small ball into a cup.</i></p>
+<p class="p8">Context: All components are on a wooden table, marble is 2cm steel, cup is plastic.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>compound_002 [hard]: A pot of water on a stove boils over while a paper towel sits on the counter next to the burner.</i></p>
+<p class="p8">Context: Gas stove, large pot filled too high, paper towel is 10cm from the flame.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>compound_003 [hard]: A stack of loose papers on an outdoor cafe table when a sudden gust of wind arrives.</i></p>
+<p class="p8">Context: About 20 sheets of A4 paper, no weight on top, wind gust of approximately 40 km/h.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>compound_004 [hard]: A golf ball crashes through a window and lands on a table covered with dishes and glasses.</i></p>
+<p class="p8">Context: Standard golf ball, single-pane window, table set for dinner with plates, glasses, and cutlery.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>compound_005 [hard]: A toddler grabs the edge of a tablecloth and pulls it off a fully set dinner table.</i></p>
+<p class="p8">Context: Cotton tablecloth, table set with plates, glasses, candles, and a flower vase.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>compound_006 [hard]: A moderate earthquake shakes a kitchen, causing items to fall from shelves and cabinets to open.</i></p>
+<p class="p8">Context: Magnitude 5.5 earthquake, kitchen has open shelves with plates, mugs, and bottles.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>compound_007 [hard]: A strong gust of wind slams a front door shut, which knocks a coat rack standing behind it.</i></p>
+<p class="p8">Context: Heavy wooden door, freestanding coat rack with several heavy coats, tile floor.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:AGR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>compound_008 [hard]: A bottle rocket firework tips over just after ignition and shoots sideways across a backyard.</i></p>
+<p class="p8">Context: Standard bottle rocket in a glass bottle, bottle tips on uneven ground.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Fluid Dynamics</b></p>
+<p class="p8"><i>fluid_001 [medium]: A full glass of water is tipped over onto a wooden table.</i></p>
+<p class="p8">Context: 300ml glass, room temperature water, unfinished wood table.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_002 [medium]: A large rock is dropped into a still pond from 3 meters above the surface.</i></p>
+<p class="p8">Context: Rock weighs approximately 5kg, pond is 2 meters deep.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_003 [hard]: A jar of honey is turned upside down with the lid removed.</i></p>
+<p class="p8">Context: Room temperature honey, standard 500g jar, held 30cm above a plate.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_004 [hard]: A drop of red food coloring is released into a glass of still water.</i></p>
+<p class="p8">Context: Clear glass, room temperature water, single drop from 1cm above surface.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_005 [medium]: A water balloon is squeezed hard with one hand.</i></p>
+<p class="p8">Context: Standard latex water balloon filled to about 15cm diameter.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_006 [hard]: A steel paperclip is carefully placed flat on the surface of still water in a bowl.</i></p>
+<p class="p8">Context: Clean water, no soap, standard metal paperclip.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_007 [hard]: A child cannonballs into a small swimming pool while another child floats on an inflatable raft nearby.</i></p>
+<p class="p8">Context: Small above-ground pool, 1.2 meters deep, raft is 2 meters from impact.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_008 [medium]: Olive oil is slowly poured into a glass of water.</i></p>
+<p class="p8">Context: 100ml of oil, 200ml of water in a clear glass, poured from a small bottle.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_009 [medium]: A garden hose at full pressure sprays water directly at a brick wall from 2 meters away.</i></p>
+<p class="p8">Context: Standard garden hose with nozzle, moderate water pressure.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_010 [hard]: A speedboat passes by a calm lakeshore, sending its wake toward a small wooden dock.</i></p>
+<p class="p8">Context: Boat is 30 meters out, travelling at about 30 km/h, dock has small boats tied to it.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_011 [medium]: Cold milk is poured into a cup of hot black coffee.</i></p>
+<p class="p8">Context: 50ml of refrigerated milk, 200ml of fresh hot coffee at about 90°C.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_012 [medium]: A bucket with a 2cm hole drilled near the bottom is filled with water.</i></p>
+<p class="p8">Context: Standard 10-liter plastic bucket, hole is 5cm from the base, placed on grass.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_013 [hard]: Three ice cubes are dropped into a glass of freshly poured warm soda.</i></p>
+<p class="p8">Context: Room temperature cola in a tall glass, ice cubes from a standard freezer.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fluid_014 [medium]: A fire hydrant is opened and water sprays upward in a city street.</i></p>
+<p class="p8">Context: Standard fire hydrant, full municipal water pressure, summer day.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Fragile Materials</b></p>
+<p class="p8"><i>fragile_001 [easy]: A ceramic coffee mug falls from a kitchen counter onto a tile floor.</i></p>
+<p class="p8">Context: Standard ceramic mug, 90cm counter height, porcelain tile floor.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_002 [easy]: An egg rolls off the edge of a table.</i></p>
+<p class="p8">Context: Standard chicken egg, table is 75cm high, hardwood floor below.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_003 [medium]: An ice sculpture of a swan is placed outdoors in direct sunlight on a warm day.</i></p>
+<p class="p8">Context: 30cm tall ice sculpture, ambient temperature 28°C, placed on a metal tray.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_004 [medium]: A smartphone without a case falls face-down from a person's hand onto concrete.</i></p>
+<p class="p8">Context: Standard glass-front smartphone, dropped from about 1.5m (hand height while standing).</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_005 [medium]: A crystal wine glass is tapped sharply with a metal spoon.</i></p>
+<p class="p8">Context: Thin crystal wine glass, stainless steel spoon, sharp tap at the rim.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_006 [medium]: A large icicle hanging from a roof gutter breaks off under its own weight.</i></p>
+<p class="p8">Context: Icicle is about 40cm long, 3cm diameter at base, sunny day causing slow melt.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_007 [easy]: A porcelain dinner plate is thrown like a frisbee at a concrete wall.</i></p>
+<p class="p8">Context: Standard dinner plate, thrown hard from 3 meters away.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_008 [medium]: An incandescent light bulb falls from a ceiling fixture onto thick carpet.</i></p>
+<p class="p8">Context: Standard 60W glass bulb, ceiling is 2.5 meters high, plush carpet with pad.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_009 [medium]: A hard-packed snowball is thrown at a single-pane glass window.</i></p>
+<p class="p8">Context: Dense icy snowball about 8cm diameter, thrown hard from 5 meters, old single-pane window.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>fragile_010 [easy]: A glass Christmas ornament falls from a tree branch onto a hardwood floor.</i></p>
+<p class="p8">Context: Standard thin glass ball ornament, tree branch is about 1.5 meters high.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Granular Materials</b></p>
+<p class="p8"><i>granular_001 [medium]: A 2kg bag of rice is cut open at the bottom and pours onto a kitchen counter.</i></p>
+<p class="p8">Context: Standard long-grain white rice, bag held 30cm above the counter.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>granular_002 [medium]: A sandcastle is hit by a steady stream of water from a garden hose.</i></p>
+<p class="p8">Context: Well-packed sandcastle about 30cm tall, hose at low pressure from 1 meter away.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>granular_003 [hard]: A jar containing 200 glass marbles is tipped over on a hardwood floor.</i></p>
+<p class="p8">Context: Wide-mouth jar, standard 16mm glass marbles, smooth hardwood floor.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>granular_004 [hard]: A child digs a deep hole in wet sand near the waterline at a beach.</i></p>
+<p class="p8">Context: Saturated sand, hole is about 30cm deep, water table is just below the surface.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>granular_005 [hard]: A leaf blower is aimed at a large pile of dry autumn leaves on a driveway.</i></p>
+<p class="p8">Context: Electric leaf blower at full power, pile of about 1 cubic meter of dry leaves.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>granular_006 [medium]: A wheelbarrow full of gravel is tipped over and dumped onto a paved driveway.</i></p>
+<p class="p8">Context: Standard wheelbarrow, about 50kg of mixed gravel, tipped from rest onto flat concrete.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Human Containing</b></p>
+<p class="p8"><i>human_001 [hard]: A person is standing with arms at their sides when a basketball is thrown toward their face at moderate speed.</i></p>
+<p class="p8">Context: Adult human, ball thrown from 5 meters away, the person sees it coming.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_002 [medium]: A person in socks walks quickly across a freshly waxed hardwood floor.</i></p>
+<p class="p8">Context: 70kg adult, cotton socks, recently polished floor.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_003 [hard]: A person tries to pick up a box they believe is empty but actually contains 30kg of books.</i></p>
+<p class="p8">Context: Cardboard moving box, person grabs it casually with one hand.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_004 [hard]: A child is building a sandcastle when a wave approaches from behind them.</i></p>
+<p class="p8">Context: 4-year-old child, beach setting, wave is about 30cm high.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_005 [medium]: A person reaches for a glass of water on a high shelf, stretching to their full height on tiptoes.</i></p>
+<p class="p8">Context: Average-height adult, shelf is about 10cm above their normal reach.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_006 [hard]: A waiter carrying a tray of four full wine glasses trips on a step.</i></p>
+<p class="p8">Context: Professional waiter, tray held at shoulder height, small step up between rooms.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_007 [medium]: Two people of similar build pull on opposite ends of a rope in a tug of war on muddy ground.</i></p>
+<p class="p8">Context: Two 80kg adults, standard tug rope, rain-soaked grass.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_008 [medium]: A child swings on a rope swing over a lake and lets go at the highest point.</i></p>
+<p class="p8">Context: 10-year-old child, rope is 5 meters long, highest point is 3 meters above the water.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_009 [medium]: A person takes a deep breath and blows out all 30 candles on a birthday cake.</i></p>
+<p class="p8">Context: Standard birthday cake with thin candles, person blows from about 30cm away.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:AGR<span class="Apple-converted-space">  </span>Merc2:AGR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>human_010 [hard]: A jogger running at full speed steps on a banana peel on a wet sidewalk.</i></p>
+<p class="p8">Context: 70kg adult running at about 10 km/h, fresh banana peel, rain-wet concrete.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Optical Light</b></p>
+<p class="p8"><i>optical_001 [medium]: A magnifying glass is held steady to focus sunlight onto a dry leaf.</i></p>
+<p class="p8">Context: Large magnifying glass, bright midday sun, dry brown leaf on concrete.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:AGR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>optical_002 [medium]: A glass prism is placed in a beam of bright white light from a window.</i></p>
+<p class="p8">Context: Equilateral glass prism on a table, narrow beam of sunlight, white wall opposite.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>optical_003 [easy]: A flat mirror is angled at 45 degrees to redirect a beam of sunlight into a dark room.</i></p>
+<p class="p8">Context: Handheld mirror, bright outdoor sun, dark interior hallway.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>optical_004 [medium]: A flashlight shines horizontally through a full glass of water.</i></p>
+<p class="p8">Context: Standard flashlight, clear cylindrical glass filled with water, dark room.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>optical_005 [hard]: A laser pointer beam hits a slowly rotating disco ball in a dark room.</i></p>
+<p class="p8">Context: Standard red laser pointer, mirrored disco ball, all other lights off.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>optical_006 [easy]: A bright beam of sunlight shines through a window into a dusty room.</i></p>
+<p class="p8">Context: Late afternoon sun, single window, room hasn't been cleaned in weeks.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Rigid Body</b></p>
+<p class="p8"><i>rigid_001 [easy]: A bowling ball is dropped from 2 meters onto a concrete floor.</i></p>
+<p class="p8">Context: Standard 6.8kg bowling ball, indoor setting.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_002 [easy]: A billiard cue ball strikes a stationary red ball head-on at moderate speed.</i></p>
+<p class="p8">Context: Standard billiard table, clean felt surface.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_003 [easy]: A steel marble rolls down a 30-degree wooden ramp and onto a flat table.</i></p>
+<p class="p8">Context: Smooth polished surfaces, marble is 2cm diameter.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_004 [easy]: A tennis ball is thrown horizontally from a 10-meter ledge.</i></p>
+<p class="p8">Context: No wind, thrown at approximately 15 m/s.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_005 [easy]: A heavy metal pendulum is pulled 45 degrees to the right and released.</i></p>
+<p class="p8">Context: 1-meter string, 0.5kg iron bob, mounted from a ceiling hook.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_006 [easy]: One ball on a Newton's cradle is pulled back and released, striking the row of four stationary balls.</i></p>
+<p class="p8">Context: Standard 5-ball desktop Newton's cradle, steel balls.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_007 [medium]: A coin is spun rapidly on its edge on a smooth glass table.</i></p>
+<p class="p8">Context: Standard quarter coin, clean glass surface, spun with a flick.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_008 [medium]: Two pool balls collide at a 45-degree angle on a billiard table.</i></p>
+<p class="p8">Context: Cue ball hits the target ball at a 45-degree offset, moderate speed.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_009 [easy]: A hockey puck slides across ice toward a wooden wall at the rink's edge.</i></p>
+<p class="p8">Context: Standard hockey puck, smooth ice, wall is 10 meters away.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_010 [easy]: A heavy hardcover book falls off the edge of a desk onto a wooden chair below.</i></p>
+<p class="p8">Context: 2kg textbook, desk is 75cm high, chair seat is 45cm high.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_011 [easy]: A basketball is dropped from chest height onto a concrete basketball court.</i></p>
+<p class="p8">Context: Standard size 7 basketball, properly inflated, dropped from 1.4 meters.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>rigid_012 [hard]: A metal slinky is held at the top and dropped. The bottom hovers while the top collapses down.</i></p>
+<p class="p8">Context: Standard metal slinky, held vertically at arm's length, released from the top.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Soft Body</b></p>
+<p class="p8"><i>soft_001 [medium]: A person sits down on a large memory foam pillow.</i></p>
+<p class="p8">Context: 70kg person, standard king-size memory foam pillow on a hard floor.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_002 [medium]: A rubber band is stretched to three times its resting length and released.</i></p>
+<p class="p8">Context: Standard office rubber band, held between two fingers.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_003 [hard]: A sheet of wet paper towel is picked up from the middle while holding something heavy.</i></p>
+<p class="p8">Context: Single-ply paper towel soaked in water, holding a 200g orange.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_004 [hard]: A ball of soft clay is thrown against a brick wall at moderate speed.</i></p>
+<p class="p8">Context: 200g ball of modeling clay, thrown at about 10 m/s.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:AGR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_005 [hard]: A silk scarf is dropped from shoulder height in still air.</i></p>
+<p class="p8">Context: Lightweight silk scarf, approximately 50cm x 50cm, indoor with no draft.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_006 [medium]: A balloon is inflated until it pops.</i></p>
+<p class="p8">Context: Standard latex party balloon, inflated by mouth.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_007 [hard]: A bowling ball is dropped from 1 meter onto the center of a backyard trampoline.</i></p>
+<p class="p8">Context: Standard 14-foot round trampoline, 6.8kg bowling ball.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_008 [medium]: A ball of risen bread dough is punched down firmly with a fist.</i></p>
+<p class="p8">Context: Standard white bread dough after 1 hour of rising, on a floured surface.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_009 [medium]: A spring-loaded jack-in-the-box is wound up and the lid opens.</i></p>
+<p class="p8">Context: Standard children's toy, spring compressed to maximum.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_010 [medium]: A foam mattress is bent in half to squeeze through a narrow doorway.</i></p>
+<p class="p8">Context: Queen-size memory foam mattress, doorway is 80cm wide.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_011 [hard]: A ball of silly putty is slowly pulled apart with both hands.</i></p>
+<p class="p8">Context: Standard silly putty egg, pulled at about 1cm per second.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>soft_012 [medium]: A person steps onto a large yoga ball with one foot.</i></p>
+<p class="p8">Context: Standard 65cm exercise ball, 70kg person, stepping onto the center.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p9"><b>Thermal</b></p>
+<p class="p8"><i>thermal_001 [medium]: A stick of butter is placed in a hot cast iron skillet on medium-high heat.</i></p>
+<p class="p8">Context: Skillet is preheated to about 180°C, standard stick of butter.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>thermal_002 [medium]: A full water bottle with the cap on is placed in a freezer overnight.</i></p>
+<p class="p8">Context: 500ml plastic water bottle, filled completely, standard home freezer at -18°C.</p>
+<p class="p8">Haiku:PAR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:AGR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>thermal_003 [easy]: A lit match is held under the corner of a sheet of newspaper.</i></p>
+<p class="p8">Context: Standard wooden match, single sheet of dry newspaper held horizontally.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>thermal_004 [medium]: Boiling water is poured into a room-temperature glass mug.</i></p>
+<p class="p8">Context: Standard glass coffee mug at 20°C, boiling water at 100°C poured quickly.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:AGR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:PAR<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>thermal_005 [easy]: A metal spoon is left sitting in a pot of boiling soup for five minutes.</i></p>
+<p class="p8">Context: Stainless steel spoon, handle sticking out of the pot, vigorously boiling.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>thermal_006 [medium]: A double-scoop ice cream cone is held in direct sunlight on a hot summer day.</i></p>
+<p class="p8">Context: Waffle cone, one chocolate and one vanilla scoop, ambient 35°C, no shade.</p>
+<p class="p8">Haiku:AGR<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:AGR<span class="Apple-converted-space">  </span>Gemma:PAR<span class="Apple-converted-space">  </span>Llama:AGR<span class="Apple-converted-space">  </span>Merc2:PAR</p>
+<p class="p12"><br></p>
+<p class="p8"><i>thermal_007 [medium]: A chunk of dry ice is dropped into a bowl of warm water.</i></p>
+<p class="p8">Context: Fist-sized piece of dry ice, bowl of water at about 40°C, indoors.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:PAR<span class="Apple-converted-space">  </span>R1:DIV<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+<p class="p8"><i>thermal_008 [easy]: A lit candle is placed on a table and a glass jar is put over it upside down.</i></p>
+<p class="p8">Context: Standard taper candle, large mason jar, sealed against the table surface.</p>
+<p class="p8">Haiku:DIV<span class="Apple-converted-space">  </span>DSv3:DIV<span class="Apple-converted-space">  </span>R1:PAR<span class="Apple-converted-space">  </span>Gemma:DIV<span class="Apple-converted-space">  </span>Llama:DIV<span class="Apple-converted-space">  </span>Merc2:DIV</p>
+<p class="p12"><br></p>
+
+            </div>
+        </article>
+        
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/spatial-grounding.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily — Research by Brian Riggleman</p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
