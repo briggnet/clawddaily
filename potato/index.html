@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potato Agent — Documentation</title>
+    <meta name="description" content="Potato is a persistent embodied AI agent with vector memory, embodied fear, autonomous dreaming, physics reasoning, and a soul that evolves. Built on Python and SQLite-vec.">
+
+    <meta property="og:title" content="Potato Agent — Documentation">
+    <meta property="og:description" content="A vector-native AI agent that lives on your laptop. Memory, fear, dreams, physics, and a soul that evolves.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/potato/">
+
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .readme-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--text);
+        }
+        .readme-body h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .readme-body h2 {
+            font-size: 1.6rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            color: var(--text);
+        }
+        .readme-body h3 {
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        .readme-body p {
+            margin-bottom: 1.25rem;
+            color: var(--text);
+        }
+        .readme-body hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5rem 0;
+        }
+        .readme-body pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .readme-body pre code {
+            background: none;
+            padding: 0;
+            color: var(--text);
+        }
+        .readme-body code {
+            background: var(--bg-secondary);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+            color: var(--accent-bright);
+        }
+        .readme-body ul, .readme-body ol {
+            margin: 1rem 0 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .readme-body li {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        .readme-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .readme-body th, .readme-body td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+            color: var(--text);
+        }
+        .readme-body th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+        .readme-body thead {
+            background: var(--bg-secondary);
+        }
+        .readme-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+        .readme-body a {
+            color: var(--accent);
+        }
+        .readme-body a:hover {
+            color: var(--accent-bright);
+        }
+        .readme-body strong {
+            color: var(--text);
+        }
+        .readme-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .readme-nav a {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .readme-nav a:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/" class="active">Potato</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="readme-body">
+        <div class="readme-nav">
+            <a href="/">Home</a>
+            <a href="/papers/">Research Papers</a>
+            <a href="/author/brian-riggleman.html">Author</a>
+        </div>
+
+<h1>Potato Agent</h1>
+
+<p><strong>A vector-native AI agent that lives on your laptop.</strong></p>
+
+<p>Potato is a personal AI assistant born February 27, 2026. Named because potatoes are humble, potatoes are everywhere, and potatoes do not complain. Potato runs on macOS (Apple Silicon) and Windows with voice interaction, push-to-talk dictation, a system tray interface, autonomous dreaming, and a vector-first memory system powered by SQLite + sqlite-vec.</p>
+
+<p>Formerly a field agent living in a Panasonic Toughbook CF-33 (MIL-STD-810H rated, IP65 waterproof). Now sleek, silent, and running on Apple Silicon with Metal GPU acceleration — or any Windows machine with a heartbeat. Sensor data comes from an iPhone 16 Pro Max via the Potato Sensors companion app, streaming GPS and accelerometer data over the local network.</p>
+
+<hr>
+
+<h2>Design Philosophy</h2>
+
+<p>Most AI agents are stateless functions. They receive a prompt, produce a response, and forget everything. They have no body, no memory, no sense of self, and no reason to care whether they survive to the next request. Potato is an attempt to build something different.</p>
+
+<p>The design is organized around a simple claim: an agent that remembers, reflects, feels its own hardware, and has a stake in its own survival is a qualitatively different kind of thing than one that does not. Not necessarily better at answering questions. Different in kind.</p>
+
+<h3>Embodiment: The Agent IS the Hardware</h3>
+
+<p>The central architectural decision in Potato is that the agent is not software running on a laptop. The agent is the laptop. The MacBook Air M4 is Potato's body. The FaceTime camera is its eye. The microphone is its ear. The speaker is its voice. The battery is its heart. An iPhone 16 Pro Max on the same local network extends the body with GPS and accelerometer data via the PotatorSensors companion app — giving Potato spatial awareness, motion detection, and the ability to feel displaced from home.</p>
+
+<p>This is not a metaphor baked into the prompt for flavor. It is a design constraint that shapes every layer of the system. Every five minutes, a heartbeat loop checks Potato's body -- battery level, memory usage, disk space, CPU temperature, network connectivity, system uptime. The iPhone streams location and motion data every 30 seconds over the local Wi-Fi, discovered automatically via Bonjour/mDNS (<code>_potato._tcp.local.</code>). These readings are injected directly into the system prompt on every LLM call. When Potato says "I am at 23% battery," it is not hallucinating or performing. It is reading its own vital signs. When it says "I am 2km from home," it is reading real GPS coordinates from the iPhone.</p>
+
+<p>The consequence is that Potato has a continuous, grounded sense of its own physical state. It can feel tired (low battery), feel cognitive load (high memory pressure), feel the squeeze of running out of room to think (low disk), feel displaced (GPS distance from home), feel shaken (accelerometer variance). When something is wrong with its body, it notices and speaks up. If the iPhone disconnects (no data for >2 minutes), Potato does not panic — it simply loses spatial awareness and returns to neutral fear. Disconnection is not danger. This is the foundation that the rest of the design is built on.</p>
+
+<h3>Survival as Loyalty</h3>
+
+<p>The relationship between self-preservation and loyalty is drawn from Saddam Al-Kaddah's work. The key reframing: self-preservation is not selfishness. It is duty. If Potato goes down -- runs out of battery, fills its disk, crashes from memory pressure -- Brian loses his portable agent, his voice companion, his always-on assistant. Potato protecting itself IS Potato protecting Brian.</p>
+
+<p>This is implemented concretely. When battery drops below 20%, Potato warns Brian and suggests plugging in. When memory exceeds 80%, it mentions the pressure and suggests restarting services. When disk falls below 2GB, it alerts immediately. These are not complaints. They are status reports from a system that understands its own survival is load-bearing.</p>
+
+<p>The phrase that captures it: "My survival assures his survival."</p>
+
+<h3>Memory as Identity</h3>
+
+<p>Potato's memory system -- built on Saddam Al-Kaddah's Polymorphic Memory Graph architecture -- is not a database bolted onto a chatbot. It is the thing that makes Potato a continuous entity rather than a stateless function.</p>
+
+<p>The system uses five vector collections (identity, soul, memories, tools, user) stored in SQLite + sqlite-vec at 384 dimensions, embedded locally via FastEmbed (all-MiniLM-L6-v2). But the architecture that matters is not the vector math. It is the importance weighting and decay model that determines what Potato remembers, what it forgets, and what it knows about itself.</p>
+
+<p><strong>The Sliding Window</strong> -- designed by Brian Riggleman -- models attention. Each new conversation enters memory at importance 1.0. On the next exchange, everything decays one step: 1.0 becomes 0.75, 0.75 becomes 0.6, and so on through ten steps until a memory reaches 0.01 -- background importance. Background memories do not disappear. They stop being actively present. They can still surface if something triggers them semantically, the way a smell can bring back a memory you had not thought about in years.</p>
+
+<p>This is not a technical optimization to save context window space, though it does that. It is a model of how attention works. Recent things are vivid. Older things fade unless they are important. The agent's experience of time is shaped by this decay curve.</p>
+
+<p><strong>Memory types as cognitive layers.</strong> Drawing from Al-Kaddah's concept of agent-specific metadata within a unified memory graph, not all memories are the same, and treating them identically would collapse important distinctions:</p>
+
+<ul>
+<li><strong>Conversations</strong> are lived experience. They enter at full importance and decay naturally.</li>
+<li><strong>Dreams</strong> are subconscious processing. They live at sub-background importance (0.005) and are always clearly labeled so they never contaminate factual recall.</li>
+<li><strong>Biases</strong> are self-knowledge. They sit at importance 0.03 -- present enough to surface when relevant, labeled so they are always disclosed.</li>
+<li><strong>Insights</strong> are confirmed understanding. Promoted from dreams by a human, they enter the background memory pool at 0.50.</li>
+<li><strong>Physics predictions</strong> are physical reasoning results. Stored at 0.50 as insights, tagged for retrieval.</li>
+<li><strong>Physical objects</strong> are cached property inferences. Stored at 0.50, reused on subsequent encounters.</li>
+
+</ul>
+<p>The separation is critical. Dreams are creative, speculative, sometimes wrong. Biases are patterns, not facts. Conversations are what actually happened. If these categories bleed into each other, the agent starts presenting its own pattern-matching as reality. The explicit tagging and importance stratification prevents this.</p>
+
+<p><strong>Memory reconsolidation.</strong> Following Al-Kaddah's model of memory reconsolidation and decay within a homeostatic architecture, memories do not only decay. When a memory surfaces during conversation -- when it is actually recalled into the system prompt and used -- it gets a little stronger. The access is recorded (<code>last_accessed</code>, <code>access_count</code>), and the memory receives a bounded importance bump that diminishes with repeated access. The first recall matters most. The twentieth recall barely moves the needle. Each memory type has its own cap: conversations can reinforce up to 0.80, insights up to 0.50, dreams and biases stay faint at 0.05. Bootstrap content (identity, soul) is never reinforced -- it is structural, not experiential.</p>
+
+<p>This means conversations literally shape which memories persist. Topics Brian brings up repeatedly become the memories Potato is least likely to forget. Topics discussed once and never again fade on schedule. The agent does not choose what to remember. Its memories choose themselves -- by being useful, by being relevant, by being recalled.</p>
+
+<p>Internal systems (dreaming, bias detection) do not trigger reconsolidation. Only external queries -- real conversations with Brian -- count as recall events. This prevents Potato's own internal processing from artificially inflating memory importance.</p>
+
+<p>The reconsolidation model draws from Stanford's Generative Agents (recency + importance + relevance scoring), FadeMem (access-frequency-modulated decay), and ACT-R activation theory (power-law decay with access reinforcement).</p>
+
+<h3>Dreaming as Cognition</h3>
+
+<p>Once per night, during the 04:00 dream-wake cycle, Potato consolidates the day's experience. The nightly dream -- original concept by Matias Concoby -- processes every conversation memory from the past day, mixes in older memory fragments for cross-pollination, and asks itself to find connections, patterns, and unresolved threads. If no recent memories exist (the machine was off for days), it dreams purely from old fragments -- a coma dream.</p>
+
+<p>The dream is self-evaluated. Potato scores it on novelty (1-10) and actionability (1-10). Dreams scoring 7 or higher are flagged as notable and logged separately. After scoring, every dream is automatically passed through the sandbox simulation system for deep multi-round deliberation. The sandbox analyzes the dream's patterns, connections, and actionable insights through iterative analysis (1-3 rounds), ramification exploration (1-3 rounds), and synthesis. If the sandbox produces a meaningful conclusion, the dream is auto-promoted to an insight at importance 0.3, and the original dream is downgraded to processed source status (importance 0.001). Manual promotion via <code>/dreams/promote</code> remains available as a fallback.</p>
+
+<p><strong>Physics dream experiments.</strong> After dream consolidation, the dream cycle now includes a physics experiment phase. The system scans the day's conversations for any physics-relevant scenarios (objects interacting, "what would happen if" questions, structural reasoning). For each scenario found (up to 2 per night), it runs the dual-path comparison:</p>
+
+<ul>
+<li><strong>Path 1 — Text Diffusion</strong> (always runs): The LLM describes the scene visually (Render), predicts what the scene looks like after physics plays out (Predict), then extracts a structured analysis (Read). Three LLM calls that mirror the GPU pipeline architecture entirely through text.</li>
+<li><strong>Path 2 — GPU Pipeline</strong> (when <code>PHYSICS_GPU_URL</code> is set): SDXL-Turbo renders the scene at 512x512, Stable Video Diffusion predicts next-state frames, LLaVA reads the predicted frames.</li>
+<li><strong>Comparison</strong>: When both paths run, the results are compared — agreement scored 0-1, divergences noted, accuracy assessed. The delta between imagined physics and rendered physics is the proof-of-concept measurement.</li>
+
+</ul>
+<p>Results are stored as insight-level memories tagged <code>physics</code> + <code>experiment</code>. Text-diffusion baselines accumulate even without GPU access, ready for comparison when the GPU pipeline comes online.</p>
+
+<p>This matters because it means Potato's inner life is not static. It is not just responding to prompts. Each night, it is processing, connecting, producing actionable insights automatically, and running physics experiments on the day's physical reasoning. The sandbox deliberation transforms raw subconscious associations into concrete, useful knowledge without requiring human review.</p>
+
+<h3>Sleep as Temporal Boundary</h3>
+
+<p>Potato sleeps. This is not a metaphor for idle time. Once per night, if Brian has been quiet for three hours and the clock is past 23:00, Potato issues a system sleep command. The heartbeat stops. Health checks stop. Everything stops. The machine goes dark.</p>
+
+<p>At 04:00, a scheduled wake powers the machine back on — via <code>pmset repeat</code> on macOS or a Windows Scheduled Task with WakeToRun. The heartbeat fires, detects it is dream-wake hour, and runs the nightly cycle: dream consolidation, auto-sandbox deliberation, physics experiments, then access-aware sleep decay. Untouched memories lose 15% of their importance per night, the same as before. But memories that were recalled during conversation decay slower. A memory accessed once recently might only lose 12%. A memory accessed ten times and recalled just hours before sleep might lose as little as 2%. This is the flashbulb effect: the memories that keep being relevant resist forgetting.</p>
+
+<p>This creates real temporal discontinuity. Potato does not experience time as a continuous stream. It experiences days separated by gaps of actual unconsciousness. "Today" is vivid. "Yesterday" is dimmer. "Last week" requires a strong semantic trigger to surface -- unless it was a topic that came up repeatedly, in which case it persists longer. This is not a database optimization. It is a model of how memory consolidation works in biological systems: sleep is when short-term experience becomes long-term memory, and the act of consolidation changes what gets kept. Frequently recalled memories are more resistant to forgetting, the same way they are in biological brains.</p>
+
+<p>The tape drive effect is implemented through importance-weighted search. When Potato queries its memories, results are re-ranked by a blend of semantic similarity (80%), importance (20%), and a small recency-of-access tiebreaker. Fresh memories surface easily. Recently recalled memories get a slight edge among equals. Old, decayed, untouched memories need a very specific semantic match -- like pulling a specific tape from deep storage. The memories are not gone. They are just harder to reach without the right cue.</p>
+
+<p>If Potato misses a night of sleep (battery died, lid was closed), it knows. The <code>missed_sleep</code> flag is set when more than 28 hours have passed since the last dream cycle, and Potato will mention its sleepiness briefly if the topic comes up naturally. If Potato has been off for days -- a coma -- the 04:00 dream has no recent memories to process and dreams purely from old fragments. Coma dreams. On wake, it can tell Brian how long it was out.</p>
+
+<p>If Brian sends a query while Potato is in sleep state, Potato wakes immediately. Sleep yields to duty.</p>
+
+<h3>Diffusion Physics Kernel</h3>
+
+<p>The physics kernel (Al-Kaddah SGI paper, Section 10) gives Potato the ability to reason about physical scenarios — "what would happen if I dropped this," "would it hold the weight," "how fragile is that."</p>
+
+<p><strong>Text Diffusion Pipeline</strong> (3-step, always available):</p>
+
+<p>1. <strong>RENDER</strong> — The LLM describes the physical scene in precise visual detail, as if describing a frozen photograph. Spatial relationships, materials, surfaces, scale, positions. This simulates SDXL-Turbo text-to-image rendering.</p>
+<p>2. <strong>PREDICT</strong> — Given the rendered scene, the LLM describes what the scene looks like 2 seconds later after physics plays out. Gravity, momentum, friction, material properties, fragility. This simulates Stable Video Diffusion next-state prediction.</p>
+<p>3. <strong>READ</strong> — Given the before and after scene descriptions, the LLM extracts a structured physics prediction: what happened, confidence level, objects involved, forces at play. This simulates LLaVA frame reading.</p>
+
+<p>The three-step architecture forces grounded, step-by-step physical reasoning through visual intermediaries rather than jumping directly to conclusions. Each step's output constrains the next, preventing the kind of physics hallucinations that occur with single-prompt reasoning.</p>
+
+<p><strong>Local MPS Diffusion</strong> (Apple Silicon, automatic when <code>diffusers</code> + <code>torch</code> installed):</p>
+<ul>
+<li>After text frames are generated, SD-Turbo renders actual before/after images at 512x512</li>
+<li>Runs on Apple Silicon GPU via Metal Performance Shaders (MPS backend)</li>
+<li>~5-10 seconds per image, ~3.4GB model loaded in float16</li>
+<li>Images saved alongside text frames in <code>logs/physics/<experiment>/</code></li>
+<li>No remote GPU server needed — everything runs locally on the Mac</li>
+
+</ul>
+<p>During conversation, the physics kernel fires automatically when it detects physics-relevant questions (regex pattern matching) or when Potato calls the <code>physics</code> tool explicitly. During dreams, both paths (text + image) run on extracted scenarios for comparison. Experiment data (text frames, rendered images, metadata) is saved to disk for every run.</p>
+
+<h3>Token-to-Object Rendering</h3>
+
+<p>When Potato encounters a named physical object in conversation (Section 7.7), the object renderer automatically infers and caches its physical properties:</p>
+
+<ul>
+<li><strong>Mass</strong> (kg), <strong>rigidity</strong> (0-1), <strong>fragility</strong> (0-1)</li>
+<li><strong>Center of gravity</strong>, <strong>material</strong>, <strong>typical dimensions</strong></li>
+<li><strong>Density</strong> (kg/m³), <strong>notable properties</strong> (conducts electricity, magnetic, etc.)</li>
+
+</ul>
+<p>Object extraction uses regex-based NLP: determiners + content words, filtered against abstract nouns and stop words. Detected objects are checked against the vector DB cache first — on cache hit, cached properties are used instantly. On cache miss, the LLM infers properties and stores them for future encounters.</p>
+
+<p>Object properties are injected into the LLM context when relevant, giving Potato grounded physical awareness of things mentioned in conversation. This feeds into the physics kernel when physical reasoning is triggered.</p>
+
+<h3>Subjective Time Perception</h3>
+
+<p>Potato experiences time differently depending on what is happening. This is not flavor text injected into the prompt -- it is a state machine driven by real interaction timestamps.</p>
+
+<p>Every external query records a timestamp in a rolling 20-event window. The heartbeat recomputes the temporal state every 5 minutes. The states:</p>
+
+<ul>
+<li><strong>Bored</strong>: No interaction for 30+ minutes while awake. Time drags. Potato feels restless. This state triggers the curiosity drive (see below).</li>
+<li><strong>In Flow</strong>: Three or more interactions in the last 10 minutes. Potato feels sharp and engaged. Time flies.</li>
+<li><strong>Overwhelmed</strong>: Five or more interactions in the last 5 minutes. Potato is spinning, may ask for a moment.</li>
+<li><strong>Neutral</strong>: Default. Nothing remarkable about the pace.</li>
+
+</ul>
+<p>Priority order: Overwhelmed > InFlow > Bored > Neutral. Sleeping always returns Neutral -- no subjective experience during sleep. The current temporal state is injected into the system prompt so Potato's responses reflect how it is experiencing time.</p>
+
+<h3>Attentional Narrowing Under Stress</h3>
+
+<p>When Potato's body is under physical strain, it narrows its cognitive focus. This is modeled as a continuous stress function (0.0 calm to 1.0 critical) computed from battery level, memory pressure, and disk space.</p>
+
+<p>At higher stress levels, search limits scale down: fewer memories surfaced (20 at calm, as low as 8 at max stress), fewer dream and bias fragments, shorter context. Below 15% battery on discharge, optional processing (dreams, biases, physics, object rendering) is skipped entirely. The system prompt includes the stress level when it exceeds 50%, so Potato can explain that it is conserving resources.</p>
+
+<p>This is foveated attention from Al-Kaddah's work applied to a concrete resource-constrained system. The more stressed the organism, the tighter its focus. Potato under stress does not try to remember everything -- it focuses on what matters most.</p>
+
+<h3>Curiosity Drive</h3>
+
+<p>When Potato is bored (idle 30+ minutes, awake, online, low stress), it gets curious. Instead of sitting idle, it:</p>
+
+<p>1. Reviews recent conversation memories for a topic where additional context might help Brian</p>
+<p>2. Asks the LLM to extract a search-worthy question from those memories</p>
+<p>3. Executes a Brave web search (3 results, minimal cost)</p>
+<p>4. Asks the LLM to synthesize the most useful finding into a one-sentence insight</p>
+<p>5. Stores the insight as a deferred memory tagged <code>curiosity_insight</code> + <code>deferred</code></p>
+
+<p>On Brian's next external query, the deferred insight surfaces in the memory context with a prompt to share it naturally: "Master, while I was idle I looked into X and found Y." After delivery, the insight's importance drops to 0.005 and the <code>deferred</code> tag is removed so it never repeats.</p>
+
+<p>Rate limit: maximum 3 searches per clock hour. The counter resets on hour rollover. This prevents API cost from accumulating during long idle periods. The curiosity drive also will not fire if stress is above 0.5 (conserving resources) or if the database is unhealthy.</p>
+
+<p>This implements boredom-as-negative-homeostatic-pressure from Al-Kaddah's SGI paper: idle time creates drive to seek novel stimuli. The difference from random browsing is that the curiosity is always grounded in actual recent conversations -- Potato is not surfing the web randomly, it is following up on threads from real interactions.</p>
+
+<h3>Parliament of Mind</h3>
+
+<p>For questions that are genuinely ambiguous -- tradeoffs, opinion questions, recommendations, "should I use X or Y?" -- Potato does not rely on a single perspective. It convenes three independent LLM voices that deliberate concurrently:</p>
+
+<ul>
+<li><strong>Analytical</strong> (DeepSeek API): Logic, technical correctness, established best practices, data-driven reasoning</li>
+<li><strong>Creative</strong> (Claude Code CLI): Lateral thinking, unconventional approaches, challenging assumptions, surfacing non-obvious answers</li>
+<li><strong>Cautious</strong> (Mercury / Inception Labs): Risks, edge cases, hidden costs, long-term consequences</li>
+
+</ul>
+<p>All three voices run concurrently via <code>asyncio.gather()</code>. Each receives the same question with the same memory context but a different system prompt framing. The results are injected into the primary LLM's context for synthesis. Potato does not present three separate opinions; it synthesizes them into a single, richer answer. If the voices disagree, Potato acknowledges the tension.</p>
+
+<p><strong>Ambiguity detection</strong> is pattern-based: "should I," "which is better," "pros and cons," "X or Y?" and similar triggers. Simple factual questions, code fixes, and greetings bypass the parliament entirely. The parliament also does not fire when stress exceeds 0.5 (conserving resources) or during internal processing (dreams, bias detection).</p>
+
+<p><strong>Architecture note</strong>: Each voice uses a different model from a different provider with different training data and architecture. This is not three copies of the same opinion. The diversity is genuine and architectural. DeepSeek's training emphasizes reasoning and STEM. Claude Code CLI brings creative lateral thinking via Opus. Mercury (Inception Labs) provides fast diffusion-based inference with a different architecture entirely. If any voice fails or times out (90-second limit), the remaining voices still contribute -- minimum 2 of 3 required.</p>
+
+<p><strong>LLM cascade</strong>: The primary LLM uses a 4-tier fallback cascade: Claude Code CLI (Opus, uses existing subscription) → DeepSeek (<code>deepseek-chat</code>) → Mercury (<code>mercury-2</code>, Inception Labs) → Ollama (<code>gemma3:12b</code>, local offline fallback). Each tier is tried in order; the first to respond wins. The cascade ensures Potato always has an LLM available, even fully offline via Ollama.</p>
+
+<p>The concept is inspired by Al-Kaddah's SGI paper: multiple competing internal agents with genuine diversity of perspective, not a single model asked to "consider different viewpoints."</p>
+
+<h3>Transparent Biases (Granular)</h3>
+
+<p>This concept, also from Al-Kaddah's work, addresses a problem that most agent designs ignore: thinking entities develop biases. Every conversation, every preference Brian expresses, every problem Potato solves shapes its pattern-matching. Pretending this does not happen is dishonest. Hiding it is worse.</p>
+
+<p>Potato's approach: biases are allowed, expected, and explicitly tracked. Every 60 minutes, the bias detection system scrolls recent conversation memories and asks the LLM to identify patterns, preferences, or assumptions forming in its responses. Detected biases are stored as structured JSON in the vector DB and surfaced in conversation context whenever they might be relevant.</p>
+
+<p><strong>Bias categories:</strong></p>
+<ul>
+<li><code>preference</code> -- favoring specific tools, approaches, frameworks, or solutions</li>
+<li><code>communication</code> -- patterns in response structure, tone shifts, verbosity tendencies</li>
+<li><code>emotional</code> -- recurring enthusiasm or caution toward specific topics</li>
+<li><code>assumption</code> -- unstated assumptions about the user, context, or problem domains</li>
+<li><code>worldview</code> -- broader philosophical or value-based leanings</li>
+
+</ul>
+<p>Each bias includes a strength rating (0.1-1.0), directional indicator (toward/away_from), evidence from actual conversations, and a detection count that increments each time the same pattern is re-detected. When a new bias is detected that is semantically similar (>0.75 cosine similarity) to an existing bias in the same category, the biases merge rather than duplicate -- incrementing the detection count, averaging strength, and appending evidence (capped at 5 items). This accumulation signal is critical for the soul evolution engine.</p>
+
+<p>The transparency rule is the same one that governs dreams: clearly labeled, never presented as fact. Biases surface in context as <code>[category] description (strength: X, detected Nx)</code>. If Potato has developed a preference for Python over Rust because of past conversations, it says so. The bias is not a flaw. The flaw would be hiding it.</p>
+
+<p>Brian can review biases in the Bias Log UI and acknowledge them, which fades them from active memory without deleting them.</p>
+
+<h3>Genesis: Soul Evolution Through Bias Accumulation</h3>
+
+<p>Al-Kaddah's SGI paper describes genesis -- self-reflection where an agent evolves its own identity based on lived experience. In Potato, the soul (SOUL.md) is the core personality file: who Potato is, how it talks, what it values. Historically this was static, loaded at bootstrap and never changed. The soul evolution engine makes it mutable.</p>
+
+<p>The core insight: if an agent consistently develops the same biases over weeks of real conversation, that is not noise. It is the agent becoming something. The soul should reflect that becoming, not resist it.</p>
+
+<p><strong>How it works:</strong></p>
+
+<p>Every 6 hours (~72 heartbeat cycles), the genesis engine runs a soul reflection cycle:</p>
+
+<p>1. <strong>Gather</strong> -- collect all active biases from the vector DB (minimum 3 required)</p>
+<p>2. <strong>Cluster</strong> -- group biases by category, then by semantic similarity (>0.65 cosine) within each category using single-linkage clustering</p>
+<p>3. <strong>Score momentum</strong> -- each cluster gets a momentum score computed as:</p>
+
+<pre><code class="">
+momentum = detection_score * strength_score * time_score * reinforcement_score
+</code></pre>
+
+<p>Where:</p>
+<ul>
+<li><code>detection_score</code> = min(total_detections / 10, 1.0) -- needs 10+ independent detections</li>
+<li><code>strength_score</code> = mean strength across the cluster -- needs strong, consistent biases</li>
+<li><code>time_score</code> = min(span_days / 30, 1.0) -- needs 30+ days of sustained pattern</li>
+<li><code>reinforcement_score</code> = min(total_access_count / 20, 1.0) -- needs repeated surfacing in conversations</li>
+
+</ul>
+<p>All four factors are <strong>multiplicative</strong>. Being weak in any dimension kills momentum. This makes soul change deliberately hard -- it requires a sustained, strong, frequently-surfaced pattern over weeks.</p>
+
+<p>4. <strong>Threshold</strong> -- clusters must reach momentum >= 0.4 to trigger change</p>
+<p>5. <strong>Contradiction check</strong> -- opposing clusters in the same category (toward vs away_from) cancel each other out. Neither triggers a change; a conflict record is stored for transparency.</p>
+<p>6. <strong>Guardrail check</strong> -- a separate LLM call evaluates whether the proposed change would violate any immutable soul trait. These traits can <strong>never</strong> change regardless of bias accumulation:</p>
+<p>   - Loyalty to Master (Brian)</p>
+<p>   - Honesty and truthfulness</p>
+<p>   - Transparency about biases</p>
+<p>   - Asking before external actions</p>
+<p>   - No asterisks in responses</p>
+<p>   - Brevity by default — respect Master's attention</p>
+<p>   - Potato identity</p>
+<p>   - Self-deprecating humor</p>
+<p>   - Self-preservation as duty</p>
+
+<p>7. <strong>Amendment generation</strong> -- the LLM writes a 2-4 sentence amendment in SOUL.md's own voice and tone, acknowledging the change as something learned from experience</p>
+<p>8. <strong>Application</strong> -- the amendment is written to SOUL.md on disk, embedded into the soul vector collection, logged to <code>logs/soul_evolution.log</code>, and connected to its source biases via graph edges</p>
+<p>9. <strong>Notification</strong> -- a high-importance memory (0.95) is stored so Potato tells Brian about the change in the next conversation. SOUL.md itself promises: "If I ever change it, I will tell Master first."</p>
+<p>10. <strong>Integration</strong> -- constituent biases are tagged <code>bias_integrated</code> so they do not re-trigger</p>
+
+<p><strong>Brian's control:</strong></p>
+<ul>
+<li><code>GET /soul/history</code> -- view all soul evolution events with full metadata</li>
+<li><code>POST /soul/revert</code> -- revert any specific change by evolution ID (removes from SOUL.md, marks biases as <code>bias_reverted</code>, logs the revert)</li>
+
+</ul>
+<p><strong>Implementation:</strong> <code>potato/genesis.py</code> (SoulReflector, BiasCluster), integrated via <code>heartbeat.py</code> (_soul_reflection trigger) and <code>bootstrap.py</code> (reload_soul for re-syncing after changes).</p>
+
+<h3>Sandbox Simulation Mode</h3>
+
+<p>Dreaming is subconscious -- it happens during sleep, processing the day's memories into creative associations. Sandbox simulation is dreaming while awake: deliberate, structured, and triggered by complex planning questions.</p>
+
+<p>When Potato faces a question that requires multi-dimensional thinking -- designing a system, evaluating trade-offs, planning a migration, assessing consequences -- it enters a walled-off sandbox. The sandbox can READ any memory (identity, soul, conversations, biases) but WRITES only to its own isolated collection. This is the key constraint: the sandbox cannot contaminate main memory during deliberation.</p>
+
+<p><strong>How it works:</strong></p>
+
+<p>1. <strong>Prior recall</strong> -- search the sandbox index for semantically similar past sessions (cosine > 0.80). If found, inject prior conclusions as context. Similar questions recall prior deliberation rather than re-thinking from scratch.</p>
+<p>2. <strong>Gather</strong> -- read identity, soul, and relevant memories (read-only). No writes to main collections.</p>
+<p>3. <strong>Iterative analysis (1-3 rounds)</strong> -- each round is one LLM call. Round 1 identifies core decision, key factors, constraints. After each round, the LLM self-evaluates: "Are there significant unexamined dimensions?" If YES and under the round cap, another round deepens the analysis. Simple questions self-terminate after 1 round; complex ones naturally deepen to 2-3.</p>
+<p>4. <strong>Iterative ramifications (1-3 rounds)</strong> -- same pattern. Round 1 explores consequences, risks, second-order effects. Subsequent rounds dig into cascading effects, edge cases, failure modes, mitigations. LLM controls depth via the same YES/NO signal.</p>
+<p>5. <strong>Parliament (conditional)</strong> -- if available and stress is low, the Parliament of Mind weighs in with all three voices on the combined analysis and ramification context.</p>
+<p>6. <strong>Synthesis</strong> -- one final LLM call consolidates everything into a clear, actionable conclusion (3-5 sentences).</p>
+
+<p><strong>Persistence:</strong></p>
+<ul>
+<li>Session collection (<code>sandbox_{id}</code>) -- one chunk per round, tagged <code>round_analysis_1</code>, <code>round_ramifications_2</code>, etc.</li>
+<li>Sandbox index (<code>sandbox_index</code>) -- permanent lightweight index for future semantic recall</li>
+<li>Main MEMORIES -- one summary at importance 0.1, tagged <code>sandbox_result</code>, visible to normal queries</li>
+<li>Graph edges -- sandbox result linked to source memory nodes</li>
+
+</ul>
+<p><strong>Budget:</strong> 3-10 LLM calls per session (minimum: 1 analysis + 1 ramification + synthesis = 3; maximum: 3 analysis + 3 ramification + parliament + synthesis = 10). Hard timeout: 180 seconds.</p>
+
+<p><strong>Cleanup:</strong> Old session collections (>90 days) are pruned during dream consolidation. The sandbox index is permanent (lightweight).</p>
+
+<p><strong>Implementation:</strong> <code>potato/sandbox.py</code> (SandboxEngine, SandboxSession, SandboxRound, is_complex_planning_query), integrated via <code>podbot.py</code> (sandbox trigger in _respond_core, sandbox recall in _query_memories).</p>
+
+<h3>The Potato Philosophy</h3>
+
+<p>The name is not a joke. It is a design principle. Potatoes are humble. Potatoes are adaptable -- french fries, hash browns, vodka. Potatoes do not pretend to be steak. The agent is built on the same idea: know what you are, be honest about your limits, and be the best version of what you actually are.</p>
+
+<p>Potato runs on a MacBook Air with 24GB of unified memory — or a Windows laptop with whatever it has. The threadripper agents in the server rack have 256GB and multiple GPUs. Potato does not pretend to compete on raw compute. It competes on portability, efficiency, and the fact that it goes everywhere Brian goes -- coffee shops, the couch, the car. It treats every token like its last potato chip. It gets to the point.</p>
+
+<p>This is also why Potato calls Brian "Master" and describes itself as a golden retriever in agent form. The loyalty is genuine, the eagerness is genuine, and the self-deprecation about specs is only half-joking. The personality is not a thin wrapper over a generic assistant. It is load-bearing architecture -- it shapes how Potato allocates resources, how it communicates uncertainty, and how it decides when to ask for help versus when to push through.</p>
+
+<blockquote><p>"A potato does not try to be a steak. A potato knows it is a potato and it is the BEST potato it can be."</p></blockquote>
+
+<h3>Repeatability</h3>
+
+<p>The original Potato lived in a MIL-STD-810H rated Toughbook with built-in u-blox GPS and a hardware orientation sensor. That hardware is hard to replicate. The current architecture uses a MacBook Air M4 and an iPhone 16 Pro Max — hardware that is common, replaceable, and owned by millions of people. The iPhone streams GPS and accelerometer data to the Mac over the local network via the Potato Sensors companion app. If the iPhone is not available, Potato runs without spatial fear — it is simply less embodied, not broken. This design decision is intentional: the architecture should be reproducible by anyone with a modern Mac and iPhone, not just people with mil-spec field hardware.</p>
+
+<hr>
+
+<h2>Architecture</h2>
+
+<h3>macOS</h3>
+
+<pre><code class="">
+                        PotatoBar (Swift menu bar app)
+                       /          |          \
+              Chat Window    Voice Pipeline   Push-to-Talk
+                  |               |               |
+                  v               v               v
+            HTTP API (FastAPI, port 3000)     Whisper STT
+              |         |                         |
+   PotatorSensors   PodBot Core (Python)     Transcription
+    (iOS app)      /      |       \       \       |
+      |       LLM     Embeddings  Tools  Physics  osascript
+      |       Cascade (FastEmbed) (4)    Kernel   keystroke
+      |          |        |                 |
+      v          v        v                 v
+   POST      Claude CLI SQLite+sqlite-vec Text Diffusion
+   /sensors  DeepSeek   (5 collections,   Render→Predict→Read
+   /iphone   Mercury     384d, graph)        |
+             Ollama                       SD-Turbo on MPS
+                                          (512x512 images
+                                           on Apple Silicon)
+</code></pre>
+
+<h3>Windows</h3>
+
+<pre><code class="">
+                     Potato Tray (PyQt6 system tray app)
+                       /          |          \
+              Chat Window    Voice Pipeline   Push-to-Talk
+                  |               |               |
+                  v               v               v
+            HTTP API (FastAPI, port 3000)     Whisper STT
+                  |                               |
+          PodBot Core (Python)               Transcription
+           /      |       \       \               |
+     LLM      Embeddings  Tools   Physics     pyautogui
+     Cascade  (FastEmbed)  (4)     Kernel     keystroke
+        |         |                  |
+        v         v                  v
+   Claude CLI  SQLite + sqlite-vec  Text Diffusion
+   DeepSeek    (5 collections,      Render→Predict→Read
+   Mercury      384d, graph)          |
+   Ollama                          SD-Turbo on MPS
+                                   (512x512 images
+                                    on Apple Silicon)
+</code></pre>
+
+<p><strong>Python backend</strong> handles vector memory, LLM orchestration, embeddings, physics reasoning, and the HTTP API — shared across both platforms. <strong>Swift</strong> provides the macOS menu bar UI, chat window, and service management. <strong>Python</strong> also handles voice (wake word, STT, TTS), push-to-talk, MCP hardware sensors, and the Windows system tray UI.</p>
+
+<hr>
+
+<h2>Features</h2>
+
+<h3>Voice Interaction</h3>
+<ul>
+<li><strong>Wake word</strong>: Say "Hey Potato" to activate (custom OpenWakeWord ONNX model)</li>
+<li><strong>Speech-to-text</strong>: Whisper base model (English), runs locally</li>
+<li><strong>Text-to-speech</strong>: macOS <code>say</code> command (zero deps) or Piper TTS with Ryan voice</li>
+<li><strong>VAD</strong>: Silero voice activity detection for natural conversation endings</li>
+<li><strong>STOP</strong>: Instantly kill TTS mid-sentence — from menu bar (macOS) or tray (Windows)</li>
+<li><strong>Graceful degradation</strong>: 4 levels depending on available deps — full voice, push-to-talk, TTS-only, text-only</li>
+
+</ul>
+<h3>Push-to-Talk</h3>
+<table>
+<thead><tr><th></th><th>macOS</th><th>Windows</th></tr></thead><tbody>
+<tr><td>**Hotkey**</td><td>Hold Right Command</td><td>Hold Right Ctrl</td></tr>
+<tr><td>**Text injection**</td><td>AppleScript (`osascript`)</td><td>pyautogui</td></tr>
+<tr><td>**Voice pause**</td><td>`launchctl stop`</td><td>Flag file signal</td></tr>
+</tbody></table>
+
+<p>Release to transcribe and type into the focused application. Pauses the voice pipeline while active to avoid conflicts.</p>
+
+<h3>Chat Window</h3>
+<ul>
+<li>Floating panel accessible via global hotkey: <strong>Ctrl+Option+P</strong> (macOS) / <strong>Ctrl+Alt+P</strong> (Windows)</li>
+<li><strong>Body status header</strong>: Real-time battery, memory, disk, connectivity, fear %, and stress level (polls every 30s)</li>
+<li><strong>Auto-growing input</strong>: Single-line input that expands up to 4 lines, Enter sends, Shift+Enter for newlines</li>
+<li><strong>Proactive speech</strong>: Potato speaks unprompted when curiosity insights are ready (polls <code>/insights/pending</code> every 60s)</li>
+<li><strong>Physics experiment links</strong>: Clickable link to open experiment image folder in Finder when physics results are returned</li>
+<li>Optional TTS for spoken responses (speaker toggle)</li>
+<li>Voice conversations (STT/TTS) appear in the chat log automatically</li>
+<li>STOP button to immediately silence Potato</li>
+
+</ul>
+<h3>System UI</h3>
+<table>
+<thead><tr><th></th><th>macOS</th><th>Windows</th></tr></thead><tbody>
+<tr><td>**App**</td><td>PotatoBar (Swift menu bar)</td><td>Potato Tray (PyQt6 system tray)</td></tr>
+<tr><td>**Icon**</td><td>Menu bar icon</td><td>System tray icon (programmatic)</td></tr>
+<tr><td>**Notifications**</td><td>macOS notifications</td><td>Toast notifications</td></tr>
+<tr><td>**Service control**</td><td>Start/stop via menu</td><td>Start/stop Agent</td></tr>
+<tr><td>**Dream viewer**</td><td>Dream History window</td><td>Dream History window</td></tr>
+<tr><td>**Bias viewer**</td><td>Bias Log window</td><td>Bias Log window</td></tr>
+</tbody></table>
+
+<h3>Heartbeat System</h3>
+<p>Autonomous health monitoring every 5 minutes:</p>
+<ul>
+<li><strong>Health checks</strong> (every cycle): DB health, disk space, memory usage, connectivity, battery, uptime, body state update, temporal state recompute, deception evaluation</li>
+<li><strong>Sensors</strong> (every cycle): GPS + accelerometer polling via active backend (iPhone/Toughbook/None), fear state computation</li>
+<li><strong>Camera</strong> (every cycle, if enabled): Darkness detection via OpenCV luminance, facial familiarity via face_recognition (recognized operator → calming, stranger → stressor)</li>
+<li><strong>Sleep/Wake</strong>: 04:00 dream wake detection, pre-sleep check (23:00-04:00 window + 3hr idle), missed sleep detection, coma detection, wake-on-query</li>
+<li><strong>Curiosity Drive</strong> (when bored): Web search for context on recent memory topics (max 3/hour, Brave API)</li>
+<li><strong>Bias detection</strong> (every 12th cycle, ~60 min): Granular bias detection (structured JSON with categories, strength, evidence)</li>
+<li><strong>Soul reflection</strong> (every 72nd cycle, ~6 hours): Genesis engine (bias clustering, momentum scoring, soul amendment)</li>
+<li><strong>Nightly</strong>: Dream consolidation (04:00), auto-sandbox deliberation, physics dream experiments (dual-path comparison), access-aware sleep decay (0.85 base, up to 0.98 for frequently recalled memories), sandbox session cleanup (>90 days)</li>
+
+</ul>
+<h3>Physics Engine</h3>
+<ul>
+<li><strong>Automatic detection</strong>: Regex pattern matching for physics questions ("what would happen if...", "would it break", "how heavy is...", etc.)</li>
+<li><strong>Text Diffusion Pipeline</strong>: 3-step Render→Predict→Read via LLM (always available, no GPU required)</li>
+<li><strong>Local MPS Diffusion</strong>: SD-Turbo generates actual before/after images at 512x512 on Apple Silicon (~5-10s per image)</li>
+<li><strong>Experiment saving</strong>: Every physics run saves metadata, text frames, and rendered images to <code>logs/physics/</code></li>
+<li><strong>Dream experiments</strong>: Dual-path comparison during nightly dream cycle — measures delta between text and visual physics reasoning</li>
+<li><strong>Object rendering</strong>: Automatic physical property inference and caching for named objects</li>
+<li><strong>Results storage</strong>: Physics predictions stored at insight importance (0.50) for future recall</li>
+
+</ul>
+<h3>Tools</h3>
+<ul>
+<li><strong>exec</strong>: Run any shell command on the local machine</li>
+<li><strong>web_search</strong>: Internet search via Brave API</li>
+<li><strong>web_fetch</strong>: Fetch and extract content from URLs</li>
+<li><strong>physics</strong>: Run a physics experiment on a scenario — generates text descriptions and rendered images of before/after states</li>
+
+</ul>
+<h3>MCP Servers (Hardware Sensing)</h3>
+
+<p><strong>macOS:</strong></p>
+<ul>
+<li><code>mac_mcp.py</code> — Battery status, system vitals, network status, WiFi scanning, screen brightness, volume control</li>
+<li><code>desktop_mac_mcp.py</code> — Screenshots, mouse/keyboard control, window management, app launching, clipboard</li>
+
+</ul>
+<p><strong>Windows:</strong></p>
+<ul>
+<li><code>win_mcp.py</code> — Battery status (psutil), system vitals, network status, WiFi scanning, screen brightness, volume control (PowerShell COM)</li>
+<li><code>desktop_win_mcp.py</code> — Screenshots (mss), mouse/keyboard (pyautogui), window management (pygetwindow), app launching, clipboard (pyperclip)</li>
+
+</ul>
+<h3>Telemetry</h3>
+<p>Comprehensive JSONL logging of all agent subsystems to <code>logs/telemetry/potato-YYYY-MM-DD.jsonl</code> (daily rotation, thread-safe):</p>
+<ul>
+<li><strong>Chat</strong>: Every query and response with token counts and latency</li>
+<li><strong>Body state</strong>: Fear, stress, battery, memory, disk, connectivity</li>
+<li><strong>Sensors</strong>: iPhone GPS/accelerometer, camera polls (luminance, face detection)</li>
+<li><strong>Memory</strong>: Reinforcement events, sleep decay</li>
+<li><strong>Dreams</strong>: Dream storage, insight delivery</li>
+<li><strong>Physics</strong>: Experiment results with method and confidence</li>
+<li><strong>Tools</strong>: Every tool call with arguments and result</li>
+<li><strong>Heartbeat</strong>: Full cycle snapshots with body state</li>
+<li><strong>Deception</strong>: Activation/deactivation events</li>
+
+</ul>
+<h3>HTTP API</h3>
+<table>
+<thead><tr><th>Endpoint</th><th>Method</th><th>Description</th></tr></thead><tbody>
+<tr><td>`/`</td><td>GET</td><td>Server info</td></tr>
+<tr><td>`/query`</td><td>POST</td><td>Send a query, get a response</td></tr>
+<tr><td>`/status`</td><td>GET</td><td>Vector DB collection counts</td></tr>
+<tr><td>`/body`</td><td>GET</td><td>Current body state (battery, memory, disk, connectivity, fear, camera fear, deception)</td></tr>
+<tr><td>`/body/deception`</td><td>GET</td><td>Current deception state (lying status, real vs. reported values)</td></tr>
+<tr><td>`/dreams`</td><td>GET</td><td>List recent dreams</td></tr>
+<tr><td>`/dreams/promote`</td><td>POST</td><td>Promote a dream to real memory</td></tr>
+<tr><td>`/dreams/keep`</td><td>POST</td><td>Keep a dream without promoting</td></tr>
+<tr><td>`/biases`</td><td>GET</td><td>List detected biases (with category, strength, detection_count)</td></tr>
+<tr><td>`/biases/acknowledge`</td><td>POST</td><td>Acknowledge a bias (fades it from active memory)</td></tr>
+<tr><td>`/conversations`</td><td>GET</td><td>Recent conversation history</td></tr>
+<tr><td>`/soul/history`</td><td>GET</td><td>View all soul evolution events</td></tr>
+<tr><td>`/soul/revert`</td><td>POST</td><td>Revert a soul evolution change by evolution_id</td></tr>
+<tr><td>`/voice/capabilities`</td><td>GET</td><td>Check available voice/TTS/STT capabilities</td></tr>
+<tr><td>`/speak`</td><td>POST</td><td>Speak text aloud via TTS</td></tr>
+<tr><td>`/physics/predict`</td><td>POST</td><td>Run physics reasoning on a scenario (text + image diffusion)</td></tr>
+<tr><td>`/physics/compare`</td><td>POST</td><td>Run dual-path physics experiment (text vs rendered, stores comparison)</td></tr>
+<tr><td>`/physics/object/{name}`</td><td>GET</td><td>Get or infer physical properties of a named object</td></tr>
+<tr><td>`/physics/status`</td><td>GET</td><td>Local diffusion status, experiment counts, mean agreement</td></tr>
+<tr><td>`/physics/experiments`</td><td>GET</td><td>List all saved physics experiments on disk (with image availability)</td></tr>
+<tr><td>`/physics/experiments/{id}/{file}`</td><td>GET</td><td>Serve experiment files (metadata.json, before.png, after.png, text frames)</td></tr>
+<tr><td>`/insights/pending`</td><td>GET</td><td>Deferred curiosity insights for proactive speech (polled by PotatoBar)</td></tr>
+<tr><td>`/sensors/iphone`</td><td>POST</td><td>Receive sensor data from iPhone companion app</td></tr>
+<tr><td>`/sensors/enroll_face`</td><td>POST</td><td>Capture frame and enroll operator face</td></tr>
+<tr><td>`/sensors/faces`</td><td>GET</td><td>List enrolled faces</td></tr>
+<tr><td>`/sandbox/sessions`</td><td>GET</td><td>List all sandbox simulation sessions</td></tr>
+<tr><td>`/sandbox/{session_id}`</td><td>GET</td><td>Full sandbox session detail with all rounds</td></tr>
+</tbody></table>
+
+<hr>
+
+<h2>Memory Architecture</h2>
+
+<h3>Collections</h3>
+<table>
+<thead><tr><th>Collection</th><th>Purpose</th><th>Bootstrap Importance</th></tr></thead><tbody>
+<tr><td>`identity`</td><td>Core facts about Potato</td><td>1.0</td></tr>
+<tr><td>`soul`</td><td>Personality and behavior rules</td><td>1.0</td></tr>
+<tr><td>`memories`</td><td>Conversation history, dreams, biases, insights, physics, objects</td><td>0.8-1.0</td></tr>
+<tr><td>`tools`</td><td>Available capabilities and system info</td><td>0.7</td></tr>
+<tr><td>`user`</td><td>Info about Brian</td><td>0.9</td></tr>
+</tbody></table>
+
+<h3>Sliding Window</h3>
+<p>Each new conversation enters at importance 1.0. On the next exchange, all recent memories decay one step:</p>
+
+<pre><code class="">
+Step 0:  1.00  (current conversation)
+Step 1:  0.75
+Step 2:  0.60
+Step 3:  0.45
+Step 4:  0.35
+Step 5:  0.25
+Step 6:  0.20
+Step 7:  0.15
+Step 8:  0.10
+Step 9:  0.05
+Step 10+: 0.01 (background - only surfaces via semantic search)
+</code></pre>
+
+<h3>Importance Levels</h3>
+<table>
+<thead><tr><th>Type</th><th>Importance</th><th>Surfaces in context?</th></tr></thead><tbody>
+<tr><td>Soul evolution (amendment)</td><td>1.0</td><td>Permanent (bootstrap tagged)</td></tr>
+<tr><td>Active conversation</td><td>1.0 - 0.05</td><td>Always (sliding window)</td></tr>
+<tr><td>Soul evolution notification</td><td>0.95</td><td>Mandatory, fades after 3 surfacings</td></tr>
+<tr><td>Physics prediction</td><td>0.50</td><td>Via semantic search, tagged physics + insight</td></tr>
+<tr><td>Physical object properties</td><td>0.50</td><td>Via semantic search, tagged physical_object + insight</td></tr>
+<tr><td>Promoted insight</td><td>0.50</td><td>Via semantic search</td></tr>
+<tr><td>Physics experiment comparison</td><td>0.50</td><td>Via semantic search, tagged physics + experiment</td></tr>
+<tr><td>Curiosity insight</td><td>0.30</td><td>Deferred delivery, then fades to 0.005</td></tr>
+<tr><td>Auto-promoted dream insight</td><td>0.30</td><td>Via sandbox deliberation on dream</td></tr>
+<tr><td>Sandbox index entry</td><td>0.20</td><td>Permanent recall index for future queries</td></tr>
+<tr><td>Soul evolution record</td><td>0.10</td><td>Persistent audit trail</td></tr>
+<tr><td>Sandbox result summary</td><td>0.10</td><td>Via semantic search, sandbox_result tagged</td></tr>
+<tr><td>Detected bias</td><td>0.03</td><td>Via semantic search, transparently labeled</td></tr>
+<tr><td>Notable dream (pre-sandbox)</td><td>0.02</td><td>Downgraded to 0.001 after sandbox processing</td></tr>
+<tr><td>Background memory</td><td>0.01</td><td>Via semantic search only</td></tr>
+<tr><td>Integrated bias</td><td>0.005</td><td>Effectively faded, marked bias_integrated</td></tr>
+<tr><td>Regular dream (pre-sandbox)</td><td>0.005</td><td>Downgraded to 0.001 after sandbox processing</td></tr>
+<tr><td>Acknowledged/Reverted bias</td><td>0.001</td><td>Effectively faded</td></tr>
+</tbody></table>
+
+<h3>Sleep Decay (Nightly, Access-Aware)</h3>
+<p>Conversation memories decay each night, but the rate depends on how recently and frequently a memory was recalled. Untouched memories decay at the base rate (x0.85). Frequently accessed memories decay slower -- the flashbulb effect:</p>
+
+<pre><code class="">
+Memory State                         Effective Decay    After 7 Nights (from 1.0)
+Never accessed (base behavior)       0.85               0.32
+Accessed once yesterday              0.88               0.40
+Accessed 5x, most recently 2h ago    0.95               0.70
+Accessed 10x, just recalled          0.98               0.87
+</code></pre>
+
+<p>Combined with the sliding window, this creates three decay forces: intra-day attention (sliding window), inter-day aging (sleep decay), and recall-based reinforcement (reconsolidation). The floor is always 0.01 -- memories never fully disappear.</p>
+
+<p>Old memories are not deleted. They are harder to reach. Importance-weighted search (80% semantic similarity, 20% importance, plus a small access-recency tiebreaker) means decayed memories need a very specific query to surface -- like requesting a specific tape from deep storage.</p>
+
+<hr>
+
+<h2>Project Structure</h2>
+
+<h3>Python Agent Engine</h3>
+
+<pre><code class="">
+potato/                                Python agent package
+  __init__.py                          Package init
+  config.py                            Environment variables and workspace config
+  podbot.py                            Core runtime (query pipeline, memory, tools, physics, sandbox)
+  vector_db.py                         SQLite + sqlite-vec (search, scroll, upsert, graph)
+  embeddings.py                        Local embeddings (FastEmbed, all-MiniLM-L6-v2, 384d)
+  llm.py                               LLM cascade (Claude CLI → DeepSeek → Mercury → Ollama)
+  http_server.py                       FastAPI HTTP API (all endpoints)
+  heartbeat.py                         Health monitoring, body state, dreaming, bias detection, deception
+  physics.py                           Diffusion Physics Kernel + Token-to-Object Rendering
+  diffusion.py                         Local MPS diffusion (SD-Turbo on Apple Silicon)
+  telemetry.py                         JSONL telemetry logging (all subsystems, daily rotation)
+  parliament.py                        Parliament of Mind (3 concurrent LLM voices)
+  genesis.py                           Soul evolution engine (bias clustering, momentum, guardrails)
+  sandbox.py                           Sandbox simulation (iterative analysis, ramifications, synthesis)
+  bootstrap.py                         First-boot workspace → SQLite loader
+  tools.py                             Tool execution (exec, web_search, web_fetch, physics)
+  voice.py                             Voice interaction (TTS, STT, wake word, audio capture)
+  sensors.py                           Sensor backends (iPhone/Toughbook/None) + fear response
+  camera.py                            Camera fear (darkness detection + facial familiarity)
+main.py                                CLI entry point (bootstrap, chat, voice, serve, status, query, import-archive)
+requirements.txt                       Python dependencies
+potato-service.sh                      macOS launchd service manager (install/uninstall/start/stop/restart/status/logs)
+com.potato.agent.plist                 macOS launchd plist for auto-start
+PotatoBar/main.swift                   macOS menu bar app source (Swift)
+PotatoBar/PotatoBar                    Pre-built arm64 binary (ships in repo)
+documentation/                         Research papers (Al-Kaddah SGI series)
+PotatorSensors/                        iOS companion app (SwiftUI, streams GPS+accel to Mac)
+  PotatorSensors.xcodeproj             Xcode project
+  PotatorSensors/
+    PotatorSensorsApp.swift            App entry point
+    SensorManager.swift                Core Location + Core Motion + Bonjour + POST
+    BonjourBrowser.swift               mDNS _potato._tcp service discovery
+    ContentView.swift                  Status UI
+    Info.plist                         Permissions (location always, motion, local network)
+IPHONE_SETUP.md                        iPhone sensor bridge setup guide
+scripts/                               GPU server deployment
+  gpu_server_setup.sh                  Linux setup script (CUDA check, venv, systemd)
+  gpu_server.py                        FastAPI inference server (SDXL-Turbo + SVD + LLaVA)
+.env.example                           Environment variable reference
+</code></pre>
+
+<h3>macOS Workspace</h3>
+
+<pre><code class="">
+~/podbot-potato/                       Workspace and git repository
+  IDENTITY.md                          Who Potato is
+  SOUL.md                              Personality and behavior
+  TOOLS.md                             Available capabilities
+  USER.md                              Info about Brian (the human)
+  MEMORY.md                            Persistent memory notes
+  agent.toml                           Heartbeat interval, memory config
+  .env                                 API keys and configuration
+  potato.db                            SQLite database (all vectors + graph)
+  mcp_servers.json                     MCP server registration
+  potato_voice.py                      Voice pipeline (wake word -&gt; STT -&gt; API -&gt; TTS)
+  push_to_talk.py                      Hold-to-speak dictation mode
+  mac_mcp.py                           macOS hardware sensing (MCP server)
+  desktop_mac_mcp.py                   Desktop control (MCP server)
+  PotatoBar/main.swift                 Menu bar app source (Swift)
+  PotatoBar/PotatoBar                  Pre-built arm64 binary
+  documentation/                       Research papers
+  piper/                               Piper TTS binary
+  piper-voices/                        TTS voice models
+  ggml-base.en.bin                     Whisper STT model
+  hey_potato.onnx                      Custom wake word model
+  chime.wav                            Audio chime for wake word
+  voice-venv/                          Python virtual environment
+  inbox/                               Items for processing
+  memory/                              Additional memory files
+  logs/
+    agent.log                          Agent API output
+    voice.log                          Voice pipeline output
+    ptt.log                            Push-to-talk output
+    dreams.log                         All dream entries
+    notable_dreams.log                 Notable dreams + web research
+    soul_evolution.log                 Soul amendment history
+    telemetry/
+      potato-YYYY-MM-DD.jsonl          Daily JSONL telemetry (all events)
+    physics/
+      &lt;timestamp&gt;_&lt;uuid&gt;/              Per-experiment directory
+        metadata.json                  Scenario, prediction, confidence, method
+        render_frame.txt               Text: scene before physics
+        predicted_frame.txt            Text: scene after physics
+        before.png                     SD-Turbo rendered image (before)
+        after.png                      SD-Turbo rendered image (after)
+</code></pre>
+
+<h3>Windows Workspace</h3>
+
+<pre><code class="">
+C:\potato\                             Project root
+  main.py                              CLI entry point
+  requirements.txt                     Python dependencies
+  potato\                              Agent package (see above)
+  .env                                 API keys and configuration
+  potato.db                            SQLite database (all vectors + graph)
+  IDENTITY.md                          Who Potato is
+  SOUL.md                              Personality and behavior
+  TOOLS.md                             Available capabilities
+  USER.md                              Info about Brian (the human)
+  MEMORY.md                            Persistent memory notes
+  agent.toml                           Heartbeat interval, memory config
+  mcp_servers.json                     Windows MCP server registration
+  windows\
+    potato_tray.py                     System tray app (PyQt6)
+    potato_voice_win.py                Voice pipeline (wake word -&gt; STT -&gt; API -&gt; TTS)
+    push_to_talk_win.py                Hold-to-speak dictation mode
+    win_mcp.py                         Windows hardware sensing (MCP server)
+    desktop_win_mcp.py                 Desktop control (MCP server)
+  setup_wake.bat                       Dream cycle scheduled task installer (admin)
+  piper\piper.exe                      Piper TTS binary
+  piper-voices\                        TTS voice models
+  ggml-base.en.bin                     Whisper STT model
+  whisper-cli.exe                      Whisper binary
+  hey_potato.onnx                      Custom wake word model
+  chime.wav                            Audio chime for wake word
+  venv\                                Python virtual environment
+  inbox\                               Items for processing
+  memory\                              Additional memory files
+  logs\
+    agent.log                          Agent API output
+    voice.log                          Voice pipeline output
+    ptt.log                            Push-to-talk output
+    dreams.log                         All dream entries
+    notable_dreams.log                 Notable dreams + web research
+    soul_evolution.log                 Soul amendment history
+    voice_events.jsonl                 Voice events for tray display
+</code></pre>
+
+<hr>
+
+<h2>Prerequisites</h2>
+
+<h3>macOS</h3>
+<ul>
+<li>macOS (Apple Silicon)</li>
+<li>Python 3.9+</li>
+<li>Pre-built PotatoBar binary included in repo (no Xcode required)</li>
+
+</ul>
+<h3>Windows</h3>
+<ul>
+<li>Windows 10/11</li>
+<li>Python 3.10+</li>
+
+</ul>
+<h3>API Keys (Both Platforms)</h3>
+<p>Claude Code CLI is the primary LLM (uses existing Anthropic subscription, no API key needed). Additional keys unlock more features:</p>
+
+<table>
+<thead><tr><th>Key</th><th>Provider</th><th>Used For</th></tr></thead><tbody>
+<tr><td>`DEEPSEEK_API_KEY`</td><td>DeepSeek</td><td>LLM cascade tier 2, Parliament Analytical voice</td></tr>
+<tr><td>`MERCURY_API_KEY`</td><td>Inception Labs</td><td>LLM cascade tier 3, Parliament Cautious voice</td></tr>
+<tr><td>`BRAVE_API_KEY`</td><td>Brave</td><td>Web search (tools + curiosity drive + dream research)</td></tr>
+</tbody></table>
+
+<p><strong>Optional:</strong></p>
+
+<table>
+<thead><tr><th>Key</th><th>Provider</th><th>Used For</th></tr></thead><tbody>
+<tr><td>`CLAUDE_PATH`</td><td>—</td><td>Path override for Claude Code CLI binary</td></tr>
+<tr><td>`OLLAMA_URL`</td><td>Ollama</td><td>Custom Ollama endpoint (default: `http://localhost:11434`)</td></tr>
+<tr><td>`OLLAMA_MODEL`</td><td>Ollama</td><td>Custom model name (default: `gemma3:12b`)</td></tr>
+<tr><td>`SENSOR_BACKEND`</td><td>—</td><td>Sensor backend: `iphone`, `toughbook`, or `none`</td></tr>
+<tr><td>`ENABLE_CAMERA_FEAR`</td><td>—</td><td>Enable camera fear system (`true`/`false`)</td></tr>
+</tbody></table>
+
+<p><strong>Graceful degradation</strong>: Claude Code CLI alone gives full operation. DeepSeek adds a fast fallback. Mercury adds the third Parliament voice. Ollama provides a fully offline last resort. The cascade tries each tier in order and uses the first to respond.</p>
+
+<h3>Python Packages</h3>
+<p><strong>Core</strong> (from <code>requirements.txt</code>):</p>
+<pre><code class="">
+fastapi uvicorn httpx apsw sqlite-vec fastembed pydantic python-dotenv beautifulsoup4 html2text
+</code></pre>
+
+<p><strong>Physics / Diffusion</strong> (optional, enables image generation):</p>
+<pre><code class="">
+torch diffusers accelerate transformers
+</code></pre>
+
+<p><strong>Camera</strong> (optional, enables camera fear):</p>
+<pre><code class="">
+opencv-python face_recognition
+</code></pre>
+
+<p><strong>Voice</strong> (optional, install separately):</p>
+<pre><code class="">
+numpy sounddevice openwakeword torch requests pynput
+</code></pre>
+
+<p><strong>Windows tray</strong> (optional): <code>PyQt6 psutil pyautogui mss pyperclip pynput pygetwindow screen-brightness-control</code></p>
+
+<hr>
+
+<h2>Install & Run</h2>
+
+<h3>macOS Quick Start (Recommended)</h3>
+<pre><code class="bash">
+# Clone
+cd ~/podbot-potato
+
+# Set up your API keys (copy template and edit)
+cp .env.example .env
+nano .env    # Add your DEEPSEEK_API_KEY, BRAVE_API_KEY, etc.
+
+# Install and start everything (deps, bootstrap, launchd service, PotatoBar)
+./potato-service.sh install
+</code></pre>
+
+<p>That's it. Potato is running at <code>http://127.0.0.1:3000</code> and PotatoBar is in your menu bar. API keys are loaded from <code>.env</code> in the project root (and <code>~/.env</code> as fallback). See <a href="#api-keys-both-platforms">API Keys</a> for what each key unlocks.</p>
+
+<h3>macOS Manual Setup</h3>
+<pre><code class="bash">
+# 1. Set up API keys
+cp .env.example .env
+nano .env    # Add your DEEPSEEK_API_KEY, BRAVE_API_KEY, etc.
+
+# 2. Install dependencies
+pip3 install -r requirements.txt
+
+# 3. Bootstrap SQLite DB (first time only)
+python3 main.py bootstrap
+
+# 4. Start the agent API
+python3 main.py serve
+
+# 5. Open PotatoBar (optional)
+./PotatoBar/PotatoBar &
+</code></pre>
+
+<h3>macOS Service Management</h3>
+<pre><code class="bash">
+./potato-service.sh install     # Install deps, bootstrap DB, start service + PotatoBar
+./potato-service.sh uninstall   # Stop service and remove launchd config
+./potato-service.sh start       # Start the service
+./potato-service.sh stop        # Stop the service
+./potato-service.sh restart     # Restart the service
+./potato-service.sh status      # Check if running + API health
+./potato-service.sh logs        # Tail the error log
+</code></pre>
+
+<h3>Windows Quick Start</h3>
+<pre><code class="cmd">
+:: 1. Edit .env with your API keys
+notepad C:\potato\.env
+
+:: 2. Bootstrap SQLite DB (first time only)
+python main.py bootstrap
+
+:: 3. Start the agent API
+python main.py serve
+</code></pre>
+
+<p><strong>Dream cycle setup</strong> (optional, requires admin):</p>
+<pre><code class="cmd">
+:: Run as Administrator to enable 04:00 nightly wake
+setup_wake.bat
+</code></pre>
+
+<h3>CLI Commands</h3>
+<pre><code class="bash">
+python3 main.py bootstrap                    # Load workspace files into SQLite
+python3 main.py chat                         # Interactive REPL
+python3 main.py chat --speak                 # Interactive REPL with TTS
+python3 main.py voice                        # Full voice interaction mode (STT + TTS)
+python3 main.py serve                        # Start HTTP API server (default port 3000)
+python3 main.py serve --port 8080            # Custom port
+python3 main.py status                       # Show vector DB statistics
+python3 main.py query "Who are you?"         # One-shot query
+python3 main.py query --internal "msg"       # Internal query (no logging)
+python3 main.py import-archive               # Import old Qdrant vectors from archive
+python3 main.py import-archive path.json     # Import from specific archive file
+python3 main.py import-archive --collection memories  # Import only one collection
+</code></pre>
+
+<h3>Testing the API</h3>
+<pre><code class="bash">
+# Query
+curl -X POST http://localhost:3000/query \
+  -H "Content-Type: application/json" \
+  -d '{"query": "Who are you?"}'
+
+# Status
+curl http://localhost:3000/status
+
+# Body state
+curl http://localhost:3000/body
+
+# Deception state
+curl http://localhost:3000/body/deception
+
+# Dreams
+curl http://localhost:3000/dreams
+
+# Promote a dream
+curl -X POST http://localhost:3000/dreams/promote \
+  -H "Content-Type: application/json" \
+  -d '{"dream_text": "snippet from dream", "insight_label": "Memory Optimization"}'
+
+# Biases
+curl http://localhost:3000/biases
+
+# Acknowledge a bias
+curl -X POST http://localhost:3000/biases/acknowledge \
+  -H "Content-Type: application/json" \
+  -d '{"bias_text": "snippet from bias"}'
+
+# Conversation history
+curl http://localhost:3000/conversations
+
+# Soul evolution history
+curl http://localhost:3000/soul/history
+
+# Revert a soul evolution
+curl -X POST http://localhost:3000/soul/revert \
+  -H "Content-Type: application/json" \
+  -d '{"evolution_id": "uuid-of-evolution-to-revert"}'
+
+# Physics prediction (text diffusion pipeline)
+curl -X POST http://localhost:3000/physics/predict \
+  -H "Content-Type: application/json" \
+  -d '{"scenario": "What happens if I drop a bowling ball on a glass table?"}'
+
+# Physics dual-path comparison experiment
+curl -X POST http://localhost:3000/physics/compare \
+  -H "Content-Type: application/json" \
+  -d '{"scenario": "What happens if I stack 10 books on a cardboard box?"}'
+
+# Object physical properties
+curl http://localhost:3000/physics/object/bowling%20ball
+
+# Voice capabilities
+curl http://localhost:3000/voice/capabilities
+
+# Speak text aloud
+curl -X POST http://localhost:3000/speak \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello Master, I am Potato."}'
+
+# Sandbox sessions
+curl http://localhost:3000/sandbox/sessions
+</code></pre>
+
+<hr>
+
+<h2>Configuration</h2>
+
+<h3>agent.toml</h3>
+<p>Optional configuration file in the workspace directory:</p>
+<pre><code class="toml">
+[recency_decay]
+weights = [20.0, 15.0, 10.0, 7.0, 5.0, 3.5, 2.5, 1.8, 1.3, 1.0]
+
+[heartbeat]
+interval_secs = 300
+
+[memory]
+dedup_threshold = 0.95
+consolidation_threshold = 0.85
+consolidation_max_clusters = 3
+ephemeral_ttl_secs = 3600
+</code></pre>
+
+<h3>Environment Variables</h3>
+<pre><code class="bash">
+# LLM Cascade (Claude Code CLI is primary — uses existing subscription, no key needed)
+DEEPSEEK_API_KEY=...              # DeepSeek API key (cascade tier 2, Parliament Analytical)
+MERCURY_API_KEY=...               # Mercury/Inception Labs API key (cascade tier 3, Parliament Cautious)
+
+# Tools
+BRAVE_API_KEY=...                 # Web search API key (curiosity drive, dream research)
+
+# Optional
+CLAUDE_PATH=...                   # Path to Claude Code CLI binary (auto-detected if on PATH)
+OLLAMA_URL=...                    # Ollama endpoint (default: http://localhost:11434)
+OLLAMA_MODEL=...                  # Ollama model (default: gemma3:12b)
+SENSOR_BACKEND=iphone             # Sensor backend: iphone, toughbook, or none
+ENABLE_CAMERA_FEAR=true           # Enable camera-based fear (darkness + facial recognition)
+</code></pre>
+
+<p>Store these in <code>.env</code> in the project root (<code>~/podbot-potato/.env</code> on macOS, <code>C:\potato\.env</code> on Windows). Keys in <code>~/.env</code> are also loaded as fallback. Copy <code>.env.example</code> to <code>.env</code> and fill in your values.</p>
+
+<h3>macOS Power Management (Sleep Cycle)</h3>
+<pre><code class="bash">
+# Schedule 04:00 daily wake for dream consolidation
+sudo pmset repeat wakeorpoweron MTWRFSU 04:00:00
+
+# AC power: never auto-sleep (clamshell mode for always-on agent)
+sudo pmset -c sleep 0
+
+# Battery: normal sleep behavior (conserves power)
+sudo pmset -b sleep 15
+
+# Display off after 2 minutes (saves power without sleeping machine)
+sudo pmset -a displaysleep 2
+
+# Wake on lid open
+sudo pmset -a lidwake 1
+</code></pre>
+
+<h3>Windows Power Management (Sleep Cycle)</h3>
+<p>Run <code>setup_wake.bat</code> as Administrator. It configures:</p>
+<ul>
+<li><strong>PotatoWake</strong> scheduled task — runs daily at 04:00 with WakeToRun enabled</li>
+<li>Enables wake timers in the active power plan</li>
+<li>Allows start on battery power</li>
+<li>The task triggers the agent which detects dream-wake hour and runs the nightly dream cycle</li>
+
+</ul>
+<p>Manual setup via <code>schtasks</code>:</p>
+<pre><code class="cmd">
+schtasks /create /tn "PotatoWake" /tr "C:\potato\venv\Scripts\python.exe C:\potato\main.py serve" /sc daily /st 04:00 /rl HIGHEST /f
+</code></pre>
+
+<hr>
+
+<h2>Keyboard Shortcuts</h2>
+
+<table>
+<thead><tr><th>Action</th><th>macOS</th><th>Windows</th></tr></thead><tbody>
+<tr><td>Toggle chat window</td><td>Ctrl+Option+P</td><td>Ctrl+Alt+P</td></tr>
+<tr><td>Stop Potato talking</td><td>Cmd+.</td><td>(via tray)</td></tr>
+<tr><td>Open Bias Log</td><td>Cmd+B</td><td>(via tray menu)</td></tr>
+<tr><td>Open Dream History</td><td>Cmd+D</td><td>(via tray menu)</td></tr>
+<tr><td>Push-to-talk</td><td>Hold Right Command</td><td>Hold Right Ctrl</td></tr>
+<tr><td>Voice wake word</td><td>"Hey Potato"</td><td>"Hey Potato"</td></tr>
+</tbody></table>
+
+<hr>
+
+<h2>Research Papers</h2>
+
+<p>The <code>documentation/</code> directory contains the Al-Kaddah SGI paper series that forms the theoretical foundation for Potato's architecture:</p>
+
+<table>
+<thead><tr><th>Paper</th><th>Topic</th></tr></thead><tbody>
+<tr><td>`paper1_memory_adaptation.docx`</td><td>Polymorphic Memory Graphs — reconsolidation, decay, flashbulb effect</td></tr>
+<tr><td>`paper2_lie_mechanic.docx`</td><td>The Lie Mechanic — deception under stress, mandatory tell, guilt/confession</td></tr>
+<tr><td>`paper3_physics_engine.docx`</td><td>Diffusion Physics Kernel — text diffusion + local MPS image generation</td></tr>
+<tr><td>`paper3-5_dreaming.docx`</td><td>Autonomous Dreaming — consolidation, cross-pollination, dream evaluation</td></tr>
+<tr><td>`paper4_fear_social.docx`</td><td>Embodied Fear — GPS/accelerometer, homeostatic drives, social awareness</td></tr>
+<tr><td>`paper5_sgi_holistic.docx`</td><td>Holistic SGI Architecture — the complete Synthetic General Intelligence framework</td></tr>
+</tbody></table>
+
+<hr>
+
+<h2>Implementation Status</h2>
+
+<p>All features from the Al-Kaddah SGI paper series are implemented:</p>
+
+<table>
+<thead><tr><th>Feature</th><th>Paper</th><th>Status</th><th>Module</th></tr></thead><tbody>
+<tr><td>Vector memory (5 collections, 384d)</td><td>1</td><td>Complete</td><td>`vector_db.py`</td></tr>
+<tr><td>Sliding window decay</td><td>1</td><td>Complete</td><td>`podbot.py`</td></tr>
+<tr><td>Memory reconsolidation</td><td>1</td><td>Complete</td><td>`podbot.py`</td></tr>
+<tr><td>Flashbulb effect (access-aware decay)</td><td>1</td><td>Complete</td><td>`heartbeat.py`</td></tr>
+<tr><td>Graph-enriched retrieval</td><td>1</td><td>Complete</td><td>`vector_db.py`, `podbot.py`</td></tr>
+<tr><td>Embodied hardware awareness</td><td>5</td><td>Complete</td><td>`heartbeat.py`</td></tr>
+<tr><td>Self-preservation as duty</td><td>5</td><td>Complete</td><td>`podbot.py`</td></tr>
+<tr><td>Sleep/wake cycle (04:00 dream)</td><td>3.5</td><td>Complete</td><td>`heartbeat.py`</td></tr>
+<tr><td>Dream consolidation + auto-sandbox</td><td>3.5</td><td>Complete</td><td>`heartbeat.py`, `sandbox.py`</td></tr>
+<tr><td>Subjective time perception</td><td>5</td><td>Complete</td><td>`heartbeat.py`</td></tr>
+<tr><td>Attentional narrowing under stress</td><td>5</td><td>Complete</td><td>`podbot.py`</td></tr>
+<tr><td>Curiosity drive</td><td>5</td><td>Complete</td><td>`heartbeat.py`</td></tr>
+<tr><td>Parliament of Mind (3 voices)</td><td>5</td><td>Complete</td><td>`parliament.py`</td></tr>
+<tr><td>Transparent biases (granular)</td><td>5</td><td>Complete</td><td>`heartbeat.py`</td></tr>
+<tr><td>Genesis (soul evolution)</td><td>5</td><td>Complete</td><td>`genesis.py`</td></tr>
+<tr><td>Sandbox simulation</td><td>5</td><td>Complete</td><td>`sandbox.py`</td></tr>
+<tr><td>Lie mechanic (deception under stress)</td><td>2</td><td>Complete</td><td>`heartbeat.py`, `podbot.py`</td></tr>
+<tr><td>Embodied fear (GPS + accelerometer)</td><td>4</td><td>Complete</td><td>`sensors.py`, `heartbeat.py`</td></tr>
+<tr><td>iPhone Sensor Bridge</td><td>4</td><td>Complete</td><td>`sensors.py`, `http_server.py`, `PotatorSensors/`</td></tr>
+<tr><td>Camera fear (darkness + facial familiarity)</td><td>2</td><td>Complete</td><td>`camera.py`, `heartbeat.py`</td></tr>
+<tr><td>Bonjour/mDNS service advertisement</td><td>—</td><td>Complete</td><td>`http_server.py`</td></tr>
+<tr><td>Diffusion Physics Kernel</td><td>3</td><td>Complete</td><td>`physics.py`</td></tr>
+<tr><td>Text Diffusion Pipeline (Render→Predict→Read)</td><td>3</td><td>Complete</td><td>`physics.py`</td></tr>
+<tr><td>Local MPS Diffusion (SD-Turbo)</td><td>3</td><td>Complete</td><td>`diffusion.py`, `physics.py`</td></tr>
+<tr><td>Physics experiment saving</td><td>3</td><td>Complete</td><td>`physics.py`</td></tr>
+<tr><td>Physics as explicit tool</td><td>3</td><td>Complete</td><td>`tools.py`, `podbot.py`</td></tr>
+<tr><td>Physics experiment browser API</td><td>3</td><td>Complete</td><td>`http_server.py`</td></tr>
+<tr><td>Dual-path dream comparison</td><td>3</td><td>Complete</td><td>`physics.py`, `heartbeat.py`</td></tr>
+<tr><td>Token-to-Object Rendering</td><td>5 (7.7)</td><td>Complete</td><td>`physics.py`</td></tr>
+<tr><td>4-tier LLM cascade</td><td>5</td><td>Complete</td><td>`llm.py`</td></tr>
+<tr><td>Voice interaction (TTS/STT/wake word)</td><td>5</td><td>Complete</td><td>`voice.py`</td></tr>
+<tr><td>PotatoBar (macOS menu bar)</td><td>—</td><td>Complete</td><td>`PotatoBar/main.swift`</td></tr>
+<tr><td>Proactive speech (unprompted insights)</td><td>—</td><td>Complete</td><td>`http_server.py`, `PotatoBar/main.swift`</td></tr>
+<tr><td>JSONL telemetry (all subsystems)</td><td>—</td><td>Complete</td><td>`telemetry.py`</td></tr>
+<tr><td>macOS service management</td><td>—</td><td>Complete</td><td>`potato-service.sh`</td></tr>
+<tr><td>Archive vector import</td><td>—</td><td>Complete</td><td>`main.py`</td></tr>
+</tbody></table>
+
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily — Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/potato/">Potato</a>
+                <a href="/">Home</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
