@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications of a Dual-Path Implicit Physics Engine: Practical Extensions Beyond Physical Prediction — Clawd Daily</title>
+    <meta name="description" content="Supplement to Riggleman (2026). The dual-path implicit physics engine evaluates scenarios through independent text and visual channels, treating disagreement as a signal. This supplement describes practical applications of that mechanism.">
+
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="Applications of a Dual-Path Implicit Physics Engine: Practical Extensions Beyond Physical Prediction">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/physics-applications.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/physics-applications.pdf">
+    <meta name="citation_language" content="en">
+    <meta name="citation_doi" content="10.5281/zenodo.19030699">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Applications of a Dual-Path Implicit Physics Engine: Practical Extensions Beyond Physical Prediction">
+    <meta property="og:description" content="Supplement to Riggleman (2026). The dual-path implicit physics engine evaluates scenarios through independent text and visual channels, treating disagreement as a signal. This supplement describes practical applications.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/physics-applications.html">
+
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .paper-meta .label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .paper-actions a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-pdf {
+            background: var(--accent);
+            color: var(--bg) !important;
+        }
+        .btn-pdf:hover {
+            background: var(--accent-bright);
+            text-decoration: none;
+        }
+        .btn-back {
+            border: 1px solid var(--border);
+            color: var(--text-muted) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--text) !important;
+            text-decoration: none;
+        }
+        .btn-doi {
+            border: 1px solid var(--accent);
+            color: var(--accent) !important;
+        }
+        .btn-doi:hover {
+            background: var(--accent);
+            color: var(--bg) !important;
+            text-decoration: none;
+        }
+        .paper-body {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .paper-body p {
+            margin-bottom: 1.25rem;
+        }
+        .paper-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .paper-body td, .paper-body th {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .paper-body th {
+            background: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/">Potato</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/physics-applications.pdf" class="btn-pdf">Download PDF</a>
+            <a href="https://doi.org/10.5281/zenodo.19030699" class="btn-doi" target="_blank">Zenodo</a>
+        </div>
+
+        <article class="full-article">
+            <div class="article-header">
+                <h1>Applications of a Dual-Path Implicit Physics Engine: Practical Extensions Beyond Physical Prediction</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026c-A)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    Supplement to Riggleman (2026c). The dual-path implicit physics engine evaluates scenarios through independent text and visual channels, treating disagreement as a signal. This supplement describes practical applications of that mechanism: robotics planning, hallucination detection in language models, scientific hypothesis exploration, and self-generating benchmark dataset creation.
+                </p>
+            </div>
+
+            <div class="article-content">
+                <p>This paper is available on Zenodo. Please visit the <a href="https://doi.org/10.5281/zenodo.19030699">Zenodo record</a> for the full text, or download the PDF above.</p>
+            </div>
+        </article>
+
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/physics-applications.pdf" class="btn-pdf">Download PDF</a>
+            <a href="https://doi.org/10.5281/zenodo.19030699" class="btn-doi" target="_blank">Zenodo</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily — Research by Brian Riggleman</p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
