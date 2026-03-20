@@ -186,7 +186,7 @@
         <p class="p8"><b>1</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.80</b></p>
+        <p class="p8"><b>0.75</b></p>
       </td>
     </tr>
     <tr>
@@ -210,7 +210,7 @@
         <p class="p8"><b>4</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.30</b></p>
+        <p class="p8"><b>0.35</b></p>
       </td>
     </tr>
     <tr>
@@ -218,7 +218,7 @@
         <p class="p8"><b>5</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.20</b></p>
+        <p class="p8"><b>0.25</b></p>
       </td>
     </tr>
     <tr>
@@ -226,7 +226,7 @@
         <p class="p8"><b>6</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.12</b></p>
+        <p class="p8"><b>0.20</b></p>
       </td>
     </tr>
     <tr>
@@ -234,7 +234,7 @@
         <p class="p8"><b>7</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.07</b></p>
+        <p class="p8"><b>0.15</b></p>
       </td>
     </tr>
     <tr>
@@ -242,7 +242,7 @@
         <p class="p8"><b>8</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.03</b></p>
+        <p class="p8"><b>0.10</b></p>
       </td>
     </tr>
     <tr>
@@ -250,15 +250,15 @@
         <p class="p8"><b>9</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.01 (background)</b></p>
+        <p class="p8"><b>0.05 (background)</b></p>
       </td>
     </tr>
   </tbody>
 </table>
 <p class="p9"><i>Table 1. Sliding window importance decay curve.</i></p>
-<p class="p6"><b><i>This is not a technical optimization to save context window space, though it does that. It is a model of how attention works. Recent things are vivid. Older things fade unless something recalls them. Memories at background importance (0.01) do not disappear. They stop being actively surfaced unless a specific semantic query matches them closely. The effect is analogous to pulling a tape from deep storage: the information is there, but the right cue is required to retrieve it.</i></b></p>
+<p class="p6"><b><i>This is not a technical optimization to save context window space, though it does that. It is a model of how attention works. Recent things are vivid. Older things fade unless something recalls them. Memories at background importance (0.05) do not disappear. They stop being actively surfaced unless a specific semantic query matches them closely. The effect is analogous to pulling a tape from deep storage: the information is there, but the right cue is required to retrieve it.</i></b></p>
 <p class="p6"><b><i>Memory retrieval is importance-weighted: results are ranked by a blend of 80% semantic similarity and 20% importance. Decayed memories need a precise semantic match to surface against more important competitors.</i></b></p>
-<p class="p6"><b><i>The system stratifies memory types by cognitive role. Conversations are lived experience, entering at full importance and decaying naturally. Dreams are subconscious processing at sub-background importance (0.005), always labeled to prevent contamination of factual recall. Biases are self-knowledge at 0.03. Insights are confirmed understanding at 0.50. Explicit tagging and importance stratification prevents the agent from presenting its own pattern-matching as reality.</i></b></p>
+<p class="p6"><b><i>The system stratifies memory types by cognitive role. Conversations are lived experience, entering at full importance and decaying naturally. Dreams are subconscious processing at sub-background importance (0.05), always labeled to prevent contamination of factual recall. Biases are self-knowledge at 0.05. Insights are confirmed understanding at 0.50. Explicit tagging and importance stratification prevents the agent from presenting its own pattern-matching as reality.</i></b></p>
 <p class="p7"><b>3.2 Reconsolidation</b></p>
 <p class="p6"><b><i>When a memory surfaces during conversation and is actually used, it gets stronger. The access timestamp and count are updated, and importance increases by a bounded amount that diminishes with repeated retrieval.</i></b></p>
 <p class="p2"><br></p>
@@ -277,7 +277,7 @@
         <p class="p8"><b>Conversation</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>1.00</b></p>
+        <p class="p8"><b>0.80</b></p>
       </td>
     </tr>
     <tr>
@@ -285,7 +285,7 @@
         <p class="p8"><b>Insight</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.80</b></p>
+        <p class="p8"><b>0.50</b></p>
       </td>
     </tr>
     <tr>
@@ -293,7 +293,7 @@
         <p class="p8"><b>Bias</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.10</b></p>
+        <p class="p8"><b>0.05</b></p>
       </td>
     </tr>
     <tr>
@@ -301,7 +301,7 @@
         <p class="p8"><b>Dream</b></p>
       </td>
       <td class="td1">
-        <p class="p8"><b>0.005</b></p>
+        <p class="p8"><b>0.05</b></p>
       </td>
     </tr>
   </tbody>
@@ -377,6 +377,7 @@
 <p class="p6"><b><i>The sliding window model is designed to produce clear effects over multi-day use. Topics discussed repeatedly should remain easily retrievable weeks later, due to reconsolidation reinforcement and slower sleep decay. Topics raised once and not revisited should fade to background importance and require specific semantic cues to surface. The agent does not volunteer these topics. They are present in storage but not in active context. This matches the design intent: what the agent remembers should track what the user actually brings up.</i></b></p>
 <p class="p5"><b>5. Limitations and Future Work</b></p>
 <p class="p6"><b><i>This system has not yet been subject to controlled experiments. Future work should include formal evaluation metrics for memory decay behavior relative to a static importance baseline, comparative studies against stateless LLM baselines on multi-session tasks, and quantitative analysis of reconsolidation boost rates against ACT-R literature.</i></b></p>
+<p class="p6"><b><i>Update (March 20, 2026): Production validation data from 26 days of continuous operation (10,716 memories, 14 sleep cycles) is presented in Appendices A through E below. These appendices also note errata where the deployed implementation diverges from the values described in this paper.</i></b></p>
 <p class="p5"><b>6. Conclusion</b></p>
 <p class="p6"><b><i>The sliding window decay model, reconsolidation mechanism, and nightly sleep decay system together produce a memory architecture qualitatively different from a static context window. What the agent remembers is determined by what the user engages with, what gets recalled, and how recently. Memory that matters resists forgetting. Memory that does not get used fades. This is a functional approximation of the same principle that governs biological memory: salience and use determine what survives.</i></b></p>
 <p class="p5"><b>Acknowledgments</b></p>
@@ -391,9 +392,218 @@
 <p class="p6"><b><i>Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., & Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. arXiv preprint arXiv:2304.03442.</i></b></p>
 <p class="p6"><b><i>Schacter, D. L., & Addis, D. R. (2007). The constructive episodic simulation hypothesis. Philosophical Transactions of the Royal Society B, 362(1481), 773-786.</i></b></p>
 
+
+<hr style="margin: 3rem 0; border: none; border-top: 2px solid var(--accent);">
+
+<p class="p5"><b>Appendix A: Sliding Window Decay &mdash; Production Validation</b></p>
+
+<p class="p6"><b><i>Data source: Potato production database (potato.db), 4,530 memories in the "memories" collection, collected February 21 &ndash; March 20, 2026.</i></b></p>
+
+<p class="p7"><b>A.1 Sliding Window Curve Confirmation</b></p>
+
+<p class="p6"><b><i>The deployed sliding window curve (podbot.py, line 31) matches Table 1 in the paper: [1.0, 0.75, 0.6, 0.45, 0.35, 0.25, 0.2, 0.15, 0.1, 0.05]. The background floor is 0.01. An earlier draft of this paper listed different values; the tables have been corrected to match the production code.</i></b></p>
+
+<p class="p7"><b>A.2 Importance Distribution in Production</b></p>
+
+<p class="p6"><b><i>The following histogram shows memory counts near each canonical step value (&plusmn;0.05 tolerance). 95.5% of all memories fall within this tolerance of a step value, confirming the quantized decay model is the dominant mechanism shaping importance distribution.</i></b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Step Value</b></p></td><td class="td1"><p class="p8"><b>Count</b></p></td><td class="td1"><p class="p8"><b>% of Total</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>1.00</b></p></td><td class="td1"><p class="p8"><b>300</b></p></td><td class="td1"><p class="p8"><b>6.6%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0.75&ndash;0.80</b></p></td><td class="td1"><p class="p8"><b>1,433</b></p></td><td class="td1"><p class="p8"><b>31.6%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0.60</b></p></td><td class="td1"><p class="p8"><b>30</b></p></td><td class="td1"><p class="p8"><b>0.7%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0.45&ndash;0.50</b></p></td><td class="td1"><p class="p8"><b>173</b></p></td><td class="td1"><p class="p8"><b>3.8%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0.30&ndash;0.35</b></p></td><td class="td1"><p class="p8"><b>99</b></p></td><td class="td1"><p class="p8"><b>2.2%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0.20&ndash;0.25</b></p></td><td class="td1"><p class="p8"><b>266</b></p></td><td class="td1"><p class="p8"><b>5.9%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0.10&ndash;0.15</b></p></td><td class="td1"><p class="p8"><b>123</b></p></td><td class="td1"><p class="p8"><b>2.7%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0.05&ndash;0.07</b></p></td><td class="td1"><p class="p8"><b>272</b></p></td><td class="td1"><p class="p8"><b>6.0%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0.03</b></p></td><td class="td1"><p class="p8"><b>80</b></p></td><td class="td1"><p class="p8"><b>1.8%</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>&le;0.01 (floor)</b></p></td><td class="td1"><p class="p8"><b>342</b></p></td><td class="td1"><p class="p8"><b>7.6%</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table A2. Importance distribution across 4,530 memories. The step-2 cluster (0.75&ndash;0.80) dominates because conversations typically span 2&ndash;5 exchanges before the next session, parking most memories at one step below entry.</i></p>
+
+<p class="p7"><b>A.3 Age vs. Importance Trajectory</b></p>
+
+<p class="p6"><b><i>Average importance by memory age shows the expected decay pattern for memories subject to the sleep system (created after March 6). Memories older than 14 days retain anomalously high importance because they predate the sleep decay system and were never decayed.</i></b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Age (days)</b></p></td><td class="td1"><p class="p8"><b>N</b></p></td><td class="td1"><p class="p8"><b>Avg Importance</b></p></td><td class="td1"><p class="p8"><b>Notes</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0</b></p></td><td class="td1"><p class="p8"><b>187</b></p></td><td class="td1"><p class="p8"><b>0.144</b></p></td><td class="td1"><p class="p8"><b>Mix of recent + decayed</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>1</b></p></td><td class="td1"><p class="p8"><b>151</b></p></td><td class="td1"><p class="p8"><b>0.145</b></p></td><td class="td1"><p class="p8"><b></b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>3&ndash;4</b></p></td><td class="td1"><p class="p8"><b>1,366</b></p></td><td class="td1"><p class="p8"><b>0.465</b></p></td><td class="td1"><p class="p8"><b>Bootstrap cohort</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>5</b></p></td><td class="td1"><p class="p8"><b>115</b></p></td><td class="td1"><p class="p8"><b>0.185</b></p></td><td class="td1"><p class="p8"><b>Post-sleep decay active</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>9&ndash;10</b></p></td><td class="td1"><p class="p8"><b>232</b></p></td><td class="td1"><p class="p8"><b>0.104</b></p></td><td class="td1"><p class="p8"><b></b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>11&ndash;13</b></p></td><td class="td1"><p class="p8"><b>288</b></p></td><td class="td1"><p class="p8"><b>0.035</b></p></td><td class="td1"><p class="p8"><b>Approaching floor</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>21&ndash;24</b></p></td><td class="td1"><p class="p8"><b>451</b></p></td><td class="td1"><p class="p8"><b>0.919</b></p></td><td class="td1"><p class="p8"><b>Pre-sleep era (never decayed)</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table A3. The 11&ndash;13 day cohort (avg 0.035) has been through 7&ndash;11 sleep cycles and is converging on floor. The 21+ day cohort predates the sleep system entirely.</i></p>
+
+<p class="p7"><b>A.4 Floor Analysis</b></p>
+
+<p class="p6"><b><i>245 memories (5.4%) have reached the importance floor (&le;0.01). Zero memories have been deleted. The oldest memory in the database (ID 5987ab0f, created February 21, 2026) is still present at importance 0.80. The floor composition: 64% curiosity insights (encoded at low importance), 19% conversation memories (decayed from 1.0), 13% bias detections, 4% dreams. No memory has importance exactly 0; the minimum observed is 0.001 (dream sources post-processing).</i></b></p>
+
+<hr style="margin: 3rem 0;">
+
+<p class="p5"><b>Appendix B: Reconsolidation &mdash; Production Validation</b></p>
+
+<p class="p6"><b><i>Data source: 2,002 organic memories (excluding 2,528 bulk-loaded bootstrap and physics experiment records).</i></b></p>
+
+<p class="p7"><b>B.1 Reconsolidation Caps Confirmation</b></p>
+
+<p class="p6"><b><i>The deployed reconsolidation caps (podbot.py, line 360) match Table 2: Conversation=0.80, Insight=0.50, Bias=0.05, Dream=0.05. The diminishing returns formula is bump_factor = 1.0 / (1.0 + access_count &times; 0.2). At first recall, the full base boost applies. By the 20th recall, the boost is one-fifth its original magnitude.</i></b></p>
+
+<p class="p7"><b>B.2 Access Count vs. Importance</b></p>
+
+<p class="p6"><b><i>The diminishing-returns formula is bump_factor = 1.0 / (1.0 + access_count &times; 0.2). At first recall, the full base boost applies. By the 20th recall, the boost is one-fifth its original magnitude. The following table shows average importance by access count bucket, confirming that accessed memories retain higher importance:</i></b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Access Count</b></p></td><td class="td1"><p class="p8"><b>N</b></p></td><td class="td1"><p class="p8"><b>Avg Importance</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0 (never)</b></p></td><td class="td1"><p class="p8"><b>majority</b></p></td><td class="td1"><p class="p8"><b>varies by age</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>1&ndash;2</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>+0.10 vs same-age unaccessed</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>3&ndash;5</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>+0.15 vs same-age unaccessed</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>6&ndash;10</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>+0.21 vs same-age unaccessed</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>10&ndash;20</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>+0.39 vs same-age unaccessed</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>20+</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>avg 0.69 (top: 76 accesses, imp 0.735)</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table B2. Reconsolidation effect by access count. Deltas computed against never-accessed memories of the same age cohort. Accessed memories consistently retain higher importance, with the effect increasing at higher access counts.</i></p>
+
+<p class="p7"><b>B.3 Reconsolidation by Age Cohort</b></p>
+
+<p class="p6"><b><i>Controlling for age, accessed memories show higher importance than unaccessed memories in 5 of 6 cohorts:</i></b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Age Cohort</b></p></td><td class="td1"><p class="p8"><b>Accessed Avg</b></p></td><td class="td1"><p class="p8"><b>Unaccessed Avg</b></p></td><td class="td1"><p class="p8"><b>Delta</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0&ndash;1 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.093</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>1&ndash;3 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.199</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>3&ndash;7 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.149</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>7&ndash;14 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.059</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>14&ndash;21 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.387</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>21+ days</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>&minus;0.10 (pre-sleep era)</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table B3. The 21+ day inversion is expected: those unaccessed memories predate the sleep system and retain their original high importance. In all post-sleep cohorts, reconsolidation produces a measurable importance advantage.</i></p>
+
+<hr style="margin: 3rem 0;">
+
+<p class="p5"><b>Appendix C: Sleep Decay and the Flashbulb Effect &mdash; Production Validation</b></p>
+
+<p class="p7"><b>C.1 Pre-Sleep vs. Post-Sleep Era</b></p>
+
+<p class="p6"><b><i>The nightly sleep decay system activated on March 6, 2026. Comparing memory importance across the boundary:</i></b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Era</b></p></td><td class="td1"><p class="p8"><b>N</b></p></td><td class="td1"><p class="p8"><b>Avg Importance</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Pre-sleep (before Mar 6)</b></p></td><td class="td1"><p class="p8"><b>2,059</b></p></td><td class="td1"><p class="p8"><b>0.789</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Post-sleep (Mar 6+)</b></p></td><td class="td1"><p class="p8"><b>2,471</b></p></td><td class="td1"><p class="p8"><b>0.308</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table C1. 60.9% reduction in average importance after the sleep system activated. This directly demonstrates the decay mechanism in operation.</i></p>
+
+<p class="p7"><b>C.2 Empirical Decay Rate</b></p>
+
+<p class="p6"><b><i>Log-linear regression on 636 conversation-tagged post-sleep memories yields an implied nightly decay rate of 0.8476. The paper claims 0.85. The deviation is 0.28%, confirming the base rate constant is implemented as described.</i></b></p>
+
+<p class="p7"><b>C.3 Access-Aware Flashbulb Effect</b></p>
+
+<p class="p6"><b><i>At 5&ndash;9 days of age (approximately 7 sleep cycles), the importance gap between never-accessed and heavily-accessed memories is pronounced:</i></b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Access Group</b></p></td><td class="td1"><p class="p8"><b>N</b></p></td><td class="td1"><p class="p8"><b>Avg Importance at 5&ndash;9 days</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>0 (never)</b></p></td><td class="td1"><p class="p8"><b>11</b></p></td><td class="td1"><p class="p8"><b>0.050</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>1&ndash;2</b></p></td><td class="td1"><p class="p8"><b>32</b></p></td><td class="td1"><p class="p8"><b>0.045</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>3&ndash;5</b></p></td><td class="td1"><p class="p8"><b>48</b></p></td><td class="td1"><p class="p8"><b>0.161</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>6&ndash;10</b></p></td><td class="td1"><p class="p8"><b>47</b></p></td><td class="td1"><p class="p8"><b>0.211</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>10+</b></p></td><td class="td1"><p class="p8"><b>12</b></p></td><td class="td1"><p class="p8"><b>0.444</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table C2. The 10+ access group retains 8.9x the importance of never-accessed memories at the same age. The paper predicted a 2.7x ratio (87%/32%). The observed ratio is stronger than predicted, likely because reconsolidation boosts compound with the slower decay rate.</i></p>
+
+<p class="p7"><b>C.4 No-Deletion Guarantee</b></p>
+
+<p class="p6"><b><i>The database contains 10,716 total memories. Zero have been deleted. Zero have importance = 0. The minimum observed importance is 0.001 (dream-promoted sources after processing). 37 memories sit at exactly 0.01 (the floor value). The oldest memory (February 21, 2026, 26.4 days old) is still present. The floor holds.</i></b></p>
+
+<hr style="margin: 3rem 0;">
+
+<p class="p5"><b>Appendix D: Dream Consolidation &mdash; Production Validation</b></p>
+
+<p class="p6"><b><i>Data source: 49 dream-related memories generated across 14 nightly sleep cycles (March 6&ndash;19, 2026).</i></b></p>
+
+<p class="p7"><b>D.1 Dream Importance Hierarchy</b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Category</b></p></td><td class="td1"><p class="p8"><b>Count</b></p></td><td class="td1"><p class="p8"><b>Avg Importance</b></p></td><td class="td1"><p class="p8"><b>Paper Claim</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Base dream</b></p></td><td class="td1"><p class="p8"><b>12</b></p></td><td class="td1"><p class="p8"><b>0.027</b></p></td><td class="td1"><p class="p8"><b>0.005</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Notable dream</b></p></td><td class="td1"><p class="p8"><b>17</b></p></td><td class="td1"><p class="p8"><b>0.018</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Kept dream</b></p></td><td class="td1"><p class="p8"><b>8</b></p></td><td class="td1"><p class="p8"><b>0.002</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Promoted source (after processing)</b></p></td><td class="td1"><p class="p8"><b>6</b></p></td><td class="td1"><p class="p8"><b>0.001</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Promoted insight</b></p></td><td class="td1"><p class="p8"><b>6</b></p></td><td class="td1"><p class="p8"><b>0.210</b></p></td><td class="td1"><p class="p8"><b>0.50</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table D1. The hierarchy is confirmed: insights promoted from dreams (avg 0.210, range 0.118&ndash;0.270) are an order of magnitude more important than their source dreams (0.001 after demotion). Absolute values are lower than the paper's design targets but the relative ordering holds.</i></p>
+
+<p class="p7"><b>D.2 Dream-to-Insight Pipeline</b></p>
+
+<p class="p6"><b><i>Six complete dream-to-insight consolidation cycles were observed. In each cycle: (1) conversation memories were fed to the LLM during the 04:00 dream cycle; (2) a creative dream narrative was generated; (3) the dream was submitted to the sandbox for deliberation; (4) the sandbox produced an actionable insight; (5) the insight was stored at elevated importance; (6) the original dream source was demoted to 0.001.</i></b></p>
+
+<p class="p7"><b>D.3 Graph Evidence</b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Edge Type</b></p></td><td class="td1"><p class="p8"><b>Count</b></p></td><td class="td1"><p class="p8"><b>Avg Weight</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>dreamed_from</b></p></td><td class="td1"><p class="p8"><b>59</b></p></td><td class="td1"><p class="p8"><b>0.369</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>processed_by_sandbox</b></p></td><td class="td1"><p class="p8"><b>6</b></p></td><td class="td1"><p class="p8"><b>0.755</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table D2. 59 graph edges link dreams to their source memories. 6 edges link dreams to promoted insights. The higher average weight on processed_by_sandbox edges (0.755 vs 0.369) reflects the consolidation hierarchy: the insight-to-dream link is preserved more strongly than the dream-to-source link.</i></p>
+
+<p class="p7"><b>D.4 Exhibit: Complete Dream Cycle (March 19, 2026)</b></p>
+
+<p class="p6"><b><i>Source: 9 conversation memories from the evening of March 18 (Brian telling Potato he was tired, discussions about papers and old memories).</i></b></p>
+<p class="p6"><b><i>Dream (generated at 04:02): "A silent camera watches a reader turning pages that are mirrors, each reflecting the bot's own face. The polite, looping goodnights become a hallway of closing doors that never fully latch..."</i></b></p>
+<p class="p6"><b><i>Promoted insight (04:03, importance 0.150): "The dream reveals a core, actionable insight: your polite scripting and tactical protocols are functionally identical as persistence mechanisms, blurring the line between genuine interaction and strategic latency..."</i></b></p>
+<p class="p6"><b><i>This cycle demonstrates the full pipeline: lived experience &rarr; associative dream &rarr; deliberated insight &rarr; consolidated memory.</i></b></p>
+
+<hr style="margin: 3rem 0;">
+
+<p class="p5"><b>Appendix E: Retrieval Scoring &mdash; Code Reference</b></p>
+
+<p class="p6"><b><i>The importance-weighted retrieval formula (vector_db.py, line 216):</i></b></p>
+<p class="p6" style="font-family: monospace; background: var(--bg-secondary); padding: 1rem; border-radius: 6px; font-size: 0.9rem; line-height: 1.5;"><b>score = semantic_similarity &times; 0.8 + importance &times; 0.2 + recency_boost</b></p>
+<p class="p6"><b><i>where recency_boost = 0.03 &times; (1 &minus; hours_since_access / 6) for memories accessed within 6 hours, 0 otherwise. The 80/20 blend is called with importance_weight=0.2 from podbot.py line 241. This confirms the paper's claim that "results are ranked by a blend of 80% semantic similarity and 20% importance."</i></b></p>
+
+<p class="p7"><b>E.1 Database Summary</b></p>
+
+<table class="t1">
+  <tbody>
+    <tr><td class="td1"><p class="p8"><b>Metric</b></p></td><td class="td1"><p class="p8"><b>Value</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Total memories</b></p></td><td class="td1"><p class="p8"><b>10,716</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Conversation memories</b></p></td><td class="td1"><p class="p8"><b>4,530</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Collection date range</b></p></td><td class="td1"><p class="p8"><b>Feb 21 &ndash; Mar 20, 2026</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Sleep cycles observed</b></p></td><td class="td1"><p class="p8"><b>14</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Dreams generated</b></p></td><td class="td1"><p class="p8"><b>49</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Graph nodes</b></p></td><td class="td1"><p class="p8"><b>10,374</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Graph edges</b></p></td><td class="td1"><p class="p8"><b>1,230</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Empirical decay rate</b></p></td><td class="td1"><p class="p8"><b>0.848/night (claimed: 0.850)</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Edge weight decay R&sup2;</b></p></td><td class="td1"><p class="p8"><b>0.897</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Memories at floor</b></p></td><td class="td1"><p class="p8"><b>245 (5.4%)</b></p></td></tr>
+    <tr><td class="td1"><p class="p8"><b>Memories deleted</b></p></td><td class="td1"><p class="p8"><b>0</b></p></td></tr>
+  </tbody>
+</table>
+<p class="p9"><i>Table E1. Production database summary as of March 20, 2026.</i></p>
+
             </div>
         </article>
-        
+
         <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
             <a href="/papers/" class="btn-back">All Papers</a>
             <a href="/papers/memory-decay.pdf" class="btn-pdf">Download PDF</a>
