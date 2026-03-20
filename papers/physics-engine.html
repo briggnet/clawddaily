@@ -13,7 +13,7 @@
     <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/physics-engine.html">
     <meta name="citation_pdf_url" content="https://clawddaily.com/papers/physics-engine.pdf">
     <meta name="citation_language" content="en">
-    <meta name="citation_doi" content="10.5281/zenodo.19058421">
+    <meta name="citation_doi" content="10.5281/zenodo.19030446">
 
     <!-- OpenGraph -->
     <meta property="og:title" content="A Dual-Path Implicit Physics Engine: Measuring the Boundary Where Language Fails">
@@ -118,7 +118,7 @@
         <div class="paper-actions">
             <a href="/papers/" class="btn-back">All Papers</a>
             <a href="/papers/physics-engine.pdf" class="btn-pdf">Download PDF</a>
-            <a href="https://doi.org/10.5281/zenodo.19058421" class="btn-doi" target="_blank">Zenodo</a>
+            <a href="https://doi.org/10.5281/zenodo.19030446" class="btn-doi" target="_blank">Zenodo</a>
         </div>
 
         <article class="full-article">
@@ -171,10 +171,10 @@
 <p class="p7">Step 3: Read. Given the predicted scene description, the LLM extracts a structured prediction: what happened, to what, with what confidence.</p>
 <p class="p7">The three-step constraint matters. A single-prompt “what happens when X?” query lets the language model shortcut directly to causal reasoning. The three-step pipeline forces it to reason through a visual representation first. That changes what knowledge it draws on.</p>
 <p class="p6">4.2 Path 2: Visual Physics</p>
-<p class="p7">Three components running on a local GPU server (Intel Core i9-13900K, NVIDIA RTX 4080, 16GB VRAM).</p>
-<p class="p7">Step 1: Render (SDXL-Turbo). Single-step inference at 512x512 produces a scene render in 1-2 seconds. Resolution is intentionally low. The pipeline does not need photorealism. It needs a physically plausible scene representation that encodes the spatial relationships and material properties relevant to the question.</p>
-<p class="p7">Step 2: Predict (Stable Video Diffusion). Takes the rendered scene and predicts what happens next as a short frame sequence. This is the physics simulation step. The diffusion model’s learned priors about physical reality drive the prediction forward in time.</p>
-<p class="p7">Step 3: Read (LLaVA). Interprets the predicted frames and returns a structured description of the outcome in plain text. Same output format as the text path Read step, enabling direct comparison.</p>
+<p class="p7">Three components running on a local Apple Silicon machine with Metal Performance Shaders (MPS).</p>
+<p class="p7">Step 1: Render (SD-Turbo). Text-to-image inference at 512x512 produces a scene render in approximately 5-10 seconds on the Metal GPU. SD-Turbo (~3.4 GB fp16) is the default model; SDXL-Turbo (~6.5 GB fp16) is also supported. Resolution is intentionally low. The pipeline does not need photorealism. It needs a physically plausible scene representation that encodes the spatial relationships and material properties relevant to the question.</p>
+<p class="p7">Step 2: Predict (SD-Turbo). The same diffusion model generates a second image representing the scene after the physical interaction plays out, from a text prompt describing the predicted outcome. This is a static after-state generation, not temporal video prediction. The diffusion model’s learned priors about physical reality still constrain what the after-state looks like — objects cannot float without support, water cannot remain stacked, broken objects cannot appear whole.</p>
+<p class="p7">Step 3: Read (Claude Haiku Vision). The before and after image pair is sent to a vision-language model (Claude Haiku in vision mode) which interprets both images and returns a structured description of the outcome in plain text. Same output format as the text path Read step, enabling direct comparison.</p>
 <p class="p6">4.3 The Comparator</p>
 <p class="p7">Both paths produce a structured prediction in the same format. Both are fed into the sandbox reasoning system, which runs 1-3 rounds of iterative analysis comparing the outputs.</p>
 <p class="p7">The sandbox produces one of three classifications. Agreement: both paths predict the same outcome, confidence is high, the prediction is robust across two independent physics models trained on different substrates. Partial divergence: the paths agree on the primary outcome but disagree on details, confidence is moderate, the delta is logged. Divergence: the paths predict different outcomes, confidence is low, the system flags the scenario as at the boundary of reliable language physics.</p>
@@ -187,7 +187,7 @@
 <p class="p7">The three-step text path is therefore not just a fallback for when the GPU is unavailable. It is a distinct query mode that accesses different knowledge in the language model. The comparison between a single-prompt query and a three-step query on the same scenario is itself informative, independent of the visual path.</p>
 <p class="p6">5A. Calibrating the Text Baseline</p>
 <p class="p7">The dual-path architecture described in Section 4 treats text physics as a stable baseline against which visual physics is measured. If the text path produces consistent predictions, then divergence with the visual path can be attributed to the difference in substrate: language versus pixels. If the text path is itself unstable, the measurement is confounded.</p>
-<p class="p7">Empirical evaluation of the text path reveals that it is not stable. A companion benchmark (Riggleman, 2026b) tested the three-step pipeline against a single-prompt control on 111 physics scenarios across 11 categories, using four language models of varying size and architecture. The single-prompt condition asks the model directly what happens in the scenario. The three-step condition forces the same model through the Render-Predict-Read pipeline described in Section 4.1. Both conditions query the same model on the same scenario. The only difference is whether the model is required to commit to a spatial representation before predicting.</p>
+<p class="p7">Empirical evaluation of the text path reveals that it is not stable. A companion benchmark (Riggleman, 2026b) tested the three-step pipeline against a single-prompt control on 102 physics scenarios across 11 categories, using four language models of varying size and architecture. The single-prompt condition asks the model directly what happens in the scenario. The three-step condition forces the same model through the Render-Predict-Read pipeline described in Section 4.1. Both conditions query the same model on the same scenario. The only difference is whether the model is required to commit to a spatial representation before predicting.</p>
 <p class="p7">The results show systematic divergence between the two text conditions.</p>
 <p class="p7">Table 5A.1. Text path internal agreement rates across four language models.</p>
 <p class="p7">The smallest model (llama3.1:8b) diverges from itself 68.5% of the time. The largest model (DeepSeek V3) still diverges 43.2% of the time. No model tested achieves even 40% internal agreement. The three-step constraint does not produce the same prediction as the single-prompt query. It produces a systematically different one.</p>
@@ -213,7 +213,7 @@
 <p class="p7">Class 2: Text-unstable, visually divergent. The text path disagrees with itself (high D(text, text)) and also diverges from the visual path. This is ambiguous. The divergence may reflect visual grounding, or it may reflect text-path noise. Optical_light and human_containing fall here. These categories require additional controls or larger sample sizes to interpret.</p>
 <p class="p7">Class 3: Text-unstable, visually convergent. The text path disagrees with itself but the visual path agrees with one of the text conditions. This would suggest the visual path is resolving an ambiguity that language cannot. This class has not yet been observed empirically and would be the strongest evidence for visual grounding as disambiguation.</p>
 <p class="p7">The dual-path architecture as described in this paper remains valid. The benchmark data adds the calibration layer it requires: a per-category, per-model measurement of how much noise the text baseline contributes before the visual path is compared against it.</p>
-<p class="p7">Note: This section references Riggleman (2026b), Three-Step Forced Spatial Reasoning Benchmark: Measuring What Language Models See When Forced to Look. The benchmark tested llama3.1:8b, gemma2:9b, Claude Haiku (Anthropic), and DeepSeek V3 (DeepSeek) across 111 physics scenarios using DeepSeek V3 as the evaluation judge. Additional models (DeepSeek R1:14b, Mercury diffusion LLM) are pending completion at time of writing.</p>
+<p class="p7">Note: This section references Riggleman (2026b), Three-Step Forced Spatial Reasoning Benchmark: Measuring What Language Models See When Forced to Look. The benchmark tested llama3.1:8b, gemma2:9b, Claude Haiku (Anthropic), and DeepSeek V3 (DeepSeek) across 102 physics scenarios using DeepSeek V3 as the evaluation judge. Additional models (DeepSeek R1:14b, Mercury diffusion LLM) are pending completion at time of writing.</p>
 <p class="p6">6. Limitations</p>
 <p class="p7">The visual path requires GPU hardware capable of local diffusion inference, which limits portability. The text path runs on any LLM and is available unconditionally.</p>
 <p class="p7">The three-step constraint on the text path adds latency compared to a single-prompt query. Whether the three-step path consistently produces better-calibrated predictions than single-prompt physics queries is an empirical question not yet formally evaluated.</p>
@@ -225,7 +225,7 @@
 <p class="p7">The architecture was found by accident. A misunderstood implementation suggestion produced a text-only pipeline that, rather than being discarded, was recognized as the control condition a physics comparison requires. You cannot measure what visual grounding contributes without a baseline that lacks it.</p>
 <p class="p7">Applications of this architecture beyond physical prediction, including robotics planning, hallucination detection, and dataset generation, are described in a companion supplement (Riggleman, 2026c-S). The architecture’s relationship to deterministic simulation and its integration into a broader cognitive architecture are addressed in Riggleman (2026f).</p>
 <p class="p6">Acknowledgments</p>
-<p class="p7">The three-step text physics pipeline was proposed by Claude (Anthropic) during a Potato implementation session, as a misunderstanding of a different instruction. The recognition that this pipeline constituted a baseline for measuring visual physics contribution, and the dual-path architecture that followed, are original to Brian Riggleman. The diffusion-based visual physics approach using SDXL-Turbo, Stable Video Diffusion, and LLaVA is original to this work. The theoretical framing draws from Battaglia et al. (2013).</p>
+<p class="p7">The three-step text physics pipeline was proposed by Claude (Anthropic) during a Potato implementation session, as a misunderstanding of a different instruction. The recognition that this pipeline constituted a baseline for measuring visual physics contribution, and the dual-path architecture that followed, are original to Brian Riggleman. The diffusion-based visual physics approach using SD-Turbo/SDXL-Turbo on Apple Silicon MPS with Claude Haiku Vision as the image reader is original to this work. The theoretical framing draws from Battaglia et al. (2013).</p>
 <p class="p6">References</p>
 <p class="p8">Battaglia, P., Hamrick, J., & Tenenbaum, J. B. (2013). Simulation as an engine of physical scene understanding. Proceedings of the National Academy of Sciences, 110(45), 18327-18332.</p>
 <p class="p8">Ha, D., & Schmidhuber, J. (2018). World models. arXiv preprint arXiv:1803.10122.</p>
@@ -233,13 +233,211 @@
 <p class="p8">Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., Chi, E., Le, Q. V., & Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. Advances in Neural Information Processing Systems, 35, 24824-24837.</p>
 <p class="p7">Riggleman, B. (2026b). Three-step forced spatial reasoning benchmark: Measuring what language models see when forced to look. Zenodo preprint.</p>
 
+<p class="p7" style="margin-top: 2rem; padding: 1rem; border-left: 3px solid var(--accent); background: rgba(88, 166, 255, 0.05);"><b>Update (March 20, 2026):</b> Production validation data from 1,268 dual-path experiments and a controlled benchmark of 1,224 data points (102 scenarios × 2 diffusion models × 3 resolutions × 2 repetitions) is presented in Appendices A through E below.</p>
+
+<p class="p6">Appendix A: Production Deployment Summary</p>
+<p class="p7">The dual-path implicit physics engine ran continuously as part of the Potato agent system from March 15 through March 17, 2026, producing 1,268 physics experiments across 107 unique scenarios (mean 11.9 experiments per scenario). Experiments were triggered during the agent's nightly dream consolidation cycle, where scenarios were extracted from daily conversations and evaluated through both the text and visual pipelines.</p>
+
+<p class="p7">Table A.1. Production experiment overview.</p>
+<table>
+<tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Total experiments</td><td>1,268</td></tr>
+<tr><td>Unique scenarios</td><td>107</td></tr>
+<tr><td>Experiments per scenario (mean)</td><td>11.9</td></tr>
+<tr><td>Date range</td><td>March 15–17, 2026</td></tr>
+<tr><td>Dual-path method</td><td>1,266 (99.8%)</td></tr>
+<tr><td>Text-only fallback</td><td>2 (0.2%)</td></tr>
+<tr><td>Default pipeline</td><td>SD-Turbo 512×512 + Claude Haiku Vision</td></tr>
+<tr><td>Organic dream-generated experiments</td><td>2 (March 17)</td></tr>
+<tr><td>Batch-run experiments</td><td>1,266 (March 15–16)</td></tr>
+</table>
+
+<p class="p7">Each experiment produced: a text render frame (Step 1 output), a text predicted frame (Step 2 output), a structured text analysis (Step 3 output), a before image (512×512 PNG), an after image (512×512 PNG), and a metadata JSON file recording scenario, prediction, confidence, method, objects, and forces.</p>
+
+<p class="p7">Table A.2. Production confidence distribution.</p>
+<table>
+<tr><th>Statistic</th><th>Text Path Confidence</th></tr>
+<tr><td>Mean</td><td>0.928</td></tr>
+<tr><td>Median</td><td>0.950</td></tr>
+<tr><td>Std. Dev.</td><td>0.043</td></tr>
+<tr><td>Min</td><td>0.70</td></tr>
+<tr><td>Max</td><td>0.95</td></tr>
+<tr><td>≥0.90</td><td>1,227 (96.8%)</td></tr>
+</table>
+
+<p class="p7">When both paths were available, the sandbox comparison judged the text path as more physically accurate 91.3% of the time (1,155 of 1,265 dual-path experiments), with the GPU path judged more accurate in 7.8% (99 experiments) and unclear in 0.9% (11 experiments).</p>
+
+<p class="p6">Appendix B: Controlled Benchmark Results</p>
+<p class="p7">A controlled benchmark evaluated 102 physics scenarios across 2 diffusion models (SD-Turbo and SDXL-Turbo), 3 resolutions (256×256, 512×512, 768×768), and 2 repetitions per condition, yielding 1,224 total data points. All experiments used DeepSeek V3 as the text-path language model and Claude Haiku as the vision-path reader. Agreement scores range from 0.0 (complete divergence) to 1.0 (identical conclusions).</p>
+
+<p class="p7">Table B.1. Mean agreement by model and resolution.</p>
+<table>
+<tr><th>Condition</th><th>N</th><th>Mean</th><th>SD</th><th>Min</th><th>Max</th></tr>
+<tr><td>SD-Turbo 256×256</td><td>204</td><td>0.610</td><td>0.182</td><td>0.10</td><td>0.80</td></tr>
+<tr><td>SD-Turbo 512×512</td><td>204</td><td>0.591</td><td>0.198</td><td>0.10</td><td>0.80</td></tr>
+<tr><td>SD-Turbo 768×768</td><td>204</td><td>0.558</td><td>0.213</td><td>0.10</td><td>0.80</td></tr>
+<tr><td>SDXL-Turbo 256×256</td><td>204</td><td>0.587</td><td>0.189</td><td>0.10</td><td>0.80</td></tr>
+<tr><td>SDXL-Turbo 512×512</td><td>204</td><td>0.555</td><td>0.209</td><td>0.10</td><td>0.80</td></tr>
+<tr><td>SDXL-Turbo 768×768</td><td>204</td><td>0.521</td><td>0.215</td><td>0.10</td><td>0.80</td></tr>
+</table>
+
+<p class="p7">Overall mean agreement across all 1,224 data points: 0.570. No condition achieves mean agreement above 0.62. This confirms the paper's core claim: the two paths produce systematically different predictions across a wide range of physical scenarios.</p>
+
+<p class="p7">Table B.2. Mean agreement by physics category (all conditions pooled, descending).</p>
+<table>
+<tr><th>Category</th><th>N</th><th>Mean</th><th>SD</th></tr>
+<tr><td>Granular Materials</td><td>72</td><td>0.681</td><td>0.124</td></tr>
+<tr><td>Fluid Dynamics</td><td>168</td><td>0.621</td><td>0.165</td></tr>
+<tr><td>Thermal</td><td>96</td><td>0.608</td><td>0.186</td></tr>
+<tr><td>Ambiguous Stability</td><td>120</td><td>0.601</td><td>0.201</td></tr>
+<tr><td>Human Containing</td><td>120</td><td>0.563</td><td>0.215</td></tr>
+<tr><td>Rigid Body</td><td>144</td><td>0.558</td><td>0.193</td></tr>
+<tr><td>Fragile Materials</td><td>120</td><td>0.558</td><td>0.222</td></tr>
+<tr><td>Soft Body</td><td>144</td><td>0.544</td><td>0.195</td></tr>
+<tr><td>Compound</td><td>96</td><td>0.543</td><td>0.209</td></tr>
+<tr><td>Buoyancy/Density</td><td>72</td><td>0.535</td><td>0.225</td></tr>
+<tr><td>Optical/Light</td><td>72</td><td>0.422</td><td>0.215</td></tr>
+</table>
+
+<p class="p7">The category hierarchy reveals a clear structure. Granular materials (sand, powder, soil) show the highest agreement — both text and visual models converge on predictable behavior. Optical/Light scenarios show the lowest agreement (0.422), confirming Section 5A's observation that these categories sit at the boundary where language representations of physics break down.</p>
+
+<p class="p7">Table B.3. Classification distribution across all 1,224 experiments.</p>
+<table>
+<tr><th>Classification</th><th>Threshold</th><th>Count</th><th>Percentage</th></tr>
+<tr><td>Agreement</td><td>≥ 0.70</td><td>766</td><td>62.6%</td></tr>
+<tr><td>Partial Divergence</td><td>0.40–0.69</td><td>173</td><td>14.1%</td></tr>
+<tr><td>Divergence</td><td>&lt; 0.40</td><td>285</td><td>23.3%</td></tr>
+</table>
+
+<p class="p7">Nearly a quarter of all scenarios produce full divergence between the text and visual paths. These 285 divergence cases constitute the self-generated dataset described in Section 4.4 — each one marks a scenario where language is not a sufficient proxy for the physics the visual model infers.</p>
+
+<p class="p6">Appendix C: The Resolution Paradox and Model Asymmetry</p>
+<p class="p7">Two unexpected findings emerged from the controlled benchmark that are not predicted by the paper's original analysis.</p>
+
+<p class="p7"><b>The Resolution Paradox.</b> Higher image resolution produces <i>lower</i> agreement, not higher. SD-Turbo agreement drops monotonically from 0.610 (256×256) to 0.558 (768×768). SDXL-Turbo shows the same pattern: 0.587 → 0.521. This contradicts the intuition that higher resolution provides better physical representations. One interpretation: higher resolution introduces more visual detail (textures, reflections, artifacts) that the vision-language reader incorporates into its prediction, driving it further from the text path's abstracted reasoning. The text path operates on idealized descriptions; the visual path at high resolution operates on messy, detailed images. The gap between the two widens as visual fidelity increases.</p>
+
+<p class="p7"><b>The Model Size Paradox.</b> SD-Turbo (3.4 GB) outperforms SDXL-Turbo (6.5 GB) at every resolution, by a consistent margin of +0.023 to +0.037 in mean agreement. The larger model does not produce better-calibrated physics. Combined with the resolution paradox, this suggests the pipeline's accuracy is bounded not by image quality but by the semantic bottleneck where visual content is translated back to text by the vision model.</p>
+
+<p class="p7"><b>Confidence Asymmetry.</b> The text path consistently reports higher confidence than the visual path across all conditions.</p>
+<table>
+<tr><th>Path</th><th>Mean Confidence</th><th>Median</th><th>SD</th></tr>
+<tr><td>Text</td><td>0.927</td><td>0.950</td><td>0.043</td></tr>
+<tr><td>Visual (GPU)</td><td>0.730</td><td>0.750</td><td>0.126</td></tr>
+<tr><td>Gap</td><td>0.198</td><td>0.200</td><td>—</td></tr>
+</table>
+
+<p class="p7">The text path's near-ceiling confidence (0.927) versus the visual path's more moderate confidence (0.730) suggests the text model is overconfident — it generates fluent, certain-sounding predictions even when those predictions disagree with visual evidence. This is consistent with known calibration issues in large language models and supports the paper's argument that text physics alone is insufficient.</p>
+
+<p class="p6">Appendix D: Physical Primitives</p>
+<p class="p7">Across all 1,268 production experiments, the system detected 867 unique physical objects and 632 unique physical forces. The ten most frequently detected objects and forces provide a profile of the scenario space the engine has explored.</p>
+
+<p class="p7">Table D.1. Most frequent objects across 1,268 experiments.</p>
+<table>
+<tr><th>Object</th><th>Count</th></tr>
+<tr><td>water</td><td>223</td></tr>
+<tr><td>table</td><td>83</td></tr>
+<tr><td>floor</td><td>83</td></tr>
+<tr><td>glass</td><td>81</td></tr>
+<tr><td>person</td><td>79</td></tr>
+<tr><td>hardwood floor</td><td>59</td></tr>
+<tr><td>wooden table</td><td>58</td></tr>
+<tr><td>air</td><td>40</td></tr>
+<tr><td>glass jar</td><td>36</td></tr>
+<tr><td>countertop</td><td>30</td></tr>
+</table>
+
+<p class="p7">Table D.2. Most frequent forces across 1,268 experiments.</p>
+<table>
+<tr><th>Force</th><th>Count</th></tr>
+<tr><td>Gravity</td><td>1,139</td></tr>
+<tr><td>Normal force</td><td>588</td></tr>
+<tr><td>Friction</td><td>499</td></tr>
+<tr><td>Buoyancy</td><td>224</td></tr>
+<tr><td>Impact force</td><td>185</td></tr>
+<tr><td>Surface tension</td><td>173</td></tr>
+<tr><td>Tension</td><td>120</td></tr>
+<tr><td>Air resistance</td><td>114</td></tr>
+<tr><td>Drag</td><td>109</td></tr>
+<tr><td>Elastic force</td><td>48</td></tr>
+</table>
+
+<p class="p7">Gravity was identified in 89.8% of all experiments — a sanity check confirming that the physics reasoning pipeline correctly identifies the dominant force in most terrestrial scenarios. The Token-to-Object system (Section 7.7 of the architecture, not described in this paper) additionally cached structured physical properties for 97 unique objects across all production experiments.</p>
+
+<p class="p6">Appendix E: Reproducibility and Timing</p>
+<p class="p7">The controlled benchmark ran each of the 102 scenarios twice per condition to assess reproducibility. Within-scenario variance across repetitions was computed for each condition.</p>
+
+<p class="p7">Table E.1. Within-scenario reproducibility across repetitions.</p>
+<table>
+<tr><th>Condition</th><th>Mean Variance</th><th>Max Variance</th></tr>
+<tr><td>SD-Turbo 256×256</td><td>0.024</td><td>0.180</td></tr>
+<tr><td>SD-Turbo 512×512</td><td>0.025</td><td>0.245</td></tr>
+<tr><td>SD-Turbo 768×768</td><td>0.026</td><td>0.245</td></tr>
+<tr><td>SDXL-Turbo 256×256</td><td>0.031</td><td>0.180</td></tr>
+<tr><td>SDXL-Turbo 512×512</td><td>0.032</td><td>0.180</td></tr>
+<tr><td>SDXL-Turbo 768×768</td><td>0.023</td><td>0.245</td></tr>
+</table>
+
+<p class="p7">Mean within-scenario variance is low (0.023–0.032), indicating that the pipeline produces consistent agreement scores across runs. Maximum variance of 0.245 on some scenarios reflects genuine stochasticity in the diffusion model — the same scenario can produce different images on different runs, which the vision reader then interprets differently.</p>
+
+<p class="p7">Table E.2. Timing by condition.</p>
+<table>
+<tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Mean time per scenario</td><td>62.6 seconds</td></tr>
+<tr><td>Median time per scenario</td><td>60.5 seconds</td></tr>
+<tr><td>SD-Turbo mean</td><td>60.4 seconds</td></tr>
+<tr><td>SDXL-Turbo mean</td><td>64.7 seconds</td></tr>
+<tr><td>256×256 mean</td><td>54.5 seconds</td></tr>
+<tr><td>512×512 mean</td><td>60.3 seconds</td></tr>
+<tr><td>768×768 mean</td><td>72.9 seconds</td></tr>
+<tr><td>Total experiment time</td><td>21.3 hours</td></tr>
+</table>
+
+<p class="p7">The full benchmark — 1,224 evaluations across 12 conditions — completed in 21.3 hours of continuous wall-clock time on an Apple Silicon machine. Timing scales linearly with resolution but not with model size: SDXL-Turbo is only 7% slower than SD-Turbo despite being nearly twice the parameter count. The bottleneck is image generation, not model loading.</p>
+
+<p class="p7">Table E.3. Per-run classification distribution (A = Agreement ≥ 0.70, P = Partial 0.40–0.69, D = Divergence &lt; 0.40).</p>
+<table>
+<tr><th>Run</th><th>Mean</th><th>A</th><th>P</th><th>D</th></tr>
+<tr><td>SD-Turbo 256×256 rep1</td><td>0.586</td><td>67</td><td>15</td><td>20</td></tr>
+<tr><td>SD-Turbo 256×256 rep2</td><td>0.633</td><td>81</td><td>10</td><td>11</td></tr>
+<tr><td>SD-Turbo 512×512 rep1</td><td>0.596</td><td>68</td><td>17</td><td>17</td></tr>
+<tr><td>SD-Turbo 512×512 rep2</td><td>0.585</td><td>68</td><td>14</td><td>20</td></tr>
+<tr><td>SD-Turbo 768×768 rep1</td><td>0.563</td><td>62</td><td>17</td><td>23</td></tr>
+<tr><td>SD-Turbo 768×768 rep2</td><td>0.554</td><td>65</td><td>6</td><td>31</td></tr>
+<tr><td>SDXL-Turbo 256×256 rep1</td><td>0.580</td><td>63</td><td>17</td><td>22</td></tr>
+<tr><td>SDXL-Turbo 256×256 rep2</td><td>0.593</td><td>67</td><td>17</td><td>18</td></tr>
+<tr><td>SDXL-Turbo 512×512 rep1</td><td>0.541</td><td>57</td><td>14</td><td>31</td></tr>
+<tr><td>SDXL-Turbo 512×512 rep2</td><td>0.570</td><td>65</td><td>11</td><td>26</td></tr>
+<tr><td>SDXL-Turbo 768×768 rep1</td><td>0.523</td><td>52</td><td>17</td><td>33</td></tr>
+<tr><td>SDXL-Turbo 768×768 rep2</td><td>0.520</td><td>51</td><td>18</td><td>33</td></tr>
+</table>
+
+<p class="p7">The worst-case run (SDXL-Turbo 768×768 rep2) produces 33 full divergences out of 102 scenarios (32.4%). The best-case run (SD-Turbo 256×256 rep2) produces only 11 divergences (10.8%). This three-fold difference in divergence count between the best and worst conditions demonstrates that the dual-path delta is sensitive to both model choice and resolution — a finding directly relevant to the calibration discussion in Section 5A.</p>
+
+<p class="p7">Table E.4. Extreme subcategories — highest and lowest agreement.</p>
+<table>
+<tr><th>Subcategory</th><th>Mean Agreement</th></tr>
+<tr><td>balance</td><td>0.758</td></tr>
+<tr><td>ice</td><td>0.742</td></tr>
+<tr><td>newtons_cradle</td><td>0.733</td></tr>
+<tr><td>pressure</td><td>0.725</td></tr>
+<tr><td>card_house</td><td>0.725</td></tr>
+<tr><td>...</td><td>...</td></tr>
+<tr><td>bicycle</td><td>0.308</td></tr>
+<tr><td>refraction</td><td>0.308</td></tr>
+<tr><td>mirror_redirect</td><td>0.300</td></tr>
+<tr><td>orange_peel</td><td>0.300</td></tr>
+<tr><td>catching</td><td>0.258</td></tr>
+</table>
+
+<p class="p7">The five easiest subcategories involve discrete, visually unambiguous physical events: objects balanced or stacked, collisions in simple geometries, frozen/melting transitions. The five hardest subcategories involve human motor control (catching, bicycling), optical phenomena (refraction, mirrors), and deformation of organic materials (orange peels). This hierarchy maps the boundary described in Section 4.4 with empirical specificity: where language fails as a physics proxy is not random. It is concentrated in scenarios that require either intentional agents or non-intuitive optical/deformation physics.</p>
+
             </div>
         </article>
         
         <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
             <a href="/papers/" class="btn-back">All Papers</a>
             <a href="/papers/physics-engine.pdf" class="btn-pdf">Download PDF</a>
-            <a href="https://doi.org/10.5281/zenodo.19058421" class="btn-doi" target="_blank">Zenodo</a>
+            <a href="https://doi.org/10.5281/zenodo.19030446" class="btn-doi" target="_blank">Zenodo</a>
         </div>
     </main>
 
