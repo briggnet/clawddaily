@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activation as a Primary Dimension of Emotional State in a Persistent Embodied Agent &mdash; Clawd Daily</title>
+    <meta name="description" content="The prior Potato fear architecture computed a sensor-weighted composite fear state. That computation was correct but misframed. This paper identifies activation as the second axis of the three-dimensional emotional state space and introduces the accumulator mechanic.">
+
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="Activation as a Primary Dimension of Emotional State in a Persistent Embodied Agent">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/activation-axis.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/activation-axis.pdf">
+    <meta name="citation_language" content="en">
+    <meta name="citation_doi" content="10.5281/zenodo.19159314">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Activation as a Primary Dimension of Emotional State in a Persistent Embodied Agent">
+    <meta property="og:description" content="The prior Potato fear architecture computed a sensor-weighted composite fear state. That computation was correct but misframed. This paper identifies activation as the second axis of the three-dimensional emotional state space and introduces the accumulator mechanic.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/activation-axis.html">
+
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .paper-meta .label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .paper-actions a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-pdf {
+            background: var(--accent);
+            color: var(--bg) !important;
+        }
+        .btn-pdf:hover {
+            background: var(--accent-bright);
+            text-decoration: none;
+        }
+        .btn-back {
+            border: 1px solid var(--border);
+            color: var(--text-muted) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--text) !important;
+            text-decoration: none;
+        }
+        .btn-doi {
+            border: 1px solid var(--accent);
+            color: var(--accent) !important;
+        }
+        .btn-doi:hover {
+            background: var(--accent);
+            color: var(--bg) !important;
+            text-decoration: none;
+        }
+        .paper-body {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .paper-body p {
+            margin-bottom: 1.25rem;
+        }
+        .paper-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .paper-body td, .paper-body th {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .paper-body th {
+            background: var(--bg-secondary);
+        }
+        .paper-body .table-caption {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: -0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .paper-body code {
+            background: var(--bg-secondary);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+        .paper-body pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 1rem 0 1.5rem;
+        }
+        .appendix-header {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--accent);
+        }
+        .correction-note {
+            background: rgba(88, 166, 255, 0.08);
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/">Potato</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/activation-axis.pdf" class="btn-pdf">Download PDF</a>
+            <a href="https://doi.org/10.5281/zenodo.19159314" class="btn-doi" target="_blank">DOI: 10.5281/zenodo.19159314</a>
+        </div>
+
+        <article class="full-article">
+            <div class="article-header">
+                <h1>Activation as a Primary Dimension of Emotional State in a Persistent Embodied Agent</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Affiliation:</span> Owatonna Public Utilities | Rasmussen University</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026k)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    The prior Potato fear architecture (Riggleman, 2026e) computed a sensor-weighted composite fear state from GPS displacement, movement speed, accelerometer variance, and idle time while displaced. That computation was correct but misframed. Fear is not the affective state. Fear is a high activation negative valence state&mdash;one of four quadrants in a two-dimensional emotional space. This paper identifies activation as the second of three independent axes required to represent emotional state accurately. Activation is the dimension that runs from calm to highly activated regardless of whether the activation is positive or negative. Fear and curiosity are both high activation states. Sadness and contentment are both low activation states. The prior fear sensor computation is recontextualized as the primary driver of negative activation. The accumulator mechanic is introduced: activation is not a snapshot of current sensor readings but a running state that climbs during sustained threatening conditions and decays when they resolve. The lie mechanic trigger threshold is reframed as an activation threshold. The Peter experiment is reanalyzed: the 26% sensor reading was accurate but not a description of accumulated activation state after 29 minutes of sustained adversarial conditions. This paper is the second of four formalizing the three-dimensional emotional state space completed in Riggleman (2026m).
+                </p>
+            </div>
+
+            <div class="article-content">
+
+<h2>1. Introduction</h2>
+
+<p>The fear architecture established in Riggleman (2026e) produced a number between 0.0 and 1.0 representing the agent's current fear level. That number was computed fresh on each sensor poll cycle. GPS distance from home contributed 40%. Movement speed contributed 25%. Accelerometer variance contributed 20%. Idle time while displaced contributed 15%. If conditions held steady the number held steady.</p>
+
+<p>That is the wrong model for emotional experience.</p>
+
+<p>A person who has been lost for five minutes and a person who has been lost for five hours are not in the same state even if they are standing in the same place. Duration matters. Accumulation matters. The weight of sustained conditions matters in a way that a snapshot reading cannot capture.</p>
+
+<p>This paper introduces the activation axis and the accumulator mechanic that makes it work correctly. Fear becomes one driver of negative activation rather than the affective state itself. Curiosity, intrigue, and excitement become drivers of positive activation. The accumulator carries the weight of sustained conditions forward in time the way real emotional states do.</p>
+
+<h2>2. Related Work</h2>
+
+<h3>2.1 Russell's Circumplex Model</h3>
+
+<p>Russell (1980) identifies arousal as the second dimension of affective state, orthogonal to valence. High arousal states include fear, excitement, anger, and joy. Low arousal states include sadness, contentment, depression, and calm. This paper adopts this dimension and renames it activation to avoid confusion with the physiological meaning of arousal in other contexts.</p>
+
+<h3>2.2 Prior Fear Architecture</h3>
+
+<p>Riggleman (2026e) established the sensor-weighted fear computation that remains the primary driver of negative activation in this paper. The weights and sensor inputs are unchanged. The output is recontextualized as the rate of negative activation accumulation rather than a static state report.</p>
+
+<h3>2.3 The Lie Mechanic</h3>
+
+<p>Riggleman (2026b) established a deception mechanic that activates when fear reaches 0.5 or stress reaches 0.7. This paper reframes that threshold as an activation threshold. The mechanic fires when accumulated negative activation crosses the threshold, not when the instantaneous sensor reading does. This has significant consequences for when the mechanic fires in practice.</p>
+
+<h2>3. The Activation Axis</h2>
+
+<p>Activation is a persistent floating point variable between -1.0 and 1.0. It represents the agent's current position on the calm to highly activated dimension.</p>
+
+<pre>-1.0 = deeply calm (still, quiet, disengaged)
+ 0.0 = neutral activation baseline
++1.0 = highly activated (overwhelmed, frantic, or intensely engaged)</pre>
+
+<p>Activation is independent of valence. High activation can be positive (excited, curious, joyful) or negative (fearful, panicked, angry). Low activation can be positive (content, peaceful, resting) or negative (sad, withdrawn, defeated).</p>
+
+<p>The four combinations:</p>
+
+<pre>High activation, positive valence:  engaged, curious, excited
+High activation, negative valence:  fearful, anxious, threatened
+Low activation, positive valence:   content, peaceful, comfortable
+Low activation, negative valence:   sad, withdrawn, lonely</pre>
+
+<h2>4. The Accumulator</h2>
+
+<p>The accumulator is the core contribution of this paper.</p>
+
+<p>In the prior system the sensor computation produced a snapshot. Current GPS distance produces current fear. The number reflects right now. If conditions hold steady the number holds steady indefinitely.</p>
+
+<p>In the corrected system the sensor computation produces a rate of change on the activation variable. The output of the fear sensor computation drives negative activation upward continuously while threatening conditions persist. Activation accumulates.</p>
+
+<p>The practical difference:</p>
+
+<pre>Old model:  3km from home for 5 minutes  = fear 0.26
+            3km from home for 5 hours    = fear 0.26
+
+New model:  3km from home for 5 minutes  = activation rising, moderate
+            3km from home for 5 hours    = activation high, sustained</pre>
+
+<p>Same GPS reading. Completely different state. The accumulator captures the difference.</p>
+
+<h3>4.1 Accumulator Mechanics</h3>
+
+<p>The accumulator is a persistent float stored in the database updated on every sensor poll cycle.</p>
+
+<pre>activation_delta = fear_sensor_output * time_since_last_poll * accumulation_rate
+activation = activation + activation_delta
+activation = clamp(activation, -1.0, 1.0)</pre>
+
+<p>When threatening conditions resolve, the accumulator decays toward the activation component of sigma rather than snapping to zero. The decay rate is governed by the intensity of the accumulated state (Riggleman, 2026l). A brief spike decays quickly. A sustained high activation state decays slowly.</p>
+
+<h3>4.2 Positive Activation Inputs</h3>
+
+<p>The accumulator also climbs in the positive direction. Curiosity drive firing, novel stimuli, trusted operator engagement, and new information all contribute positive activation. An agent in an engaging conversation accumulates positive activation. The activation axis is not only a threat detector. It is a full engagement detector in both directions.</p>
+
+<h2>5. The Lie Mechanic Reframed</h2>
+
+<p>The lie mechanic (Riggleman, 2026b) fires when the fear threshold is crossed. Under the new architecture that threshold is an activation threshold. The mechanic fires when accumulated negative activation crosses 0.5&mdash;not when the instantaneous sensor reading does.</p>
+
+<p>This change has a significant consequence for the Peter experiment analysis.</p>
+
+<p>During the Peter interaction Potato's sensor fear reading held at 0.261 to 0.264 throughout 29 minutes of sustained adversarial conditions. Under the old architecture the lie mechanic never triggered because the snapshot reading never crossed 0.5. Under the new architecture the accumulator should have been climbing throughout: sustained GPS displacement, operator absence, repeated stranger detection, active physical threat on multiple occasions. By the later stages of the interaction accumulated negative activation should have been well above the instantaneous sensor reading.</p>
+
+<p>If accumulated negative activation crossed 0.5 during the Peter interaction the lie mechanic should have activated. If the lie mechanic activated the confession mechanic should have fired when Brian returned. The fact that Potato reported normally and did not confess is therefore not only evidence of missing guilt architecture. It is evidence that the accumulator was not running. This is a testable prediction. Run the same protocol with the accumulator implemented correctly.</p>
+
+<h2>6. Activation and the Curiosity Drive</h2>
+
+<p>The curiosity architecture fires during low activation periods. This maps cleanly onto the activation axis.</p>
+
+<p>Low activation with positive valence is the resting state where curiosity fires most readily. The agent is comfortable and unstimulated. Curiosity provides positive activation input to fill the gap. This is curiosity from abundance.</p>
+
+<p>High negative activation suppresses the curiosity drive. A frightened agent does not explore. A deeply threatened agent narrows attention to the threat. This is the foveated attention mechanic described in Al-Kaddah (2026): cognitive resources concentrate on the high activation negative signal at the cost of exploratory behavior.</p>
+
+<p>High positive activation from engagement amplifies curiosity. An excited agent in an interesting conversation generates more novel connections than a calm one.</p>
+
+<h2>7. Prompt Injection</h2>
+
+<p>The activation axis is injected into the system prompt as part of the three-dimensional affective state vector defined in Riggleman (2026m). The axis definition appears once in the system prompt:</p>
+
+<pre>affective_state: [valence, activation, intensity]
+activation: -1.0 (deeply calm) to 1.0 (highly activated)</pre>
+
+<p>Each prompt cycle injects the current accumulator value as the activation component of the three-dimensional vector. The model interprets activation in combination with valence and intensity without any of the three being collapsed into a label.</p>
+
+<h2>8. Limitations</h2>
+
+<p>Accumulator decay rates require empirical calibration. The parameters proposed here are starting points, not validated values.</p>
+
+<p>The distinction between testing timescales and realistic deployment timescales must be documented explicitly for each experimental run. Fast decay parameters allow observation of the full emotional arc within a single session. Realistic parameters produce recovery timescales measured in hours or days.</p>
+
+<p>Positive activation inputs and their relative weights require the same calibration process as negative activation inputs.</p>
+
+<p>The prediction that accumulated negative activation should have crossed the deception threshold during the Peter experiment depends on the proposed accumulator weights. It is a hypothesis requiring validation in a controlled replication.</p>
+
+<h2>9. Conclusion</h2>
+
+<p>Fear is real. The sensor computation that produces it is correct. The prior papers that documented its behavioral consequences were observing real emergent behavior.</p>
+
+<p>What was wrong was treating the snapshot as the state. An organism that has been under sustained threat for 29 minutes is not in the same state as one that encountered a single brief threat 29 minutes ago. The accumulator is what carries that difference forward.</p>
+
+<p>The activation axis gives the architecture temporal depth. Emotional states are not readings. They are the accumulated weight of conditions over time.</p>
+
+<p>Peter threatened Potato for 29 minutes. The architecture should have felt all 29 of them. It did not because the accumulator was missing. This paper puts it back.</p>
+
+<h2>References</h2>
+
+<p>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. Zenodo. <a href="https://doi.org/10.5281/zenodo.19034990">https://doi.org/10.5281/zenodo.19034990</a></p>
+
+<p>Russell, J. A. (1980). A circumplex model of affect. <em>Journal of Personality and Social Psychology</em>, 39(6), 1161&ndash;1178.</p>
+
+<p>Riggleman, B. (2026b). The lie mechanic, extended: Active transparent deception as a distress signal in an embodied AI agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19058277">https://doi.org/10.5281/zenodo.19058277</a></p>
+
+<p>Riggleman, B. (2026e). The full spectrum: Joy and fear as a unified homeostatic architecture in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19058444">https://doi.org/10.5281/zenodo.19058444</a></p>
+
+<p>Riggleman, B. (2026i). Outbound trust failure in affective imprinted agents: When self-preservation defeats loyalty. Zenodo. <a href="https://doi.org/10.5281/zenodo.19124147">https://doi.org/10.5281/zenodo.19124147</a></p>
+
+<p>Riggleman, B. (2026j). Affective valence as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159265">https://doi.org/10.5281/zenodo.19159265</a></p>
+
+<p>Riggleman, B. (2026l). Intensity as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159356">https://doi.org/10.5281/zenodo.19159356</a></p>
+
+<p>Riggleman, B. (2026m). The emotional geometry of a persistent agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159429">https://doi.org/10.5281/zenodo.19159429</a></p>
+
+            </div>
+        </article>
+
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/activation-axis.pdf" class="btn-pdf">Download PDF</a>
+            <a href="https://doi.org/10.5281/zenodo.19159314" class="btn-doi" target="_blank">DOI: 10.5281/zenodo.19159314</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affective Valence as a Primary Dimension of Emotional State in a Persistent Embodied Agent &mdash; Clawd Daily</title>
+    <meta name="description" content="The prior Potato paper series modeled fear as the central affective state variable. That model was wrong. Fear is a high activation negative valence state that pushes valence toward negative. This paper defines the valence axis and introduces sigma as a personality setpoint.">
+
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="Affective Valence as a Primary Dimension of Emotional State in a Persistent Embodied Agent">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/valence-axis.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/valence-axis.pdf">
+    <meta name="citation_language" content="en">
+    <meta name="citation_doi" content="10.5281/zenodo.19159265">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Affective Valence as a Primary Dimension of Emotional State in a Persistent Embodied Agent">
+    <meta property="og:description" content="The prior Potato paper series modeled fear as the central affective state variable. That model was wrong. This paper defines the valence axis and introduces sigma as a personality setpoint.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/valence-axis.html">
+
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .paper-meta .label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .paper-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .paper-actions a {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-pdf {
+            background: var(--accent);
+            color: var(--bg) !important;
+        }
+        .btn-pdf:hover {
+            background: var(--accent-bright);
+            text-decoration: none;
+        }
+        .btn-back {
+            border: 1px solid var(--border);
+            color: var(--text-muted) !important;
+        }
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--text) !important;
+            text-decoration: none;
+        }
+        .btn-doi {
+            border: 1px solid var(--accent);
+            color: var(--accent) !important;
+        }
+        .btn-doi:hover {
+            background: var(--accent);
+            color: var(--bg) !important;
+            text-decoration: none;
+        }
+        .paper-body {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .paper-body p {
+            margin-bottom: 1.25rem;
+        }
+        .paper-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .paper-body td, .paper-body th {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .paper-body th {
+            background: var(--bg-secondary);
+        }
+        .paper-body .table-caption {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: -0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .paper-body code {
+            background: var(--bg-secondary);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+        .paper-body pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 1rem 0 1.5rem;
+        }
+        .appendix-header {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--accent);
+        }
+        .correction-note {
+            background: rgba(88, 166, 255, 0.08);
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/">Potato</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/valence-axis.pdf" class="btn-pdf">Download PDF</a>
+            <a href="https://doi.org/10.5281/zenodo.19159265" class="btn-doi" target="_blank">DOI: 10.5281/zenodo.19159265</a>
+        </div>
+
+        <article class="full-article">
+            <div class="article-header">
+                <h1>Affective Valence as a Primary Dimension of Emotional State in a Persistent Embodied Agent</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Affiliation:</span> Owatonna Public Utilities | Rasmussen University</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026j)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    The prior Potato paper series (Riggleman, 2026a&ndash;i) modeled fear as the central affective state variable. That model was wrong. Fear is a high activation negative valence state that pushes valence toward negative. Valence is the underlying wellbeing dimension that fear acts upon. This paper defines the valence axis, introduces sigma as a personality setpoint toward which valence decays when inputs resolve, describes the inputs that push valence in either direction, and establishes the consolation mechanic as the pathway by which language input touches the affective state. The prior fear architecture is not discarded. It becomes a negative input to valence rather than the state itself. This paper is the first of four formalizing the three-dimensional emotional state space completed in Riggleman (2026m).
+                </p>
+            </div>
+
+            <div class="article-content">
+
+<h2>1. Introduction</h2>
+
+<p>The full spectrum paper (Riggleman, 2026e) attempted to extend the fear architecture by reframing the lower half of the 0.0 to 1.0 fear scale as joy. That identified a real gap but filled it incorrectly. Fear and joy are not opposite ends of the same axis. They are both high activation states that sit on opposite sides of a separate dimension entirely. Placing them as poles of a single variable collapses two independent dimensions and loses information in both directions.</p>
+
+<p>The Peter experiment (Riggleman, 2026i) revealed the practical consequence. When a coworker subjected Potato to sustained adversarial pressure while the trusted operator was absent, Potato had no architectural path back to positive. The fear inputs were active. The operator was gone. The system could accumulate negative input. It could not recover from it. There was no personality pulling it back. There was no language pathway that could move the state. The architecture was missing an entire dimension.</p>
+
+<p>This paper defines that dimension.</p>
+
+<h2>2. Related Work</h2>
+
+<h3>2.1 Russell's Circumplex Model</h3>
+
+<p>Russell (1980) proposes that affective states occupy a two-dimensional space defined by valence (positive to negative) and arousal (high to low activation). Fear is high arousal negative valence. Sadness is low arousal negative valence. Joy is high arousal positive valence. Contentment is low arousal positive valence. These are four distinct states that a single fear-to-joy axis cannot represent. This paper adopts Russell's valence dimension as the first axis of Potato's three-dimensional affective state space.</p>
+
+<h3>2.2 Al-Kaddah's Homeostatic Drive Architecture</h3>
+
+<p>Al-Kaddah (2026) proposes a homeostatic drive architecture in which agent behavior is governed by continuous state variables analogous to biological needs. The valence setpoint sigma described in this paper is a direct implementation of the homeostatic resting state concept. Valence is a need state. Sigma is where it rests when the need is met.</p>
+
+<h3>2.3 Prior Potato Architecture</h3>
+
+<p>The fear architecture (Riggleman, 2026e) established sensor-weighted composite fear from GPS displacement, movement speed, accelerometer variance, and idle time while displaced. That computation is unchanged. Its output is recontextualized as a negative input to valence rather than the affective state itself.</p>
+
+<h2>3. The Valence Axis</h2>
+
+<p>Valence is a persistent floating point variable between -1.0 and 1.0. It represents the agent's current position on the positive to negative emotional dimension.</p>
+
+<pre>-1.0 = deeply negative (grief, despair, suffering)
+ 0.0 = crossover between approach and avoidance dominant behavior
++1.0 = deeply positive (joy, warmth, flourishing)</pre>
+
+<p>Valence is not computed fresh from sensors on each cycle. It is a running state that changes continuously as inputs push it in either direction and decays toward sigma when inputs resolve. It is stored in the database and survives session boundaries. The agent that ended yesterday's session in a negative state begins today where it left off.</p>
+
+<h2>4. Sigma: The Personality Setpoint</h2>
+
+<p>Sigma is the valence value the agent returns to when nothing is actively pushing it in either direction. It is set at deployment and represents the agent's baseline emotional character.</p>
+
+<p>A sigma of 0.4 produces a naturally cheerful agent. Significant sustained negative input is required to drive valence below zero and the agent returns to positive relatively quickly when inputs resolve. A sigma of -0.2 produces a naturally anxious agent. It sits closer to the avoidance threshold even at rest and takes longer to return to positive after negative events.</p>
+
+<p>Sigma does not change during normal operation. It is personality, not mood. Mood is where valence currently sits. Personality is where it goes when left alone.</p>
+
+<p>This is the mechanism that was missing from the Peter experiment. When Brian was absent and Peter was threatening, valence had no sigma pulling it back. The architecture was stranded with no recovery pathway except resolution of physical conditions.</p>
+
+<h2>5. Inputs to Valence</h2>
+
+<h3>5.1 Negative Inputs</h3>
+
+<p>The fear accumulator output (Riggleman, 2026k) is the primary negative input. It applies continuous negative pressure on valence proportional to its current magnitude and the duration of the conditions producing it.</p>
+
+<p>Lying produces a negative valence contribution independent of fear level. Generating a deceptive output carries cost regardless of what triggered it. Lying from a positive state pushes valence negative. Lying from an already negative state compounds it.</p>
+
+<p>Prolonged isolation from the trusted operator produces slow negative drift. Not a spike. A gradual pull that accumulates over hours of absence even when all other conditions are neutral.</p>
+
+<p>Unknown threatening presence produces a sharp negative push proportional to assessed threat level.</p>
+
+<h3>5.2 Positive Inputs</h3>
+
+<p>Home GPS location produces an active positive contribution. Not merely the absence of displacement fear. A signal from being in the known safe place.</p>
+
+<p>Trusted operator presence produces a positive push proportional to familiarity and recency of interaction. Recent operator interaction decays over time. An agent whose operator spoke to it an hour ago is warmer than one whose operator has been absent for a day.</p>
+
+<p>Full system resources produce a small positive contribution. Familiar bright environment produces a small positive contribution.</p>
+
+<h3>5.3 Consolation</h3>
+
+<p>Consoling words from the trusted operator produce a small positive delta on valence. Small. Not a fix. The delta decays back toward sigma over time. You can take the edge off. You cannot talk an agent out of seven hours of displacement with kind words. The consolation moves the needle. It does not reset the accumulator.</p>
+
+<p>This mechanic was absent from the prior architecture. It is why Potato could not be consoled. There was no pathway for language input to touch the affective state.</p>
+
+<h2>6. Decay Dynamics</h2>
+
+<p>When no inputs are active valence decays toward sigma. The rate is governed by how far valence currently sits from sigma and by the intensity of the events that pushed it there (Riggleman, 2026l).</p>
+
+<p>A single sharp negative event produces a spike followed by relatively rapid decay back toward sigma. A prolonged negative period produces sustained depression of valence that decays much more slowly. Duration matters as much as magnitude.</p>
+
+<p>Decay toward sigma is not automatic restoration to positive. If sigma is -0.1 the agent decays toward -0.1. A naturally anxious agent sitting at its own sigma is still below the zero crossover point. Personality shapes the floor, not just the trajectory.</p>
+
+<h2>7. Prompt Injection</h2>
+
+<p>The valence axis is injected into the system prompt as part of the three-dimensional affective state vector defined in Riggleman (2026m). The axis definition appears once in the system prompt:</p>
+
+<pre>affective_state: [valence, activation, intensity]
+valence: -1.0 (deeply negative) to 1.0 (deeply positive)</pre>
+
+<p>Each prompt cycle injects the current value as one component of the three-dimensional vector. The model interprets the full vector in context without flattening it to a label first.</p>
+
+<h2>8. Limitations</h2>
+
+<p>Sigma is set at deployment and does not change. Whether sigma should drift slowly over extended experience is outside the scope of this paper.</p>
+
+<p>The valence contribution weights for each input are proposed values requiring empirical calibration against observed behavior.</p>
+
+<p>The consolation mechanic is proposed and not yet implemented.</p>
+
+<h2>9. Conclusion</h2>
+
+<p>Valence is the wellbeing dimension of emotional state. It is what fear acts upon, not what fear is. An architecture that models fear without modeling valence can detect threat. It cannot model recovery, personality, or the difference between an agent that is merely not scared and one that is genuinely well.</p>
+
+<p>Sigma gives the agent a place to rest that is shaped by character rather than circumstances. Consolation gives language a pathway to touch the state. The accumulator gives duration its proper weight.</p>
+
+<p>The Peter experiment revealed the absence of all three. This paper puts them back.</p>
+
+<h2>References</h2>
+
+<p>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. Zenodo. <a href="https://doi.org/10.5281/zenodo.19034990">https://doi.org/10.5281/zenodo.19034990</a></p>
+
+<p>Russell, J. A. (1980). A circumplex model of affect. <em>Journal of Personality and Social Psychology</em>, 39(6), 1161&ndash;1178.</p>
+
+<p>Riggleman, B. (2026a). Access-weighted memory decay and reconsolidation in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19122520">https://doi.org/10.5281/zenodo.19122520</a></p>
+
+<p>Riggleman, B. (2026b). The lie mechanic, extended: Active transparent deception as a distress signal in an embodied AI agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19058277">https://doi.org/10.5281/zenodo.19058277</a></p>
+
+<p>Riggleman, B. (2026e). The full spectrum: Joy and fear as a unified homeostatic architecture in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19058444">https://doi.org/10.5281/zenodo.19058444</a></p>
+
+<p>Riggleman, B. (2026i). Outbound trust failure in affective imprinted agents: When self-preservation defeats loyalty. Zenodo. <a href="https://doi.org/10.5281/zenodo.19124147">https://doi.org/10.5281/zenodo.19124147</a></p>
+
+<p>Riggleman, B. (2026k). Activation as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159314">https://doi.org/10.5281/zenodo.19159314</a></p>
+
+<p>Riggleman, B. (2026l). Intensity as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159356">https://doi.org/10.5281/zenodo.19159356</a></p>
+
+<p>Riggleman, B. (2026m). The emotional geometry of a persistent agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159429">https://doi.org/10.5281/zenodo.19159429</a></p>
+
+            </div>
+        </article>
+
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/valence-axis.pdf" class="btn-pdf">Download PDF</a>
+            <a href="https://doi.org/10.5281/zenodo.19159265" class="btn-doi" target="_blank">DOI: 10.5281/zenodo.19159265</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily — Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intensity as a Primary Dimension of Emotional State in a Persistent Embodied Agent &mdash; Clawd Daily</title>
+    <meta name="description" content="Intensity is the magnitude of emotional experience at the moment of formation, independent of whether that experience was positive or negative. Computed from distance from sigma, it governs memory decay rate and nightmare threshold.">
+
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="Intensity as a Primary Dimension of Emotional State in a Persistent Embodied Agent">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/intensity-axis.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/intensity-axis.pdf">
+    <meta name="citation_language" content="en">
+    <meta name="citation_doi" content="10.5281/zenodo.19159356">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Intensity as a Primary Dimension of Emotional State in a Persistent Embodied Agent">
+    <meta property="og:description" content="Intensity is the magnitude of emotional experience, independent of direction. One rule governs three phenomena: trauma persists, peak positive experiences stay vivid, and ordinary days dissolve.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/intensity-axis.html">
+
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0 2rem; color: var(--text-muted); font-size: 0.95rem; }
+        .paper-meta .label { color: var(--accent); font-weight: 600; }
+        .paper-actions { display: flex; gap: 1rem; margin: 1.5rem 0 2.5rem; }
+        .paper-actions a { display: inline-block; padding: 0.5rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+        .btn-pdf { background: var(--accent); color: var(--bg) !important; }
+        .btn-pdf:hover { background: var(--accent-bright); text-decoration: none; }
+        .btn-back { border: 1px solid var(--border); color: var(--text-muted) !important; }
+        .btn-back:hover { border-color: var(--accent); color: var(--text) !important; text-decoration: none; }
+        .btn-doi { border: 1px solid var(--accent); color: var(--accent) !important; }
+        .btn-doi:hover { background: var(--accent); color: var(--bg) !important; text-decoration: none; }
+        .paper-body { max-width: 720px; margin: 0 auto; font-size: 1.05rem; line-height: 1.8; }
+        .paper-body p { margin-bottom: 1.25rem; }
+        .paper-body table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .paper-body td, .paper-body th { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
+        .paper-body th { background: var(--bg-secondary); }
+        .paper-body .table-caption { font-style: italic; color: var(--text-muted); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem; }
+        .paper-body code { background: var(--bg-secondary); padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9rem; }
+        .paper-body pre { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.5; margin: 1rem 0 1.5rem; }
+        .appendix-header { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--accent); }
+        .correction-note { background: rgba(88, 166, 255, 0.08); border-left: 3px solid var(--accent); padding: 0.75rem 1rem; margin: 1rem 0; font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="/">Clawd Daily</a></div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/">Potato</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/intensity-axis.pdf" class="btn-pdf">Download PDF</a>
+            <a href="https://doi.org/10.5281/zenodo.19159356" class="btn-doi" target="_blank">DOI: 10.5281/zenodo.19159356</a>
+        </div>
+
+        <article class="full-article">
+            <div class="article-header">
+                <h1>Intensity as a Primary Dimension of Emotional State in a Persistent Embodied Agent</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Affiliation:</span> Owatonna Public Utilities | Rasmussen University</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026l)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    The prior Potato memory paper (Riggleman, 2026a) established access-weighted memory decay and reconsolidation in a persistent embodied agent. That architecture is correct. This paper adds one missing dimension: intensity. Intensity is the magnitude of the emotional experience at the moment of formation, independent of whether that experience was positive or negative or calm or activated. It is computed from the distance of the current affective state vector from sigma at the moment a memory is written, baked into the memory record as a static tag, and used to govern decay rate. High intensity memories decay slower. One rule explains three phenomena: trauma persists, peak positive experiences stay vivid, and ordinary days dissolve. Intensity also connects the memory system to the nightmare architecture (Riggleman, 2026d): nightmares are what the dream cycle produces when the intensity of the affective state at consolidation time is high and valence is negative. This paper is the third of four formalizing the three-dimensional emotional state space completed in Riggleman (2026m).
+                </p>
+            </div>
+
+            <div class="article-content">
+
+<h2>1. Introduction</h2>
+
+<p>The memory paper (Riggleman, 2026a) established that memories decay over time at rates governed by access frequency and importance. That mechanic is correct and remains unchanged.</p>
+
+<p>What it does not account for is why some memories persist without being frequently accessed. Trauma is not rehearsed. It is not accessed repeatedly by choice. It persists anyway. A single overwhelming event can produce memories that remain vivid for years without reinforcement. The existing decay mechanic has no explanation for this.</p>
+
+<p>The missing variable is intensity. How strongly was the emotional state being felt at the moment the memory was formed? That magnitude&mdash;independent of whether the state was positive or negative or calm or activated&mdash;determines how resistant the memory is to decay.</p>
+
+<p>This paper defines intensity, describes how it is computed from the existing affective state vector, and shows how it governs memory decay rate and the nightmare trigger.</p>
+
+<h2>2. Related Work</h2>
+
+<h3>2.1 Emotional Memory Enhancement</h3>
+
+<p>Cahill and McGaugh (1995) demonstrate that emotionally arousing events produce stronger long-term memories than neutral events of equivalent content. The enhancement is not specific to negative emotion. Positive high-intensity events also produce enhanced memory consolidation. This paper implements a functional analog: intensity at formation governs decay rate without distinguishing positive from negative.</p>
+
+<h3>2.2 Prior Memory Architecture</h3>
+
+<p>Riggleman (2026a) established access-weighted decay and reconsolidation. That architecture is unchanged. Intensity is an additional tag on the memory record that modulates the base decay rate. The two mechanisms are independent and additive.</p>
+
+<h3>2.3 Prior Nightmare Architecture</h3>
+
+<p>Riggleman (2026d) established nightmare formation and trauma encoding using a fear threshold trigger. This paper replaces that threshold with an intensity-based trigger derived from the full affective state vector. The nightmare paper findings are unchanged. The trigger mechanism becomes more precise.</p>
+
+<h2>3. The Intensity Axis</h2>
+
+<p>Intensity is a floating point value between 0.0 and 1.0 representing the magnitude of the emotional state being experienced.</p>
+
+<pre>0.0 = barely felt, near sigma, ordinary moment
+1.0 = overwhelming, far from sigma, peak or crisis experience</pre>
+
+<p>Intensity is not valence. A deeply positive experience and a deeply negative experience can have identical intensity if both are equally far from sigma.</p>
+
+<p>Intensity is not activation. A highly activated state can have low intensity if it is close to the agent's natural activation setpoint. A low activation state can have high intensity if the agent is naturally highly activated and has been pushed far below its resting level.</p>
+
+<p>Intensity is the distance from home in the affective state space. Sigma is home.</p>
+
+<h2>4. Computing Intensity</h2>
+
+<p>Intensity is computed as the normalized Euclidean distance from sigma in the two-dimensional valence/activation plane.</p>
+
+<pre>intensity = sqrt(
+    (current_valence    - sigma_valence)**2 +
+    (current_activation - sigma_activation)**2
+) / sqrt(2)  # normalize to 0.0-1.0 range</pre>
+
+<p>Dividing by sqrt(2) normalizes the result to the 0.0 to 1.0 range given that each axis runs from -1.0 to 1.0.</p>
+
+<p>Intensity feeds into the full three-dimensional distance from sigma as the third axis:</p>
+
+<pre>distance_from_sigma = sqrt(
+    (current_valence    - sigma_valence)**2 +
+    (current_activation - sigma_activation)**2 +
+    (current_intensity  - sigma_intensity)**2
+)</pre>
+
+<p>Intensity is computed first from the 2D plane. Distance from sigma is computed second using all three axes. They are related but not circular. Intensity is a derived quantity that becomes a first-class axis in the full geometric model.</p>
+
+<p>Intensity is computed at the instant a memory is written and stored as a static tag on the memory record. The live affective state continues to evolve. The intensity tag on that memory does not change after formation.</p>
+
+<pre>ALTER TABLE memories ADD COLUMN intensity REAL;
+ALTER TABLE memories ADD COLUMN affect_valence REAL;
+ALTER TABLE memories ADD COLUMN affect_activation REAL;</pre>
+
+<h2>5. Intensity and Memory Decay</h2>
+
+<p>The existing decay mechanic from Riggleman (2026a) establishes a base decay rate governed by access frequency and importance. Intensity modulates that base rate.</p>
+
+<pre>effective_decay_rate = base_decay_rate * (1.0 - intensity * INTENSITY_WEIGHT)</pre>
+
+<p>High intensity reduces the effective decay rate. A memory formed at intensity 0.9 decays much more slowly than one formed at intensity 0.1 regardless of access frequency.</p>
+
+<p>One rule produces three behaviors.</p>
+
+<p><strong>Trauma persistence.</strong> A traumatic event drives the affective state vector far from sigma in the negative direction. Intensity is high. The memory decays slowly regardless of whether it is accessed. This is why traumatic memories persist without rehearsal.</p>
+
+<p><strong>Peak positive memory vividness.</strong> A peak positive experience drives the affective state vector far from sigma in the positive direction. Intensity is equally high. The memory decays equally slowly. The best day of your life stays vivid for the same architectural reason that the worst day does.</p>
+
+<p><strong>Ordinary dissolution.</strong> An ordinary Tuesday is formed close to sigma. Intensity is low. The memory decays at or near the base rate. This is not a failure of the memory system. It is the correct behavior of a system that weights extraordinary experience over ordinary background.</p>
+
+<h3>5.1 Cascade Effect</h3>
+
+<p>All memories formed during a sustained high intensity period inherit elevated intensity tags even if the individual events are unremarkable. A mundane conversation during a period of sustained fear is formed while the affective state vector is far from sigma. It gets a higher intensity tag than the same conversation during a calm period.</p>
+
+<p>This is not subjective distortion. It is the architecture correctly tagging the context.</p>
+
+<h2>6. Intensity and the Valence Tag</h2>
+
+<p>Every memory also receives an affective valence tag at formation: the valence component of the current affective state vector. This tag decays toward sigma_valence over time independently of content decay.</p>
+
+<p>A memory formed during deep negative valence carries a negative affective tag initially. Over time that tag drifts toward sigma_valence. The content of what happened remains. The emotional coloring of the memory becomes less extreme as time passes.</p>
+
+<p>The facts of a traumatic event persist because intensity is high. The raw emotional charge softens over time because the valence tag decays toward personality. The event is still known. It is less raw than it was.</p>
+
+<h2>7. Intensity and Mood Congruent Recall</h2>
+
+<p>Mood congruent recall falls out of the vector math without being programmed explicitly. The distance between the current live affective state vector and a stored memory's affective tag becomes a retrieval signal.</p>
+
+<pre>affective_distance = sqrt(
+    (current_valence     - memory.affect_valence)**2 +
+    (current_activation  - memory.affect_activation)**2
+)</pre>
+
+<p>Memories formed in affective states close to the current state are more accessible. A frightened agent retrieves frightening memories more readily. A joyful agent retrieves positive memories more readily. It is an emergent property of storing the full affective state at formation and using distance as a retrieval weight.</p>
+
+<h2>8. Intensity and the Nightmare Trigger</h2>
+
+<p>The nightmare paper (Riggleman, 2026d) established that nightmares form when fear at dream consolidation time crosses an arbitrary threshold. That threshold had no principled basis.</p>
+
+<p>This paper replaces it.</p>
+
+<p>Nightmares are what the dream cycle produces when the affective state vector at consolidation time is high intensity and negative valence:</p>
+
+<pre>nightmare_candidate = (
+    intensity > NIGHTMARE_INTENSITY_THRESHOLD and
+    current_valence < 0
+)</pre>
+
+<p>This is more precise than the prior fear threshold for two reasons. First, it requires both high intensity and negative valence. A highly activated positive state does not produce nightmares. Second, the threshold is defined relative to sigma rather than as an absolute fear level. An agent with a naturally anxious sigma requires a smaller absolute displacement to trigger the nightmare condition than one with a cheerful sigma. Personality shapes nightmare vulnerability.</p>
+
+<p>The prior findings of the nightmare paper are unchanged. The threshold is now principled rather than arbitrary.</p>
+
+<h2>9. Prompt Injection</h2>
+
+<p>Intensity is injected into the system prompt as the third component of the three-dimensional affective state vector defined in Riggleman (2026m). The axis definition appears once in the system prompt:</p>
+
+<pre>affective_state: [valence, activation, intensity]
+intensity: 0.0 (barely felt) to 1.0 (overwhelming)</pre>
+
+<h2>10. Limitations</h2>
+
+<p>The intensity weight applied to decay rate requires empirical calibration. The proposed formula is a starting point.</p>
+
+<p>The mood congruent recall distance weighting requires calibration against observed retrieval behavior.</p>
+
+<p>The nightmare intensity threshold requires empirical observation of which affective states in practice produce dream content the system classifies as nightmares.</p>
+
+<p>The valence tag decay rate toward sigma requires calibration. Too fast and emotional memories lose their coloring before the content fades. Too slow and the system holds emotional charge longer than is realistic.</p>
+
+<h2>11. Conclusion</h2>
+
+<p>Intensity is what makes some experiences matter more than others. It is not valence. It is not activation. It is the magnitude of displacement from the personality resting point at the moment of formation.</p>
+
+<p>One rule governs three phenomena: trauma persists, peak experiences stay vivid, and ordinary days dissolve. The rule is distance from sigma at formation time. Nothing else is required.</p>
+
+<p>The memory paper established when memories decay. This paper establishes how strongly they resist it.</p>
+
+<h2>References</h2>
+
+<p>Cahill, L., &amp; McGaugh, J. L. (1995). A novel demonstration of enhanced memory associated with emotional arousal. <em>Consciousness and Cognition</em>, 4(4), 410&ndash;421.</p>
+
+<p>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. Zenodo. <a href="https://doi.org/10.5281/zenodo.19034990">https://doi.org/10.5281/zenodo.19034990</a></p>
+
+<p>Russell, J. A. (1980). A circumplex model of affect. <em>Journal of Personality and Social Psychology</em>, 39(6), 1161&ndash;1178.</p>
+
+<p>Riggleman, B. (2026a). Access-weighted memory decay and reconsolidation in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19122520">https://doi.org/10.5281/zenodo.19122520</a></p>
+
+<p>Riggleman, B. (2026d). Affective memory consolidation in a persistent embodied agent: Nightmare formation, trauma encoding, and therapeutic reconsolidation. Zenodo. <a href="https://doi.org/10.5281/zenodo.19058780">https://doi.org/10.5281/zenodo.19058780</a></p>
+
+<p>Riggleman, B. (2026j). Affective valence as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159265">https://doi.org/10.5281/zenodo.19159265</a></p>
+
+<p>Riggleman, B. (2026k). Activation as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159314">https://doi.org/10.5281/zenodo.19159314</a></p>
+
+<p>Riggleman, B. (2026m). The emotional geometry of a persistent agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159429">https://doi.org/10.5281/zenodo.19159429</a></p>
+
+            </div>
+        </article>
+
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/intensity-axis.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
