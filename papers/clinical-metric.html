@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometric Displacement as Clinical Metric &mdash; Clawd Daily</title>
+    <meta name="description" content="Geometric displacement from an individually-calibrated baseline (sigma) is proposed as a candidate clinical metric for tracking therapeutic progress using three-dimensional affective coordinates.">
+
+    <!-- Google Scholar meta tags -->
+    <meta name="citation_title" content="Geometric Displacement as Clinical Metric: A Proposed Validation Agenda">
+    <meta name="citation_author" content="Riggleman, Brian">
+    <meta name="citation_date" content="2026/03">
+    <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/clinical-metric.html">
+    <meta name="citation_pdf_url" content="https://clawddaily.com/papers/clinical-metric.pdf">
+    <meta name="citation_language" content="en">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Geometric Displacement as Clinical Metric: A Proposed Validation Agenda">
+    <meta property="og:description" content="Geometric displacement from an individually-calibrated baseline (sigma) is proposed as a candidate clinical metric for tracking therapeutic progress using three-dimensional affective coordinates.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/papers/clinical-metric.html">
+
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .paper-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0 2rem; color: var(--text-muted); font-size: 0.95rem; }
+        .paper-meta .label { color: var(--accent); font-weight: 600; }
+        .paper-actions { display: flex; gap: 1rem; margin: 1.5rem 0 2.5rem; }
+        .paper-actions a { display: inline-block; padding: 0.5rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+        .btn-pdf { background: var(--accent); color: var(--bg) !important; }
+        .btn-pdf:hover { background: var(--accent-bright); text-decoration: none; }
+        .btn-back { border: 1px solid var(--border); color: var(--text-muted) !important; }
+        .btn-back:hover { border-color: var(--accent); color: var(--text) !important; text-decoration: none; }
+        .btn-doi { border: 1px solid var(--accent); color: var(--accent) !important; }
+        .btn-doi:hover { background: var(--accent); color: var(--bg) !important; text-decoration: none; }
+        .paper-body { max-width: 720px; margin: 0 auto; font-size: 1.05rem; line-height: 1.8; }
+        .paper-body p { margin-bottom: 1.25rem; }
+        .paper-body table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .paper-body td, .paper-body th { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
+        .paper-body th { background: var(--bg-secondary); }
+        .paper-body .table-caption { font-style: italic; color: var(--text-muted); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem; }
+        .paper-body code { background: var(--bg-secondary); padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9rem; }
+        .paper-body pre { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.5; margin: 1rem 0 1.5rem; }
+        .appendix-header { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--accent); }
+        .correction-note { background: rgba(88, 166, 255, 0.08); border-left: 3px solid var(--accent); padding: 0.75rem 1rem; margin: 1rem 0; font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="/">Clawd Daily</a></div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/">Potato</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+                <li><a href="/articles.html">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="paper-body">
+        <div class="paper-actions">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/clinical-metric.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+
+        <article class="full-article">
+            <div class="article-header">
+                <h1>Geometric Displacement as Clinical Metric: A Proposed Validation Agenda</h1>
+                <div class="paper-meta">
+                    <span><span class="label">Author:</span> Brian Riggleman</span>
+                    <span><span class="label">Affiliation:</span> Independent Researcher</span>
+                    <span><span class="label">Date:</span> March 2026</span>
+                    <span><span class="label">Series:</span> Potato (2026s)</span>
+                </div>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    Current clinical instruments measure symptom frequency on a single axis. The PHQ-9 produces a number between 0 and 27. The Columbia Suicide Severity Rating Scale produces binary yes-no assessments. Neither tracks direction of change. Neither distinguishes between clinical presentations that have the same score but may require different treatment. This paper proposes geometric displacement from an individually-calibrated baseline (sigma) as a candidate clinical metric for tracking therapeutic progress. The Geometric Affective Survey (GAS, Riggleman 2026r) maps patient state to a three-dimensional coordinate defined by valence, activation, and intensity. Displacement from sigma, measured in standard deviations across sessions, would provide a trajectory in affective space. That trajectory could show direction and speed of change, distinguish clinical presentations that single-axis instruments conflate, and potentially identify patients approaching critical thresholds before they arrive. This paper describes the theoretical basis for the metric, illustrates its proposed clinical applications, and outlines a validation protocol to test whether the metric provides clinically meaningful information beyond existing instruments.
+                </p>
+            </div>
+
+            <div class="article-content">
+
+                <h2>1. Introduction</h2>
+
+                <h3>1.1 The Resolution Problem in Clinical Assessment</h3>
+
+                <p>A patient scores 15 on the PHQ-9. That means moderate depression. The clinician adjusts treatment accordingly. Two weeks later the patient scores 14. Progress? Stagnation? Noise? The instrument has difficulty distinguishing meaningful change from measurement error at this resolution.</p>
+
+                <p>The deeper problem may be dimensional rather than just resolution. Two patients with a PHQ-9 of 15 can present very differently. One is withdrawn, flat, disengaged. Low valence, low activation, low intensity. The other is anxious, agitated, distressed. Low valence, high activation, high intensity. These are different conditions that may require different interventions. One may need activation. The other may need calming. The score is identical. The clinical reality may not be.</p>
+
+                <h3>1.2 The Trajectory Problem</h3>
+
+                <p>The PHQ-9 measures state. It does not measure trajectory. A patient at 12 could be improving from 18 or deteriorating from 8. The number does not carry directional information. The clinician must remember previous scores and compute the change mentally.</p>
+
+                <p>The Columbia Suicide Severity Rating Scale has a different limitation. It measures ideation and behavior as present-or-absent at the time of assessment. It does not track approach. A patient who may be moving toward suicidal ideation but has not yet crossed the threshold is not visible to the instrument until they cross it. Whether an instrument that tracks approach trajectory could provide useful early information is an empirical question this paper proposes to test.</p>
+
+                <h3>1.3 The Proposal</h3>
+
+                <p>This paper proposes that geometric displacement from an individually-calibrated baseline, measured using the three-axis Geometric Affective Survey (Riggleman 2026r), could provide a clinical metric that addresses both the dimensional and trajectory limitations of current instruments. The proposal is theoretical and untested. What follows is the rationale for why the metric should work, illustrations of how it would be applied, and a validation protocol to determine whether it does.</p>
+
+                <h2>2. Geometric Displacement as Proposed Clinical Metric</h2>
+
+                <h3>2.1 Establishing Sigma</h3>
+
+                <p>Sigma is the patient&rsquo;s emotional home. Their default state. Where they sit in affective space when nothing is pushing them away from baseline. Sigma is not a healthy state or a target state. It is a descriptive baseline. A patient with chronic depression may have a sigma that sits at moderately negative valence. That is their home. Treatment may aim to shift sigma itself, but the first measurement priority is knowing where sigma is so that displacement can be computed relative to it.</p>
+
+                <p>Sigma would be established at intake using the baseline questions from the GAS (Riggleman 2026r). The patient describes their typical emotional state across the three axes. The expectation is that this baseline would be stable over weeks to months for most patients. For patients in acute crisis, sigma may need to be re-established after stabilization. The stability assumption requires empirical validation.</p>
+
+                <h3>2.2 Computing Displacement</h3>
+
+                <p>At each session the patient would complete the GAS target questions. The current state is a coordinate in 3D affective space. Displacement would be the Euclidean distance from sigma to current state, expressed in standard deviations of the patient&rsquo;s own baseline variability.</p>
+
+                <p>A displacement of 0.5 SD would be expected to fall within normal range. A displacement of 1.5 SD would be hypothesized to represent clinically meaningful change. The direction of displacement would tell the clinician which axis is driving the change. A displacement of 2.0 SD along the negative valence axis would be a different clinical situation than 2.0 SD along the activation axis. The specific thresholds that correspond to clinical significance would need to be established empirically through the validation protocol.</p>
+
+                <h3>2.3 Trajectory Analysis</h3>
+
+                <p>Displacement vectors across sessions would form a trajectory in affective space. The trajectory would have direction, speed, and curvature. A patient whose trajectory shows consistent movement toward sigma could be interpreted as improving. A patient whose trajectory shows movement away from sigma on the activation axis while valence stays flat could be developing anxiety on top of existing depression. A patient whose trajectory accelerates away from sigma could be deteriorating.</p>
+
+                <p>The clinical value of trajectory analysis is the central hypothesis of this paper. A snapshot is a point. A trajectory is a story. Whether clinicians can use that story to make better treatment decisions is what the validation protocol is designed to test.</p>
+
+                <h2>3. Proposed Clinical Applications</h2>
+
+                <h3>3.1 Distinguishing Depression Subtypes</h3>
+
+                <table>
+                    <tr>
+                        <th>Presentation</th>
+                        <th>Valence</th>
+                        <th>Activation</th>
+                        <th>Intensity</th>
+                        <th>PHQ-9 Score</th>
+                    </tr>
+                    <tr>
+                        <td>Withdrawn depression</td>
+                        <td>Low</td>
+                        <td>Low</td>
+                        <td>Low</td>
+                        <td>15 (moderate)</td>
+                    </tr>
+                    <tr>
+                        <td>Agitated depression</td>
+                        <td>Low</td>
+                        <td>High</td>
+                        <td>High</td>
+                        <td>15 (moderate)</td>
+                    </tr>
+                    <tr>
+                        <td>Anhedonic depression</td>
+                        <td>Neutral</td>
+                        <td>Low</td>
+                        <td>Low</td>
+                        <td>12 (moderate)</td>
+                    </tr>
+                    <tr>
+                        <td>Anxious depression</td>
+                        <td>Negative</td>
+                        <td>High</td>
+                        <td>Moderate</td>
+                        <td>15 (moderate)</td>
+                    </tr>
+                </table>
+
+                <p>All four presentations score in the moderate range on the PHQ-9. All four would occupy different coordinates in GAS space. The hypothesis is that these geometric differences correspond to clinically meaningful differences in presentation and treatment response. If they do, the geometric instrument would see four different conditions where the single-axis instrument sees one.</p>
+
+                <h3>3.2 Treatment Response Tracking</h3>
+
+                <p>Consider a patient who begins an SSRI. Over four weeks the PHQ-9 drops from 18 to 14. The clinician sees improvement. But the GAS trajectory could show the valence axis improving while the activation axis worsens. The medication may be reducing sadness while increasing agitation. The PHQ-9 shows net improvement because it sums across axes. The GAS would show that one axis improved and another deteriorated. If validated, this resolution could allow clinicians to address emerging problems before they become dominant.</p>
+
+                <h3>3.3 Potential Early Warning Capability</h3>
+
+                <p>The seventh paper in the Potato series (Riggleman 2026g) describes a trauma encoding threshold based on Al-Kaddah&rsquo;s Survival Tipping Point concept. The same threshold concept could potentially apply to clinical assessment.</p>
+
+                <p>A patient whose trajectory shows acceleration toward high displacement on multiple axes simultaneously could be approaching a critical state. If the GAS detects this approach as a trajectory feature, the clinician would have information before the patient crosses a threshold. The patient may not yet have answered yes to the suicidal ideation question, but the geometric trajectory could show them moving in that direction.</p>
+
+                <p>This is the most speculative application proposed in this paper. Whether trajectory-based approach detection is feasible depends on multiple assumptions: that the GAS measures state accurately enough to compute meaningful trajectories, that clinical deterioration produces consistent geometric signatures, and that the time resolution of session-by-session measurement is sufficient to detect approach before arrival. All three assumptions require empirical validation. The potential clinical value, if the approach works, is the difference between detecting arrival and detecting approach.</p>
+
+                <h3>3.4 Giving Subjective Experience a Measurable Form</h3>
+
+                <p>A person walks into a clinic and says they feel broken inside. The language of emotional suffering is subjective and can be minimized. A person who could point to a geometric displacement of 2.3 standard deviations from their baseline would have data to support their subjective report. Data is harder to dismiss than language.</p>
+
+                <p>The geometry would turn subjective experience into something that can be measured, compared, tracked, and communicated. Without requiring anyone to solve the hard problem of consciousness. Without requiring anyone to agree on what anxious means. The coordinates would be the coordinates. Whether this measurable form improves clinical communication and treatment decisions is a testable hypothesis.</p>
+
+                <h2>4. Comparison with Existing Clinical Instruments</h2>
+
+                <table>
+                    <tr>
+                        <th>Feature</th>
+                        <th>PHQ-9</th>
+                        <th>Columbia (C-SSRS)</th>
+                        <th>GAS + Displacement (proposed)</th>
+                    </tr>
+                    <tr>
+                        <td>Dimensions measured</td>
+                        <td>1 (severity)</td>
+                        <td>2 (ideation, behavior)</td>
+                        <td>3 (V, A, I) + sigma</td>
+                    </tr>
+                    <tr>
+                        <td>Distinguishes depression subtypes</td>
+                        <td>No</td>
+                        <td>No</td>
+                        <td>Hypothesized yes</td>
+                    </tr>
+                    <tr>
+                        <td>Tracks trajectory</td>
+                        <td>Requires manual comparison</td>
+                        <td>No</td>
+                        <td>Proposed automatic</td>
+                    </tr>
+                    <tr>
+                        <td>Early warning capability</td>
+                        <td>No</td>
+                        <td>No (detects arrival)</td>
+                        <td>Hypothesized (detects approach)</td>
+                    </tr>
+                    <tr>
+                        <td>Individual baseline</td>
+                        <td>Population norms</td>
+                        <td>No baseline</td>
+                        <td>Patient-specific sigma</td>
+                    </tr>
+                    <tr>
+                        <td>Visualization</td>
+                        <td>Line graph of scores</td>
+                        <td>Binary checklist</td>
+                        <td>Proposed 3D trajectory plot</td>
+                    </tr>
+                </table>
+
+                <h2>5. Proposed Validation Protocol</h2>
+
+                <h3>5.1 Concurrent Validity</h3>
+
+                <p>Administer the GAS alongside the PHQ-9 and the C-SSRS at clinical intake for a cohort of patients presenting with depressive symptoms. Compute correlations between GAS valence displacement and PHQ-9 total score. The prediction is strong negative correlation (higher displacement from sigma in negative valence direction correlates with higher PHQ-9 scores) with residual variance explained by the activation and intensity axes.</p>
+
+                <h3>5.2 Discriminant Validity</h3>
+
+                <p>Identify pairs of patients with identical PHQ-9 scores but different clinical presentations as assessed by structured clinical interview. Test whether the GAS places these patients at different coordinates. The prediction is that GAS coordinates differ significantly for patients the PHQ-9 conflates.</p>
+
+                <h3>5.3 Predictive Validity</h3>
+
+                <p>Track GAS trajectories over a treatment course and test whether trajectory features (acceleration, direction change, multi-axis divergence) predict clinical outcomes (treatment response, crisis events, dropout) better than PHQ-9 score changes alone. This is the strongest and most important test. If trajectory features predict outcomes, the metric provides clinical value. If they do not, the additional complexity is not justified.</p>
+
+                <h3>5.4 Sensitivity to Change</h3>
+
+                <p>Compare the GAS displacement metric to the PHQ-9 change score for detecting treatment response. The prediction is that the GAS detects clinically meaningful change at earlier time points because it has higher dimensional resolution. This prediction could be wrong if the additional axes add noise rather than signal.</p>
+
+                <h3>5.5 Clinical Significance Thresholds</h3>
+
+                <p>The displacement values described in Section 2.2 (0.5 SD normal, 1.5 SD clinically meaningful) are initial proposals. The validation protocol should establish empirically calibrated thresholds by mapping GAS displacement values to clinician-assessed severity and to patient-reported distress levels. The thresholds may vary by patient population, by presentation type, and by treatment context.</p>
+
+                <h2>6. Ethical Considerations</h2>
+
+                <p>Geometric displacement data is clinical data and subject to the same privacy protections as any clinical assessment. The 3D visualization, while potentially useful for clinical communication, must not be shared outside the clinical relationship without patient consent.</p>
+
+                <p>The potential early warning capability raises a specific ethical consideration. If trajectory analysis suggests approach to a critical threshold, the clinician would have probabilistic information, not certainty. The clinical response to trajectory-based signals must follow established protocols for escalation of care. The instrument would provide data. It would not make clinical decisions. The risk of false positives (flagging patients who are not actually deteriorating) must be weighed against the risk of false negatives (missing patients who are) in any clinical deployment.</p>
+
+                <p>The sigma baseline is a description, not a prescription. A patient with chronically negative sigma should not have that sigma treated as a target. The geometry describes where the patient lives, not where they should live. Treatment goals are set by the patient and clinician, not by the coordinate system.</p>
+
+                <h2>7. Discussion</h2>
+
+                <h3>7.1 What This Paper Proposes</h3>
+
+                <p>This paper proposes a metric, not a validated clinical tool. The displacement concept follows from the theoretical framework described in companion papers (Riggleman 2026a, 2026q) and the instrument design described in a further companion paper (Riggleman 2026r). The step from proposed metric to validated clinical tool requires the empirical studies described in Section 5. Until those studies are completed, the clinical applications described in Section 3 are illustrations of what the metric could do, not demonstrations of what it does.</p>
+
+                <h3>7.2 What Would Make This Useful</h3>
+
+                <p>The metric would be useful if and only if it provides clinically meaningful information that existing instruments do not. The minimum threshold for usefulness is discriminant validity: the GAS must place clinically different patients at different coordinates when the PHQ-9 gives them the same score. If it cannot do that, the additional complexity is not worth the burden.</p>
+
+                <p>The maximum value would be predictive validity: trajectory features that predict clinical outcomes. If the GAS trajectory can tell a clinician that a patient is heading toward crisis two weeks before the crisis arrives, that is a capability no current instrument provides. Whether this is achievable is the core empirical question.</p>
+
+                <h3>7.3 Limitations</h3>
+
+                <p>The instrument requires digital administration. Patients who cannot engage with a slider-based interface may not be able to complete the assessment. Backup protocols using verbal analogue scales would need development.</p>
+
+                <p>Sigma stability is assumed for most patients over weeks to months. Patients experiencing rapid state changes (acute trauma, manic episodes, substance-induced states) may require frequent sigma re-establishment. The protocol for detecting sigma instability needs development.</p>
+
+                <p>The trauma encoding threshold referenced in Section 3.3 is derived from theoretical work (Al-Kaddah 2024, Riggleman 2026g) and has not been validated in clinical populations. The threshold value would need calibration against clinical outcome data before any clinical application.</p>
+
+                <p>Most importantly, this paper contains no clinical data. Every clinical application described is hypothetical. The validation protocol is designed to test these hypotheses. Until the data exists, the metric is a proposal.</p>
+
+                <h2>8. Conclusion</h2>
+
+                <p>The PHQ-9 gives a number. The Columbia scale gives a yes or no. The geometric displacement metric proposes to give a location, a direction, and a speed. If validated, a patient who is 2.1 standard deviations from their own sigma, moving in the negative valence direction at accelerating speed, with activation climbing, would be a different clinical picture than a patient at 0.4 deviations and stable. Both might score 15 on the PHQ-9. The geometry could see the difference the number cannot.</p>
+
+                <p>The instrument would not replace clinical judgment. It proposes to give clinical judgment better data. A coordinate instead of a number. A trajectory instead of a snapshot. Potentially an early signal instead of a late detection. Whether it delivers on these proposals depends on the validation studies this paper is designed to motivate. The theoretical basis is described. The instrument exists. The validation agenda is specified. The next step is data.</p>
+
+                <h2>References</h2>
+
+                <p>Al-Kaddah, S. (2024). Synthetic general intelligence: A geometric framework for cognition and consciousness. Preprint.</p>
+
+                <p>Kroenke, K., Spitzer, R. L., &amp; Williams, J. B. (2001). The PHQ-9: Validity of a brief depression severity measure. <em>Journal of General Internal Medicine, 16</em>(9), 606&ndash;613.</p>
+
+                <p>Posner, K., Brown, G. K., Stanley, B., et al. (2011). The Columbia-Suicide Severity Rating Scale: Initial validity and internal consistency findings. <em>American Journal of Psychiatry, 168</em>(12), 1266&ndash;1277.</p>
+
+                <p>Riggleman, B. (2026a). Access-weighted memory decay and reconsolidation in a geometric emotional architecture. Zenodo.</p>
+
+                <p>Riggleman, B. (2026g). Affective memory consolidation and nightmare formation in a geometric cognitive architecture. Zenodo.</p>
+
+                <p>Riggleman, B. (2026q). Affective geometry as cross-modal translator: A theoretical and experimental proposal. Zenodo.</p>
+
+                <p>Riggleman, B. (2026r). The geometric affective survey: Operationalizing three-axis emotional measurement. Zenodo.</p>
+
+            </div>
+        </article>
+
+        <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="/papers/" class="btn-back">All Papers</a>
+            <a href="/papers/clinical-metric.pdf" class="btn-pdf">Download PDF</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
