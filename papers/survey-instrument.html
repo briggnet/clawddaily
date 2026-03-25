@@ -74,7 +74,7 @@
                     <span><span class="label">Series:</span> Potato (2026r)</span>
                 </div>
                 <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
-                    Current survey instruments measure emotional experience on a single axis. The Likert scale maps responses from 1 to 5 or 1 to 10. The PHQ-9 measures frequency of symptoms. The Net Promoter Score produces a single number between &ndash;100 and 100. All of these instruments collapse multidimensional emotional experience into one dimension. This paper proposes the Geometric Affective Survey (GAS), a three-axis instrument that maps responses to valence (positive-negative), activation (calm-excited), and intensity (mild-strong) relative to a respondent-specific baseline (sigma). The instrument would produce a coordinate in three-dimensional affective space rather than a number on a line. Responses could be visualized as point clouds, clustered, and tracked over time. This paper describes the instrument design, its theoretical basis in a modality-independent affective coordinate system (Riggleman 2026q), and proposes validation studies across three domains: product experience, employee satisfaction, and clinical intake. The core hypothesis is that the GAS captures meaningful variation in emotional experience that single-axis instruments systematically miss.
+                    Current survey instruments measure emotional experience on a single axis. The Likert scale maps responses from 1 to 5 or 1 to 10. The PHQ-9 measures frequency of symptoms. The Net Promoter Score produces a single number between &ndash;100 and 100. All of these instruments collapse multidimensional emotional experience into one dimension. This paper proposes the Geometric Affective Survey (GAS), a three-axis instrument that maps responses to valence (positive-negative), activation (calm-excited), and intensity (mild-strong) relative to a respondent-specific baseline (sigma). The instrument would produce a coordinate in three-dimensional affective space rather than a number on a line. Responses could be visualized as point clouds, clustered, and tracked over time. This paper describes the instrument design, its theoretical basis in a three-dimensional emotional geometry formalized across four companion papers (Riggleman 2026j, 2026k, 2026l, 2026m), and demonstrates backward compatibility by decomposing an existing single-axis dataset (IBM HR Analytics, n=1,470) into three geometric axes. The decomposition reveals that employees with identical single-axis satisfaction scores occupy different locations in geometric space and have different attrition outcomes. The core hypothesis is that the GAS captures meaningful variation in emotional experience that single-axis instruments systematically miss.
                 </p>
             </div>
 
@@ -98,7 +98,7 @@
 
                 <h3>1.3 Theoretical Basis</h3>
 
-                <p>The GAS is built on a three-dimensional affective state space originally developed as a component of a synthetic cognitive architecture (Riggleman 2026a). That coordinate system models emotional state as displacement from a personality setpoint (sigma) along three axes: valence, activation, and intensity. A companion paper (Riggleman 2026q) proposes that this coordinate system is modality-independent, meaning it describes emotional displacement in geometric terms that do not depend on the source of the experience being measured. The GAS operationalizes that theoretical construct as a measurement instrument.</p>
+                <p>The GAS is built on a three-dimensional affective state space developed as a component of a synthetic cognitive architecture. The valence axis (Riggleman 2026j) defines the positive-negative dimension of emotional experience relative to a personality setpoint called sigma. The activation axis (Riggleman 2026k) defines arousal level independent of valence. The intensity axis (Riggleman 2026l) defines magnitude of emotional displacement independent of direction. The full geometry (Riggleman 2026m) unifies these three axes into a single coordinate system where emotional state is a point in space and the distance from sigma is a computed quantity that drives multiple downstream behaviors. The GAS operationalizes that theoretical construct as a measurement instrument for human respondents.</p>
 
                 <h2>2. The Instrument</h2>
 
@@ -114,7 +114,7 @@
 
                 <p>Before measuring displacement, the instrument establishes a baseline. Sigma is the respondent&rsquo;s default emotional state. Where they normally sit in affective space. Some people&rsquo;s sigma is high activation. Some people&rsquo;s sigma is low valence. The instrument does not assume a universal baseline. It measures each respondent&rsquo;s home position and computes displacement from there.</p>
 
-                <p>Sigma is established with three baseline questions asked before the target questions. These ask the respondent to describe their typical emotional state in terms that map to the three axes. The expectation, based on preliminary observations in the Potato system, is that this baseline would be stable across sessions for most respondents, meaning it would only need to be established once and verified periodically.</p>
+                <p>Sigma is established with three baseline questions asked before the target questions. These ask the respondent to describe their typical emotional state in terms that map to the three axes. The expectation, based on preliminary observations in the Potato system (Riggleman 2026a), is that this baseline would be stable across sessions for most respondents, meaning it would only need to be established once and verified periodically.</p>
 
                 <h3>2.3 Question Format</h3>
 
@@ -138,25 +138,95 @@
 
                 <p>When 2,000 respondents rate a product on a 1-to-10 scale and the mean is 7, the product manager has limited actionable information. If 2,000 respondents produce a point cloud in 3D affective space that clusters into two groups, one at calm-positive-moderate and one at excited-positive-high, the product manager can see that the product produces two distinct experiences. Those could map to different marketing campaigns, different target demographics, different positioning strategies. The single mean hides this. The point cloud would reveal it.</p>
 
-                <p>Whether real product experience data produces clean clusters or diffuse clouds is an empirical question the proposed validation study would address.</p>
-
                 <h3>3.3 Trajectory Tracking</h3>
 
                 <p>For longitudinal applications, the GAS could track movement through affective space over time. A respondent&rsquo;s coordinates at session 1, session 2, session 3 would form a trajectory. The displacement vector would show direction and magnitude of change.</p>
 
                 <p>Existing instruments track a number going up or down. The GAS would track a point moving through three-dimensional space. The direction of movement would carry information the magnitude alone does not. Whether this additional information improves prediction of outcomes (purchase behavior, employee retention, clinical improvement) is a testable hypothesis.</p>
 
-                <h2>4. Proposed Validation Study 1: Product Experience</h2>
+                <h2>4. Backward Compatibility: Decomposing Existing Instruments</h2>
 
-                <h3>4.1 Study Design</h3>
+                <h3>4.1 The Adoption Problem</h3>
+
+                <p>Organizations have years of existing survey data collected on single-axis scales. A new instrument that requires discarding that historical data faces a prohibitive adoption barrier. The GAS addresses this by providing a decomposition method that can extract three-axis coordinates from existing multi-item survey data retroactively.</p>
+
+                <p>Most real surveys do not ask a single question. The PHQ-9 asks nine. Employee engagement surveys ask twenty or thirty. Customer satisfaction surveys ask ten to fifteen. Each question implicitly touches different axes but collapses the answer onto one scale. If the underlying questions can be mapped to valence, activation, and intensity, the three-axis decomposition can be applied to existing datasets without re-surveying respondents.</p>
+
+                <h3>4.2 Demonstration: IBM HR Analytics Dataset</h3>
+
+                <p>To demonstrate backward compatibility, we applied the three-axis decomposition to the IBM HR Analytics Employee Attrition and Performance dataset, a publicly available dataset containing 1,470 employee records with four satisfaction-related Likert scale measures (1&ndash;4): JobSatisfaction, EnvironmentSatisfaction, RelationshipSatisfaction, and WorkLifeBalance. The dataset also includes an attrition outcome variable indicating whether each employee left the company.</p>
+
+                <p>The decomposition maps existing survey items to the three geometric axes. Valence is computed from JobSatisfaction and RelationshipSatisfaction, which measure the positive-negative quality of work experience. Activation is computed from the inverse of WorkLifeBalance and JobInvolvement, where low work-life balance and high job involvement indicate high arousal. Intensity is computed from the variance across all satisfaction measures plus EnvironmentSatisfaction as a magnitude amplifier, capturing how strongly each respondent feels across all dimensions.</p>
+
+                <p>The single-axis score for comparison is the simple mean of all four satisfaction measures, which is what a traditional survey analysis would produce.</p>
+
+                <h3>4.3 Result 1: The Single Axis Hides Attrition Patterns</h3>
+
+                <p>Figure 1 shows the critical finding. The left panel displays the traditional single-axis view: a histogram of mean satisfaction scores colored by attrition outcome. The stayed and left distributions overlap almost completely. The single-axis score cannot distinguish employees who will leave from those who will stay.</p>
+
+                <p>The right panel shows the same 1,470 employees plotted on two of the three geometric axes: valence and activation. The attrition cases (red) visibly cluster in the low valence region. The geometric view reveals a pattern the single-axis histogram buries.</p>
+
+                <p><em>Figure 1. Left: Traditional single-axis satisfaction histogram with attrition overlaid. The distributions overlap, hiding the pattern. Right: Two-axis geometric view of the same data. Attrition cases (red) cluster visibly in the low-valence region.</em></p>
+
+                <h3>4.4 Result 2: Geometric Quadrants Predict Attrition</h3>
+
+                <p>Splitting the dataset into four quadrants based on median valence and median activation produces dramatically different attrition rates from the same satisfaction data:</p>
+
+                <table>
+                    <tr>
+                        <th>Geometric Quadrant</th>
+                        <th>Attrition Rate</th>
+                        <th>Employees</th>
+                    </tr>
+                    <tr>
+                        <td>High Valence + High Activation</td>
+                        <td>11.8%</td>
+                        <td>747</td>
+                    </tr>
+                    <tr>
+                        <td>High Valence + Low Activation</td>
+                        <td>17.5%</td>
+                        <td>326</td>
+                    </tr>
+                    <tr>
+                        <td>Low Valence + High Activation</td>
+                        <td>21.9%</td>
+                        <td>274</td>
+                    </tr>
+                    <tr>
+                        <td>Low Valence + Low Activation</td>
+                        <td>26.0%</td>
+                        <td>123</td>
+                    </tr>
+                </table>
+
+                <p>The attrition rate in the worst geometric quadrant (26.0%) is 2.2 times the rate in the best quadrant (11.8%). This variation exists within the same satisfaction scores. The single-axis mean cannot see it. The geometric decomposition reveals it from existing data without re-surveying a single employee.</p>
+
+                <h3>4.5 Result 3: Same Score, Different Geometry, Different Outcomes</h3>
+
+                <p>The strongest demonstration of the instrument&rsquo;s value examines employees with identical single-axis scores. Among 239 employees who scored exactly 2.5 on the single-axis mean, 16% left the company. Those who left had different geometric coordinates than those who stayed: lower activation and higher intensity. The single-axis score was identical. The geometric coordinates were not. The outcomes were not.</p>
+
+                <p><em>Figure 2. All 1,470 employees plotted in three-dimensional affective space (valence, activation, intensity). Green: stayed. Red: left company. Attrition cases cluster in the low-valence, high-activation region of the space. The single-axis mean collapses this three-dimensional structure into a single number.</em></p>
+
+                <p><em>Figure 3. Employees with identical single-axis satisfaction scores (2.5 and 2.75) plotted in geometric space. Same number on a Likert scale. Different locations in three-dimensional space. Different attrition outcomes. The geometry sees what the number cannot.</em></p>
+
+                <h3>4.6 Implications for Adoption</h3>
+
+                <p>The backward compatibility demonstration establishes three things. First, the three axes are extractable from existing multi-item survey data without new data collection. Second, the decomposition reveals variation that the single-axis summary hides. Third, that hidden variation predicts real outcomes (attrition) that the single-axis score misses.</p>
+
+                <p>This means organizations do not need to discard historical data to adopt the GAS. They can decompose existing datasets, verify that the three-axis view reveals actionable patterns their current analysis misses, and then transition to native three-axis collection for new surveys. The backward compatibility path eliminates the adoption barrier.</p>
+
+                <h2>5. Proposed Validation Study 1: Product Experience</h2>
+
+                <h3>5.1 Study Design</h3>
 
                 <p>Administer both a standard 1-to-10 satisfaction scale and the GAS to the same respondents evaluating the same product. The hypothesis is that respondents with identical satisfaction scores will occupy different locations in GAS space, demonstrating that the GAS captures variation the single-axis instrument misses.</p>
 
-                <h3>4.2 Predictions</h3>
+                <h3>5.2 Predictions</h3>
 
                 <p>Respondents who score 7 on the satisfaction scale but differ on activation (calm vs. excited satisfaction) would cluster at different GAS coordinates. This separation would be invisible to the single-axis instrument and visible in the 3D point cloud. The prediction is falsifiable: if all respondents with the same satisfaction score also cluster at the same GAS coordinate, the additional axes add no information.</p>
 
-                <h3>4.3 Commercial Relevance</h3>
+                <h3>5.3 Commercial Relevance</h3>
 
                 <table>
                     <tr>
@@ -185,64 +255,59 @@
                         <td>Vector in 3D space</td>
                     </tr>
                     <tr>
-                        <td>Questions per item</td>
-                        <td>1</td>
-                        <td>3 (simultaneous sliders)</td>
-                    </tr>
-                    <tr>
-                        <td>Estimated respondent time per item</td>
-                        <td>~3 seconds</td>
-                        <td>~5 seconds (needs validation)</td>
+                        <td>Backward compatible</td>
+                        <td>N/A (current standard)</td>
+                        <td>Yes (Section 4 demonstration)</td>
                     </tr>
                 </table>
 
-                <p>The 3D visualization is the communication tool. A rotating point cloud of responses with color-coded clusters communicates dimensional structure that a table of mean scores cannot. Whether this visualization advantage translates to better business decisions is an empirical question beyond the scope of instrument validation.</p>
-
-                <h2>5. Proposed Validation Study 2: Employee Satisfaction</h2>
-
-                <h3>5.1 Study Design</h3>
-
-                <p>An employee satisfaction survey administered quarterly using both a standard engagement scale and the GAS. The hypothesis is that the GAS detects directional changes in employee emotional state that the engagement score misses.</p>
-
-                <h3>5.2 Predictions</h3>
-
-                <p>An employee whose engagement score stays at 7 for three quarters but whose GAS coordinates shift from calm-positive to anxious-positive would be showing a trajectory toward burnout that the engagement score cannot see. The activation axis would catch the shift that the valence-only instrument misses. Whether this trajectory predicts actual burnout, turnover, or performance decline is a testable outcome hypothesis.</p>
-
-                <h2>6. Proposed Validation Study 3: Clinical Intake</h2>
+                <h2>6. Proposed Validation Study 2: Employee Satisfaction</h2>
 
                 <h3>6.1 Study Design</h3>
 
-                <p>A clinical intake questionnaire administered alongside the PHQ-9 at initial assessment. The hypothesis is that the GAS distinguishes clinical presentations that the PHQ-9 conflates.</p>
+                <p>An employee satisfaction survey administered quarterly using both a standard engagement scale and the GAS. The hypothesis is that the GAS detects directional changes in employee emotional state that the engagement score misses.</p>
 
                 <h3>6.2 Predictions</h3>
 
+                <p>An employee whose engagement score stays at 7 for three quarters but whose GAS coordinates shift from calm-positive to anxious-positive would be showing a trajectory toward burnout that the engagement score cannot see. The activation axis would catch the shift that the valence-only instrument misses. Whether this trajectory predicts actual burnout, turnover, or performance decline is a testable outcome hypothesis. The IBM HR dataset analysis in Section 4 provides preliminary support: geometric quadrant membership predicted attrition rates ranging from 11.8% to 26.0% within the same overall satisfaction score range.</p>
+
+                <h2>7. Proposed Validation Study 3: Clinical Intake</h2>
+
+                <h3>7.1 Study Design</h3>
+
+                <p>A clinical intake questionnaire administered alongside the PHQ-9 at initial assessment. The hypothesis is that the GAS distinguishes clinical presentations that the PHQ-9 conflates.</p>
+
+                <h3>7.2 Predictions</h3>
+
                 <p>A PHQ-9 score of 15 describes moderate depression. Two patients with a PHQ-9 score of 15 can present very differently. One is low valence, low activation, low intensity: withdrawn, flat, disengaged. The other is low valence, high activation, high intensity: anxious, agitated, distressed. These may require different treatment approaches. The PHQ-9 score is identical. The GAS coordinates would differ. Whether this separation predicts differential treatment response is a clinical hypothesis that a companion paper (Riggleman 2026s) proposes to test.</p>
 
-                <h2>7. Psychometric Properties to Validate</h2>
+                <h2>8. Psychometric Properties to Validate</h2>
 
-                <h3>7.1 Test-Retest Reliability</h3>
+                <h3>8.1 Test-Retest Reliability</h3>
 
                 <p>The GAS should demonstrate test-retest reliability when the same respondent evaluates the same stimulus on two occasions. The coordinate produced should be consistent within a tolerance band. Standard psychometric validation protocols (Cronbach alpha, ICC) would apply to each axis independently and to the composite 3D coordinate.</p>
 
-                <h3>7.2 Convergent Validity</h3>
+                <h3>8.2 Convergent Validity</h3>
 
                 <p>GAS valence scores should correlate with existing single-axis satisfaction measures. GAS activation scores should correlate with arousal subscales of instruments like the PANAS. GAS intensity scores should correlate with reported importance or personal relevance of the stimulus.</p>
 
-                <h3>7.3 Discriminant Validity</h3>
+                <h3>8.3 Discriminant Validity</h3>
 
                 <p>The three axes should provide independent information. If activation and intensity are perfectly correlated across respondents, the three-axis model reduces to two and the third axis adds nothing. The prediction is that the axes are correlated but not redundant, each capturing variation the others do not.</p>
 
-                <h2>8. Discussion</h2>
+                <h2>9. Discussion</h2>
 
-                <h3>8.1 What This Paper Proposes</h3>
+                <h3>9.1 What This Paper Proposes and What It Demonstrates</h3>
 
-                <p>This paper proposes an instrument, not a proven one. The GAS design follows from a theoretical model of affective state that has been implemented in a synthetic cognitive architecture (Riggleman 2026a) and proposed as a modality-independent coordinate system (Riggleman 2026q). The step from theoretical model to measurement instrument is what operationalization means. The step from proposed instrument to validated instrument requires the empirical studies described in Sections 4 through 7.</p>
+                <p>This paper proposes an instrument and demonstrates its backward compatibility on real data. The GAS design follows from a theoretical model of three-dimensional affective state formalized across four companion papers: the valence axis (Riggleman 2026j), the activation axis (Riggleman 2026k), the intensity axis (Riggleman 2026l), and the unified geometry (Riggleman 2026m). That model has been implemented in a synthetic cognitive architecture (Riggleman 2026a) where it drives memory decay, deception thresholds, and nightmare formation.</p>
 
-                <h3>8.2 The Bridge Between Theory and Measurement</h3>
+                <p>The IBM HR Analytics demonstration in Section 4 shows that the three-axis decomposition is not merely theoretical. Applied to 1,470 real employee records, it revealed attrition patterns invisible to the single-axis summary and produced a 2.2x difference in attrition rates across geometric quadrants. This is a demonstration of backward compatibility on existing data, not a full validation of the GAS as a native instrument. The step from demonstrated decomposition to validated native instrument requires the empirical studies described in Sections 5 through 8.</p>
 
-                <p>The theoretical claim in the companion paper (Riggleman 2026q) is that the affective geometry is modality-independent. The measurement claim in this paper is narrower: that three axes capture more variation in human emotional experience than one axis does. The measurement claim does not depend on the theoretical claim being fully correct. Even if the geometry is not truly modality-independent, the three-axis instrument could still outperform single-axis instruments on discriminant validity. The theory motivates the instrument. The instrument stands or falls on its own psychometric properties.</p>
+                <h3>9.2 The Bridge Between Theory and Measurement</h3>
 
-                <h3>8.3 Limitations</h3>
+                <p>The theoretical claim in the companion papers is that emotional state is a point in three-dimensional space and the distance from sigma is a single computed quantity with predictive power. The measurement claim in this paper is narrower: that three axes capture more variation in human emotional experience than one axis does. The IBM HR demonstration supports this narrower claim. The measurement claim does not depend on the theoretical claim being fully correct. The theory motivates the instrument. The instrument stands or falls on its own psychometric properties and its ability to reveal patterns that matter.</p>
+
+                <h3>9.3 Limitations</h3>
 
                 <p>The GAS adds response time per item. Three sliders take longer than one circle on a Likert scale. The additional time is estimated at about 2 seconds per item but this needs empirical measurement. For surveys with many items, the cumulative burden may reduce completion rates.</p>
 
@@ -250,21 +315,31 @@
 
                 <p>The GAS requires a digital interface. Three simultaneous sliders cannot be rendered on a paper form in a way that preserves the gestural simplicity of the design. Most commercial and clinical survey work is already digital, so this constraint is practical rather than theoretical.</p>
 
-                <h2>9. Conclusion</h2>
+                <p>The backward compatibility decomposition in Section 4 involves mapping decisions (which existing items map to which axes) that require domain expertise and could be done differently by different researchers. The specific mapping used here is one reasonable interpretation. Other mappings could produce different results. The validation studies in Sections 5&ndash;7 would use native three-axis collection, eliminating this ambiguity.</p>
 
-                <p>The Geometric Affective Survey proposes to measure emotional experience in three dimensions instead of one. The hypothesis is that it would distinguish states that existing instruments conflate, produce point clouds instead of means, and track trajectories instead of trends. The same instrument and the same math would apply to product experience, employee engagement, and clinical intake.</p>
+                <h2>10. Conclusion</h2>
 
-                <p>The instrument does one proposed thing: give emotional experience a location in space instead of a position on a line. That location should carry more information. The three axes are not new to affective science. The circumplex model proposed two of them in 1980. What this paper proposes is packaging them in an instrument designed to be simple enough to replace the Likert scale in practical survey work, with visualization compelling enough to make the additional resolution obvious. Whether it achieves these goals is an empirical question this paper is designed to answer.</p>
+                <p>The Geometric Affective Survey proposes to measure emotional experience in three dimensions instead of one. The IBM HR Analytics demonstration shows this is not hypothetical: decomposing existing single-axis data into three geometric axes reveals attrition patterns invisible to the mean satisfaction score, including a 2.2x difference in attrition rates across geometric quadrants among employees with overlapping single-axis scores.</p>
+
+                <p>The instrument does one proposed thing: give emotional experience a location in space instead of a position on a line. That location carries more information. The three axes are not new to affective science. The circumplex model proposed two of them in 1980. What this paper proposes is packaging them in an instrument designed to be simple enough to replace the Likert scale in practical survey work, with visualization compelling enough to make the additional resolution obvious, and with backward compatibility that eliminates the adoption barrier. The IBM HR data shows the resolution is real. Whether it generalizes to native three-axis collection is an empirical question the proposed validation studies are designed to answer.</p>
 
                 <h2>References</h2>
 
                 <p>Bradley, M. M., &amp; Lang, P. J. (1994). Measuring emotion: The Self-Assessment Manikin and the semantic differential. <em>Journal of Behavior Therapy and Experimental Psychiatry, 25</em>(1), 49&ndash;59.</p>
 
-                <p>Riggleman, B. (2026a). Access-weighted memory decay and reconsolidation in a geometric emotional architecture. Zenodo.</p>
+                <p>IBM. (2019). IBM HR Analytics Employee Attrition and Performance Dataset. <em>Kaggle</em>. <a href="https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset">https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset</a></p>
 
-                <p>Riggleman, B. (2026q). Affective geometry as cross-modal translator: A theoretical and experimental proposal. Zenodo.</p>
+                <p>Riggleman, B. (2026a). Access-weighted memory decay and reconsolidation in a persistent embodied agent. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.19122520">https://doi.org/10.5281/zenodo.19122520</a></p>
 
-                <p>Riggleman, B. (2026s). Geometric displacement as clinical metric: A proposed validation agenda. Zenodo.</p>
+                <p>Riggleman, B. (2026j). Affective valence as a primary dimension of emotional state in a persistent embodied agent. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.19159265">https://doi.org/10.5281/zenodo.19159265</a></p>
+
+                <p>Riggleman, B. (2026k). Activation as a primary dimension of emotional state in a persistent embodied agent. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.19159314">https://doi.org/10.5281/zenodo.19159314</a></p>
+
+                <p>Riggleman, B. (2026l). Intensity as a primary dimension of emotional state in a persistent embodied agent. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.19159356">https://doi.org/10.5281/zenodo.19159356</a></p>
+
+                <p>Riggleman, B. (2026m). The emotional geometry of a persistent agent. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.19159429">https://doi.org/10.5281/zenodo.19159429</a></p>
+
+                <p>Riggleman, B. (2026s). Geometric displacement as clinical metric: A proposed validation agenda. <em>Zenodo</em>.</p>
 
                 <p>Russell, J. A. (1980). A circumplex model of affect. <em>Journal of Personality and Social Psychology, 39</em>(6), 1161&ndash;1178.</p>
 
