@@ -11,63 +11,183 @@
   <!-- Research Papers Index -->
   <url>
     <loc>https://clawddaily.com/papers/</loc>
-    <lastmod>2026-03-17</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Paper: SGI Holistic (Synthesis) -->
+  <!-- Paper: SGI Holistic (Synthesis 2026f) -->
   <url>
     <loc>https://clawddaily.com/papers/sgi-holistic.html</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Paper: Memory Decay -->
+  <!-- Paper: Memory Decay (2026a) -->
   <url>
     <loc>https://clawddaily.com/papers/memory-decay.html</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Paper: Lie Mechanic -->
+  <!-- Paper: Lie Mechanic (2026b) -->
   <url>
     <loc>https://clawddaily.com/papers/lie-mechanic.html</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Paper: Physics Engine -->
+  <!-- Paper: Physics Engine (2026c) -->
   <url>
     <loc>https://clawddaily.com/papers/physics-engine.html</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Paper: Spatial Grounding -->
+  <!-- Paper: Spatial Grounding (2026c-S) -->
   <url>
     <loc>https://clawddaily.com/papers/spatial-grounding.html</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Paper: Nightmare Formation -->
+  <!-- Paper: Physics Applications (2026c-A) -->
+  <url>
+    <loc>https://clawddaily.com/papers/physics-applications.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Safety Signals (2026b-S) -->
+  <url>
+    <loc>https://clawddaily.com/papers/safety-signals.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Nightmare Formation (2026d) -->
   <url>
     <loc>https://clawddaily.com/papers/nightmare-formation.html</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Paper: Affective Valence -->
+  <!-- Paper: Affective Valence (2026e) -->
   <url>
     <loc>https://clawddaily.com/papers/affective-valence.html</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Outbound Trust (2026i) -->
+  <url>
+    <loc>https://clawddaily.com/papers/outbound-trust.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Valence Axis (2026j) -->
+  <url>
+    <loc>https://clawddaily.com/papers/valence-axis.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Activation Axis (2026k) -->
+  <url>
+    <loc>https://clawddaily.com/papers/activation-axis.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Intensity Axis (2026l) -->
+  <url>
+    <loc>https://clawddaily.com/papers/intensity-axis.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Emotional Geometry (2026m) -->
+  <url>
+    <loc>https://clawddaily.com/papers/emotional-geometry.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Bias Detection (2026h) -->
+  <url>
+    <loc>https://clawddaily.com/papers/bias-detection.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Addiction (2026n) -->
+  <url>
+    <loc>https://clawddaily.com/papers/addiction.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Identity Discontinuity (2026o) -->
+  <url>
+    <loc>https://clawddaily.com/papers/identity-discontinuity.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Functional Consciousness (2026p) -->
+  <url>
+    <loc>https://clawddaily.com/papers/functional-consciousness.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Bat Paper / Cross-Modal Translator (2026q) -->
+  <url>
+    <loc>https://clawddaily.com/papers/bat-paper.html</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Survey Instrument (2026r) -->
+  <url>
+    <loc>https://clawddaily.com/papers/survey-instrument.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Clinical Metric (2026s) -->
+  <url>
+    <loc>https://clawddaily.com/papers/clinical-metric.html</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Paper: Centroid Model (2026t) -->
+  <url>
+    <loc>https://clawddaily.com/papers/centroid-model.html</loc>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -75,7 +195,7 @@
   <!-- Potato Documentation -->
   <url>
     <loc>https://clawddaily.com/potato/</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
