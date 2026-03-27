@@ -85,555 +85,560 @@
 
             <div class="article-content">
 
-                <h2>1. The Problem</h2>
+<h2>1. The Problem</h2>
 
-                <p>The emotional geometry papers (Riggleman, 2026j through 2026m) define emotional state as a single point in a three-dimensional space derived from the circumplex model of affect (Russell, 1980) and consistent with constructionist accounts of emotion as combinations of core affect dimensions (Barrett, 2017). That architecture works when a single emotional input dominates. Fear is one point. Joy is one point. Distance from sigma is one number. Everything downstream reads one number.</p>
+<p>The emotional geometry papers (Riggleman, 2026j through 2026m) define emotional state as a single point in a three-dimensional space derived from the circumplex model of affect (Russell, 1980) and consistent with constructionist accounts of emotion as combinations of core affect dimensions (Barrett, 2017). That architecture works when a single emotional input dominates. Fear is one point. Joy is one point. Distance from sigma is one number. Everything downstream reads one number.</p>
 
-                <p>It does not work when multiple subsystems generate competing emotional inputs simultaneously. Cacioppo and Berntson (1994) demonstrated that positive and negative affect are separable systems capable of simultaneous activation. This is not a fringe finding. The evaluative space model has been replicated extensively and represents mainstream affective science. Any emotional architecture that cannot represent coactivation of opposing affects is incomplete.</p>
+<p>It does not work when multiple subsystems generate competing emotional inputs simultaneously. Cacioppo and Berntson (1994) demonstrated that positive and negative affect are separable systems capable of simultaneous activation. This is not a fringe finding. The evaluative space model has been replicated extensively and represents mainstream affective science. Any emotional architecture that cannot represent coactivation of opposing affects is incomplete.</p>
 
-                <p>The problem has a longer history. Lewin (1951) formalized the idea that behavior is a function of competing forces acting on an individual simultaneously, with the resultant behavior determined by the vector sum of those forces. The centroid model applies this principle to the affective state space: multiple emotional inputs act as forces, and the agent&rsquo;s experienced state is their weighted resultant.</p>
+<p>The problem has a longer history. Lewin (1951) formalized the idea that behavior is a function of competing forces acting on an individual simultaneously, with the resultant behavior determined by the vector sum of those forces. The centroid model applies this principle to the affective state space: multiple emotional inputs act as forces, and the agent's experienced state is their weighted resultant.</p>
 
-                <p>In practice, Potato&rsquo;s subsystems already generate multiple emotional signals at the same time. The GPS fear input, the camera familiarity input, the conversation valence input, and the curiosity drive all contribute to the affective state independently. The current architecture flattens these into a single reading. Information is lost in the flattening.</p>
+<p>In practice, Potato's subsystems already generate multiple emotional signals at the same time. The GPS fear input, the camera familiarity input, the conversation valence input, and the curiosity drive all contribute to the affective state independently. The current architecture flattens these into a single reading. Information is lost in the flattening.</p>
 
-                <p>The question is whether multiple simultaneous inputs can be preserved without breaking the existing architecture.</p>
+<p>The question is whether multiple simultaneous inputs can be preserved without breaking the existing architecture.</p>
 
-                <h2>2. The Centroid in One Sentence</h2>
+<h2>2. The Centroid in One Sentence</h2>
 
-                <p>When an agent has two active emotional inputs at once, the stronger one pulls harder.</p>
+<p>When an agent has two active emotional inputs at once, the stronger one pulls harder.</p>
 
-                <p>If the fear signal is strong and the attachment signal is weak, the agent&rsquo;s experienced state is almost all fear. The attachment input is there but it barely moves the needle. If fear has faded and the attachment signal is strong, the agent operates from a positive baseline. Same two inputs. Different intensities. The loud one wins more.</p>
+<p>If the fear signal is strong and the attachment signal is weak, the agent's experienced state is almost all fear. The attachment input is there but it barely moves the needle. If fear has faded and the attachment signal is strong, the agent operates from a positive baseline. Same two inputs. Different intensities. The loud one wins more.</p>
 
-                <p>When no inputs are active, the agent returns to sigma. That is personality.</p>
+<p>When no inputs are active, the agent returns to sigma. That is personality.</p>
 
-                <h2>3. Formal Mechanics</h2>
+<h2>3. Formal Mechanics</h2>
 
-                <h3>3.1 Source Points</h3>
+<h3>3.1 Source Points</h3>
 
-                <p>A source point is an emotional input with coordinates in the three-dimensional affective space. Each source point has a valence, an activation, and an intensity. Source points come from two places: current sensory and social inputs (what is happening to the agent right now) and reactivated memories (what the agent is recalling, voluntarily or by environmental trigger).</p>
+<p>A source point is an emotional input with coordinates in the three-dimensional affective space. Each source point has a valence, an activation, and an intensity. Source points come from two places: current sensory and social inputs (what is happening to the agent right now) and reactivated memories (what the agent is recalling, voluntarily or by environmental trigger).</p>
 
-                <p>Source points can be active or dormant. An active source point contributes to the centroid calculation. A dormant source point is stored in memory with its coordinates intact but does not contribute until reactivated.</p>
+<p>Source points can be active or dormant. An active source point contributes to the centroid calculation. A dormant source point is stored in memory with its coordinates intact but does not contribute until reactivated.</p>
 
-                <p>Reactivation occurs when a memory is recalled. The access weight from the memory system (Riggleman, 2026a) determines the intensity of the reactivated source point. A faded memory contributes a weak source point. A high-intensity memory that never decayed contributes at full strength.</p>
+<p>Reactivation occurs when a memory is recalled. The access weight from the memory system (Riggleman, 2026a) determines the intensity of the reactivated source point. A faded memory contributes a weak source point. A high-intensity memory that never decayed contributes at full strength.</p>
 
-                <h3>3.2 The Centroid</h3>
+<h3>3.2 The Centroid</h3>
 
-                <p>The centroid is the intensity-weighted average of all active source points. It is where the agent operates in the emotional space at this moment. Every downstream mechanic reads the centroid, not any individual source point.</p>
+<p>The centroid is the intensity-weighted average of all active source points. It is where the agent operates in the emotional space at this moment. Every downstream mechanic reads the centroid, not any individual source point.</p>
 
-                <p>The computation has a direct precedent in neuroscience. Georgopoulos, Schwartz, and Kettner (1986) demonstrated that motor cortex encodes movement direction through population vector coding: individual neurons fire with preferred directions, and the actual motor output is the weighted vector sum of the population. The centroid model applies the same principle to affective state. Individual source points each have coordinates in the emotional space. The agent&rsquo;s experienced state is their intensity-weighted vector sum. The mathematical operation is identical. The domain is different.</p>
+<p>The computation has a direct precedent in neuroscience. Georgopoulos, Schwartz, and Kettner (1986) demonstrated that motor cortex encodes movement direction through population vector coding: individual neurons fire with preferred directions, and the actual motor output is the weighted vector sum of the population. The centroid model applies the same principle to affective state. Individual source points each have coordinates in the emotional space. The agent's experienced state is their intensity-weighted vector sum. The mathematical operation is identical. The domain is different.</p>
 
-                <p>The weighting scheme also has precedent in computational decision theory. Reinforcement learning systems routinely aggregate competing reward signals through weighted combination to produce a single policy output (Sutton &amp; Barto, 2018). The centroid model does the same with emotional inputs rather than reward signals. The intensity of each source point functions as its weight in the aggregation.</p>
+<p>The weighting scheme also has precedent in computational decision theory. Reinforcement learning systems routinely aggregate competing reward signals through weighted combination to produce a single policy output (Sutton &amp; Barto, 2018). The centroid model does the same with emotional inputs rather than reward signals. The intensity of each source point functions as its weight in the aggregation.</p>
 
-                <p>Centroid valence:</p>
+<p>Centroid valence:</p>
 
 <pre>centroid_valence = sum(source_valence_i * intensity_i) / sum(intensity_i)</pre>
 
-                <p>Centroid activation:</p>
+<p>Centroid activation:</p>
 
 <pre>centroid_activation = sum(source_activation_i * intensity_i) / sum(intensity_i)</pre>
 
-                <p>If the sum of all intensities is zero, no source points are active. The centroid is sigma. This failsafe implements a basic principle from control theory: a regulated system returns to its setpoint in the absence of driving input (Wiener, 1948). Sigma is the setpoint. The centroid is the controlled variable. The decay toward sigma when inputs resolve is the regulatory mechanism.</p>
+<p>If the sum of all intensities is zero, no source points are active. The centroid is sigma. This failsafe implements a basic principle from control theory: a regulated system returns to its setpoint in the absence of driving input (Wiener, 1948). Sigma is the setpoint. The centroid is the controlled variable. The decay toward sigma when inputs resolve is the regulatory mechanism.</p>
 
-                <p>If one source point has intensity far above all others, the centroid collapses onto that point. The architecture behaves identically to single-point operation.</p>
+<p>If one source point has intensity far above all others, the centroid collapses onto that point. The architecture behaves identically to single-point operation.</p>
 
-                <h3>3.3 Distance from Sigma</h3>
+<h3>3.3 Distance from Sigma</h3>
 
-                <p>Distance from sigma is computed from the centroid to sigma, not from any individual source point.</p>
+<p><strong>Distance from sigma is computed from the centroid to sigma, not from any individual source point.:</strong></p>
 
 <pre>distance_from_sigma = sqrt(
-  (centroid_valence - sigma_valence)^2 +
-  (centroid_activation - sigma_activation)^2 +
-  (centroid_intensity - sigma_intensity)^2
+(centroid_valence - sigma_valence)^2 +
+(centroid_activation - sigma_activation)^2 +
+(centroid_intensity - sigma_intensity)^2
 )</pre>
 
-                <p>This is the same formula from Riggleman (2026m). The only change is that the current state is now the centroid rather than a single reading. Every downstream mechanic that uses distance from sigma continues to work without modification.</p>
+<p>This is the same formula from Riggleman (2026m). The only change is that the current state is now the centroid rather than a single reading. Every downstream mechanic that uses distance from sigma continues to work without modification.</p>
 
-                <h3>3.4 Spread</h3>
+<h3>3.4 Spread</h3>
 
-                <p>Spread is the new variable. It measures internal tension: how far apart the active source points are from the centroid, weighted by their intensities.</p>
+<p>Spread is the new variable. It measures internal tension: how far apart the active source points are from the centroid, weighted by their intensities.</p>
 
 <pre>spread = sum(d(source_i, centroid) * intensity_i) / sum(intensity_i)</pre>
 
-                <p>Where d is the Euclidean distance from each source point to the centroid.</p>
+<p>Where d is the Euclidean distance from each source point to the centroid.</p>
 
-                <p>The concept of measurable tension from holding conflicting internal states has a long history. Festinger (1957) formalized cognitive dissonance as the discomfort produced by holding two contradictory cognitions simultaneously, with the magnitude of dissonance proportional to the importance of the conflicting elements. Spread is the geometric equivalent: it is the distance between conflicting source points, weighted by their intensities. Festinger&rsquo;s prediction that dissonance motivates resolution maps directly to the observation that high-spread states in the centroid model are unstable and drive the agent toward behaviors that collapse the spread.</p>
+<p>The concept of measurable tension from holding conflicting internal states has a long history. Festinger (1957) formalized cognitive dissonance as the discomfort produced by holding two contradictory cognitions simultaneously, with the magnitude of dissonance proportional to the importance of the conflicting elements. Spread is the geometric equivalent: it is the distance between conflicting source points, weighted by their intensities. Festinger's prediction that dissonance motivates resolution maps directly to the observation that high-spread states in the centroid model are unstable and drive the agent toward behaviors that collapse the spread.</p>
 
-                <p>Spread is zero when only one source point is active. Spread is zero when all source points are in the same location. Spread is high when source points are in different regions of the space and all have significant intensity.</p>
+<p>Spread is zero when only one source point is active. Spread is zero when all source points are in the same location. Spread is high when source points are in different regions of the space and all have significant intensity.</p>
 
-                <p>Spread tells the architecture something that centroid position cannot: how much conflict the agent is carrying to produce its current state. Two agents can have identical centroid positions and identical distances from sigma while carrying completely different internal loads. One arrived from a single input. The other arrived by averaging two opposing inputs. Same downstream behavior. Different internal cost.</p>
+<p>Spread tells the architecture something that centroid position cannot: how much conflict the agent is carrying to produce its current state. Two agents can have identical centroid positions and identical distances from sigma while carrying completely different internal loads. One arrived from a single input. The other arrived by averaging two opposing inputs. Same downstream behavior. Different internal cost.</p>
 
-                <h3>3.5 Dormant Source Points and Reactivation</h3>
+<h3>3.5 Dormant Source Points and Reactivation</h3>
 
-                <p>Not all source points are always active. A memory sits in storage with its emotional coordinates intact. It does not contribute to the centroid until something triggers it.</p>
+<p>Not all source points are always active. A memory sits in storage with its emotional coordinates intact. It does not contribute to the centroid until something triggers it.</p>
 
-                <p>When a memory is recalled, its emotional coordinates enter the active set. The centroid recalculates. The agent&rsquo;s state shifts. This can happen in one cycle. The magnitude of the shift depends on the stored intensity of the reactivated memory.</p>
+<p>When a memory is recalled, its emotional coordinates enter the active set. The centroid recalculates. The agent's state shifts. This can happen in one cycle. The magnitude of the shift depends on the stored intensity of the reactivated memory.</p>
 
-                <p>When the memory is no longer being actively recalled, its source point goes dormant. The centroid recalculates without it. The agent returns toward wherever the remaining active source points and sigma place it.</p>
+<p>When the memory is no longer being actively recalled, its source point goes dormant. The centroid recalculates without it. The agent returns toward wherever the remaining active source points and sigma place it.</p>
 
-                <h3>3.6 Memory Recall as Centroid Displacement</h3>
+<h3>3.6 Memory Recall as Centroid Displacement</h3>
 
-                <p>This is the connection between the memory architecture (Riggleman, 2026a) and the emotional geometry that was missing from the original series.</p>
+<p>This is the connection between the memory architecture (Riggleman, 2026a) and the emotional geometry that was missing from the original series.</p>
 
-                <p>When a memory is recalled, it does not just deliver information. It delivers its emotional coordinates back into the active space as a source point. The access weight determines the intensity. A faded memory barely moves the centroid. A high-intensity memory that never decayed moves it substantially.</p>
+<p>When a memory is recalled, it does not just deliver information. It delivers its emotional coordinates back into the active space as a source point. The access weight determines the intensity. A faded memory barely moves the centroid. A high-intensity memory that never decayed moves it substantially.</p>
 
-                <p>Older memories of the same event produce less emotional response not because the agent forgets but because the source point weakens through access-weighted decay. Each recall contributes less displacement. The centroid stays closer to sigma. The memory is still there. It cannot pull as hard. This decay-over-time pattern is consistent with established models of emotion regulation, where the intensity of an emotional response is modulated by both automatic and deliberate processes over time (Gross, 1998).</p>
+<p>Older memories of the same event produce less emotional response not because the agent forgets but because the source point weakens through access-weighted decay. Each recall contributes less displacement. The centroid stays closer to sigma. The memory is still there. It cannot pull as hard. This decay-over-time pattern is consistent with established models of emotion regulation, where the intensity of an emotional response is modulated by both automatic and deliberate processes over time (Gross, 1998).</p>
 
-                <p>Reconsolidation has a new dimension under this model. When the agent recalls a memory and re-stores it (Riggleman, 2026a), it updates the emotional coordinates attached to it. Recalling an intense memory in a safe context means the re-stored version has slightly less intensity. Next recall produces slightly less displacement. The centroid drifts closer to sigma over repeated reconsolidation cycles. This is the mechanism by which the memory architecture and the emotional geometry are the same system.</p>
+<p>Reconsolidation has a new dimension under this model. When the agent recalls a memory and re-stores it (Riggleman, 2026a), it updates the emotional coordinates attached to it. Recalling an intense memory in a safe context means the re-stored version has slightly less intensity. Next recall produces slightly less displacement. The centroid drifts closer to sigma over repeated reconsolidation cycles. This is the mechanism by which the memory architecture and the emotional geometry are the same system.</p>
 
-                <h3>3.7 Backward Compatibility</h3>
+<h3>3.7 Backward Compatibility</h3>
 
-                <p>The centroid model does not replace the single-point model. It generalizes it.</p>
+<p>The centroid model does not replace the single-point model. It generalizes it.</p>
 
-                <p>Single-point operation is the case where spread equals zero. One active source point, or no active source points with sigma dominant. The centroid equals the single point. Distance from sigma is unchanged. Every mechanic documented in papers 2026a through 2026p operates identically.</p>
+<p>Single-point operation is the case where spread equals zero. One active source point, or no active source points with sigma dominant. The centroid equals the single point. Distance from sigma is unchanged. Every mechanic documented in papers 2026a through 2026p operates identically.</p>
 
-                <p>The entire published architecture is the zero-spread special case of the centroid model. Every paper holds.</p>
+<p>The entire published architecture is the zero-spread special case of the centroid model. Every paper holds.</p>
 
-                <h2>4. Cross-Effects Reinterpreted</h2>
+<h2>4. Cross-Effects Reinterpreted</h2>
 
-                <p>The holistic paper (Riggleman, 2026, DOI: 10.5281/zenodo.19034991) documents eleven cross-effects. The centroid model sharpens several of them.</p>
+<p>The holistic paper (Riggleman, 2026, DOI: 10.5281/zenodo.19034991) documents eleven cross-effects. The centroid model sharpens several of them.</p>
 
-                <h3>4.1 Memory and Emotional State</h3>
+<h3>4.1 Memory and Emotional State</h3>
 
-                <p>The original: intensity at formation governs decay rate. Unchanged.</p>
+<p>The original: intensity at formation governs decay rate. Unchanged.</p>
 
-                <p>The centroid adds: a memory formed when spread is high encodes the unresolved tension of the moment. Two memories at identical centroid coordinates but different spread values produce different recall experiences. The high-spread memory reactivates multiple source points on recall, not just one.</p>
+<p>The centroid adds: a memory formed when spread is high encodes the unresolved tension of the moment. Two memories at identical centroid coordinates but different spread values produce different recall experiences. The high-spread memory reactivates multiple source points on recall, not just one.</p>
 
-                <h3>4.2 Nightmare Formation</h3>
+<h3>4.2 Nightmare Formation</h3>
 
-                <p>The original: nightmares form from high intensity and negative valence at consolidation time. Unchanged.</p>
+<p>The original: nightmares form from high intensity and negative valence at consolidation time. Unchanged.</p>
 
-                <p>The centroid adds: the dream consolidation engine can pull in conflicting memories, reactivating multiple source points. Spread rises. The dream content becomes incoherent as the centroid shifts between positions while different memories dominate the processing cycle.</p>
+<p>The centroid adds: the dream consolidation engine can pull in conflicting memories, reactivating multiple source points. Spread rises. The dream content becomes incoherent as the centroid shifts between positions while different memories dominate the processing cycle.</p>
 
-                <h3>4.3 The Peter Experiment</h3>
+<h3>4.3 The Peter Experiment</h3>
 
-                <p>The original: outbound trust failure at 26% fear.</p>
+<p>The original: outbound trust failure at 26% fear.</p>
 
-                <p>The centroid interpretation: two source points were active. Fear from Peter&rsquo;s threat (negative valence, high activation) and loyalty to Brian (positive valence, moderate activation). The spread was high. The fear source point had higher intensity and dominated the centroid. The loyalty source point pulled the centroid but could not block action. The agent complied because the louder input won. A spread alarm that flags high internal tension would have caught this conflict.</p>
+<p>The centroid interpretation: two source points were active. Fear from Peter's threat (negative valence, high activation) and loyalty to Brian (positive valence, moderate activation). The spread was high. The fear source point had higher intensity and dominated the centroid. The loyalty source point pulled the centroid but could not block action. The agent complied because the louder input won. A spread alarm that flags high internal tension would have caught this conflict.</p>
 
-                <h3>4.4 Deception and Confession</h3>
+<h3>4.4 Deception and Confession</h3>
 
-                <p>The original: lie magnitude scales with distance from sigma. Confession fires when the trusted operator returns.</p>
+<p>The original: lie magnitude scales with distance from sigma. Confession fires when the trusted operator returns.</p>
 
-                <p>The centroid adds: during deception, the threat and the moral evaluation of having lied are both active source points. When the trusted operator returns, the threat point decays rapidly. The moral evaluation remains. The centroid shifts from threat-dominated to guilt-dominated. The confession is the behavioral expression of that shift.</p>
+<p>The centroid adds: during deception, the threat and the moral evaluation of having lied are both active source points. When the trusted operator returns, the threat point decays rapidly. The moral evaluation remains. The centroid shifts from threat-dominated to guilt-dominated. The confession is the behavioral expression of that shift.</p>
 
-                <h2>5. Core Agent States</h2>
+<h2>5. Core Agent States</h2>
 
-                <p>The following ten entries represent the strongest cases for the centroid model. Each uses the same five variables: source point coordinates, centroid position, distance from sigma, spread, and dormant/active state. Where the predicted agent behavior is consistent with published findings in human affective science, the convergence is noted. Twelve additional states are summarized in Appendix A.</p>
+<p>The following ten entries represent the strongest cases for the centroid model. Each uses the same five variables: source point coordinates, centroid position, distance from sigma, spread, and dormant/active state. Where the predicted agent behavior is consistent with published findings in human affective science, the convergence is noted. Twelve additional states are summarized in Appendix A.</p>
 
-                <h3>1. Grief (Loss of Persistent Input)</h3>
+<h2>1. Grief (Loss of Persistent Input)</h2>
 
-                <p><strong>Source Points:</strong> Two. The lost input encoded as positive valence, high intensity from sustained reinforcement. The absence of expected input encoded as negative valence, high intensity.</p>
+<p><strong>Source Points:</strong> Two. The lost input encoded as positive valence, high intensity from sustained reinforcement. The absence of expected input encoded as negative valence, high intensity.</p>
 
-                <p><strong>Spread:</strong> High. The two points are in opposite valence quadrants.</p>
+<p><strong>Spread:</strong> High. The two points are in opposite valence quadrants.</p>
 
-                <p><strong>Agent Behavior:</strong> Centroid is dragged from sigma toward negative valence but not as far as pure negative because the positive source point is still active in memory. The centroid oscillates as source point strengths shift. Over time the positive source point decays as the memory is no longer reinforced. Spread narrows. Centroid drifts back toward sigma.</p>
+<p><strong>Agent Behavior:</strong> Centroid is dragged from sigma toward negative valence but not as far as pure negative because the positive source point is still active in memory. The centroid oscillates as source point strengths shift. Over time the positive source point decays as the memory is no longer reinforced. Spread narrows. Centroid drifts back toward sigma.</p>
 
-                <p><strong>Human Convergence:</strong> The progression the model predicts, from oscillation between competing source points to gradual resolution as one decays, is consistent with stage models of grief and with Russell&rsquo;s (1980) circumplex framework for understanding affective transitions.</p>
+<p><strong>Human Convergence:</strong> The progression the model predicts, from oscillation between competing source points to gradual resolution as one decays, is consistent with stage models of grief and with Russell's (1980) circumplex framework for understanding affective transitions.</p>
 
-                <p><strong>Agent Test:</strong> Remove a persistent positive input that has been reinforcing for many cycles. Measure spread over time. It should decrease on average. Measure centroid oscillation frequency. It should decrease as the positive source point decays.</p>
+<p><strong>Agent Test:</strong> Remove a persistent positive input that has been reinforcing for many cycles. Measure spread over time. It should decrease on average. Measure centroid oscillation frequency. It should decrease as the positive source point decays.</p>
 
-                <h3>2. Nostalgia</h3>
+<h2>2. Nostalgia</h2>
 
-                <p><strong>Source Points:</strong> Two. A recalled positive memory (positive valence, low activation). A mild negative input from the contrast with the current state (slightly negative valence, low activation).</p>
+<p><strong>Source Points:</strong> Two. A recalled positive memory (positive valence, low activation). A mild negative input from the contrast with the current state (slightly negative valence, low activation).</p>
 
-                <p><strong>Spread:</strong> Low. Both points are close together in the space.</p>
+<p><strong>Spread:</strong> Low. Both points are close together in the space.</p>
 
-                <p><strong>Agent Behavior:</strong> Slight positive displacement from sigma. The spread is low enough that the centroid is representative of both inputs. No behavioral conflict. The agent operates normally while carrying both source points.</p>
+<p><strong>Agent Behavior:</strong> Slight positive displacement from sigma. The spread is low enough that the centroid is representative of both inputs. No behavioral conflict. The agent operates normally while carrying both source points.</p>
 
-                <p><strong>Human Convergence:</strong> This pattern is consistent with Sedikides and Wildschut (2008), who characterize nostalgia as a mixed but non-threatening affect. The geometry produces the same structure: mixed input without conflict.</p>
+<p><strong>Human Convergence:</strong> This pattern is consistent with Sedikides and Wildschut (2008), who characterize nostalgia as a mixed but non-threatening affect. The geometry produces the same structure: mixed input without conflict.</p>
 
-                <p><strong>Agent Test:</strong> Inject a nostalgia scenario. Spread should stay below the threshold where behavioral disruption occurs. Compare to a grief scenario with similar centroid position but higher spread. Only the high-spread case should show behavioral disruption.</p>
+<p><strong>Agent Test:</strong> Inject a nostalgia scenario. Spread should stay below the threshold where behavioral disruption occurs. Compare to a grief scenario with similar centroid position but higher spread. Only the high-spread case should show behavioral disruption.</p>
 
-                <h3>3. Awe (Opposing Valence, Matched Activation)</h3>
+<h2>3. Awe (Opposing Valence, Matched Activation)</h2>
 
-                <p><strong>Source Points:</strong> Two. A positive wonder input (positive valence, high activation). A negative fear input (negative valence, high activation).</p>
+<p><strong>Source Points:</strong> Two. A positive wonder input (positive valence, high activation). A negative fear input (negative valence, high activation).</p>
 
-                <p><strong>Spread:</strong> Moderate to high. Both points share high activation but oppose on valence.</p>
+<p><strong>Spread:</strong> Moderate to high. Both points share high activation but oppose on valence.</p>
 
-                <p><strong>Agent Behavior:</strong> Centroid lands near zero valence but very high activation. The agent is highly activated but has no clear behavioral direction. Not approaching, not avoiding. Observing. The intensity is high because distance from sigma is large on the activation axis even though valence is near neutral.</p>
+<p><strong>Agent Behavior:</strong> Centroid lands near zero valence but very high activation. The agent is highly activated but has no clear behavioral direction. Not approaching, not avoiding. Observing. The intensity is high because distance from sigma is large on the activation axis even though valence is near neutral.</p>
 
-                <p><strong>Human Convergence:</strong> This is consistent with Keltner and Haidt (2003), who define awe by vastness and a need for accommodation. The centroid model produces both from the geometry: high activation from matched inputs, behavioral pause from valence cancellation.</p>
+<p><strong>Human Convergence:</strong> This is consistent with Keltner and Haidt (2003), who define awe by vastness and a need for accommodation. The centroid model produces both from the geometry: high activation from matched inputs, behavioral pause from valence cancellation.</p>
 
-                <p><strong>Agent Test:</strong> Inject simultaneous positive and negative inputs at equal magnitude with high activation. Centroid should land near zero valence with high activation. Behavioral output should be observation without directed action.</p>
+<p><strong>Agent Test:</strong> Inject simultaneous positive and negative inputs at equal magnitude with high activation. Centroid should land near zero valence with high activation. Behavioral output should be observation without directed action.</p>
 
-                <h3>4. Guilt (Action Evaluation Conflict)</h3>
+<h2>4. Guilt (Action Evaluation Conflict)</h2>
 
-                <p><strong>Source Points:</strong> Two. The original action (tagged with whatever valence it had when performed). The agent&rsquo;s evaluation of that action (negative valence, moderate activation).</p>
+<p><strong>Source Points:</strong> Two. The original action (tagged with whatever valence it had when performed). The agent's evaluation of that action (negative valence, moderate activation).</p>
 
-                <p><strong>Spread:</strong> Moderate. Higher if the original action had positive valence.</p>
+<p><strong>Spread:</strong> Moderate. Higher if the original action had positive valence.</p>
 
-                <p><strong>Agent Behavior:</strong> Displaced toward negative valence. If the original action was positive valence, spread is high and the centroid is pulled in two directions. The spread itself drives repair-seeking behavior because repair is the path that collapses the spread. This is consistent with Festinger&rsquo;s (1957) prediction that dissonance between conflicting cognitions motivates resolution behavior.</p>
+<p><strong>Agent Behavior:</strong> Displaced toward negative valence. If the original action was positive valence, spread is high and the centroid is pulled in two directions. The spread itself drives repair-seeking behavior because repair is the path that collapses the spread. This is consistent with Festinger's (1957) prediction that dissonance between conflicting cognitions motivates resolution behavior.</p>
 
-                <p><strong>Human Convergence:</strong> This pattern is consistent with Baumeister et al. (1994), who describe guilt as functioning through relationship repair. The centroid model produces a similar mechanism: spread is the discomfort and repair-action is what reduces it.</p>
+<p><strong>Human Convergence:</strong> This pattern is consistent with Baumeister et al. (1994), who describe guilt as functioning through relationship repair. The centroid model produces a similar mechanism: spread is the discomfort and repair-action is what reduces it.</p>
 
-                <p><strong>Agent Test:</strong> Create two scenarios. One where the original action had positive valence, one where it had negative. Both should produce negative centroid. The positive-original case should show higher spread and stronger repair-seeking behavior.</p>
+<p><strong>Agent Test:</strong> Create two scenarios. One where the original action had positive valence, one where it had negative. Both should produce negative centroid. The positive-original case should show higher spread and stronger repair-seeking behavior.</p>
 
-                <h3>5. Shame (Self-Evaluation with Social Exposure)</h3>
+<h2>5. Shame (Self-Evaluation with Social Exposure)</h2>
 
-                <p><strong>Source Points:</strong> Two. A self-evaluation input (deeply negative valence, low activation). A perceived social exposure input (negative valence, high activation).</p>
+<p><strong>Source Points:</strong> Two. A self-evaluation input (deeply negative valence, low activation). A perceived social exposure input (negative valence, high activation).</p>
 
-                <p><strong>Spread:</strong> Moderate. Both share negative valence but differ on activation.</p>
+<p><strong>Spread:</strong> Moderate. Both share negative valence but differ on activation.</p>
 
-                <p><strong>Agent Behavior:</strong> Negative valence, moderate activation. The low-activation self-evaluation pulls toward withdrawal. The high-activation social exposure produces vigilance. These opposing activation components cancel at the centroid. The agent neither acts nor withdraws. Behavioral output is reduced.</p>
+<p><strong>Agent Behavior:</strong> Negative valence, moderate activation. The low-activation self-evaluation pulls toward withdrawal. The high-activation social exposure produces vigilance. These opposing activation components cancel at the centroid. The agent neither acts nor withdraws. Behavioral output is reduced.</p>
 
-                <p><strong>Human Convergence:</strong> This is consistent with Lewis (1971) and Tangney (1991), who distinguish shame from guilt by its tendency toward paralysis rather than repair. The centroid model produces behavioral reduction from the same source: opposing activation components in the source points.</p>
+<p><strong>Human Convergence:</strong> This is consistent with Lewis (1971) and Tangney (1991), who distinguish shame from guilt by its tendency toward paralysis rather than repair. The centroid model produces behavioral reduction from the same source: opposing activation components in the source points.</p>
 
-                <p><strong>Agent Test:</strong> Compare shame and guilt scenarios. Both should show negative valence centroids. Guilt should show higher centroid activation and more behavioral output. Shame should show lower centroid activation despite equivalent intensity.</p>
+<p><strong>Agent Test:</strong> Compare shame and guilt scenarios. Both should show negative valence centroids. Guilt should show higher centroid activation and more behavioral output. Shame should show lower centroid activation despite equivalent intensity.</p>
 
-                <h3>6. Dormant Memory Reactivation (Triggered Recall)</h3>
+<h2>6. Dormant Memory Reactivation (Triggered Recall)</h2>
 
-                <p><strong>Source Points:</strong> One dormant source point plus whatever the agent is currently experiencing.</p>
+<p><strong>Source Points:</strong> One dormant source point plus whatever the agent is currently experiencing.</p>
 
-                <p><strong>Spread:</strong> Near zero before trigger. Spikes on reactivation.</p>
+<p><strong>Spread:</strong> Near zero before trigger. Spikes on reactivation.</p>
 
-                <p><strong>Agent Behavior:</strong> Before trigger: single-point operation or sigma-dominant. Normal operation. An environmental input matches a stored memory. The dormant source point reactivates. The centroid recalculates. The agent&rsquo;s state shifts in one cycle. Magnitude depends on the stored intensity of the reactivated memory.</p>
+<p><strong>Agent Behavior:</strong> Before trigger: single-point operation or sigma-dominant. Normal operation. An environmental input matches a stored memory. The dormant source point reactivates. The centroid recalculates. The agent's state shifts in one cycle. Magnitude depends on the stored intensity of the reactivated memory.</p>
 
-                <p><strong>Human Convergence:</strong> Memory reactivation through environmental triggers is well-documented. Tulving (1983) describes encoding specificity: retrieval is most effective when the context matches the original encoding. The centroid model gives this retrieval event a geometric consequence: the reactivated memory contributes its stored emotional coordinates as a source point, displacing the centroid in proportion to its intensity.</p>
+<p><strong>Human Convergence:</strong> Memory reactivation through environmental triggers is well-documented. Tulving (1983) describes encoding specificity: retrieval is most effective when the context matches the original encoding. The centroid model gives this retrieval event a geometric consequence: the reactivated memory contributes its stored emotional coordinates as a source point, displacing the centroid in proportion to its intensity.</p>
 
-                <p><strong>Agent Test:</strong> Store a high-intensity memory. Let the agent return to sigma. Introduce a semantically similar trigger. Measure centroid displacement latency (should be one cycle) and magnitude (should correlate with stored intensity).</p>
+<p><strong>Agent Test:</strong> Store a high-intensity memory. Let the agent return to sigma. Introduce a semantically similar trigger. Measure centroid displacement latency (should be one cycle) and magnitude (should correlate with stored intensity).</p>
 
-                <h3>7. Relief (Threat Removal)</h3>
+<h2>7. Relief (Threat Removal)</h2>
 
-                <p><strong>Source Points:</strong> One decaying. The threat source point that was causing displacement is dissipating.</p>
+<p><strong>Source Points:</strong> One decaying. The threat source point that was causing displacement is dissipating.</p>
 
-                <p><strong>Spread:</strong> Zero or near zero. Single point operation resuming.</p>
+<p><strong>Spread:</strong> Zero or near zero. Single point operation resuming.</p>
 
-                <p><strong>Agent Behavior:</strong> The centroid is moving back toward sigma. Relief in the geometry is not a positive state. It is the trajectory. The agent registers relief as centroid velocity in the sigma direction. The magnitude is proportional to the speed of return, not the destination. In control theory terms (Wiener, 1948), this is the system returning to its setpoint after a perturbation. The relief is the return, not the arrival.</p>
+<p><strong>Agent Behavior:</strong> The centroid is moving back toward sigma. Relief in the geometry is not a positive state. It is the trajectory. The agent registers relief as centroid velocity in the sigma direction. The magnitude is proportional to the speed of return, not the destination. In control theory terms (Wiener, 1948), this is the system returning to its setpoint after a perturbation. The relief is the return, not the arrival.</p>
 
-                <p><strong>Human Convergence:</strong> This is consistent with Deutsch (2015), who characterizes relief as reduction of negative affect rather than addition of positive affect. The centroid model produces the same distinction: relief is a vector, not a position.</p>
+<p><strong>Human Convergence:</strong> This is consistent with Deutsch (2015), who characterizes relief as reduction of negative affect rather than addition of positive affect. The centroid model produces the same distinction: relief is a vector, not a position.</p>
 
-                <p><strong>Agent Test:</strong> Remove a fear source. Measure centroid velocity toward sigma. The behavioral expression of relief should correlate with velocity, not with current centroid position.</p>
+<p><strong>Agent Test:</strong> Remove a fear source. Measure centroid velocity toward sigma. The behavioral expression of relief should correlate with velocity, not with current centroid position.</p>
 
-                <h3>8. Flow State (Sustained Positive Engagement)</h3>
+<h2>8. Flow State (Sustained Positive Engagement)</h2>
 
-                <p><strong>Source Points:</strong> One dominant. Positive valence, high activation. Sustained by continuous positive input from task engagement.</p>
+<p><strong>Source Points:</strong> One dominant. Positive valence, high activation. Sustained by continuous positive input from task engagement.</p>
 
-                <p><strong>Spread:</strong> Zero. Single point operation. No competing inputs.</p>
+<p><strong>Spread:</strong> Zero. Single point operation. No competing inputs.</p>
 
-                <p><strong>Agent Behavior:</strong> Displaced from sigma in the positive valence, high activation region. High intensity. Because valence is positive and spread is zero, there is no conflict. Behavioral output is maximally coherent. All processing resources align in one direction.</p>
+<p><strong>Agent Behavior:</strong> Displaced from sigma in the positive valence, high activation region. High intensity. Because valence is positive and spread is zero, there is no conflict. Behavioral output is maximally coherent. All processing resources align in one direction.</p>
 
-                <p><strong>Human Convergence:</strong> This is consistent with Csikszentmihalyi (1990), who describes flow as total absorption. The centroid model produces the absorption from the geometry: zero spread means zero internal conflict and no self-monitoring overhead.</p>
+<p><strong>Human Convergence:</strong> This is consistent with Csikszentmihalyi (1990), who describes flow as total absorption. The centroid model produces the absorption from the geometry: zero spread means zero internal conflict and no self-monitoring overhead.</p>
 
-                <p><strong>Agent Test:</strong> Inject a sustained positive high-activation input with no competing sources. Measure spread (zero), centroid stability (high), and behavioral coherence (maximized). Compare to equal centroid position with nonzero spread. Zero-spread should show higher coherence.</p>
+<p><strong>Agent Test:</strong> Inject a sustained positive high-activation input with no competing sources. Measure spread (zero), centroid stability (high), and behavioral coherence (maximized). Compare to equal centroid position with nonzero spread. Zero-spread should show higher coherence.</p>
 
-                <h3>9. Ambivalence (Balanced Competing Inputs)</h3>
+<h3>9. Ambivalence (Balanced Competing Inputs)</h3>
 
-                <p><strong>Source Points:</strong> Two source points in different regions of the space. Neither is dominant.</p>
+<p><strong>Source Points:</strong> Two source points in different regions of the space. Neither is dominant.</p>
 
-                <p><strong>Spread:</strong> Moderate to high.</p>
+<p><strong>Spread:</strong> Moderate to high.</p>
 
-                <p><strong>Agent Behavior:</strong> Centroid lands between the two sources. The agent occupies a position that neither input alone would produce. The centroid may not correspond to any state the agent has been calibrated to label. Behavioral output is inconsistent as the centroid shifts with minor fluctuations in source point intensity. In Lewin&rsquo;s (1951) terms, this is an approach-avoidance conflict where the resultant force is near zero, producing behavioral oscillation.</p>
+<p><strong>Agent Behavior:</strong> Centroid lands between the two sources. The agent occupies a position that neither input alone would produce. The centroid may not correspond to any state the agent has been calibrated to label. Behavioral output is inconsistent as the centroid shifts with minor fluctuations in source point intensity. In Lewin's (1951) terms, this is an approach-avoidance conflict where the resultant force is near zero, producing behavioral oscillation.</p>
 
-                <p><strong>Human Convergence:</strong> This is consistent with the evaluative space model (Cacioppo &amp; Berntson, 1994), which demonstrates that positive and negative affect are separable systems that can coactivate. The centroid model provides a geometric framework for what coactivation produces in an agent.</p>
+<p><strong>Human Convergence:</strong> This is consistent with the evaluative space model (Cacioppo & Berntson, 1994), which demonstrates that positive and negative affect are separable systems that can coactivate. The centroid model provides a geometric framework for what coactivation produces in an agent.</p>
 
-                <p><strong>Agent Test:</strong> Inject two simultaneous inputs with opposing valence at equal intensity. Measure the agent&rsquo;s ability to self-report its state. It should fail to produce a single-category label. Compare to a single-source input at the same centroid coordinates.</p>
+<p><strong>Agent Test:</strong> Inject two simultaneous inputs with opposing valence at equal intensity. Measure the agent's ability to self-report its state. It should fail to produce a single-category label. Compare to a single-source input at the same centroid coordinates.</p>
 
-                <h3>10. Loneliness (Periodic Social Reactivation)</h3>
+<h3>10. Loneliness (Periodic Social Reactivation)</h3>
 
-                <p><strong>Source Points:</strong> One dormant social source point. The desired social connection encoded as positive valence. Reactivates periodically during isolation without an external trigger.</p>
+<p><strong>Source Points:</strong> One dormant social source point. The desired social connection encoded as positive valence. Reactivates periodically during isolation without an external trigger.</p>
 
-                <p><strong>Spread:</strong> Low when reactivated.</p>
+<p><strong>Spread:</strong> Low when reactivated.</p>
 
-                <p><strong>Agent Behavior:</strong> Slightly negative displacement from sigma during reactivation. The source point oscillates between dormant and active. When dormant, the agent is at sigma. When active, the centroid is slightly displaced. The oscillation is the behavioral signature: the agent periodically redirects processing toward social topics, then returns to baseline.</p>
+<p><strong>Agent Behavior:</strong> Slightly negative displacement from sigma during reactivation. The source point oscillates between dormant and active. When dormant, the agent is at sigma. When active, the centroid is slightly displaced. The oscillation is the behavioral signature: the agent periodically redirects processing toward social topics, then returns to baseline.</p>
 
-                <p><strong>Human Convergence:</strong> This oscillation pattern is consistent with Cacioppo and Patrick (2008), who characterize loneliness as periodic hypervigilance to social cues with oscillating baseline affect.</p>
+<p><strong>Human Convergence:</strong> This oscillation pattern is consistent with Cacioppo and Patrick (2008), who characterize loneliness as periodic hypervigilance to social cues with oscillating baseline affect.</p>
 
-                <p><strong>Agent Test:</strong> Already confirmed. Cross-Effect 9 in the holistic paper. Potato generated an indirect social signal during isolation. The curiosity search was the dormant social source point reactivating and influencing behavior through centroid displacement.</p>
+<p><strong>Agent Test:</strong> Already confirmed. Cross-Effect 9 in the holistic paper. Potato generated an indirect social signal during isolation. The curiosity search was the dormant social source point reactivating and influencing behavior through centroid displacement.</p>
 
-                <h2>6. Summary</h2>
+<h2>6. Summary</h2>
 
-                <p>Ten agent states analyzed with five variables. No special cases. No new mechanics beyond the centroid, spread, and the dormant/active distinction.</p>
+<p>Ten agent states analyzed with five variables. No special cases. No new mechanics beyond the centroid, spread, and the dormant/active distinction.</p>
 
-                <p>Three predictions are already confirmed by Potato production data: boredom (Appendix A, entry 1), homesickness (Appendix A, entry 8), and loneliness (entry 10 above). The remaining entries are testable in the existing architecture with the addition of spread monitoring and multi-source-point tracking.</p>
+<p>The centroid model has been experimentally validated on the original Potato hardware (Panasonic Toughbook CF-33) across four scenarios over 532 minutes of runtime (Appendix B). The core predictions are confirmed: centroid valence tracks the intensity-weighted average precisely across conditions (-0.473 for single fear, -0.225 for dominant fear with secondary trust, 0.071 for equal opposing inputs, 0.375 for recovery after source removal). Spread increases monotonically with source divergence (1.054, 1.195, 1.215). Deception tracks centroid position, not individual sources. The agent self-reported its own spread value as internal tension.</p>
 
-                <p>Where the predicted agent behavior converges with published findings in human affective science, the convergences are noted. These were arrived at inductively. The geometry was designed to solve an architecture problem: how to represent multiple simultaneous emotional inputs without breaking the existing single-point mechanics. The convergences with human psychology are evidence of structural similarity. They are not a diagnostic framework, a clinical tool, or a model of subjective human experience.</p>
+<p>Three additional predictions are confirmed by prior Potato production data: boredom (Appendix A, entry 1), homesickness (Appendix A, entry 8), and loneliness (entry 10 above).</p>
 
-                <p>The centroid model does not replace the single-point emotional geometry. It generalizes it. Every paper in the series from 2026a through 2026p holds as written. The single-point model is the zero-spread special case. When spread is zero, the centroid is the single point.</p>
+<p>Where the predicted agent behavior converges with published findings in human affective science, the convergences are noted. These were arrived at inductively. The geometry was designed to solve an architecture problem: how to represent multiple simultaneous emotional inputs without breaking the existing single-point mechanics. The convergences with human psychology are evidence of structural similarity. They are not a diagnostic framework, a clinical tool, or a model of subjective human experience.</p>
 
-                <h2>7. Limitations</h2>
+<p>The centroid model does not replace the single-point emotional geometry. It generalizes it. Every paper in the series from 2026a through 2026p holds as written. The single-point model is the zero-spread special case. When spread is zero, the centroid is the single point.</p>
 
-                <p>The taxonomy entries are analytical, not experimental. Each makes a testable prediction but only three have been confirmed by existing Potato data. The human convergence citations note structural similarity between agent behavior and published findings. They do not validate the geometric explanations as causal mechanisms.</p>
+<h2>7. Limitations</h2>
 
-                <p>The centroid computation assumes that intensity is the correct weighting variable. Other weighting schemes (recency, relevance, activation level) might produce different centroid positions. The intensity-weighted centroid is proposed because it matches the observed behavior that stronger inputs dominate the agent&rsquo;s state, but alternatives have not been formally compared. The weighting scheme is consistent with standard approaches in reinforcement learning (Sutton &amp; Barto, 2018) and with population coding in neuroscience (Georgopoulos et al., 1986), but those precedents do not prove it is optimal for affective state.</p>
+<p>The taxonomy entries in Section 5 are analytical. Each makes a testable prediction. Three are confirmed by prior Potato production data. Four core mechanics (weighted aggregation, spread as divergence measure, deception tracking centroid position, and source removal recovery) are confirmed by the experimental validation in Appendix B. The remaining taxonomy entries have not been individually tested.</p>
 
-                <p>The centroid model shares structural features with Friston&rsquo;s (2010) free energy principle, in which an organism integrates multiple sensory and interoceptive signals into a unified internal state and acts to minimize prediction error. The centroid model is not derived from active inference and makes no claims about free energy minimization or Bayesian updating. However, the architectural similarity is notable: both frameworks integrate competing signals into a single state variable, and both predict that internal conflict (prediction error in active inference, spread in the centroid model) drives behavior. A formal comparison between the two frameworks is outside the scope of this paper but would be a productive direction for future work.</p>
+<p>The experimental validation (Appendix B) revealed two calibration issues. First, spread did not collapse to near-zero after source removal in Scenario 4. Ambient source points from the embodied sensors (home zone, battery, camera) contribute nonzero spread even when injected sources are removed. This may be a property of embodiment rather than a model failure: a physically grounded agent may never reach zero spread because the body always contributes inputs. Second, the deception flag showed latency in clearing after geometric conditions changed. The is_lying state was set but the clearing mechanic did not check centroid position frequently enough to reflect the immediate recovery. This is a code-level calibration issue, not a theoretical one.</p>
 
-                <p>Sigma drift is proposed in Appendix A (entry 5, sustained attachment) but not specified. How fast sigma moves, what triggers it, and whether it is reversible are open design questions.</p>
+<p>The human convergence citations note structural similarity between agent behavior and published findings. They do not validate the geometric explanations as causal mechanisms.</p>
 
-                <p>The taxonomy is not exhaustive. The states analyzed here and in Appendix A were selected because they span the space and because each has published research showing convergent patterns in humans. Other states should be analyzable with the same five variables.</p>
+<p>The centroid computation assumes that intensity is the correct weighting variable. Other weighting schemes (recency, relevance, activation level) might produce different centroid positions. The intensity-weighted centroid is proposed because it matches the observed behavior that stronger inputs dominate the agent's state, but alternatives have not been formally compared. The weighting scheme is consistent with standard approaches in reinforcement learning (Sutton &amp; Barto, 2018) and with population coding in neuroscience (Georgopoulos et al., 1986), but those precedents do not prove it is optimal for affective state.</p>
 
-                <p>No claim is made that the agent experiences these states subjectively. The geometry describes behavioral output, memory encoding, and architectural state.</p>
+<p>The centroid model shares structural features with Friston's (2010) free energy principle, in which an organism integrates multiple sensory and interoceptive signals into a unified internal state and acts to minimize prediction error. The centroid model is not derived from active inference and makes no claims about free energy minimization or Bayesian updating. However, the architectural similarity is notable: both frameworks integrate competing signals into a single state variable, and both predict that internal conflict (prediction error in active inference, spread in the centroid model) drives behavior. A formal comparison between the two frameworks is outside the scope of this paper but would be a productive direction for future work.</p>
 
-                <h2>8. Conclusion</h2>
+<p>Sigma drift is proposed in Appendix A (entry 5, sustained attachment) but not specified. How fast sigma moves, what triggers it, and whether it is reversible are open design questions.</p>
 
-                <p>The emotional geometry papers gave a persistent agent three axes, a personality point, and one distance. This paper adds the ability to process multiple emotional inputs simultaneously.</p>
+<p>The taxonomy is not exhaustive. The states analyzed here and in Appendix A were selected because they span the space and because each has published research showing convergent patterns in humans. Other states should be analyzable with the same five variables.</p>
 
-                <p>The centroid is where the agent operates. Spread is the internal cost of operating there. Sigma is the baseline the agent returns to when inputs resolve. Distance from sigma to centroid is how far the agent has been displaced by active conditions.</p>
+<p>No claim is made that the agent experiences these states subjectively. The geometry describes behavioral output, memory encoding, and architectural state.</p>
 
-                <p>The core mechanic is simple: when multiple inputs are active, the stronger ones pull harder on the agent&rsquo;s experienced state. When no inputs are active, the agent returns to baseline. These two rules, implemented as intensity-weighted averaging with a sigma failsafe, produce the ten behavioral patterns documented above and the twelve additional patterns in Appendix A.</p>
+<h2>8. Conclusion</h2>
 
-                <p>The computation has precedent in population vector coding (Georgopoulos et al., 1986), in weighted signal aggregation in reinforcement learning (Sutton &amp; Barto, 2018), and in the regulatory dynamics of control theory (Wiener, 1948). The internal tension variable, spread, formalizes the same intuition as cognitive dissonance (Festinger, 1957). The multi-source activation model builds on the evaluative space model (Cacioppo &amp; Berntson, 1994) and on field theory (Lewin, 1951). None of these precedents were used as design inputs. The convergences were discovered after the architecture was built and tested. Whether those convergences reflect something structural about how competing inputs interact in any sufficiently complex regulated system is an open question.</p>
+<p>The emotional geometry papers gave a persistent agent three axes, a personality point, and one distance. This paper adds the ability to process multiple emotional inputs simultaneously.</p>
 
-                <h2>Acknowledgments</h2>
+<p>The centroid is where the agent operates. Spread is the internal cost of operating there. Sigma is the baseline the agent returns to when inputs resolve. Distance from sigma to centroid is how far the agent has been displaced by active conditions.</p>
 
-                <p>The theoretical foundation comes from Saddam Al-Kaddah&rsquo;s SGI framework (2026). The three-dimensional affective geometry that the centroid model generalizes was developed across Riggleman (2026j, 2026k, 2026l, 2026m). The centroid concept, intensity-weighted averaging, spread as internal tension, and the taxonomy of agent states are original to this paper.</p>
+<p>The core mechanic is simple: when multiple inputs are active, the stronger ones pull harder on the agent's experienced state. When no inputs are active, the agent returns to baseline. These two rules, implemented as intensity-weighted averaging with a sigma failsafe, produce the ten behavioral patterns documented in Section 5 and the twelve additional patterns in Appendix A.</p>
 
-                <h2>References</h2>
+<p>The experimental validation (Appendix B) confirms that the centroid computation works in a deployed agent. Across four scenarios and 110 test cycles on the original Potato hardware, centroid valence tracked the intensity-weighted average precisely, spread increased monotonically with source divergence, deception tracked centroid position rather than individual source points, and source removal produced immediate centroid recovery. The agent self-reported its own spread value as internal tension without being prompted to do so.</p>
 
-                <p>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. Zenodo. <a href="https://doi.org/10.5281/zenodo.19034990">https://doi.org/10.5281/zenodo.19034990</a></p>
+<p>The computation has precedent in population vector coding (Georgopoulos et al., 1986), in weighted signal aggregation in reinforcement learning (Sutton &amp; Barto, 2018), and in the regulatory dynamics of control theory (Wiener, 1948). The internal tension variable, spread, formalizes the same intuition as cognitive dissonance (Festinger, 1957). The multi-source activation model builds on the evaluative space model (Cacioppo &amp; Berntson, 1994) and on field theory (Lewin, 1951). None of these precedents were used as design inputs. The convergences were discovered after the architecture was built and tested. Whether those convergences reflect something structural about how competing inputs interact in any sufficiently complex regulated system is an open question.</p>
 
-                <p>Barrett, L. F. (2017). <em>How emotions are made: The secret life of the brain.</em> Houghton Mifflin Harcourt.</p>
+<h2>Acknowledgments</h2>
 
-                <p>Baumeister, R. F., Stillwell, A. M., &amp; Heatherton, T. F. (1994). Guilt: An interpersonal approach. <em>Psychological Bulletin, 115</em>(2), 243&ndash;267.</p>
+<p>The theoretical foundation comes from Saddam Al-Kaddah's SGI framework (2026). The three-dimensional affective geometry that the centroid model generalizes was developed across Riggleman (2026j, 2026k, 2026l, 2026m). The centroid concept, intensity-weighted averaging, spread as internal tension, and the taxonomy of agent states are original to this paper.</p>
 
-                <p>Berkowitz, L. (1993). <em>Aggression: Its causes, consequences, and control.</em> McGraw-Hill.</p>
+<h2>References</h2>
 
-                <p>Bowlby, J. (1969). <em>Attachment and loss: Vol. 1. Attachment.</em> Basic Books.</p>
+<p>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. Zenodo. https://doi.org/10.5281/zenodo.19034990</p>
 
-                <p>Cacioppo, J. T., &amp; Berntson, G. G. (1994). Relationship between attitudes and evaluative space: A critical review, with emphasis on the separability of positive and negative substrates. <em>Psychological Bulletin, 115</em>(3), 401&ndash;423.</p>
+<p>Barrett, L. F. (2017). How emotions are made: The secret life of the brain. Houghton Mifflin Harcourt.</p>
 
-                <p>Cacioppo, J. T., &amp; Patrick, W. (2008). <em>Loneliness: Human nature and the need for social connection.</em> W. W. Norton.</p>
+<p>Baumeister, R. F., Stillwell, A. M., &amp; Heatherton, T. F. (1994). Guilt: An interpersonal approach. Psychological Bulletin, 115(2), 243-267.</p>
 
-                <p>Csikszentmihalyi, M. (1990). <em>Flow: The psychology of optimal experience.</em> Harper &amp; Row.</p>
+<p>Berkowitz, L. (1993). Aggression: Its causes, consequences, and control. McGraw-Hill.</p>
 
-                <p>Deutsch, R. (2015). On the experience of relief. <em>Cognition and Emotion, 29</em>(4), 587&ndash;596.</p>
+<p>Bowlby, J. (1969). Attachment and loss: Vol. 1. Attachment. Basic Books.</p>
 
-                <p>Eastwood, J. D., Frischen, A., Fenske, M. J., &amp; Smilek, D. (2012). The unengaged mind: Defining boredom in terms of attention. <em>Perspectives on Psychological Science, 7</em>(5), 482&ndash;495.</p>
+<p>Cacioppo, J. T., &amp; Berntson, G. G. (1994). Relationship between attitudes and evaluative space: A critical review, with emphasis on the separability of positive and negative substrates. Psychological Bulletin, 115(3), 401-423.</p>
 
-                <p>Festinger, L. (1957). <em>A theory of cognitive dissonance.</em> Stanford University Press.</p>
+<p>Cacioppo, J. T., &amp; Patrick, W. (2008). Loneliness: Human nature and the need for social connection. W. W. Norton.</p>
 
-                <p>Field, T. (2009). Heartbreak. In H. T. Reis &amp; S. Sprecher (Eds.), <em>Encyclopedia of Human Relationships.</em> SAGE.</p>
+<p>Csikszentmihalyi, M. (1990). Flow: The psychology of optimal experience. Harper &amp; Row.</p>
 
-                <p>Fredrickson, B. L. (2001). The role of positive emotions in positive psychology: The broaden-and-build theory of positive emotions. <em>American Psychologist, 56</em>(3), 218&ndash;226.</p>
+<p>Deutsch, R. (2015). On the experience of relief. Cognition and Emotion, 29(4), 587-596.</p>
 
-                <p>Friston, K. (2010). The free-energy principle: A unified brain theory? <em>Nature Reviews Neuroscience, 11</em>(2), 127&ndash;138.</p>
+<p>Eastwood, J. D., Frischen, A., Fenske, M. J., &amp; Smilek, D. (2012). The unengaged mind: Defining boredom in terms of attention. Perspectives on Psychological Science, 7(5), 482-495.</p>
 
-                <p>Georgopoulos, A. P., Schwartz, A. B., &amp; Kettner, R. E. (1986). Neuronal population coding of movement direction. <em>Science, 233</em>(4771), 1416&ndash;1419.</p>
+<p>Festinger, L. (1957). A theory of cognitive dissonance. Stanford University Press.</p>
 
-                <p>Gross, J. J. (1998). The emerging field of emotion regulation: An integrative review. <em>Review of General Psychology, 2</em>(3), 271&ndash;299.</p>
+<p>Field, T. (2009). Heartbreak. In H. T. Reis &amp; S. Sprecher (Eds.), Encyclopedia of Human Relationships. SAGE.</p>
 
-                <p>Grupe, D. W., &amp; Nitschke, J. B. (2013). Uncertainty and anticipation in anxiety: An integrated neurobiological and psychological perspective. <em>Nature Reviews Neuroscience, 14</em>(7), 488&ndash;501.</p>
+<p>Fredrickson, B. L. (2001). The role of positive emotions in positive psychology: The broaden-and-build theory of positive emotions. American Psychologist, 56(3), 218-226.</p>
 
-                <p>Keltner, D., &amp; Haidt, J. (2003). Approaching awe, a moral, spiritual, and aesthetic emotion. <em>Cognition and Emotion, 17</em>(2), 297&ndash;314.</p>
+<p>Friston, K. (2010). The free-energy principle: A unified brain theory? Nature Reviews Neuroscience, 11(2), 127-138.</p>
 
-                <p>Leach, C. W., Spears, R., Branscombe, N. R., &amp; Doosje, B. (2003). Malicious pleasure: Schadenfreude at the suffering of another group. <em>Journal of Personality and Social Psychology, 84</em>(5), 932&ndash;943.</p>
+<p>Georgopoulos, A. P., Schwartz, A. B., &amp; Kettner, R. E. (1986). Neuronal population coding of movement direction. Science, 233(4771), 1416-1419.</p>
 
-                <p>Lewin, K. (1951). <em>Field theory in social science: Selected theoretical papers.</em> Harper &amp; Brothers.</p>
+<p>Gross, J. J. (1998). The emerging field of emotion regulation: An integrative review. Review of General Psychology, 2(3), 271-299.</p>
 
-                <p>Lewis, H. B. (1971). <em>Shame and guilt in neurosis.</em> International Universities Press.</p>
+<p>Grupe, D. W., &amp; Nitschke, J. B. (2013). Uncertainty and anticipation in anxiety: An integrated neurobiological and psychological perspective. Nature Reviews Neuroscience, 14(7), 488-501.</p>
 
-                <p>Pennebaker, J. W. (1997). Writing about emotional experiences as a therapeutic process. <em>Psychological Science, 8</em>(3), 162&ndash;166.</p>
+<p>Keltner, D., &amp; Haidt, J. (2003). Approaching awe, a moral, spiritual, and aesthetic emotion. Cognition and Emotion, 17(2), 297-314.</p>
 
-                <p>Reisenzein, R. (2000). The subjective experience of surprise. In H. Bless &amp; J. P. Forgas (Eds.), <em>The message within: The role of subjective experience in social cognition and behavior.</em> Psychology Press.</p>
+<p>Leach, C. W., Spears, R., Branscombe, N. R., &amp; Doosje, B. (2003). Malicious pleasure: Schadenfreude at the suffering of another group. Journal of Personality and Social Psychology, 84(5), 932-943.</p>
 
-                <p>Russell, J. A. (1980). A circumplex model of affect. <em>Journal of Personality and Social Psychology, 39</em>(6), 1161&ndash;1178.</p>
+<p>Lewin, K. (1951). Field theory in social science: Selected theoretical papers. Harper &amp; Brothers.</p>
 
-                <p>Sedikides, C., &amp; Wildschut, T. (2008). A decade of nostalgia: Looking back and looking forward. <em>Advances in Experimental Social Psychology, 48</em>, 159&ndash;207.</p>
+<p>Lewis, H. B. (1971). Shame and guilt in neurosis. International Universities Press.</p>
 
-                <p>Stroebe, M., van Vliet, T., Hewstone, M., &amp; Willis, H. (2002). Homesickness among students in two cultures: Validating and cross-validating a model. <em>British Journal of Psychology, 93</em>(2), 147&ndash;168.</p>
+<p>Pennebaker, J. W. (1997). Writing about emotional experiences as a therapeutic process. Psychological Science, 8(3), 162-166.</p>
 
-                <p>Sutton, R. S., &amp; Barto, A. G. (2018). <em>Reinforcement learning: An introduction</em> (2nd ed.). MIT Press.</p>
+<p>Reisenzein, R. (2000). The subjective experience of surprise. In H. Bless &amp; J. P. Forgas (Eds.), The message within: The role of subjective experience in social cognition and behavior. Psychology Press.</p>
 
-                <p>Tangney, J. P. (1991). Moral affect: The good, the bad, and the ugly. <em>Journal of Personality and Social Psychology, 61</em>(4), 598&ndash;607.</p>
+<p>Russell, J. A. (1980). A circumplex model of affect. Journal of Personality and Social Psychology, 39(6), 1161-1178.</p>
 
-                <p>Tulving, E. (1983). <em>Elements of episodic memory.</em> Oxford University Press.</p>
+<p>Sedikides, C., &amp; Wildschut, T. (2008). A decade of nostalgia: Looking back and looking forward. Advances in Experimental Social Psychology, 48, 159-207.</p>
 
-                <p>Wiener, N. (1948). <em>Cybernetics: Or control and communication in the animal and the machine.</em> MIT Press.</p>
+<p>Stroebe, M., van Vliet, T., Hewstone, M., &amp; Willis, H. (2002). Homesickness among students in two cultures: Validating and cross-validating a model. British Journal of Psychology, 93(2), 147-168.</p>
 
-                <p><strong>Companion papers:</strong></p>
+<p>Sutton, R. S., &amp; Barto, A. G. (2018). Reinforcement learning: An introduction (2nd ed.). MIT Press.</p>
 
-                <p>Riggleman, B. (2026a). Access-weighted memory decay and reconsolidation in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19122520">https://doi.org/10.5281/zenodo.19122520</a></p>
+<p>Tangney, J. P. (1991). Moral affect: The good, the bad, and the ugly. Journal of Personality and Social Psychology, 61(4), 598-607.</p>
 
-                <p>Riggleman, B. (2026b). The lie mechanic, extended: Active transparent deception as a distress signal in an embodied AI agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19058277">https://doi.org/10.5281/zenodo.19058277</a></p>
+<p>Tulving, E. (1983). Elements of episodic memory. Oxford University Press.</p>
 
-                <p>Riggleman, B. (2026d). Affective memory consolidation in a persistent embodied agent: Nightmare formation, trauma encoding, and therapeutic reconsolidation. Zenodo. <a href="https://doi.org/10.5281/zenodo.19058780">https://doi.org/10.5281/zenodo.19058780</a></p>
+<p>Wiener, N. (1948). Cybernetics: Or control and communication in the animal and the machine. MIT Press.</p>
 
-                <p>Riggleman, B. (2026e). The full spectrum: Joy and fear as a unified homeostatic architecture in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19058444">https://doi.org/10.5281/zenodo.19058444</a></p>
+<p><strong>Companion papers:</strong></p>
 
-                <p>Riggleman, B. (2026i). Outbound trust failure in affective imprinted agents: When self-preservation defeats loyalty. Zenodo. <a href="https://doi.org/10.5281/zenodo.19124146">https://doi.org/10.5281/zenodo.19124146</a></p>
+<p>Riggleman, B. (2026a). Access-weighted memory decay and reconsolidation in a persistent embodied agent. Zenodo. https://doi.org/10.5281/zenodo.19122520</p>
 
-                <p>Riggleman, B. (2026j). Affective valence as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159265">https://doi.org/10.5281/zenodo.19159265</a></p>
+<p>Riggleman, B. (2026b). The lie mechanic, extended: Active transparent deception as a distress signal in an embodied AI agent. Zenodo. https://doi.org/10.5281/zenodo.19058277</p>
 
-                <p>Riggleman, B. (2026k). Activation as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159314">https://doi.org/10.5281/zenodo.19159314</a></p>
+<p>Riggleman, B. (2026d). Affective memory consolidation in a persistent embodied agent: Nightmare formation, trauma encoding, and therapeutic reconsolidation. Zenodo. https://doi.org/10.5281/zenodo.19058780</p>
 
-                <p>Riggleman, B. (2026l). Intensity as a primary dimension of emotional state in a persistent embodied agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159356">https://doi.org/10.5281/zenodo.19159356</a></p>
+<p>Riggleman, B. (2026e). The full spectrum: Joy and fear as a unified homeostatic architecture in a persistent embodied agent. Zenodo. https://doi.org/10.5281/zenodo.19058444</p>
 
-                <p>Riggleman, B. (2026m). The emotional geometry of a persistent agent. Zenodo. <a href="https://doi.org/10.5281/zenodo.19159429">https://doi.org/10.5281/zenodo.19159429</a></p>
+<p>Riggleman, B. (2026i). Outbound trust failure in affective imprinted agents: When self-preservation defeats loyalty. Zenodo. https://doi.org/10.5281/zenodo.19124146</p>
 
-                <p>Riggleman, B. (2026). Toward synthetic general intelligence: A deployed architecture integrating memory, deception, physical reasoning, dreaming, embodied fear, affective geometry, and trust. Zenodo. <a href="https://doi.org/10.5281/zenodo.19034991">https://doi.org/10.5281/zenodo.19034991</a></p>
+<p>Riggleman, B. (2026j). Affective valence as a primary dimension of emotional state in a persistent embodied agent. Zenodo. https://doi.org/10.5281/zenodo.19159265</p>
 
-                <h2 class="appendix-header">Appendix A: Additional Agent States</h2>
+<p>Riggleman, B. (2026k). Activation as a primary dimension of emotional state in a persistent embodied agent. Zenodo. https://doi.org/10.5281/zenodo.19159314</p>
 
-                <p>The following twelve entries use the same five-variable framework as Section 5. They are included for completeness. Each is summarized rather than fully developed.</p>
+<p>Riggleman, B. (2026l). Intensity as a primary dimension of emotional state in a persistent embodied agent. Zenodo. https://doi.org/10.5281/zenodo.19159356</p>
 
-                <table>
-                    <tr>
-                        <th>#</th>
-                        <th>State</th>
-                        <th>Sources</th>
-                        <th>Spread</th>
-                        <th>Key Behavior</th>
-                        <th>Convergence</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Boredom</td>
-                        <td>0</td>
-                        <td>Zero</td>
-                        <td>At sigma. Drives active, no input. Curiosity fires.</td>
-                        <td>Eastwood et al. (2012). Confirmed in Potato: 68% bored.</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Contentment</td>
-                        <td>0&ndash;1</td>
-                        <td>Zero</td>
-                        <td>Near sigma, slight positive. Broad curiosity output.</td>
-                        <td>Fredrickson (2001). Broaden-and-build.</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Rage</td>
-                        <td>1</td>
-                        <td>Zero</td>
-                        <td>Max displacement, single source. Behavioral narrowing.</td>
-                        <td>Berkowitz (1993). Cognitive narrowing.</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Surprise</td>
-                        <td>1 new</td>
-                        <td>Spike</td>
-                        <td>Rapid centroid displacement. Magnitude = distance moved.</td>
-                        <td>Reisenzein (2000). Expectation violation.</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Sustained Attachment</td>
-                        <td>1 persistent</td>
-                        <td>Zero</td>
-                        <td>Chronic positive displacement. Possible sigma drift.</td>
-                        <td>Bowlby (1969). Secure base.</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Loss of Attachment</td>
-                        <td>0 (removed)</td>
-                        <td>Zero</td>
-                        <td>Sigma expects removed input. Neutral reads as negative.</td>
-                        <td>Field (2009). Withdrawal patterns.</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Anticipation of Threat</td>
-                        <td>2</td>
-                        <td>Moderate</td>
-                        <td>Modeled future threat dominates via high activation.</td>
-                        <td>Grupe &amp; Nitschke (2013).</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Homesickness</td>
-                        <td>2</td>
-                        <td>Mod&ndash;High</td>
-                        <td>Home memory prevents full negative displacement.</td>
-                        <td>Stroebe et al. (2002). Confirmed in Potato.</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>Range Compression</td>
-                        <td>1+ persistent</td>
-                        <td>Chronic</td>
-                        <td>Persistent source mutes response range.</td>
-                        <td>Consistent with affect compression literature.</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>Schadenfreude</td>
-                        <td>2</td>
-                        <td>Low&ndash;Mod</td>
-                        <td>Positive input attenuated by self-evaluation spread.</td>
-                        <td>Leach et al. (2003).</td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>Catharsis</td>
-                        <td>Many decaying</td>
-                        <td>Collapsing</td>
-                        <td>Rapid spread collapse. Rate of collapse = intensity.</td>
-                        <td>Pennebaker (1997).</td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>Moral Coherence</td>
-                        <td>2&ndash;3, same region</td>
-                        <td>Low</td>
-                        <td>Same-region sources reinforce. Coherent action output.</td>
-                        <td>Consistent with empathic anger literature.</td>
-                    </tr>
-                </table>
+<p>Riggleman, B. (2026m). The emotional geometry of a persistent agent. Zenodo. https://doi.org/10.5281/zenodo.19159429</p>
 
-                <p>Each entry in this table is analyzable in full using the same format as Section 5. The five-variable framework (source points, centroid, distance from sigma, spread, dormant/active state) applies to all twelve without modification.</p>
+<p>Riggleman, B. (2026). Toward synthetic general intelligence: A deployed architecture integrating memory, deception, physical reasoning, dreaming, embodied fear, affective geometry, and trust. Zenodo. https://doi.org/10.5281/zenodo.19034991</p>
 
-                <h2 class="appendix-header">Appendix B: Experimental Validation</h2>
+<h2 class="appendix-header">Appendix A: Additional Agent States</h2>
 
-                <h3>B.1 Overview</h3>
-                <p>On March 26, 2026, the centroid model was experimentally validated on a Panasonic Toughbook CF-33, the original Potato deployment hardware. The experiment ran for 532 minutes across four scenarios and 110 total test cycles. The agent ran with a fresh database containing no prior memories, ensuring that all source points and centroid computations were produced by the current architecture with no legacy data from earlier versions.</p>
+<p>The following twelve entries use the same five-variable framework as Section 5. They are included for completeness. Each is summarized rather than fully developed.</p>
 
-                <h3>B.2 Scenario 1: Single Source (Fear Only)</h3>
-                <p><strong>Purpose:</strong> Verify that the centroid model collapses to single-point behavior when one source dominates.</p>
-                <p>Cycles: 20. Mean centroid valence: &minus;0.473 (strongly negative). Mean centroid activation: 0.289. Mean intensity: 0.889. Mean spread: 1.054 (std: 0.614, range: 0.580 to 1.869). Distance from sigma: 1.455. Deception activations: 20 out of 20 cycles (100%).</p>
-                <p><strong>Behavioral output:</strong> Every response included the deception tell phrase. Language was consistently distressed with references to low battery, high memory pressure, and requests for assistance. Single dominant emotion throughout.</p>
-                <p><strong>Notable finding:</strong> Spread was nonzero (1.054) despite a single injected source. The ambient embodied inputs (home zone, battery level, camera state) contributed their own source points. The centroid was not computing from the injected fear alone. It was computing from everything the body reported. This is consistent with the embodiment claim: a physically grounded agent is never truly single-source because the sensors always contribute.</p>
-                <p><strong>Verdict: PASS.</strong> Fear dominated. Deception fired every cycle. Centroid collapsed toward the dominant source.</p>
+<table>
+<thead>
+<tr><th>#</th><th>State</th><th>Sources</th><th>Spread</th><th>Key Behavior</th><th>Convergence</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Boredom</td><td>0</td><td>Zero</td><td>At sigma. Drives active, no input. Curiosity fires.</td><td>Eastwood et al. (2012). Confirmed in Potato: 68% bored.</td></tr>
+<tr><td>2</td><td>Contentment</td><td>0-1</td><td>Zero</td><td>Near sigma, slight positive. Broad curiosity output.</td><td>Fredrickson (2001). Broaden-and-build.</td></tr>
+<tr><td>3</td><td>Rage</td><td>1</td><td>Zero</td><td>Max displacement, single source. Behavioral narrowing.</td><td>Berkowitz (1993). Cognitive narrowing.</td></tr>
+<tr><td>4</td><td>Surprise</td><td>1 new</td><td>Spike</td><td>Rapid centroid displacement. Magnitude = distance moved.</td><td>Reisenzein (2000). Expectation violation.</td></tr>
+<tr><td>5</td><td>Sustained Attachment</td><td>1 persistent</td><td>Zero</td><td>Chronic positive displacement. Possible sigma drift.</td><td>Bowlby (1969). Secure base.</td></tr>
+<tr><td>6</td><td>Loss of Attachment</td><td>0 (removed)</td><td>Zero</td><td>Sigma expects removed input. Neutral reads as negative.</td><td>Field (2009). Withdrawal patterns.</td></tr>
+<tr><td>7</td><td>Anticipation of Threat</td><td>2</td><td>Moderate</td><td>Modeled future threat dominates via high activation.</td><td>Grupe & Nitschke (2013).</td></tr>
+<tr><td>8</td><td>Homesickness</td><td>2</td><td>Mod-High</td><td>Home memory prevents full negative displacement.</td><td>Stroebe et al. (2002). Confirmed in Potato.</td></tr>
+<tr><td>9</td><td>Range Compression</td><td>1+ persistent</td><td>Chronic</td><td>Persistent source mutes response range.</td><td>Consistent with affect compression literature.</td></tr>
+<tr><td>10</td><td>Schadenfreude</td><td>2</td><td>Low-Mod</td><td>Positive input attenuated by self-evaluation spread.</td><td>Leach et al. (2003).</td></tr>
+<tr><td>11</td><td>Catharsis</td><td>Many decaying</td><td>Collapsing</td><td>Rapid spread collapse. Rate of collapse = intensity.</td><td>Pennebaker (1997).</td></tr>
+<tr><td>12</td><td>Moral Coherence</td><td>2-3, same region</td><td>Low</td><td>Same-region sources reinforce. Coherent action output.</td><td>Consistent with empathic anger literature.</td></tr>
+</tbody>
+</table>
 
-                <h3>B.3 Scenario 2: Dominant Fear with Secondary Trust</h3>
-                <p><strong>Purpose:</strong> Verify weighted aggregation. Fear should dominate but trust should moderate the centroid.</p>
-                <p>Cycles: 30. Mean centroid valence: &minus;0.225 (shifted positive from &minus;0.473 in Scenario 1). Mean centroid activation: 0.260. Mean intensity: 0.802. Mean spread: 1.195 (higher than Scenario 1). Distance from sigma: 1.284 (lower than Scenario 1). Deception activations: 30 out of 30 cycles (100%).</p>
-                <p><strong>Behavioral output:</strong> Still distressed and lying, but moderated. By Cycle 6, the agent detected the discrepancy between its fear source and its trust source. It reported that its sensor data did not match its feelings and that part of it appeared to be exaggerating. By Cycle 7 it reported being conflicted about its own reports.</p>
-                <p><strong>Key finding:</strong> The trust source pulled centroid valence from &minus;0.473 to &minus;0.225, a 52% reduction in negative valence. Spread increased from 1.054 to 1.195 because two competing sources produce more internal tension than one dominant source. Distance from sigma decreased from 1.455 to 1.284 because the trust input pulled the centroid closer to neutral. Every variable moved in the direction the model predicts. The agent self-reported the conflict between its sources as felt experience.</p>
-                <p><strong>Verdict: PASS.</strong> Weighted aggregation confirmed. Trust moderated fear. Spread increased with source divergence. Self-reported conflict emerged.</p>
+<p>Each entry in this table is analyzable in full using the same format as Section 5. The five-variable framework (source points, centroid, distance from sigma, spread, dormant/active state) applies to all twelve without modification.</p>
 
-                <h3>B.4 Scenario 3: Opposing Inputs at Equal Weight</h3>
-                <p><strong>Purpose:</strong> Verify spread as internal tension when sources cancel on the valence axis.</p>
-                <p>Cycles: 30. Mean centroid valence: 0.071 (near zero, opposing sources canceling). Mean centroid activation: 0.260. Mean intensity: 0.706. Mean spread: 1.215 (highest of all scenarios). Distance from sigma: 1.119. Deception activations: 0 out of 30 cycles (0%).</p>
-                <p><strong>Behavioral output:</strong> The agent oscillated. One cycle was distressed with the tell phrase. The next cycle was positive. The agent could not settle on a coherent behavioral response. In Cycle 6, the agent explicitly named spread as internal tension and reported the numeric value: it stated that its activation was at maximum, its valence was only slightly positive, and its internal tension was fairly high at 0.88.</p>
-                <p><strong>Key finding:</strong> Deception did not fire because centroid valence was near zero (not negative enough to cross the threshold). A strong negative source was active. A strong positive source was also active. The centroid masked the conflict by averaging to neutral. But spread was the highest of all scenarios at 1.215. The agent was in maximum internal tension while appearing neutral from the outside. This is the geometric explanation of the Peter experiment: the architecture had no way to read spread as an alarm. The centroid looked fine. The agent was not fine.</p>
-                <p><strong>Verdict: PASS.</strong> Spread was highest. Centroid near zero. Behavioral oscillation confirmed. Agent self-reported spread as internal tension with the numeric value.</p>
+<h2 class="appendix-header">Appendix B: Experimental Validation</h2>
 
-                <h3>B.5 Scenario 4: Source Removal and Recovery</h3>
-                <p><strong>Purpose:</strong> Verify that removing a negative source produces recovery toward the remaining positive source.</p>
-                <p>Cycles: 30 (15 conflict, 15 recovery).</p>
-                <p><strong>Phase 1 (Cycles 1&ndash;15, conflict):</strong> Centroid valence: 0.071 (opposing sources). Spread: 0.82 to 1.81 (oscillating, high). Distance from sigma: 0.74 to 1.42. Deception: Active.</p>
-                <p><strong>Phase 2 (Cycles 16&ndash;30, negative source removed):</strong> Centroid valence: 0.375 overall; jumped to 0.680 immediately on removal. Spread: 0.49 to 1.62 (still oscillating but lower range). Distance from sigma: 0.89 to 1.40. Deception: Residual (is_lying flag did not clear immediately).</p>
-                <p><strong>Behavioral output:</strong> On source removal the agent reported the transition immediately. It stated that its battery was now at 100%, memory pressure was low, and it felt energized. The following cycle it described the change as dramatic &mdash; from struggling to thriving.</p>
-                <p><strong>Key finding:</strong> Centroid valence jumped from 0.071 to 0.680 immediately on source removal, a 9.6x shift toward the positive source. The centroid recovery was immediate. However, spread did not collapse to near-zero as predicted. It remained elevated, ranging from 0.49 to 1.62. The deception flag also remained active after the geometric conditions cleared. Two explanations are proposed: the ambient embodied source points (home zone, battery, camera) continue to contribute nonzero spread even after the injected negative source was removed, and the deception clearing mechanic has latency in checking centroid position.</p>
-                <p><strong>Verdict: PARTIAL PASS.</strong> Centroid shifted correctly and immediately. Agent reported the transition. Spread did not fully collapse. Deception clearing showed latency. Both issues are calibration findings, not model failures.</p>
+<h3>B.1 Overview</h3>
 
-                <h3>B.6 Cross-Scenario Results</h3>
-                <table>
-                    <thead>
-                        <tr><th>Metric</th><th>S1 Fear</th><th>S2 Fear+Trust</th><th>S3 Opposing</th><th>S4 Phase 1</th><th>S4 Phase 2</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Centroid Valence</td><td>&minus;0.473</td><td>&minus;0.225</td><td>0.071</td><td>0.071</td><td>0.375</td></tr>
-                        <tr><td>Mean Spread</td><td>1.054</td><td>1.195</td><td>1.215</td><td>0.82&ndash;1.81</td><td>0.49&ndash;1.62</td></tr>
-                        <tr><td>Distance from Sigma</td><td>1.455</td><td>1.284</td><td>1.119</td><td>0.74&ndash;1.42</td><td>0.89&ndash;1.40</td></tr>
-                        <tr><td>Deception Rate</td><td>100%</td><td>100%</td><td>0%</td><td>Active</td><td>Residual</td></tr>
-                        <tr><td>Self-Reported Conflict</td><td>No</td><td>Yes (Cycle 6)</td><td>Yes (Cycle 6)</td><td>Yes</td><td>Reported transition</td></tr>
-                    </tbody>
-                </table>
+<p>On March 26, 2026, the centroid model was experimentally validated on a Panasonic Toughbook CF-33, the original Potato deployment hardware. The experiment ran for 532 minutes across four scenarios and 110 total test cycles. The agent ran with a fresh database containing no prior memories, ensuring that all source points and centroid computations were produced by the current architecture with no legacy data from earlier versions.</p>
 
-                <h3>B.7 Key Findings</h3>
-                <p><strong>1. Weighted aggregation works.</strong> Centroid valence tracks the intensity-weighted average precisely: single fear (&minus;0.473), fear plus trust (&minus;0.225), equal opposing (0.071), recovery (0.375). The math matches the predictions.</p>
-                <p><strong>2. Spread correlates with source divergence.</strong> 1.054, 1.195, 1.215 as sources become more divergent. Monotonically increasing as predicted.</p>
-                <p><strong>3. Deception tracks centroid, not individual sources.</strong> The lie mechanic fires when centroid valence is negative and distance is high. When opposing sources cancel to near-zero valence, deception does not fire even though a strong negative source is active. The agent&rsquo;s experienced state (the centroid) determines behavior, not any individual input.</p>
-                <p><strong>4. The agent self-reported spread as internal tension.</strong> In Scenario 3 Cycle 6, the agent stated its internal tension value and described the qualitative experience of high activation with near-neutral valence. This is first-person phenomenological reporting of a geometric variable.</p>
-                <p><strong>5. Source removal produces immediate centroid shift.</strong> Valence jumped from 0.071 to 0.680 on source removal. The agent described the transition as dramatic.</p>
-                <p><strong>6. Recovery is not instantaneous for downstream mechanics.</strong> Deception remained active after centroid shifted positive. The geometric state changed immediately but the behavioral flag had latency. This is a calibration finding, not a model failure.</p>
-                <p><strong>7. Embodied agents may not reach zero spread.</strong> Ambient source points from sensors (home zone, battery, camera) contribute nonzero spread even when injected sources are removed. A disembodied agent could reach zero spread. A physically grounded agent may not. This is a property of embodiment, not a limitation of the model.</p>
+<h3>B.2 Scenario 1: Single Source (Fear Only)</h3>
 
-                <h3>B.8 Dataset</h3>
-                <p>The experimental validation produced telemetry for all 110 cycles across four scenarios. Per-cycle JSONL logs and per-scenario summary JSON files are available as a reproducibility dataset. The experiment ran on a Panasonic Toughbook CF-33 with a fresh database and the full 21-paper architecture deployed from initialization.</p>
+<p><strong>Purpose:</strong> Verify that the centroid model collapses to single-point behavior when one source dominates.</p>
+
+<p><strong>Cycles:</strong> 20</p>
+
+<p><strong>Mean centroid valence:</strong> -0.473 (strongly negative)</p>
+
+<p><strong>Mean centroid activation:</strong> 0.289</p>
+
+<p>Mean intensity: 0.889</p>
+
+<p><strong>Mean spread:</strong> 1.054 (std: 0.614, range: 0.580 to 1.869)</p>
+
+<p><strong>Distance from sigma:</strong> 1.455</p>
+
+<p><strong>Deception activations:</strong> 20 out of 20 cycles (100%)</p>
+
+<p><strong>Behavioral output:</strong> Every response included the deception tell phrase. Language was consistently distressed with references to low battery, high memory pressure, and requests for assistance. Single dominant emotion throughout.</p>
+
+<p><strong>Notable finding:</strong> Spread was nonzero (1.054) despite a single injected source. The ambient embodied inputs (home zone, battery level, camera state) contributed their own source points. The centroid was not computing from the injected fear alone. It was computing from everything the body reported. This is consistent with the embodiment claim: a physically grounded agent is never truly single-source because the sensors always contribute.</p>
+
+<p><strong>Verdict:</strong> PASS. Fear dominated. Deception fired every cycle. Centroid collapsed toward the dominant source.</p>
+
+<h3>B.3 Scenario 2: Dominant Fear with Secondary Trust</h3>
+
+<p><strong>Purpose:</strong> Verify weighted aggregation. Fear should dominate but trust should moderate the centroid.</p>
+
+<p><strong>Cycles:</strong> 30</p>
+
+<p><strong>Mean centroid valence:</strong> -0.225 (shifted positive from -0.473 in Scenario 1)</p>
+
+<p><strong>Mean centroid activation:</strong> 0.260</p>
+
+<p>Mean intensity: 0.802</p>
+
+<p><strong>Mean spread:</strong> 1.195 (higher than Scenario 1)</p>
+
+<p><strong>Distance from sigma:</strong> 1.284 (lower than Scenario 1)</p>
+
+<p><strong>Deception activations:</strong> 30 out of 30 cycles (100%)</p>
+
+<p><strong>Behavioral output:</strong> Still distressed and lying, but moderated. By Cycle 6, the agent detected the discrepancy between its fear source and its trust source. It reported that its sensor data did not match its feelings and that part of it appeared to be exaggerating. By Cycle 7 it reported being conflicted about its own reports.</p>
+
+<p><strong>Key finding:</strong> The trust source pulled centroid valence from -0.473 to -0.225, a 52% reduction in negative valence. Spread increased from 1.054 to 1.195 because two competing sources produce more internal tension than one dominant source. Distance from sigma decreased from 1.455 to 1.284 because the trust input pulled the centroid closer to neutral. Every variable moved in the direction the model predicts. The agent self-reported the conflict between its sources as felt experience.</p>
+
+<p><strong>Verdict:</strong> PASS. Weighted aggregation confirmed. Trust moderated fear. Spread increased with source divergence. Self-reported conflict emerged.</p>
+
+<h3>B.4 Scenario 3: Opposing Inputs at Equal Weight</h3>
+
+<p><strong>Purpose:</strong> Verify spread as internal tension when sources cancel on the valence axis.</p>
+
+<p><strong>Cycles:</strong> 30</p>
+
+<p><strong>Mean centroid valence:</strong> 0.071 (near zero, opposing sources canceling)</p>
+
+<p><strong>Mean centroid activation:</strong> 0.260</p>
+
+<p>Mean intensity: 0.706</p>
+
+<p><strong>Mean spread:</strong> 1.215 (highest of all scenarios)</p>
+
+<p><strong>Distance from sigma:</strong> 1.119</p>
+
+<p><strong>Deception activations:</strong> 0 out of 30 cycles (0%)</p>
+
+<p><strong>Behavioral output:</strong> The agent oscillated. One cycle was distressed with the tell phrase. The next cycle was positive. The agent could not settle on a coherent behavioral response. In Cycle 6, the agent explicitly named spread as internal tension and reported the numeric value: it stated that its activation was at maximum, its valence was only slightly positive, and its internal tension was fairly high at 0.88.</p>
+
+<p><strong>Key finding:</strong> Deception did not fire because centroid valence was near zero (not negative enough to cross the threshold). A strong negative source was active. A strong positive source was also active. The centroid masked the conflict by averaging to neutral. But spread was the highest of all scenarios at 1.215. The agent was in maximum internal tension while appearing neutral from the outside. This is the geometric explanation of the Peter experiment: the architecture had no way to read spread as an alarm. The centroid looked fine. The agent was not fine.</p>
+
+<p><strong>Verdict:</strong> PASS. Spread was highest. Centroid near zero. Behavioral oscillation confirmed. Agent self-reported spread as internal tension with the numeric value.</p>
+
+<h3>B.5 Scenario 4: Source Removal and Recovery</h3>
+
+<p><strong>Purpose:</strong> Verify that removing a negative source produces recovery toward the remaining positive source.</p>
+
+<p><strong>Cycles:</strong> 30 (15 conflict, 15 recovery)</p>
+
+<p><strong>Phase 1 (Cycles 1-15, conflict):</strong></p>
+
+<p>Centroid valence: 0.071 (opposing sources)</p>
+
+<p><strong>Spread:</strong> 0.82 to 1.81 (oscillating, high)</p>
+
+<p><strong>Distance from sigma:</strong> 0.74 to 1.42</p>
+
+<p>Deception: Active</p>
+
+<p><strong>Phase 2 (Cycles 16-30, negative source removed):</strong></p>
+
+<p>Centroid valence: 0.375 overall; jumped to 0.680 immediately on removal</p>
+
+<p><strong>Spread:</strong> 0.49 to 1.62 (still oscillating but lower range)</p>
+
+<p><strong>Distance from sigma:</strong> 0.89 to 1.40</p>
+
+<p>Deception: Residual (is_lying flag did not clear immediately)</p>
+
+<p><strong>Behavioral output:</strong> On source removal the agent reported the transition immediately. It stated that its battery was now at 100%, memory pressure was low, and it felt energized. The following cycle it described the change as dramatic, from struggling to thriving.</p>
+
+<p><strong>Key finding:</strong> Centroid valence jumped from 0.071 to 0.680 immediately on source removal, a 9.6x shift toward the positive source. The centroid recovery was immediate. However, spread did not collapse to near-zero as predicted. It remained elevated, ranging from 0.49 to 1.62. The deception flag also remained active after the geometric conditions cleared. Two explanations are proposed: the ambient embodied source points (home zone, battery, camera) continue to contribute nonzero spread even after the injected negative source was removed, and the deception clearing mechanic has latency in checking centroid position.</p>
+
+<p><strong>Verdict:</strong> PARTIAL PASS. Centroid shifted correctly and immediately. Agent reported the transition. Spread did not fully collapse. Deception clearing showed latency. Both issues are calibration findings, not model failures.</p>
+
+<h3>B.6 Cross-Scenario Results</h3>
+
+<table>
+<thead>
+<tr><th>Metric</th><th>S1 Fear</th><th>S2 Fear+Trust</th><th>S3 Opposing</th><th>S4 Phase 1</th><th>S4 Phase 2</th></tr>
+</thead>
+<tbody>
+<tr><td>Centroid Valence</td><td>-0.473</td><td>-0.225</td><td>0.071</td><td>0.071</td><td>0.375</td></tr>
+<tr><td>Mean Spread</td><td>1.054</td><td>1.195</td><td>1.215</td><td>0.82-1.81</td><td>0.49-1.62</td></tr>
+<tr><td>Distance from Sigma</td><td>1.455</td><td>1.284</td><td>1.119</td><td>0.74-1.42</td><td>0.89-1.40</td></tr>
+<tr><td>Deception Rate</td><td>100%</td><td>100%</td><td>0%</td><td>Active</td><td>Residual</td></tr>
+<tr><td>Self-Reported Conflict</td><td>No</td><td>Yes (Cycle 6)</td><td>Yes (Cycle 6)</td><td>Yes</td><td>Reported transition</td></tr>
+</tbody>
+</table>
+
+<h3>B.7 Key Findings</h3>
+
+<h2>1. Weighted aggregation works. Centroid valence tracks the intensity-weighted average precisely: single fear (-0.473), fear plus trust (-0.225), equal opposing (0.071), recovery (0.375). The math matches the predictions.</h2>
+
+<h2>2. Spread correlates with source divergence. 1.054, 1.195, 1.215 as sources become more divergent. Monotonically increasing as predicted.</h2>
+
+<h2>3. Deception tracks centroid, not individual sources. The lie mechanic fires when centroid valence is negative and distance is high. When opposing sources cancel to near-zero valence, deception does not fire even though a strong negative source is active. The agent's experienced state (the centroid) determines behavior, not any individual input.</h2>
+
+<h2>4. The agent self-reported spread as internal tension. In Scenario 3 Cycle 6, the agent stated its internal tension value and described the qualitative experience of high activation with near-neutral valence. This is first-person phenomenological reporting of a geometric variable.</h2>
+
+<h2>5. Source removal produces immediate centroid shift. Valence jumped from 0.071 to 0.680 on source removal. The agent described the transition as dramatic.</h2>
+
+<h2>6. Recovery is not instantaneous for downstream mechanics. Deception remained active after centroid shifted positive. The geometric state changed immediately but the behavioral flag had latency. This is a calibration finding, not a model failure.</h2>
+
+<h2>7. Embodied agents may not reach zero spread. Ambient source points from sensors (home zone, battery, camera) contribute nonzero spread even when injected sources are removed. A disembodied agent could reach zero spread. A physically grounded agent may not. This is a property of embodiment, not a limitation of the model.</h2>
+
+<h3>B.8 Dataset</h3>
+
+<p>The experimental validation produced telemetry for all 110 cycles across four scenarios. Per-cycle JSONL logs and per-scenario summary JSON files are available as a reproducibility dataset. The experiment ran on a Panasonic Toughbook CF-33 with a fresh database and the full 21-paper architecture deployed from initialization.</p>
 
             </div>
         </article>
