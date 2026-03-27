@@ -115,7 +115,7 @@
 
                 <p>Intensity measures the magnitude of the emotional displacement. How strongly the respondent felt whatever they felt. A mild calm satisfaction and a deep calm satisfaction have the same valence and activation but different intensity. This axis would capture the difference between a shrug and a sigh.</p>
 
-                <h3>2.1a Distinguishing Activation from Intensity</h3>
+                <h3>2.2 Distinguishing Activation from Intensity</h3>
 
                 <p>A reviewer noted that activation and intensity frequently overlap in real emotional experience: high-intensity emotions tend to be high-activation. The distinction must be operationalized clearly or the two axes risk being redundant.</p>
 
@@ -144,13 +144,13 @@
 
                 <p>In the theoretical model (Riggleman 2026l), intensity is computed as the normalized Euclidean distance from sigma in the valence/activation plane. It is a derived variable, not an independent self-report. For the survey instrument, intensity is self-reported directly because the respondent does not have access to their own sigma coordinates. The theoretical derivation and the survey measurement converge on the same construct from different directions. Whether self-reported intensity correlates with the theoretically derived intensity is a testable hypothesis included in the validation agenda (Section 8.3).</p>
 
-                <h3>2.2 Sigma Establishment</h3>
+                <h3>2.3 Sigma Establishment</h3>
 
                 <p>Before measuring displacement, the instrument establishes a baseline. Sigma is the respondent&rsquo;s default emotional state. Where they normally sit in affective space. Some people&rsquo;s sigma is high activation. Some people&rsquo;s sigma is low valence. The instrument does not assume a universal baseline. It measures each respondent&rsquo;s home position and computes displacement from there.</p>
 
                 <p>Sigma is established with three baseline questions asked before the target questions. These ask the respondent to describe their typical emotional state in terms that map to the three axes. The expectation, based on preliminary observations in the Potato system (Riggleman 2026a), is that this baseline would be stable across sessions for most respondents, meaning it would only need to be established once and verified periodically.</p>
 
-                <h3>2.2a Sigma Addresses Individual Differences</h3>
+                <h3>2.4 Sigma Addresses Individual Differences</h3>
 
                 <p>A concern raised in early review is that subjective emotional experiences vary across individuals based on personality, culture, emotional awareness, and context. The GAS addresses this through sigma rather than treating it as uncontrolled noise.</p>
 
@@ -158,13 +158,13 @@
 
                 <p>Sigma is not a normalization trick. It is a measurement of where each respondent starts. Individual differences in personality, culture, and emotional style are captured by differences in sigma position. The GAS computes displacement relative to that position, which means the same coordinate means different things for different people. This is a feature of the instrument, not a limitation. It is what existing instruments cannot do because they have no baseline to compute displacement from.</p>
 
-                <h3>2.3 Question Format</h3>
+                <h3>2.5 Question Format</h3>
 
                 <p>Each target question maps to all three axes simultaneously. Instead of asking how much did you like this product on a scale of 1 to 10, the GAS presents three paired bipolar slider scales. For valence: negative to positive. For activation: calm to energized. For intensity: mild to strong. Each slider produces a value normalized to a range that maps directly to geometric coordinates.</p>
 
                 <p>A respondent who sets all three sliders provides a point in 3D affective space. The expected interaction time per question is comparable to a single Likert item because the three sliders would be presented simultaneously and answered in a single gestural sweep. This assumption requires empirical validation.</p>
 
-                <h3>2.4 Output Format</h3>
+                <h3>2.6 Output Format</h3>
 
                 <p>Each response is a coordinate triple: (valence, activation, intensity). A set of responses is a point cloud in three-dimensional affective space. The point cloud can be visualized as a 3D scatter plot, rotated, clustered, and analyzed using standard spatial statistics.</p>
 
@@ -258,13 +258,13 @@
 
                 <p>This means organizations do not need to discard historical data to adopt the GAS. They can decompose existing datasets, verify that the three-axis view reveals actionable patterns their current analysis misses, and then transition to native three-axis collection for new surveys. The backward compatibility path eliminates the adoption barrier.</p>
 
-                <h3>4.5 Demonstration 2: American Customer Satisfaction Index (ACSI)</h3>
+                <h3>4.7 Demonstration 2: American Customer Satisfaction Index (ACSI)</h3>
 
-                <h3>4.5.1 Dataset</h3>
+                <h3>4.7.1 Dataset</h3>
 
                 <p>To test whether the backward compatibility finding generalizes beyond employee retention, we applied the three-axis decomposition to the American Customer Satisfaction Index sample dataset (Hult &amp; Morgeson, 2023; DOI: 10.17632/64xkbj2ry5.1). The ACSI dataset contains 8,239 consumer responses across four industries (processed food, commercial airlines, internet service providers, and commercial banks) with 15 core survey items on a 10-point scale covering expectations, perceived quality, perceived value, satisfaction, complaint behavior, and loyalty intentions. After excluding records with missing values on key variables, the analysis sample is n=7,341.</p>
 
-                <h3>4.5.2 Geometric Mapping</h3>
+                <h3>4.7.2 Geometric Mapping</h3>
 
                 <p>The decomposition maps ACSI items to the three geometric axes using the same logic as the IBM HR decomposition: group items by the dimension they most directly measure, compute axis scores, and establish sigma from the expectations baseline.</p>
 
@@ -276,7 +276,7 @@
 
                 <p>The traditional single-axis score is the respondent&rsquo;s overall satisfaction rating (SATIS, 1&ndash;10). The geometric subtypes are defined by whether quality and value each exceeded or fell short of sigma (expectations).</p>
 
-                <h3>4.5.3 Result 1: Same Score, Different Complaint Rates</h3>
+                <h3>4.7.3 Result 1: Same Score, Different Complaint Rates</h3>
 
                 <p>Among respondents who gave an overall satisfaction rating of exactly 7 out of 10 (n=1,034), complaint rates vary by geometric subtype:</p>
 
@@ -294,11 +294,11 @@
 
                 <p>The complaint rate in the &ldquo;Fell Short Both&rdquo; subtype (28.5%) is 2.3 times the rate in the &ldquo;Quality Up, Value Down&rdquo; subtype (12.5%). All of these respondents gave the same satisfaction score. The single number cannot distinguish them. The geometry can.</p>
 
-                <h3>4.5.4 Result 2: The Pattern Holds Across Score Levels</h3>
+                <h3>4.7.4 Result 2: The Pattern Holds Across Score Levels</h3>
 
                 <p>The variation within geometric subtypes is not specific to one satisfaction score. Within SATIS=6: 2.0x variation (17.8% to 36.5%). Within SATIS=7: 2.3x variation (12.5% to 28.5%). Within SATIS=8: 2.2x variation (10.3% to 22.3%). The geometry finds hidden structure at every score level where the total score is the same.</p>
 
-                <h3>4.5.5 Result 3: The Pattern Holds Across Industries</h3>
+                <h3>4.7.5 Result 3: The Pattern Holds Across Industries</h3>
 
                 <p>Within the above-average satisfaction band (total score 6.7&ndash;8.0), the geometric subtypes produce different complaint rates in every industry:</p>
 
@@ -316,13 +316,13 @@
 
                 <p>The absolute complaint rates differ by industry (food customers complain less than ISP customers). But in every industry, the &ldquo;Fell Short Both&rdquo; subtype complains more than the &ldquo;Exceeded Both&rdquo; subtype within the same satisfaction band. The geometric pattern is not industry-specific.</p>
 
-                <h3>4.5.6 The Sigma Finding</h3>
+                <h3>4.7.6 The Sigma Finding</h3>
 
                 <p>The ACSI dataset provides a direct test of sigma because the survey includes explicit expectations questions. Sigma is not inferred from other variables as in the IBM HR demonstration. It is measured directly. Respondents in the &ldquo;Fell Short Both&rdquo; subtype have higher expectations (mean sigma 8.80 on a 10-point scale) than those in the &ldquo;Exceeded Both&rdquo; subtype (mean sigma 7.46). They expected more. They got less. They gave the same overall satisfaction score. But their complaint behavior reveals the disappointment the score conceals.</p>
 
                 <p>This is the sigma argument in empirical form. Two respondents at the same satisfaction score with different sigmas are having different experiences. The one with higher sigma is more displaced from their baseline. The displacement predicts the complaint behavior the total score does not.</p>
 
-                <h3>4.5.7 Cross-Dataset Convergence</h3>
+                <h3>4.7.7 Cross-Dataset Convergence</h3>
 
                 <p>The IBM HR dataset and the ACSI dataset produce structurally identical findings in different domains:</p>
 
