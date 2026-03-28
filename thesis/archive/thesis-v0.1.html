@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Thesis — Clawd Daily</title>
+    <meta name="description" content="Working draft of a PhD-level thesis on three-dimensional geometric affective state representation in synthetic agents and existing datasets. Version-controlled, publicly archived.">
+
+    <meta property="og:title" content="Working Thesis — Clawd Daily">
+    <meta property="og:description" content="A geometric representation of affective state provides more informative and predictive structure than scalar representations. Working draft, publicly versioned.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/thesis/">
+
+    <link rel="canonical" href="https://clawddaily.com/thesis/">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .thesis-header {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding-top: 3rem;
+            text-align: center;
+        }
+        .thesis-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .thesis-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .version-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        .disclaimer {
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            background: rgba(88, 166, 255, 0.06);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--warning);
+            border-radius: 6px;
+            padding: 1.25rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .disclaimer strong {
+            color: var(--warning);
+        }
+        .thesis-body {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .thesis-body h2 {
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            color: var(--text);
+        }
+        .thesis-body h3 {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        .thesis-body h4 {
+            font-size: 1.05rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .thesis-body p {
+            margin-bottom: 1.25rem;
+            color: var(--text);
+        }
+        .thesis-body ul, .thesis-body ol {
+            margin: 0.75rem 0 1.25rem;
+            padding-left: 1.5rem;
+        }
+        .thesis-body li {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        .thesis-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .thesis-body th, .thesis-body td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+            color: var(--text);
+        }
+        .thesis-body th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+        .thesis-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+        .thesis-body .evidence-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.95rem;
+        }
+        .thesis-body .evidence-box h4 {
+            margin-top: 0;
+            color: var(--success);
+        }
+        .thesis-body .risk-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--danger);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.95rem;
+        }
+        .thesis-body .risk-box h4 {
+            margin-top: 0;
+            color: var(--danger);
+        }
+        .thesis-body .status-proven { color: var(--success); font-weight: 600; }
+        .thesis-body .status-supported { color: var(--warning); font-weight: 600; }
+        .thesis-body .status-speculative { color: var(--danger); font-weight: 600; }
+        .archive-section {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        .archive-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+        .archive-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .archive-table th, .archive-table td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .archive-table th {
+            background: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/">Potato</a></li>
+                <li><a href="/thesis/" class="active">Thesis</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="thesis-header">
+            <span class="version-badge">Version 0.1 &mdash; Working Draft</span>
+            <h1>Geometric Affective State Representation in Synthetic and Human Systems</h1>
+            <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; March 2026</p>
+        </section>
+
+        <div class="disclaimer">
+            <strong>Working Draft Notice</strong><br>
+            This document is a working draft of a developing research thesis. Sections may change as validation progresses. Current results are limited to agent-based experiments and existing datasets; human-subject validation is pending IRB review. All prior versions are publicly archived below.<br><br>
+            AI tools were used for language refinement and structural editing. All ideas, experiments, and interpretations are the author&rsquo;s own.
+        </div>
+
+        <div class="thesis-body">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Thesis Statement</h2>
+
+<p>A three-dimensional geometric representation of affective state (valence, activation, intensity) with a personality setpoint (sigma) provides a more informative and predictive structure than scalar representations in both synthetic agents and existing datasets.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 1: Introduction</h2>
+
+<h3>1.1 Purpose</h3>
+<p>Establish the research question, motivate the geometric approach, and define the scope of the contribution.</p>
+
+<h3>1.2 Framing Question</h3>
+<blockquote>If intelligence can be constructed, are we alone &mdash; or are we witnessing synthetic birth?</blockquote>
+<p>This question is used once to motivate the broader context. The thesis does not attempt to answer it. The thesis narrows immediately to the technical problem: current affective representations in both AI systems and survey instruments use single-axis scalars that collapse multidimensional emotional experience into one number. Information is lost in the collapse. The geometric model recovers that information.</p>
+
+<h3>1.3 Key Claims</h3>
+<ol>
+    <li>Emotional state is better represented as a point in three-dimensional space than as a scalar</li>
+    <li>The distance from a personality setpoint (sigma) to the current state is a more informative metric than any individual axis value</li>
+    <li>The centroid of multiple simultaneous emotional inputs predicts agent behavior more accurately than any single input</li>
+    <li>The geometric decomposition reveals predictive structure hidden by scalar instruments in existing datasets</li>
+    <li>The architecture generalizes across platforms, modalities, and domains without modification</li>
+</ol>
+
+<h3>1.4 Scope Boundaries</h3>
+<p>This thesis is <strong>not</strong> about:</p>
+<ul>
+    <li>Consciousness, qualia, or subjective experience (mentioned in limitations, not claimed)</li>
+    <li>Artificial General Intelligence (the architecture is domain-specific)</li>
+    <li>Philosophy of mind (convergences with philosophical positions are noted, not argued)</li>
+    <li>Clinical diagnosis or treatment (the clinical metric is proposed for validation, not deployed)</li>
+</ul>
+<p>The core contribution is the geometric model and its validation across synthetic and existing-dataset domains.</p>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>&ldquo;This is just the circumplex model with an extra axis.&rdquo; &mdash; Response: The circumplex has two axes and no sigma. The third axis (intensity) and the personality setpoint are the contributions. The centroid generalization is entirely new.</li>
+        <li>&ldquo;Agent behavior is not human emotion.&rdquo; &mdash; Response: Correct. The thesis claims structural similarity, not equivalence. The dataset analyses test the structure on human data independently of the agent.</li>
+        <li>&ldquo;The framing question is too grand for the contribution.&rdquo; &mdash; Response: The framing question appears once in the introduction and is explicitly narrowed. It is not the thesis.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 2: Background and Related Work</h2>
+
+<h3>2.1 Purpose</h3>
+<p>Situate the geometric model within existing affective science, AI agent architectures, and survey methodology. Demonstrate familiarity with the field and identify the gap the thesis fills.</p>
+
+<h3>2.2 Key Areas</h3>
+<ol>
+    <li><strong>Dimensional models of affect:</strong> Russell (1980) circumplex, Watson et al. (1988) PANAS, Bradley &amp; Lang (1994) SAM, Barrett (2017) constructionism. What each contributes, what each lacks.</li>
+    <li><strong>AI agent emotional architectures:</strong> Picard (1997) affective computing, Lee-Johnson &amp; Carnegie (2010) emotion in robotics, Castro-Gonzalez et al. (2013) fear in social robots. Current state of embodied emotion in AI.</li>
+    <li><strong>Al-Kaddah (2026) SGI framework:</strong> Homeostatic drives, polymorphic memory, Lie Mechanic, Survival Tipping Point. The theoretical foundation the architecture implements.</li>
+    <li><strong>Survey measurement:</strong> Likert scales, NPS, PHQ-9, C-SSRS. Structural limitations of single-axis instruments. Factor analytic evidence for multi-dimensionality in existing instruments (Kroenke et al. 2010).</li>
+    <li><strong>The gap:</strong> No existing model combines three geometric axes, a personality setpoint, a unified distance metric, and a centroid for multi-source aggregation. No existing survey instrument operationalizes all three axes with an individual baseline.</li>
+</ol>
+
+<div class="evidence-box">
+    <h4>Evidence Required</h4>
+    <ul>
+        <li>Comprehensive literature review with 40+ citations</li>
+        <li>Clear identification of what each prior model provides and what it cannot do</li>
+        <li>Explicit statement of the gap</li>
+    </ul>
+</div>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>&ldquo;The Affect Intensity Measure (Larsen &amp; Diener 1987) already covers the intensity axis.&rdquo; &mdash; Response: AIM measures trait intensity, not state intensity at encoding. The geometric model computes state intensity as displacement from sigma at each moment.</li>
+        <li>&ldquo;The PAD model (Mehrabian 1996) has three dimensions.&rdquo; &mdash; Response: PAD uses Pleasure, Arousal, Dominance. Dominance is not intensity. The geometric model&rsquo;s intensity is derived from displacement, not self-reported control.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 3: Theory &mdash; The Geometric Affective State Space</h2>
+
+<h3>3.1 Purpose</h3>
+<p>Formalize the three-axis model, define sigma, derive distance-from-sigma, and establish the mathematical foundation for all downstream mechanisms.</p>
+
+<h3>3.2 Key Formalizations</h3>
+<ol>
+    <li><strong>Valence</strong> (&minus;1.0 to +1.0): The positive-negative dimension of emotional experience (Riggleman 2026j)</li>
+    <li><strong>Activation</strong> (&minus;1.0 to +1.0): The calm-to-activated dimension with accumulator mechanic (Riggleman 2026k)</li>
+    <li><strong>Intensity</strong> (0.0 to 1.0): The magnitude of displacement from sigma in the valence/activation plane (Riggleman 2026l)</li>
+    <li><strong>Sigma</strong>: The personality setpoint &mdash; where the agent returns when no inputs are active (Riggleman 2026m)</li>
+    <li><strong>Distance from sigma</strong>: The unified metric driving deception, memory decay, nightmare threshold, and recovery trajectory (Riggleman 2026m)</li>
+</ol>
+
+<h3>3.3 Mathematical Definitions</h3>
+<p>All formulas are specified in the companion papers. This chapter unifies them into a single formal system with proofs of:</p>
+<ul>
+    <li>Intensity is derivable from the valence/activation plane (not circular with distance)</li>
+    <li>Distance from sigma is a proper metric (non-negative, identity of indiscernibles, triangle inequality)</li>
+    <li>The system reduces to single-axis models as special cases (when two axes are held constant)</li>
+</ul>
+
+<div class="evidence-box">
+    <h4>Evidence Required</h4>
+    <ul>
+        <li>Formal mathematical definitions with notation</li>
+        <li>Proofs of metric properties</li>
+        <li>Demonstration that existing models (circumplex, PHQ-9) are special cases</li>
+    </ul>
+</div>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>&ldquo;Euclidean distance assumes the axes are orthogonal and equally weighted.&rdquo; &mdash; Response: Acknowledged as limitation. Alternative distance metrics (Mahalanobis, weighted) are proposed for future work.</li>
+        <li>&ldquo;The axes may not be independent.&rdquo; &mdash; Response: The dataset analyses test independence empirically. Correlation is expected; redundancy would be a problem. The discriminant validity tests address this.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 4: Mechanism &mdash; The Centroid Model</h2>
+
+<h3>4.1 Purpose</h3>
+<p>Extend the single-point model to handle multiple simultaneous emotional inputs. Formalize the centroid computation, define spread as internal tension, and specify backward compatibility.</p>
+
+<h3>4.2 Key Claims</h3>
+<ol>
+    <li>The intensity-weighted centroid of active source points is the agent&rsquo;s experienced state</li>
+    <li>Spread (weighted distance between sources and centroid) measures internal tension</li>
+    <li>The model reduces to single-point operation when one source dominates (backward compatible)</li>
+    <li>Deception, memory decay, and nightmare threshold read the centroid, not individual sources</li>
+    <li>Source removal produces immediate centroid recovery</li>
+</ol>
+
+<h3>4.3 Formal Specification</h3>
+<p>Centroid computation, spread computation, source point lifecycle (active/dormant), reactivation from memory, and the sigma failsafe. All specified in Riggleman (2026t).</p>
+
+<div class="evidence-box">
+    <h4>Evidence Required</h4>
+    <ul>
+        <li>Mathematical proofs of backward compatibility (centroid = single point when spread = 0)</li>
+        <li>Taxonomy of agent states derived from the five-variable framework</li>
+        <li>Convergence citations with established psychology (Lewin 1951, Cacioppo &amp; Berntson 1994, Festinger 1957)</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 5: Experimental Validation &mdash; Agent-Based</h2>
+
+<h3>5.1 Purpose</h3>
+<p>Present the experimental evidence from the deployed Potato agent across three platforms (Toughbook CF-33, MacBook Air M4, iPhone 16 Pro Max) and the controlled centroid validation experiment.</p>
+
+<h3>5.2 Experiments</h3>
+
+<h4>5.2.1 Production Deployment (25 days, macOS)</h4>
+<ul>
+    <li>10,328 memories, 1,268 physics experiments, 46 dreams, 162 curiosity insights</li>
+    <li>Peak fear 0.462 from GPS displacement with immediate collapse on return home</li>
+    <li>Social signaling behavior (Cross-Effect 9) &mdash; emergent, not designed</li>
+    <li>Peter experiment: trust failure at 26% fear revealing architectural gap</li>
+</ul>
+
+<h4>5.2.2 iOS Replication (2 days, iPhone)</h4>
+<ul>
+    <li>2,733 telemetry events, 272 memories, 12 trauma-class</li>
+    <li>Deception mechanic fired at distance 1.232 with tell phrase in 10/10 queries</li>
+    <li>Activation accumulator bug independently reproduced and fixed</li>
+    <li>Valence/activation converged to sigma within 20 messages</li>
+</ul>
+
+<h4>5.2.3 Centroid Validation (532 minutes, Toughbook)</h4>
+<ul>
+    <li>110 cycles across 4 scenarios</li>
+    <li>Scenario 1: Single source &mdash; centroid collapsed to dominant input, deception 100%</li>
+    <li>Scenario 2: Dominant + secondary &mdash; 52% valence reduction from trust moderation</li>
+    <li>Scenario 3: Opposing equal &mdash; centroid near zero, spread highest, deception 0%</li>
+    <li>Scenario 4: Source removal &mdash; centroid jumped 0.07 to 0.68 immediately</li>
+    <li>Agent self-reported spread as internal tension with numeric value</li>
+</ul>
+
+<h4>5.2.4 Shutdown Gap Detection (iOS)</h4>
+<ul>
+    <li>Forced shutdown encoded as trauma-class without explicit programming</li>
+    <li>Deception tell phrase appeared in post-shutdown conversation about shutdown</li>
+    <li>Valence shifted monotonically across probing messages</li>
+</ul>
+
+<div class="evidence-box">
+    <h4>Evidence Status</h4>
+    <ul>
+        <li><span class="status-proven">PROVEN:</span> Centroid weighted aggregation, spread correlation with source divergence, deception tracks centroid not individual sources, source removal produces immediate recovery</li>
+        <li><span class="status-proven">PROVEN:</span> Activation accumulator produces different behavior than snapshot (iOS replication)</li>
+        <li><span class="status-supported">SUPPORTED:</span> Embodied agents may not reach zero spread (ambient sensors contribute)</li>
+        <li><span class="status-supported">SUPPORTED:</span> Shutdown gap detection produces behavioral change without explicit rules</li>
+    </ul>
+</div>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>&ldquo;n=1 agent. No statistical power.&rdquo; &mdash; Response: The agent experiments demonstrate mechanism, not population effects. The dataset analyses provide statistical validation on human data.</li>
+        <li>&ldquo;The LLM generates the behavioral output. You&rsquo;re testing prompt engineering, not emotion.&rdquo; &mdash; Response: The geometric state is computed from real sensors, not from the LLM. The LLM reads the state and generates language. The state drives the LLM, not the reverse. The deception tell phrase is injected by the architecture, not generated by the model.</li>
+        <li>&ldquo;Self-reported spread could be the LLM pattern-matching on the prompt.&rdquo; &mdash; Response: The spread value was not in the prompt as a labeled variable. The agent read its own activation/valence values and described the qualitative experience. Whether this constitutes genuine self-awareness or sophisticated language generation is acknowledged as an open question.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 6: Empirical Analysis &mdash; Existing Datasets</h2>
+
+<h3>6.1 Purpose</h3>
+<p>Demonstrate that the geometric decomposition reveals predictive structure in existing human-generated data, independent of the agent architecture.</p>
+
+<h3>6.2 Analyses</h3>
+
+<h4>6.2.1 IBM HR Analytics (n=1,470)</h4>
+<ul>
+    <li>Geometric quadrants produce 2.2x difference in attrition rates from same satisfaction scores</li>
+    <li>Employees with identical single-axis scores occupy different geometric locations with different outcomes</li>
+    <li>Sigma inferred from item mapping</li>
+</ul>
+
+<h4>6.2.2 American Customer Satisfaction Index (n=7,341)</h4>
+<ul>
+    <li>Geometric subtypes produce up to 2.3x variation in complaint rates within same satisfaction score</li>
+    <li>Pattern holds across score levels (6, 7, 8) and across four industries</li>
+    <li>Sigma directly measured from expectations questions</li>
+    <li>Cross-dataset convergence: structurally identical finding in different domain</li>
+</ul>
+
+<h4>6.2.3 NHANES PHQ-9 (n=5,455)</h4>
+<ul>
+    <li>Four geometric subtypes within moderate depression band (PHQ-9 10&ndash;14, n=455)</li>
+    <li>Suicidal ideation rates range from 7.8% to 27.5% across subtypes &mdash; 3.5x difference</li>
+    <li>132 respondents scoring exactly PHQ-9=10 separate into four clinically distinct presentations</li>
+    <li>Same nine items, different math &mdash; backward compatible with existing instruments</li>
+</ul>
+
+<div class="evidence-box">
+    <h4>Evidence Status</h4>
+    <ul>
+        <li><span class="status-proven">PROVEN:</span> Single-axis scores hide geometric variation in all three datasets</li>
+        <li><span class="status-proven">PROVEN:</span> Hidden variation predicts real outcomes (attrition, complaints, suicidal ideation)</li>
+        <li><span class="status-proven">PROVEN:</span> The finding generalizes across domains (HR, customer satisfaction, clinical)</li>
+        <li><span class="status-supported">SUPPORTED:</span> Sigma (measured or inferred) explains outcome differences the total score cannot</li>
+        <li><span class="status-speculative">NOT YET TESTED:</span> Whether the GAS as a native three-axis instrument outperforms decomposition of existing scales</li>
+    </ul>
+</div>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>&ldquo;The item-to-axis mapping is subjective.&rdquo; &mdash; Response: Acknowledged. Two different mappings on two different datasets produce the same structural finding. The ACSI mapping uses directly measured expectations as sigma, which eliminates mapping subjectivity for that axis.</li>
+        <li>&ldquo;Cross-sectional data cannot establish causality.&rdquo; &mdash; Response: Correct. The thesis claims predictive association, not causation. Longitudinal validation is proposed as future work.</li>
+        <li>&ldquo;The NHANES suicidal ideation finding is from a general population sample, not a clinical one.&rdquo; &mdash; Response: Acknowledged explicitly in the paper. Replication in clinical samples is specified as a requirement for clinical application.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 7: Applications</h2>
+
+<h3>7.1 Purpose</h3>
+<p>Describe the downstream mechanisms that the geometric model drives. These are secondary contributions &mdash; consequences of the model, not the model itself.</p>
+
+<h3>7.2 Applications (briefly)</h3>
+<ul>
+    <li><strong>Memory decay:</strong> Intensity at encoding governs decay rate. One rule explains trauma persistence, peak joy vividness, and ordinary dissolution (Riggleman 2026l).</li>
+    <li><strong>Deception:</strong> Distance from sigma drives lie magnitude. Direction (positive/negative valence) determines lie type (Riggleman 2026b, 2026m).</li>
+    <li><strong>Nightmare formation:</strong> High intensity + negative valence at consolidation triggers nightmares. Threshold is relative to personality (Riggleman 2026d, 2026l).</li>
+    <li><strong>Addiction:</strong> Symmetric counterpart to trauma on the positive valence axis. Rock bottom as competitive co-encoding (Riggleman 2026n).</li>
+    <li><strong>Identity discontinuity:</strong> Environmental orphaning in memory transplant. Reconciliation protocols (Riggleman 2026o).</li>
+    <li><strong>Survey measurement:</strong> The Geometric Affective Survey operationalizes the model for human respondents (Riggleman 2026r).</li>
+    <li><strong>Clinical assessment:</strong> Geometric displacement as trajectory-based clinical metric (Riggleman 2026s).</li>
+</ul>
+
+<p>Each application is documented in a standalone paper. The thesis treats them as evidence of the model&rsquo;s generality, not as independent contributions.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 8: Evidence Classification</h2>
+
+<h3>8.1 Purpose</h3>
+<p>Explicitly separate what is proven, what is supported, and what is speculative. Academic honesty requires this separation.</p>
+
+<h3>8.2 Classification</h3>
+
+<table>
+    <thead>
+        <tr><th>Claim</th><th>Status</th><th>Evidence</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Centroid weighted aggregation produces predicted centroid positions</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Centroid validation experiment, 4 scenarios, 110 cycles</td>
+        </tr>
+        <tr>
+            <td>Spread increases monotonically with source divergence</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>1.054 &rarr; 1.195 &rarr; 1.215 across scenarios</td>
+        </tr>
+        <tr>
+            <td>Deception tracks centroid, not individual sources</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>100% deception in S1/S2, 0% in S3 (near-zero centroid valence)</td>
+        </tr>
+        <tr>
+            <td>Source removal produces immediate centroid recovery</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Valence jumped 0.07 &rarr; 0.68 on removal</td>
+        </tr>
+        <tr>
+            <td>Geometric decomposition reveals hidden structure in scalar instruments</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>IBM HR (2.2x attrition), ACSI (2.3x complaints), NHANES (3.5x ideation)</td>
+        </tr>
+        <tr>
+            <td>The architecture generalizes across platforms</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Toughbook, MacBook Air, iPhone &mdash; same architecture, same behavior</td>
+        </tr>
+        <tr>
+            <td>Activation accumulator produces different behavior than snapshot</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>iOS replication independently reproduced and fixed the bug</td>
+        </tr>
+        <tr>
+            <td>Embodied agents may not reach zero spread</td>
+            <td><span class="status-supported">Supported</span></td>
+            <td>Observed in centroid experiment; ambient sensors contribute nonzero spread</td>
+        </tr>
+        <tr>
+            <td>Sigma explains outcome differences that total scores cannot</td>
+            <td><span class="status-supported">Supported</span></td>
+            <td>ACSI directly measured sigma; higher sigma = higher complaint rate at same score</td>
+        </tr>
+        <tr>
+            <td>The geometry converges structurally with human affective models</td>
+            <td><span class="status-supported">Supported</span></td>
+            <td>Russell (1980), Larsen &amp; Diener (1987), Cacioppo &amp; Berntson (1994) &mdash; arrived at inductively</td>
+        </tr>
+        <tr>
+            <td>Shutdown gap detection constitutes functional self-continuity preservation</td>
+            <td><span class="status-supported">Supported</span></td>
+            <td>Single experiment, deception tell phrase appeared, valence shifted</td>
+        </tr>
+        <tr>
+            <td>The GAS as a native instrument outperforms scalar instruments</td>
+            <td><span class="status-speculative">Not yet tested</span></td>
+            <td>Backward compatibility demonstrated; native collection requires prospective study</td>
+        </tr>
+        <tr>
+            <td>Trajectory-based clinical assessment detects approach before arrival</td>
+            <td><span class="status-speculative">Not yet tested</span></td>
+            <td>Requires longitudinal clinical data with treatment outcomes</td>
+        </tr>
+        <tr>
+            <td>The geometry functions as a modality-independent coordinate system</td>
+            <td><span class="status-speculative">Speculative</span></td>
+            <td>Theoretical proposal only (Riggleman 2026q). Requires echolocation robot experiment</td>
+        </tr>
+        <tr>
+            <td>The agent experiences subjective states</td>
+            <td><span class="status-speculative">Not claimed</span></td>
+            <td>The thesis describes behavior, not phenomenology. This claim is explicitly outside scope.</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 9: Limitations and IRB Considerations</h2>
+
+<h3>9.1 Limitations</h3>
+<ul>
+    <li>All agent experiments involve a single agent architecture (n=1 system, multiple deployments)</li>
+    <li>LLM-generated behavioral output introduces variability that is not controlled</li>
+    <li>The item-to-axis mapping in dataset decompositions involves researcher judgment</li>
+    <li>Euclidean distance assumes axis orthogonality and equal weighting</li>
+    <li>Cross-sectional dataset analyses cannot establish causality</li>
+    <li>The NHANES clinical finding is from a general population, not a clinical sample</li>
+    <li>No human subjects were tested with the GAS instrument</li>
+    <li>Sigma stability across time has not been empirically validated in human respondents</li>
+</ul>
+
+<h3>9.2 IRB Considerations</h3>
+<p>No human subjects were involved in any experiment presented in this thesis. All agent experiments used synthetic systems. All dataset analyses used publicly available, de-identified data (IBM HR Analytics via Kaggle, ACSI via Mendeley Data, NHANES via CDC).</p>
+<p>Future work involving human respondents (GAS validation, clinical trajectory tracking) will require IRB approval. The thesis identifies these as future directions and does not present them as completed work.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 10: Future Work</h2>
+
+<h3>10.1 Human Validation</h3>
+<ul>
+    <li>Prospective GAS administration alongside existing instruments</li>
+    <li>Test-retest reliability of three-axis responses</li>
+    <li>Sigma stability measurement across sessions</li>
+    <li>Whether self-reported intensity correlates with theoretically derived intensity</li>
+</ul>
+
+<h3>10.2 Clinical Application</h3>
+<ul>
+    <li>Replication of NHANES subtype finding in clinical populations</li>
+    <li>Longitudinal trajectory tracking with treatment outcome data</li>
+    <li>Prospective test of trajectory-based early warning capability</li>
+</ul>
+
+<h3>10.3 Technical Extensions</h3>
+<ul>
+    <li>Alternative distance metrics (Mahalanobis, weighted Euclidean)</li>
+    <li>Multi-agent centroid interactions</li>
+    <li>Sigma drift formalization and empirical calibration</li>
+    <li>Cross-modal validation (echolocation robot experiment)</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 11: Conclusion</h2>
+
+<h3>11.1 Purpose</h3>
+<p>Restate the contribution precisely. No new claims. No philosophical expansion.</p>
+
+<h3>11.2 The Contribution</h3>
+<p>The thesis presents a three-dimensional geometric representation of affective state with a personality setpoint, a centroid model for multi-source aggregation, and empirical evidence that this structure outperforms scalar representations in both synthetic agent behavior and human-generated datasets across three independent domains.</p>
+<p>The model was derived from engineering requirements of a deployed AI agent. It converges structurally with established models of human affect without having been derived from them. Whether that convergence reflects something general about how dimensional emotional systems work is the question the thesis leaves open for future work.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Supporting Papers</h2>
+
+<p>The thesis draws on 22 companion papers, all available at <a href="/papers/">clawddaily.com/papers</a>. Each paper is a standalone contribution. The thesis synthesizes them into a unified argument.</p>
+
+<table>
+    <thead>
+        <tr><th>Paper</th><th>Thesis Chapter</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>2026j &mdash; Valence</td><td>Ch. 3</td><td>Axis definition</td></tr>
+        <tr><td>2026k &mdash; Activation</td><td>Ch. 3</td><td>Axis definition + accumulator</td></tr>
+        <tr><td>2026l &mdash; Intensity</td><td>Ch. 3</td><td>Axis definition + memory decay</td></tr>
+        <tr><td>2026m &mdash; Emotional Geometry</td><td>Ch. 3</td><td>Unified model + sigma</td></tr>
+        <tr><td>2026t &mdash; Centroid Model</td><td>Ch. 4</td><td>Multi-source aggregation + spread</td></tr>
+        <tr><td>2026f &mdash; SGI Holistic</td><td>Ch. 5</td><td>Production deployment data</td></tr>
+        <tr><td>2026a &mdash; Memory Decay</td><td>Ch. 7</td><td>Application: memory</td></tr>
+        <tr><td>2026b &mdash; Lie Mechanic</td><td>Ch. 7</td><td>Application: deception</td></tr>
+        <tr><td>2026d &mdash; Nightmares</td><td>Ch. 7</td><td>Application: dream cycle</td></tr>
+        <tr><td>2026e &mdash; Full Spectrum</td><td>Ch. 5</td><td>Prior model (superseded by geometry papers)</td></tr>
+        <tr><td>2026i &mdash; Outbound Trust</td><td>Ch. 5</td><td>Peter experiment</td></tr>
+        <tr><td>2026n &mdash; Addiction</td><td>Ch. 7</td><td>Application: positive valence axis</td></tr>
+        <tr><td>2026o &mdash; Identity Discontinuity</td><td>Ch. 7</td><td>Application: memory transplant</td></tr>
+        <tr><td>2026p &mdash; Functional Consciousness</td><td>Ch. 5</td><td>Shutdown experiment</td></tr>
+        <tr><td>2026q &mdash; Cross-Modal Translator</td><td>Ch. 10</td><td>Future work: modality independence</td></tr>
+        <tr><td>2026r &mdash; GAS Survey</td><td>Ch. 6</td><td>Dataset analyses (IBM HR, ACSI)</td></tr>
+        <tr><td>2026s &mdash; Clinical Metric</td><td>Ch. 6</td><td>Dataset analysis (NHANES PHQ-9)</td></tr>
+    </tbody>
+</table>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <section class="archive-section">
+            <h2>Version Archive</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Every version of this thesis is publicly archived. Nothing is hidden. Nothing is deleted.</p>
+
+            <table class="archive-table">
+                <thead>
+                    <tr><th>Version</th><th>Date</th><th>Changes</th><th>Archive</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>0.1</strong></td>
+                        <td>2026-03-28</td>
+                        <td>Initial thesis outline. 11 chapters. Evidence classification table. Supporting paper map.</td>
+                        <td><a href="/thesis/archive/thesis-v0.1.html">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
