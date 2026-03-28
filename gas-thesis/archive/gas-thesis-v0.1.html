@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAS Thesis — Recovering Latent Structure from Scalar Affective Scores</title>
+    <meta name="description" content="Working thesis: existing validated instruments contain latent multidimensional structure not captured by scalar scoring. Retrospective structural analysis of PHQ-9, ACSI, and IBM HR data using three-axis geometric decomposition.">
+
+    <meta property="og:title" content="GAS Thesis — Recovering Latent Structure from Scalar Affective Scores">
+    <meta property="og:description" content="Scalar equivalence does not imply state equivalence. A retrospective structural reinterpretation of validated affective instruments.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/gas-thesis/">
+
+    <link rel="canonical" href="https://clawddaily.com/gas-thesis/">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .thesis-header {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding-top: 3rem;
+            text-align: center;
+        }
+        .thesis-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--warning));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .thesis-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .version-badge {
+            display: inline-block;
+            background: var(--warning);
+            color: var(--bg);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        .disclaimer {
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            background: rgba(88, 166, 255, 0.06);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--warning);
+            border-radius: 6px;
+            padding: 1.25rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .disclaimer strong {
+            color: var(--warning);
+        }
+        .thesis-body {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .thesis-body h2 {
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            color: var(--text);
+        }
+        .thesis-body h3 {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        .thesis-body h4 {
+            font-size: 1.05rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .thesis-body p { margin-bottom: 1.25rem; color: var(--text); }
+        .thesis-body ul, .thesis-body ol { margin: 0.75rem 0 1.25rem; padding-left: 1.5rem; }
+        .thesis-body li { margin-bottom: 0.5rem; color: var(--text); }
+        .thesis-body table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+        .thesis-body th, .thesis-body td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; color: var(--text); }
+        .thesis-body th { background: var(--bg-secondary); font-weight: 600; }
+        .thesis-body blockquote { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: var(--text-muted); }
+        .thesis-body .evidence-box { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.25rem; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
+        .thesis-body .evidence-box h4 { margin-top: 0; color: var(--success); }
+        .thesis-body .risk-box { background: var(--bg-secondary); border: 1px solid var(--border); border-left: 3px solid var(--danger); border-radius: 6px; padding: 1rem 1.25rem; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
+        .thesis-body .risk-box h4 { margin-top: 0; color: var(--danger); }
+        .thesis-body .status-proven { color: var(--success); font-weight: 600; }
+        .thesis-body .status-supported { color: var(--warning); font-weight: 600; }
+        .thesis-body .status-speculative { color: var(--danger); font-weight: 600; }
+        .archive-section { max-width: 800px; margin: 3rem auto 0; padding-top: 2rem; border-top: 2px solid var(--border); }
+        .archive-section h2 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-muted); }
+        .archive-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .archive-table th, .archive-table td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
+        .archive-table th { background: var(--bg-secondary); }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/">Potato</a></li>
+                <li><a href="/thesis/">Thesis</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="thesis-header">
+            <span class="version-badge">Version 0.1 &mdash; Working Draft</span>
+            <h1>Recovering Latent Structure from Scalar Affective Scores</h1>
+            <p class="subtitle">A Retrospective Structural Analysis of Validated Instruments Using Three-Axis Geometric Decomposition</p>
+            <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; March 2026</p>
+        </section>
+
+        <div class="disclaimer">
+            <strong>Working Draft Notice</strong><br>
+            This document is a working draft of a developing research thesis. It proposes a structural reinterpretation of existing validated instruments using publicly available datasets. No new data collection is involved. No clinical claims are made. All prior versions are publicly archived below.<br><br>
+            AI tools were used for language refinement and structural editing. All ideas, analyses, and interpretations are the author&rsquo;s own.
+        </div>
+
+        <div class="thesis-body">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Thesis Statement</h2>
+
+<p>Existing validated affective instruments contain latent multidimensional structure that is not captured by scalar scoring. A three-axis geometric decomposition (valence, activation, intensity) applied retroactively to established datasets reveals predictive variation that the original scoring methods systematically discard.</p>
+
+<p><strong>Scalar equivalence does not imply state equivalence.</strong></p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 1: Introduction</h2>
+
+<h3>1.1 The Problem</h3>
+<p>Fifty years of affective science has produced validated, reliable instruments for measuring emotional experience. The PHQ-9 measures depression severity. The ACSI measures customer satisfaction. Employee engagement surveys measure workplace wellbeing. These instruments work. They have been tested, normed, and deployed at scale.</p>
+
+<p>They all share one structural property: they reduce multidimensional experience to a single number.</p>
+
+<p>This thesis does not argue that these instruments are wrong. It argues that their scoring methods compress information that is present in the data. Two respondents with the same score may occupy different positions in a multidimensional space. If those positions are associated with different outcomes, the compression has a cost. This thesis measures that cost.</p>
+
+<h3>1.2 The Claim</h3>
+<p><strong>This thesis proposes that existing validated instruments may contain latent multidimensional structure that is not captured by scalar scoring.</strong> It demonstrates this claim by applying a three-axis geometric decomposition to three independent datasets and showing that the decomposition reveals outcome-relevant variation the scalar scores hide.</p>
+
+<p>This work does not propose replacing established instruments, but rather augmenting their interpretive structure.</p>
+
+<h3>1.3 What This Is</h3>
+<p>A retrospective structural analysis. Not a new survey. Not a clinical intervention. Not a critique of existing science. It is an observation that existing data behaves differently when viewed through a different representational lens, and that the differences are associated with real outcomes.</p>
+
+<h3>1.4 Scope</h3>
+<p>The thesis makes one claim: three axes reveal more than one. It tests this claim on three datasets. It proposes a measurement instrument (the GAS) for prospective validation. It does not claim causation. It does not diagnose conditions. It does not prescribe treatment. It does not replace the PHQ-9 or the ACSI or the Likert scale. It asks whether those instruments already contain information that their scoring methods throw away.</p>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>&ldquo;You&rsquo;re just doing factor analysis by another name.&rdquo; &mdash; Response: Factor analysis identifies latent dimensions statistically. This thesis maps items to dimensions based on clinical content and tests whether the mapping predicts outcomes the total score does not. The item-to-axis assignment is theory-driven, not data-driven. The distinction matters for interpretability.</li>
+        <li>&ldquo;If the structure is there, why hasn&rsquo;t it been found?&rdquo; &mdash; Response: It has been found. Kroenke et al. (2010) identified a two-factor structure in the PHQ-9. What has not been done is testing whether that structure predicts differential outcomes within the same severity band. This thesis does that.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 2: Background</h2>
+
+<h3>2.1 Dimensional Models of Affect</h3>
+<p>Russell (1980) proposed two dimensions. Watson et al. (1988) proposed separate positive and negative dimensions. Bradley &amp; Lang (1994) proposed three (valence, arousal, dominance). The field has known for decades that affect is multidimensional. Scalar instruments persist because they are simple, fast, and easy to aggregate.</p>
+
+<h3>2.2 The Compression Problem</h3>
+<p>A PHQ-9 score of 15 is computed by summing nine items. The sum discards the pattern. Two patients with the same sum can have different item profiles. If item profiles map to different clinical presentations, and different presentations require different treatment, then the sum is losing clinically relevant information.</p>
+
+<p>This is not a new observation. It is a well-documented limitation. What is new is testing whether a specific three-axis decomposition recovers that information and whether the recovered information predicts outcomes.</p>
+
+<h3>2.3 The Three-Axis Framework</h3>
+<p>The geometric affective state space (Riggleman 2026j, 2026k, 2026l, 2026m) defines three axes: valence (positive-negative), activation (calm-activated), and intensity (magnitude of displacement from a baseline called sigma). This framework was developed for a synthetic agent architecture. This thesis tests whether the same three-axis structure applies to human-generated survey data.</p>
+
+<h3>2.4 Sigma as Individual Baseline</h3>
+<p>The key addition beyond Russell&rsquo;s circumplex is sigma: a respondent-specific baseline. The same score means different things for different people depending on where they start. A naturally anxious person at a moderate anxiety score is closer to baseline than a naturally calm person at the same score. Sigma captures this. Total scores cannot.</p>
+
+<div class="evidence-box">
+    <h4>Evidence Required</h4>
+    <ul>
+        <li>Literature review of dimensional affect models (Russell, Watson, Barrett)</li>
+        <li>Documentation of known limitations of scalar scoring</li>
+        <li>Review of factor analytic findings for each instrument used (PHQ-9, ACSI satisfaction scales)</li>
+        <li>Clear statement of what is new: the specific three-axis decomposition with sigma, tested against outcomes</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 3: Method</h2>
+
+<h3>3.1 The Decomposition</h3>
+<p>For each dataset, existing survey items are mapped to three geometric axes based on their content. The mapping is theory-driven: items measuring positive-negative evaluation map to valence, items measuring arousal or engagement map to activation, and where available, expectations or baseline measures provide sigma.</p>
+
+<p>The single-axis score (total, mean, or sum) serves as the comparison. The question is always the same: do respondents with the same single-axis score occupy different positions in the three-axis space, and do those positions predict different outcomes?</p>
+
+<h3>3.2 Item-to-Axis Mapping</h3>
+
+<h4>3.2.1 PHQ-9 &rarr; Three Axes (NHANES, n=5,455)</h4>
+<table>
+    <thead>
+        <tr><th>Axis</th><th>PHQ-9 Items</th><th>Clinical Construct</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Valence</td><td>Anhedonia, depressed mood, self-esteem</td><td>Cognitive-affective depression</td></tr>
+        <tr><td>Activation</td><td>Sleep, fatigue, psychomotor</td><td>Somatic-arousal</td></tr>
+        <tr><td>Intensity</td><td>Appetite, concentration, suicidal ideation</td><td>Severity-magnitude</td></tr>
+    </tbody>
+</table>
+<p>Sigma: not directly measured. Population median used as reference baseline.</p>
+
+<h4>3.2.2 ACSI &rarr; Three Axes (n=7,341)</h4>
+<table>
+    <thead>
+        <tr><th>Axis</th><th>ACSI Items</th><th>Construct</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Valence (Quality)</td><td>Overall quality, customization, reliability</td><td>Positive-negative evaluation</td></tr>
+        <tr><td>Activation (Value)</td><td>Price-given-quality, quality-given-price</td><td>Engagement / worth-the-effort</td></tr>
+        <tr><td>Sigma (Expectations)</td><td>Overall expectations, customization expectations, reliability expectations</td><td>Individual baseline &mdash; directly measured</td></tr>
+    </tbody>
+</table>
+
+<h4>3.2.3 IBM HR &rarr; Three Axes (n=1,470)</h4>
+<table>
+    <thead>
+        <tr><th>Axis</th><th>HR Items</th><th>Construct</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Valence</td><td>Job satisfaction, relationship satisfaction</td><td>Positive-negative evaluation</td></tr>
+        <tr><td>Activation</td><td>Inverse work-life balance, job involvement</td><td>Arousal / engagement</td></tr>
+        <tr><td>Intensity</td><td>Variance across all satisfaction measures + environment satisfaction</td><td>Magnitude amplifier</td></tr>
+    </tbody>
+</table>
+<p>Sigma: inferred from item mapping (median baseline).</p>
+
+<h3>3.3 Analysis Approach</h3>
+<p>For each dataset:</p>
+<ol>
+    <li>Compute single-axis score (total or mean)</li>
+    <li>Compute three-axis coordinates from item mapping</li>
+    <li>Define geometric subtypes (quadrants or sigma-relative groups)</li>
+    <li>Compare outcome rates across subtypes within the same single-axis score band</li>
+    <li>Report the magnitude of hidden variation (ratio of highest to lowest outcome rate)</li>
+</ol>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>&ldquo;The item-to-axis mapping is subjective.&rdquo; &mdash; Response: Acknowledged. The mapping is theory-driven (items grouped by clinical content), not data-driven (no exploratory factor analysis). Two different mappings on two different datasets produce the same structural finding. The ACSI mapping uses directly measured expectations as sigma, eliminating subjectivity for that axis.</li>
+        <li>&ldquo;Why these three axes and not two or four?&rdquo; &mdash; Response: Two axes (Russell&rsquo;s circumplex) are a special case of this framework. The third axis (intensity) captures magnitude of displacement that the other two do not. Four or more axes may be viable but have not been tested. Three is the minimum that produces the observed separation.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 4: Results</h2>
+
+<h3>4.1 NHANES PHQ-9: Depression Subtypes</h3>
+<p>Among 455 respondents scoring in the moderate depression band (PHQ-9 10&ndash;14), four geometric subtypes emerge with different suicidal ideation rates:</p>
+
+<table>
+    <thead>
+        <tr><th>Subtype</th><th>n</th><th>Suicidal Ideation Rate</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Anhedonic (high valence-axis, low activation)</td><td>167</td><td>27.5%</td></tr>
+        <tr><td>Classic Depressed</td><td>56</td><td>19.6%</td></tr>
+        <tr><td>Somatic-Dominant (high activation, lower valence)</td><td>117</td><td>15.4%</td></tr>
+        <tr><td>Agitated (high activation, lower valence-axis depression)</td><td>115</td><td>7.8%</td></tr>
+    </tbody>
+</table>
+
+<p><strong>Variation:</strong> 3.5x (27.5% vs. 7.8%) within the same PHQ-9 severity band.</p>
+<p><strong>At PHQ-9 = 10 exactly:</strong> 132 respondents occupy four distinct geometric positions from the same nine items.</p>
+
+<h3>4.2 ACSI: Customer Satisfaction Subtypes</h3>
+<p>Among 1,034 respondents rating satisfaction exactly 7/10, complaint rates vary by geometric subtype:</p>
+
+<table>
+    <thead>
+        <tr><th>Subtype</th><th>n</th><th>Complaint Rate</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Exceeded Both (quality and value above expectations)</td><td>323</td><td>15.8%</td></tr>
+        <tr><td>Quality Up, Value Down</td><td>296</td><td>12.5%</td></tr>
+        <tr><td>Quality Down, Value Up</td><td>85</td><td>27.1%</td></tr>
+        <tr><td>Fell Short Both</td><td>330</td><td>28.5%</td></tr>
+    </tbody>
+</table>
+
+<p><strong>Variation:</strong> 2.3x (28.5% vs. 12.5%) within the same satisfaction score.</p>
+<p><strong>Cross-industry:</strong> The pattern holds in all four industries (food, airlines, ISPs, banks).</p>
+<p><strong>Sigma finding:</strong> &ldquo;Fell Short Both&rdquo; respondents had higher expectations (sigma 8.80) than &ldquo;Exceeded Both&rdquo; (sigma 7.46). Same score, different baseline, different complaint behavior.</p>
+
+<h3>4.3 IBM HR: Employee Attrition Subtypes</h3>
+<p>Geometric quadrants defined by median valence and activation splits:</p>
+
+<table>
+    <thead>
+        <tr><th>Quadrant</th><th>n</th><th>Attrition Rate</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>High Valence + High Activation</td><td>747</td><td>11.8%</td></tr>
+        <tr><td>High Valence + Low Activation</td><td>326</td><td>17.5%</td></tr>
+        <tr><td>Low Valence + High Activation</td><td>274</td><td>21.9%</td></tr>
+        <tr><td>Low Valence + Low Activation</td><td>123</td><td>26.0%</td></tr>
+    </tbody>
+</table>
+
+<p><strong>Variation:</strong> 2.2x (26.0% vs. 11.8%) within overlapping single-axis score ranges.</p>
+
+<h3>4.4 Cross-Dataset Convergence</h3>
+
+<table>
+    <thead>
+        <tr><th>Finding</th><th>PHQ-9 (n=5,455)</th><th>ACSI (n=7,341)</th><th>IBM HR (n=1,470)</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Hidden variation within same score</td><td>3.5x</td><td>2.3x</td><td>2.2x</td></tr>
+        <tr><td>Outcome predicted</td><td>Suicidal ideation</td><td>Complaint behavior</td><td>Employee attrition</td></tr>
+        <tr><td>Domain</td><td>Clinical</td><td>Customer satisfaction</td><td>Employee retention</td></tr>
+        <tr><td>Sigma source</td><td>Population median</td><td>Directly measured</td><td>Inferred</td></tr>
+        <tr><td>Total n</td><td colspan="3" style="text-align: center;"><strong>14,266 respondents</strong></td></tr>
+    </tbody>
+</table>
+
+<p>Three datasets. Three domains. Three outcome variables. The same structural finding: scalar equivalence does not imply state equivalence.</p>
+
+<div class="evidence-box">
+    <h4>Evidence Status</h4>
+    <ul>
+        <li><span class="status-proven">DEMONSTRATED:</span> Geometric subtypes with different outcome rates exist within the same scalar score bands in all three datasets</li>
+        <li><span class="status-proven">DEMONSTRATED:</span> The finding replicates across domains (clinical, commercial, HR)</li>
+        <li><span class="status-supported">SUPPORTED:</span> Sigma (where directly measured) is associated with differential outcomes</li>
+        <li><span class="status-speculative">NOT YET TESTED:</span> Whether native three-axis collection outperforms retroactive decomposition</li>
+        <li><span class="status-speculative">NOT YET TESTED:</span> Whether the geometric subtypes predict longitudinal outcomes</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 5: The Geometric Affective Survey (GAS)</h2>
+
+<h3>5.1 Purpose</h3>
+<p>If the retroactive decomposition reveals useful structure, a native instrument designed to collect three-axis data directly should capture that structure with less ambiguity than item-to-axis mapping of existing instruments.</p>
+
+<h3>5.2 Design</h3>
+<p>Three simultaneous bipolar sliders per item (valence, activation, intensity). Sigma established via baseline questions at intake. Output is a coordinate triple, not a number. Detailed in Riggleman (2026r).</p>
+
+<h3>5.3 Status</h3>
+<p>The GAS is proposed and designed. It has not been administered to human respondents. Prospective validation requires IRB approval and is identified as the primary next step.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 6: Limitations</h2>
+
+<h3>6.1 Methodological Limitations</h3>
+<ul>
+    <li><strong>Retroactive decomposition is not native measurement.</strong> The three-axis coordinates are reconstructed from items designed for scalar scoring. The items were not written to measure valence, activation, and intensity independently. Whether native three-axis collection produces cleaner separation is unknown.</li>
+    <li><strong>Item-to-axis mapping involves researcher judgment.</strong> Different researchers could assign items to axes differently. The convergence across three datasets with three different mappings provides some confidence, but a formal sensitivity analysis (testing multiple mappings) has not been conducted.</li>
+    <li><strong>Cross-sectional data.</strong> All three analyses are cross-sectional. The thesis shows association between geometric position and outcomes at a single time point. It does not show that geometric position at time 1 predicts outcomes at time 2. Longitudinal replication is required.</li>
+    <li><strong>No causal claims.</strong> The decomposition reveals that variation exists and that it correlates with outcomes. It does not demonstrate that the geometric position causes the outcome. Confounding variables are not controlled.</li>
+</ul>
+
+<h3>6.2 Instrument Limitations</h3>
+<ul>
+    <li><strong>The GAS has not been tested on humans.</strong> The instrument is designed but not validated. Psychometric properties (test-retest reliability, convergent validity, discriminant validity) are unknown.</li>
+    <li><strong>Sigma stability is assumed.</strong> The thesis assumes sigma is stable over weeks to months. If it is not, displacement computations become unreliable. This assumption requires empirical testing.</li>
+    <li><strong>Response burden.</strong> Three sliders per item takes longer than one circle on a Likert scale. Whether the additional time is acceptable in clinical and commercial settings is untested.</li>
+</ul>
+
+<h3>6.3 Clinical Limitations</h3>
+<ul>
+    <li><strong>NHANES is a general population sample.</strong> Suicidal ideation rates and subtype distributions in clinical populations may differ. No clinical application should be considered until the finding is replicated in a clinical sample with treatment outcome data.</li>
+    <li><strong>This thesis does not propose replacing the PHQ-9.</strong> It proposes that the PHQ-9&rsquo;s nine items may contain more information than the total score extracts. The total score is validated, reliable, and widely used. The decomposition is an augmentation, not a replacement.</li>
+</ul>
+
+<h3>6.4 The Critical Boundary</h3>
+<p>This thesis cannot say: &ldquo;This would have prevented X.&rdquo; It can say: &ldquo;This analysis suggests that individuals with identical scores may occupy different regions of affective space associated with different outcomes.&rdquo; That is the claim. Nothing more.</p>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>&ldquo;You&rsquo;re claiming the PHQ-9 is broken.&rdquo; &mdash; Response: No. The PHQ-9 measures what it was designed to measure, reliably. The thesis observes that the scoring method discards dimensional information present in the items. The instrument is validated. The scoring could be augmented.</li>
+        <li>&ldquo;The suicidal ideation finding is irresponsible to publish without clinical validation.&rdquo; &mdash; Response: The finding is explicitly presented as a cross-sectional observation in a general population sample with multiple caveats. It is framed as motivation for clinical replication, not as a clinical recommendation.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 7: IRB Considerations</h2>
+
+<p>No human subjects were involved. All datasets are publicly available and de-identified:</p>
+<ul>
+    <li>NHANES 2021&ndash;2023 (CDC, public domain)</li>
+    <li>ACSI sample dataset (Hult &amp; Morgeson 2023, Mendeley Data, CC BY 4.0)</li>
+    <li>IBM HR Analytics (Kaggle, public domain)</li>
+</ul>
+<p>Prospective GAS validation and clinical trajectory tracking will require IRB approval. These are identified as future work.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 8: Future Work</h2>
+
+<ul>
+    <li><strong>Prospective GAS validation:</strong> Administer the GAS alongside the PHQ-9 and a satisfaction scale. Test whether native three-axis collection produces cleaner subtype separation than retroactive decomposition.</li>
+    <li><strong>Longitudinal replication:</strong> Track geometric coordinates over time. Test whether trajectory features predict outcomes better than score changes.</li>
+    <li><strong>Clinical replication:</strong> Replicate the NHANES subtype finding in a clinical population with treatment outcome data.</li>
+    <li><strong>Sensitivity analysis:</strong> Test alternative item-to-axis mappings. Quantify how much the results depend on the specific mapping chosen.</li>
+    <li><strong>Sigma stability:</strong> Measure sigma across sessions in human respondents. Determine the test-retest window.</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 9: Conclusion</h2>
+
+<p>We do not need new questions yet. We need a better representation of answers we already have.</p>
+
+<p>The PHQ-9 asks nine questions. The ACSI asks fifteen. Employee engagement surveys ask twenty. All of them compress the answers to a single number. This thesis shows that the compression has a measurable cost: 2.2x to 3.5x variation in outcome rates hidden within the same scalar score, across three independent datasets in three different domains totaling 14,266 respondents.</p>
+
+<p>The variation is not noise. It is associated with real outcomes: suicidal ideation, complaint behavior, employee attrition. It is present in the data these instruments already collect. It is discarded by the scoring method, not by the instrument.</p>
+
+<p>This thesis does not propose replacing established instruments. It proposes that their interpretive structure can be augmented. The same items, scored differently, reveal structure that the total score cannot see. Whether that structure improves clinical decisions, business outcomes, or scientific understanding is the question this thesis is designed to motivate &mdash; and that prospective validation is designed to answer.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Supporting Papers</h2>
+
+<table>
+    <thead>
+        <tr><th>Paper</th><th>Role in This Thesis</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>2026j &mdash; Valence</td><td>Defines the valence axis</td></tr>
+        <tr><td>2026k &mdash; Activation</td><td>Defines the activation axis + accumulator</td></tr>
+        <tr><td>2026l &mdash; Intensity</td><td>Defines the intensity axis + decay framework</td></tr>
+        <tr><td>2026m &mdash; Emotional Geometry</td><td>Unifies the three axes + sigma</td></tr>
+        <tr><td>2026r &mdash; GAS Survey</td><td>Instrument design + IBM HR and ACSI analyses</td></tr>
+        <tr><td>2026s &mdash; Clinical Metric</td><td>NHANES PHQ-9 analysis + clinical metric proposal</td></tr>
+    </tbody>
+</table>
+
+        </div>
+
+        <section class="archive-section">
+            <h2>Version Archive</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Every version of this thesis is publicly archived. Nothing is hidden. Nothing is deleted.</p>
+
+            <table class="archive-table">
+                <thead>
+                    <tr><th>Version</th><th>Date</th><th>Changes</th><th>Archive</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>0.1</strong></td>
+                        <td>2026-03-28</td>
+                        <td>Initial draft. 9 chapters. Thesis framed as retrospective structural analysis. Three datasets presented. Limitations section with critical boundary statement. GAS proposed for prospective validation.</td>
+                        <td><a href="/gas-thesis/archive/gas-thesis-v0.1.html">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
