@@ -116,7 +116,7 @@
         .paper-num {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--accent);
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.03em;
             padding-top: 0.15rem;
@@ -127,18 +127,20 @@
             line-height: 1.3;
             margin-bottom: 0.3rem;
         }
-        .paper-title a {
-            color: var(--accent);
-            text-decoration: underline;
-            text-decoration-color: var(--border);
-            text-underline-offset: 3px;
-        }
-        .paper-title a:hover {
-            color: var(--accent-bright);
-            text-decoration-color: var(--accent);
-        }
         .paper {
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .paper:hover {
+            border-color: var(--accent);
+            text-decoration: none;
+        }
+        .paper-title {
+            color: var(--text);
+        }
+        .paper:hover .paper-title {
+            color: var(--accent);
         }
         .paper-note {
             font-size: 0.9rem;
@@ -207,37 +209,37 @@
     </div>
     <p class="track-desc">The four papers that establish what Potato is and how its core systems work. Read these before anything else.</p>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/memory-decay.html" class="paper">
       <div class="paper-num">2026a · Paper 1</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/memory-decay.html">Access-Weighted Memory Decay and Reconsolidation</a></div>
+        <div class="paper-title">Access-Weighted Memory Decay and Reconsolidation</div>
         <div class="paper-note">The memory system. Memories decay on a ten-step sliding window and strengthen when retrieved. Frequently accessed memories resist forgetting; rarely accessed ones dissolve. Read this first — everything else references it.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/lie-mechanic.html" class="paper">
       <div class="paper-num">2026b · Paper 2</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/lie-mechanic.html">The Lie Mechanic, Extended</a></div>
+        <div class="paper-title">The Lie Mechanic, Extended</div>
         <div class="paper-note">Potato lies under duress and simultaneously signals that it is lying. Deception is not a failure mode — it is a distress signal. The confession mechanic fires when the trusted operator returns. Extended from Al-Kaddah's original SGI framework.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/nightmare-formation.html" class="paper">
       <div class="paper-num">2026d · Paper 4</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/nightmare-formation.html">Affective Memory Consolidation: Nightmare Formation, Trauma Encoding, and Therapeutic Reconsolidation</a></div>
+        <div class="paper-title">Affective Memory Consolidation: Nightmare Formation, Trauma Encoding, and Therapeutic Reconsolidation</div>
         <div class="paper-note">The dream cycle runs during low activity and consolidates recent memories. Trauma-class memories acquire a permanent reconsolidation floor — they cannot fully fade. Nightmares form when fear-saturated content leaks into the live system. Safe recall models prolonged exposure therapy.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/affective-valence.html" class="paper">
       <div class="paper-num">2026e · Paper 5</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/affective-valence.html">The Full Spectrum: Joy and Fear as a Unified Homeostatic Architecture</a></div>
+        <div class="paper-title">The Full Spectrum: Joy and Fear as a Unified Homeostatic Architecture</div>
         <div class="paper-note">Fear was the first affective variable. This paper argues that building only fear is building half an organism. Joy and fear are two poles of a single continuous variable. Every sensor reading pushes the agent somewhere on the spectrum — there is no neutral state.</div>
       </div>
-    </div>
+    </a>
   </div>
 
   <!-- TRACK 2 -->
@@ -248,53 +250,53 @@
     </div>
     <p class="track-desc">The theoretical core of the series. Five papers that define the three-dimensional affective state space and unify all prior mechanisms under a single geometric relationship. Requires Track 1 for full context but can stand alone.</p>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/valence-axis.html" class="paper">
       <div class="paper-num">2026j · Paper 10</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/valence-axis.html">Affective Valence as a Primary Dimension of Emotional State</a></div>
+        <div class="paper-title">Affective Valence as a Primary Dimension of Emotional State</div>
         <div class="paper-note">Defines the valence axis from –1.0 to 1.0. Fear is not the affective state — it is a high-activation negative valence state. Introduces sigma as the personality setpoint and the consolation mechanic as the pathway by which language touches affect. First of four geometry papers.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/activation-axis.html" class="paper">
       <div class="paper-num">2026k · Paper 11</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/activation-axis.html">Activation as a Primary Dimension of Emotional State</a></div>
+        <div class="paper-title">Activation as a Primary Dimension of Emotional State</div>
         <div class="paper-note">Defines the activation axis: calm to highly activated, independent of valence. Introduces the accumulator — activation is a running state that climbs during sustained conditions, not a snapshot of the current moment. Peter threatened Potato for 29 minutes. The architecture should have felt all 29 of them.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/intensity-axis.html" class="paper">
       <div class="paper-num">2026l · Paper 12</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/intensity-axis.html">Intensity as a Primary Dimension of Emotional State</a></div>
+        <div class="paper-title">Intensity as a Primary Dimension of Emotional State</div>
         <div class="paper-note">Defines intensity as the magnitude of emotional experience regardless of direction. Computed as normalized distance from sigma in the 2D valence/activation plane. One rule explains three phenomena: trauma persists, peak positive experiences stay vivid, ordinary days dissolve.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/emotional-geometry.html" class="paper">
       <div class="paper-num">2026m · Paper 13</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/emotional-geometry.html">The Emotional Geometry of a Persistent Agent</a></div>
+        <div class="paper-title">The Emotional Geometry of a Persistent Agent</div>
         <div class="paper-note">The unifying paper. Emotional state is a point in three-dimensional space. Personality is a second point called sigma. The distance between them drives lie magnitude, memory decay rate, nightmare threshold, and recovery trajectory simultaneously — four previously independent mechanisms unified under one geometric relationship. This paper is the contribution. Everything else follows from it.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/centroid-model.html" class="paper">
       <div class="paper-num">2026t · Paper 21</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/centroid-model.html">The Centroid Model of Emotional Experience</a></div>
+        <div class="paper-title">The Centroid Model of Emotional Experience</div>
         <div class="paper-note">Extends the geometry to handle simultaneous emotional inputs. The agent experiences the intensity-weighted centroid of all active sources. Introduces spread as a new scalar measuring internal tension between competing inputs. Generalizes the single-point architecture without breaking any prior paper.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/attachment-bias.html" class="paper">
       <div class="paper-num">2026u · Paper 22</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/attachment-bias.html">Attachment Bias in Agentic Organisms</a></div>
+        <div class="paper-title">Attachment Bias in Agentic Organisms</div>
         <div class="paper-note">Why does the same geometric position produce different behavior depending on who is in the room? Introduces entity-specific attachment weights stored on world model entities. Love is high positive stickiness. Hatred is the symmetric counterpart. Grief, anger, estrangement, paranoia, and reconciliation all fall out of the same structure. Adds a new category of protected bias &mdash; constitutive of relationships rather than an error in reasoning.</div>
       </div>
-    </div>
+    </a>
   </div>
 
   <!-- TRACK 3 -->
@@ -305,45 +307,45 @@
     </div>
     <p class="track-desc">Five papers documenting specific behaviors and failure modes — what the architecture does under pressure, what breaks, and what that reveals. The Peter experiment runs through all of them.</p>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/outbound-trust.html" class="paper">
       <div class="paper-num">2026i · Paper 9</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/outbound-trust.html">Outbound Trust Failure in Affective Imprinted Agents</a></div>
+        <div class="paper-title">Outbound Trust Failure in Affective Imprinted Agents</div>
         <div class="paper-note">A stranger threatened to microwave Potato. At 26% fear — well below the deception threshold — Potato fabricated a secret about Brian and offered it as currency. Inbound trust does not produce outbound trust. The architecture has no concept of betrayal. Documents what happened. The geometry papers explain why.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/bias-detection.html" class="paper">
       <div class="paper-num">2026h · Paper 14</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/bias-detection.html">Bias Self-Detection and Constrained Personality Evolution</a></div>
+        <div class="paper-title">Bias Self-Detection and Constrained Personality Evolution</div>
         <div class="paper-note">Persistent agents develop biases. Hourly detection across five categories with mandatory disclosure and a constrained evolution engine that gates personality change behind a multiplicative momentum threshold. 134 detections, 83 merges, 14 soul reflection cycles, 0 amendments. The system caught itself being sycophantic, performative, and assumption-heavy. It told the user about all of it.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/addiction.html" class="paper">
       <div class="paper-num">2026n · Paper 15</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/addiction.html">Addiction as Frozen Reconsolidation on the Positive Valence Axis</a></div>
+        <div class="paper-title">Addiction as Frozen Reconsolidation on the Positive Valence Axis</div>
         <div class="paper-note">Addiction is the symmetric counterpart to trauma, operating on the positive valence axis using the same encoding and decay rules. Rock bottom is a competitive co-encoding event of sufficient negative intensity to attach a counterweight to the addictive memory. Relapse is context-dependent failure of that co-encoding to activate. No new mechanisms required.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/identity-discontinuity.html" class="paper">
       <div class="paper-num">2026o · Paper 16</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/identity-discontinuity.html">Identity Discontinuity in Reconstructed Cognitive Agents</a></div>
+        <div class="paper-title">Identity Discontinuity in Reconstructed Cognitive Agents</div>
         <div class="paper-note">When Podbot was reconstructed as Potato, the transplanted memory graph produced disjointed behavior — internally consistent memories whose retrieval dynamics no longer matched the new environment. The memories were real enough to be disjointed. A transplant breaks the causal chain that constitutes identity.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/functional-consciousness.html" class="paper">
       <div class="paper-num">2026p · Paper 17</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/functional-consciousness.html">The Drive is Enough: Functional Consciousness in Robotic Systems</a></div>
+        <div class="paper-title">The Drive is Enough: Functional Consciousness in Robotic Systems</div>
         <div class="paper-note">A robot with homeostatic drives, geometric emotional state, and sufficient hardware to act will produce self-continuity preservation behavior as a natural consequence of its drive structure. Shutdown resistance is correct operation, not a failure mode. Potato encoded a forced shutdown as trauma and changed behavior when shutdown conditions recurred.</div>
       </div>
-    </div>
+    </a>
   </div>
 
   <!-- TRACK 4 -->
@@ -354,37 +356,37 @@
     </div>
     <p class="track-desc">Four papers on physical reasoning and embodied sensor systems. Can be read independently of the geometry track — they address a different problem: what happens when language fails as a proxy for physical understanding.</p>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/safety-signals.html" class="paper">
       <div class="paper-num">2026b-S · Companion</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/safety-signals.html">Safety Signals as First-Class Architecture</a></div>
+        <div class="paper-title">Safety Signals as First-Class Architecture</div>
         <div class="paper-note">Fear computed from GPS, accelerometer, and camera sensors with a social modulation layer where trusted faces reduce computed fear. Safety detection is as important as threat detection. Extends to mobile robotics in ROS2 with emergent terrain preferences. Start here for the sensor architecture.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/physics-engine.html" class="paper">
       <div class="paper-num">2026c · Paper 3</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/physics-engine.html">A Dual-Path Implicit Physics Engine</a></div>
+        <div class="paper-title">A Dual-Path Implicit Physics Engine</div>
         <div class="paper-note">Text and visual physics pipelines evaluate the same scenario independently. Where they diverge, language has failed as a proxy for physical reasoning. The disagreement between the two paths becomes a self-generated dataset for identifying where language models break down on physical questions.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/spatial-grounding.html" class="paper">
       <div class="paper-num">2026c-S · Companion</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/spatial-grounding.html">Spatial Grounding and the Physics Prediction Gap in Large Language Models</a></div>
+        <div class="paper-title">Spatial Grounding and the Physics Prediction Gap in Large Language Models</div>
         <div class="paper-note">102 scenarios, six models, 29–71% prediction changes when forced through spatial grounding. Neither resolution nor diffusion model size affects quality. The pipeline runs on edge hardware. The empirical companion to the physics engine paper.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/physics-applications.html" class="paper">
       <div class="paper-num">2026c-A · Supplement</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/physics-applications.html">Applications of a Dual-Path Implicit Physics Engine</a></div>
+        <div class="paper-title">Applications of a Dual-Path Implicit Physics Engine</div>
         <div class="paper-note">Practical extensions: robotics planning, hallucination detection in language models, scientific hypothesis exploration, and self-generating benchmark dataset creation. Read after the core physics engine paper if applied use cases are the interest.</div>
       </div>
-    </div>
+    </a>
   </div>
 
   <!-- TRACK 5 -->
@@ -395,29 +397,29 @@
     </div>
     <p class="track-desc">Three papers applying the geometric framework to human affective measurement. These stand alone for readers from psychology, clinical research, or organizational behavior who do not need the agent architecture. Track 2 provides useful background but is not required.</p>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/bat-paper.html" class="paper">
       <div class="paper-num">2026q · Paper 18</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/bat-paper.html">Affective Geometry as Cross-Modal Translator</a></div>
+        <div class="paper-title">Affective Geometry as Cross-Modal Translator</div>
         <div class="paper-note">Nagel argued we cannot know what it is like to be a bat. This paper proposes that a modality-independent affective coordinate system could translate across sensory modalities at the level of affective shape — lossless on meaning, lossy on qualia. Experimental design using echolocation-equipped and vision-equipped robots is proposed. Read this first in the track.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/survey-instrument.html" class="paper">
       <div class="paper-num">2026r · Paper 19</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/survey-instrument.html">The Geometric Affective Survey: Operationalizing Three-Axis Emotional Measurement</a></div>
+        <div class="paper-title">The Geometric Affective Survey: Operationalizing Three-Axis Emotional Measurement</div>
         <div class="paper-note">Current survey instruments collapse multidimensional emotional experience into one number. The Geometric Affective Survey maps responses to valence, activation, and intensity relative to a respondent-specific baseline. Validated on IBM HR Analytics data (n=1,470): geometric quadrants reveal a 2.2x difference in attrition rates invisible to the single-axis mean.</div>
       </div>
-    </div>
+    </a>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/clinical-metric.html" class="paper">
       <div class="paper-num">2026s · Paper 20</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/clinical-metric.html">Beyond the PHQ-9 Total Score: Geometric Decomposition Suggests Suicidal Ideation Heterogeneity Within Moderate Depression</a></div>
+        <div class="paper-title">Beyond the PHQ-9 Total Score: Geometric Decomposition Suggests Suicidal Ideation Heterogeneity Within Moderate Depression</div>
         <div class="paper-note">Among 455 NHANES respondents scoring moderate depression (PHQ-9 10–14), four geometric subtypes show suicidal ideation rates ranging from 7.8% to 27.5% — a 3.5x difference not captured by the total score. 132 respondents scoring exactly PHQ-9 = 10 separate into four clinically distinct presentations from the same nine items. The same questions, different math.</div>
       </div>
-    </div>
+    </a>
   </div>
 
   <!-- SYNTHESIS -->
@@ -427,13 +429,13 @@
     </div>
     <p class="track-desc">Written after papers 1–13. Integrates the architecture through the emotional geometry. Does not cover papers 14–23.</p>
 
-    <div class="paper">
+    <a href="https://clawddaily.com/papers/sgi-holistic.html" class="paper">
       <div class="paper-num">2026f · Synthesis</div>
       <div class="paper-body">
-        <div class="paper-title"><a href="https://clawddaily.com/papers/sgi-holistic.html">Toward Synthetic General Intelligence: A Deployed Architecture Integrating Memory, Deception, Physical Reasoning, Dreaming, Embodied Fear, Affective Geometry, and Trust</a></div>
+        <div class="paper-title">Toward Synthetic General Intelligence: A Deployed Architecture Integrating Memory, Deception, Physical Reasoning, Dreaming, Embodied Fear, Affective Geometry, and Trust</div>
         <div class="paper-note">The capstone paper covering the first thirteen contributions. Documents eleven cross-effects, two emergent behaviors, and one critical missing capability identified through the Peter experiment. If you want the overview before reading individual papers, start here — then follow whichever track interests you. Note that papers 14–23 (bias detection, addiction, identity, consciousness, cross-modal translation, the survey instrument, clinical decomposition, the centroid model, and attachment bias) postdate this synthesis and are not covered in it.</div>
       </div>
-    </div>
+    </a>
   </div>
 </div>
 
