@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YAM Engine — Knowledge-Seeking Agent Architecture</title>
-    <meta name="description" content="YAM is a knowledge-seeking engine where search is perception, every result becomes memory, and retrieval uses meaning × relevance × life_history × recency_dominance. No LLM. Every fact earned.">
+    <meta name="description" content="YAM is a knowledge-seeking engine architecture where search functions as perception, retrieved results are stored as memory, and retrieval uses a four-factor scoring formula. Knowledge is acquired through directed search, not statistical pre-training.">
 
     <meta property="og:title" content="YAM Engine — Knowledge-Seeking Agent Architecture">
     <meta property="og:description" content="The vector store remembers what a memory means. The graph remembers how that memory lives.">
@@ -59,9 +59,9 @@
 
 <h1>YAM Engine</h1>
 
-<p><strong>A knowledge-seeking agent that learns everything through experience. No LLM. Every fact earned.</strong></p>
+<p><strong>A knowledge-seeking agent architecture that acquires knowledge through directed search rather than statistical pre-training.</strong></p>
 
-<p>YAM is the next step after <a href="/potato/">Potato</a>. Potato was an embodied memory-driven agent. YAM pushes toward a self-contained knowledge system where search is perception, every result becomes memory, and retrieval uses meaning, relevance, life history, and recency to determine what surfaces.</p>
+<p>YAM is the next step after <a href="/potato/">Potato</a>. Potato was an embodied memory-driven agent. YAM pushes toward a self-contained knowledge system where search functions as a form of perception, retrieved results are stored as memories with metadata, and retrieval considers meaning, relevance, life history, and recency when determining what surfaces.</p>
 
 <blockquote>The vector store remembers what a memory means. The graph remembers how that memory lives.</blockquote>
 
@@ -69,11 +69,11 @@
 
 <h2>What YAM Is Not</h2>
 
-<p><strong>Not an LLM.</strong> No generative model at the knowledge layer. Every fact in the graph was put there by a real answer to a real question. Nothing is in the graph that was not explicitly learned.</p>
+<p><strong>Not an LLM.</strong> The current architecture does not use a generative language model at the knowledge layer. Nodes in the graph are populated through directed search results and operator input, not through statistical text generation. This does not preclude the future addition of a language model for output formatting, but the knowledge store itself is constructed through retrieval, not generation.</p>
 
 <p><strong>Not a chatbot.</strong> YAM does not generate text, summarize, or infer. It retrieves, ranks, and presents structured knowledge. When it does not know something, it says so.</p>
 
-<p><strong>Not RAG.</strong> Retrieval-augmented generation still uses a generative model at the output layer. YAM uses no generative model anywhere. The knowledge comes from the graph. The form comes from the retrieval ranking. Nothing is fabricated.</p>
+<p><strong>Not RAG.</strong> Retrieval-augmented generation uses a generative model at the output layer to synthesize retrieved content into prose. In the current YAM architecture, responses are ranked retrieved content presented directly, not text generated from retrieved context. This is a design choice that eliminates one source of confabulation at the cost of less fluent output.</p>
 
 <hr>
 
@@ -81,7 +81,7 @@
 
 <h3>The Parliament of Mind</h3>
 
-<p>YAM runs on the SPUD engine (Self-developing Perceptual Understanding Drive). The Parliament is not three language model personas with different system prompts. It is three different graph operations running on the same data structure. Each engine is a SQLite knowledge graph with sqlite-vec vector embeddings. No engine generates text. No engine predicts tokens. Every engine traverses, validates, or constrains a graph.</p>
+<p>YAM runs on the SPUD engine (Self-developing Perceptual Understanding Drive). The Parliament is not three language model personas with different system prompts. It is three different graph operations running on the same data structure. Each engine is a SQLite knowledge graph with sqlite-vec vector embeddings. In the current architecture, the engines do not use language models for text generation or token prediction. Each engine traverses, validates, or constrains a graph.</p>
 
 <table>
     <thead>
@@ -123,7 +123,7 @@
 
 <h3>What This Is Not</h3>
 
-<p>This is not a multi-agent LLM framework. There is no language model generating any response at any layer. The engines do not have system prompts. They do not predict the next token. They execute graph queries: vector similarity search (cosine distance on 384-dimensional embeddings), edge traversal (SQL recursive CTEs), and node comparison (pairwise cosine similarity for contradiction detection). The output is retrieved content ranked by a four-factor formula, not generated text.</p>
+<p>This is not a multi-agent LLM framework. In the current implementation, the engines execute graph queries rather than language model inference: vector similarity search (cosine distance on 384-dimensional embeddings), edge traversal (SQL recursive CTEs), and node comparison (pairwise cosine similarity for contradiction detection). The output is retrieved content ranked by a four-factor formula. A language model could be added as an output formatting layer without changing the underlying graph architecture, but the current design presents retrieved content directly to preserve traceability between the response and the stored knowledge that produced it.</p>
 
 <h3>Search as Perception</h3>
 
@@ -198,7 +198,7 @@
 
 <h2>Honest Failure Modes</h2>
 
-<p>The system never guesses. It never fills gaps with plausible-sounding noise. Honesty is not a design choice. It is a structural property &mdash; there is no generative layer capable of fabrication.</p>
+<p>The current architecture has no generative layer that could fill gaps with plausible-sounding text. This reduces one category of error (confabulation) but does not eliminate all error &mdash; the system can still retrieve incorrect information from Brave Search, rank it highly, and present it as an answer. The honest failure modes are designed to surface uncertainty rather than mask it, but they depend on threshold calibration that is still in progress.</p>
 
 <table>
     <thead>
@@ -315,13 +315,13 @@
 
 <h2>Papers</h2>
 
-<p>YAM&rsquo;s architecture draws on 22 companion papers available at <a href="/papers/">clawddaily.com/papers</a>. The memory model, emotional geometry, centroid model, and decay mechanics are all formalized and experimentally validated.</p>
+<p>YAM&rsquo;s architecture draws on 22 companion papers available at <a href="/papers/">clawddaily.com/papers</a>. The memory model, emotional geometry, centroid model, and decay mechanics are formalized in those papers. Agent-based validation has been conducted on the centroid model (4 scenarios, 110 cycles). The retrieval formula and context resolution mechanics described here are in early testing and have not been independently validated.</p>
 
 <hr>
 
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
-    An entity that is born knowing how to feel and how to ask,<br>
-    and learns everything else through experience.
+    An architecture designed to acquire knowledge through directed inquiry<br>
+    rather than statistical co-occurrence.
 </p>
 
     </main>
