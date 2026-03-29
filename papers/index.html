@@ -1,264 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reader's Companion — The Potato Papers</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
-
-  :root {
-    --ink: #1a1a18;
-    --paper: #f5f2eb;
-    --rule: #c8c2b4;
-    --accent: #8b3a2a;
-    --muted: #6b6660;
-    --track-1: #2a4a3a;
-    --track-2: #2a3a5a;
-    --track-3: #4a2a4a;
-    --track-4: #4a3a1a;
-    --track-5: #1a3a4a;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 18px;
-    line-height: 1.7;
-  }
-
-  /* Header */
-  header {
-    border-bottom: 2px solid var(--ink);
-    padding: 3rem 0 2rem;
-    text-align: center;
-  }
-
-  .site-name {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-
-  .site-name a {
-    color: var(--muted);
-    text-decoration: none;
-  }
-
-  .site-name a:hover { color: var(--accent); }
-
-  h1 {
-    font-size: 2.4rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.5rem;
-  }
-
-  .subtitle {
-    color: var(--muted);
-    font-style: italic;
-    font-size: 1.1rem;
-  }
-
-  /* Layout */
-  .container {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  /* Intro */
-  .intro {
-    padding: 2.5rem 0 2rem;
-    border-bottom: 1px solid var(--rule);
-    color: var(--muted);
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-
-  /* Track nav */
-  .track-nav {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .track-pill {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.8rem;
-    border-radius: 2px;
-    text-decoration: none;
-    color: var(--paper);
-    transition: opacity 0.15s;
-  }
-
-  .track-pill:hover { opacity: 0.8; }
-  .t1 { background: var(--track-1); }
-  .t2 { background: var(--track-2); }
-  .t3 { background: var(--track-3); }
-  .t4 { background: var(--track-4); }
-  .t5 { background: var(--track-5); }
-
-  /* Sections */
-  section {
-    padding: 3rem 0 1.5rem;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  section:last-of-type { border-bottom: none; }
-
-  .track-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 0.4rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-  }
-
-  .track-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.2rem 0.6rem;
-    border-radius: 2px;
-    color: var(--paper);
-  }
-
-  .track-desc {
-    color: var(--muted);
-    font-style: italic;
-    margin-bottom: 2rem;
-    font-size: 0.95rem;
-  }
-
-  /* Paper entries */
-  .paper {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0 1.5rem;
-    margin-bottom: 1.6rem;
-    padding-bottom: 1.6rem;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .paper:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  .paper-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    padding-top: 0.3rem;
-    white-space: nowrap;
-  }
-
-  .paper-body {}
-
-  .paper-title {
-    font-size: 1.05rem;
-    font-weight: 500;
-    line-height: 1.4;
-    margin-bottom: 0.3rem;
-  }
-
-  .paper-title a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--rule);
-    transition: border-color 0.15s, color 0.15s;
-  }
-
-  .paper-title a:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .paper-note {
-    font-size: 0.92rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* Synthesis callout */
-  .synthesis {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 2rem 2.5rem;
-    margin: 2rem 0 0;
-    border-radius: 2px;
-  }
-
-  .synthesis h2 {
-    color: var(--paper);
-    margin-bottom: 0.3rem;
-  }
-
-  .synthesis .track-desc {
-    color: rgba(245,242,235,0.6);
-    margin-bottom: 1.5rem;
-  }
-
-  .synthesis .paper-num { color: rgba(245,242,235,0.4); }
-  .synthesis .paper-title a { color: var(--paper); border-color: rgba(245,242,235,0.3); }
-  .synthesis .paper-title a:hover { color: #d4a090; border-color: #d4a090; }
-  .synthesis .paper-note { color: rgba(245,242,235,0.6); }
-  .synthesis .paper { border-color: rgba(245,242,235,0.15); }
-
-  /* Footer */
-  footer {
-    padding: 2rem 0;
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-transform: uppercase;
-    border-top: 2px solid var(--ink);
-    margin-top: 3rem;
-  }
-
-  footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { color: var(--accent); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader's Companion — The Potato Papers</title>
+    <meta name="description" content="Twenty-three papers on persistent embodied AI agents organized into five reading tracks. A guided companion to the Potato paper series.">
+    <meta property="og:title" content="Reader's Companion — The Potato Papers">
+    <meta property="og:description" content="Twenty-three papers organized into five reading tracks: Foundation, Geometry, Behavior, Embodiment, and Clinical Applications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://clawddaily.com/papers/">
+    <link rel="canonical" href="https://clawddaily.com/papers/">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .companion-intro {
+            max-width: 720px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            padding-top: 3rem;
+        }
+        .companion-intro h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .companion-intro .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .companion-intro p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .track-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 720px;
+            margin: 0 auto 2.5rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .track-pill {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.35rem 0.9rem;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #fff;
+            transition: opacity 0.15s;
+        }
+        .track-pill:hover { opacity: 0.8; text-decoration: none; }
+        .t1 { background: #2d6a4f; }
+        .t2 { background: #1d4ed8; }
+        .t3 { background: #7e22ce; }
+        .t4 { background: #b45309; }
+        .t5 { background: #0e7490; }
+        .track-section {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        .track-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .track-header h2 {
+            font-size: 1.5rem;
+            color: var(--text);
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+        .track-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            color: #fff;
+        }
+        .track-desc {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .paper {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 0 1.25rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 0.75rem;
+            transition: border-color 0.2s;
+        }
+        .paper:hover {
+            border-color: var(--accent);
+        }
+        .paper-num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding-top: 0.15rem;
+        }
+        .paper-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 0.3rem;
+        }
+        .paper-title a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        .paper-title a:hover {
+            color: var(--accent);
+        }
+        .paper-note {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+        .synthesis-section {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            background: rgba(88, 166, 255, 0.06);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        .synthesis-section h2 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .synthesis-section .track-desc {
+            color: var(--text-muted);
+        }
+        .synthesis-section .paper {
+            background: var(--bg-secondary);
+            border-color: var(--border);
+        }
+        .synthesis-section .paper-num { color: var(--accent); }
+    </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/" class="active">Research</a></li>
+                <li><a href="/yam/">YAM</a></li>
+                <li><a href="/thesis/">Thesis</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<header>
-  <div class="container">
-    <div class="site-name"><a href="https://clawddaily.com">Clawd Daily</a> · <a href="https://clawddaily.com/papers">Research Papers</a></div>
-    <h1>Reader's Companion</h1>
-    <p class="subtitle">A guide to twenty-three papers on persistent embodied AI agents</p>
-  </div>
-</header>
+    <main>
+        <section class="companion-intro">
+            <h1>Reader's Companion</h1>
+            <p class="subtitle">The Potato Papers &middot; Brian Riggleman &middot; 2026</p>
+            <p>Twenty-three papers do not arrive in the order they should be read. This guide organizes them into five tracks. Each track is self-contained. Read one or all five. The synthesis paper (2026f) integrates everything through paper 2026m &mdash; if you want the overview first, start there, then follow whichever track interests you most.</p>
+        </section>
 
-<div class="container">
-
-  <div class="intro">
-    <p>Twenty-three papers do not arrive in the order they should be read. This guide organizes them into five tracks. Each track is self-contained. Read one or all five. The synthesis paper (2026f) integrates everything through paper 2026m — if you want the overview first, start there, then follow whichever track interests you most.</p>
-  </div>
-
-  <nav class="track-nav">
+        <nav class="track-nav">
+            <a class="track-pill t1" href="#track-1">Track 1 &middot; Foundation</a>
+            <a class="track-pill t2" href="#track-2">Track 2 &middot; Geometry</a>
+            <a class="track-pill t3" href="#track-3">Track 3 &middot; Behavior</a>
+            <a class="track-pill t4" href="#track-4">Track 4 &middot; Embodiment</a>
+            <a class="track-pill t5" href="#track-5">Track 5 &middot; Clinical</a>
+        </nav>
+<nav class="track-nav">
     <a class="track-pill t1" href="#track-1">Track 1 · Foundation</a>
     <a class="track-pill t2" href="#track-2">Track 2 · Geometry</a>
     <a class="track-pill t3" href="#track-3">Track 3 · Behavior</a>
@@ -267,7 +201,7 @@
   </nav>
 
   <!-- TRACK 1 -->
-  <section id="track-1">
+  <div class="track-section" id="track-1">
     <div class="track-header">
       <h2>Track 1 · Foundation</h2>
       <span class="track-label t1">Start here</span>
@@ -305,10 +239,10 @@
         <div class="paper-note">Fear was the first affective variable. This paper argues that building only fear is building half an organism. Joy and fear are two poles of a single continuous variable. Every sensor reading pushes the agent somewhere on the spectrum — there is no neutral state.</div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- TRACK 2 -->
-  <section id="track-2">
+  <div class="track-section" id="track-2">
     <div class="track-header">
       <h2>Track 2 · Geometry</h2>
       <span class="track-label t2">Core theory</span>
@@ -362,10 +296,10 @@
         <div class="paper-note">Why does the same geometric position produce different behavior depending on who is in the room? Introduces entity-specific attachment weights stored on world model entities. Love is high positive stickiness. Hatred is the symmetric counterpart. Grief, anger, estrangement, paranoia, and reconciliation all fall out of the same structure. Adds a new category of protected bias &mdash; constitutive of relationships rather than an error in reasoning.</div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- TRACK 3 -->
-  <section id="track-3">
+  <div class="track-section" id="track-3">
     <div class="track-header">
       <h2>Track 3 · Behavior and Failure Modes</h2>
       <span class="track-label t3">What goes wrong</span>
@@ -411,10 +345,10 @@
         <div class="paper-note">A robot with homeostatic drives, geometric emotional state, and sufficient hardware to act will produce self-continuity preservation behavior as a natural consequence of its drive structure. Shutdown resistance is correct operation, not a failure mode. Potato encoded a forced shutdown as trauma and changed behavior when shutdown conditions recurred.</div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- TRACK 4 -->
-  <section id="track-4">
+  <div class="track-section" id="track-4">
     <div class="track-header">
       <h2>Track 4 · Embodiment and Physics</h2>
       <span class="track-label t4">The body</span>
@@ -452,10 +386,10 @@
         <div class="paper-note">Practical extensions: robotics planning, hallucination detection in language models, scientific hypothesis exploration, and self-generating benchmark dataset creation. Read after the core physics engine paper if applied use cases are the interest.</div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- TRACK 5 -->
-  <section id="track-5">
+  <div class="track-section" id="track-5">
     <div class="track-header">
       <h2>Track 5 · Clinical and Survey Applications</h2>
       <span class="track-label t5">Beyond the agent</span>
@@ -485,10 +419,10 @@
         <div class="paper-note">Among 455 NHANES respondents scoring moderate depression (PHQ-9 10–14), four geometric subtypes show suicidal ideation rates ranging from 7.8% to 27.5% — a 3.5x difference not captured by the total score. 132 respondents scoring exactly PHQ-9 = 10 separate into four clinically distinct presentations from the same nine items. The same questions, different math.</div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- SYNTHESIS -->
-  <div class="synthesis">
+  <div class="synthesis-section">
     <div class="track-header">
       <h2>Synthesis</h2>
     </div>
@@ -502,7 +436,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <footer>
@@ -511,7 +444,18 @@
     <a href="https://clawddaily.com/papers">All Papers</a> &nbsp;·&nbsp;
     <a href="https://clawddaily.com/author/brian-riggleman.html">Brian Riggleman</a>
   </div>
-</footer>
 
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/">Home</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
 </body>
 </html>
