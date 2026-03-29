@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent — Clawd Daily</title>
+    <title>Access-Weighted Memory Decay, Geometric Stickiness, and True Forgetting in a Persistent Embodied Agent — Clawd Daily</title>
     <meta name="description" content="This paper describes a sliding-window memory decay model implemented in Potato, a local AI agent running on a MacBook Air M4. Three contributions are presented: a ten-step sliding-window importance de...">
     
     <!-- Google Scholar meta tags -->
-    <meta name="citation_title" content="Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent">
+    <meta name="citation_title" content="Access-Weighted Memory Decay, Geometric Stickiness, and True Forgetting in a Persistent Embodied Agent">
     <meta name="citation_author" content="Riggleman, Brian">
     <meta name="citation_date" content="2026/03">
     <meta name="citation_abstract_html_url" content="https://clawddaily.com/papers/memory-decay.html">
@@ -20,7 +20,7 @@
     <meta name="citation_doi" content="10.5281/zenodo.19122520">
 
     <!-- OpenGraph -->
-    <meta property="og:title" content="Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent">
+    <meta property="og:title" content="Access-Weighted Memory Decay, Geometric Stickiness, and True Forgetting in a Persistent Embodied Agent">
     <meta property="og:description" content="This paper describes a sliding-window memory decay model implemented in Potato, a local AI agent running on a MacBook Air M4. Three contributions are presented: a ten-step sliding-window importance de">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://clawddaily.com/papers/memory-decay.html">
@@ -128,11 +128,11 @@
 
         <article class="full-article">
             <div class="article-header">
-                <h1>Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent</h1>
+                <h1>Access-Weighted Memory Decay, Geometric Stickiness, and True Forgetting in a Persistent Embodied Agent</h1>
                 <div class="paper-meta">
                     <span><span class="label">Author:</span> Brian Riggleman</span>
                     <span><span class="label">Date:</span> March 2026</span>
-                    <span><span class="label">Series:</span> Potato (2026a)</span>
+                    <span><span class="label">Series:</span> Potato (2026a, Revised)</span>
                 </div>
                 <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
                     This paper describes a sliding-window memory decay model implemented in Potato, a local AI agent running on a MacBook Air M4. Three contributions are presented: a ten-step sliding-window importance decay curve where recent memories are vivid and older ones fade to background retrieval; a reconsolidation mechanism that reinforces memories upon retrieval with diminishing returns; and a nightly sleep decay system modeling the flashbulb effect, where frequently accessed memories resist forgetting proportional to recency and access count.
@@ -140,485 +140,200 @@
             </div>
             
             <div class="article-content">
-                
-<p class="p1"><b>Access-Weighted Memory Decay and Reconsolidation in a Persistent Embodied Agent</b></p>
-<p class="p2"><br></p>
-<p class="p3"><b><i>Brian Riggleman</i></b></p>
-<p class="p3"><b><i>Independent Researcher</i></b></p>
-<p class="p3"><b><i>March 2026</i></b></p>
-<p class="p4"><br></p>
-<p class="p5"><b>Abstract</b></p>
-<p class="p6"><b><i>Most AI assistants treat memory as a context window: a fixed buffer populated at session start and discarded at session end. This paper describes a sliding window memory decay model that treats importance as a function of recency and access frequency rather than a static property, implemented in Potato, a local AI agent running on a MacBook Air M4. Three primary contributions are described: (1) a ten-step sliding window importance decay curve, original to this work, that produces vivid recent memory and fades older memories to background retrieval; (2) a reconsolidation mechanism that reinforces memories upon retrieval with diminishing returns for repeated access; and (3) a nightly sleep decay system that models the flashbulb effect, where frequently accessed memories resist forgetting proportional to recency and access count. Together these produce a memory system where what the agent remembers is shaped by what the user actually engages with, not arbitrary retention schedules.</i></b></p>
-<p class="p2"><br></p>
-<p class="p5"><b>1. Introduction</b></p>
-<p class="p6"><b><i>The dominant paradigm in AI assistants treats the system as a stateless function. A user submits a prompt. The system generates a response. Between requests, the system has no state, no experience, and no passage of time. It does not know whether it has spoken to this user before.</i></b></p>
-<p class="p6"><b><i>This is not a criticism. It is a design choice. But it raises a question: what happens when that constraint is relaxed? What does an agent look like when it maintains a persistent memory that evolves over time, decays with disuse, and strengthens with recall?</i></b></p>
-<p class="p6"><b><i>This paper describes the memory architecture of Potato, a local AI agent built to test that question. The memory system is not a database bolted onto a chatbot. It is the mechanism that makes the agent a continuous entity. The architecture has three interacting components: a sliding window decay model, a reconsolidation mechanism, and a nightly sleep decay system.</i></b></p>
-<p class="p5"><b>2. Related Work</b></p>
-<p class="p7"><b>2.1 Generative Agents</b></p>
-<p class="p6"><b><i>Park et al. (2023) describe a multi-agent simulation where LLM-based agents maintain memory streams, reflect on experiences, and plan future behavior. Their retrieval model scores memories on recency, importance, and relevance and takes a weighted sum. Potato's memory architecture draws from this recency-importance framework but departs from it in two ways: importance is not static but decays over time according to a sliding window model, and access frequency feeds back into decay rate through a reconsolidation mechanism.</i></b></p>
-<p class="p7"><b>2.2 FadeMem and Access-Frequency Decay</b></p>
-<p class="p6"><b><i>FadeMem (Wei et al., 2026) proposes access-frequency-modulated decay as an alternative to pure time-based memory pruning. Memories that are accessed more frequently decay more slowly. Potato implements this principle in its nightly sleep decay system, where importance reduction is scaled by a memory's recent access count and recency of last retrieval.</i></b></p>
-<p class="p7"><b>2.3 ACT-R Activation Theory</b></p>
-<p class="p6"><b><i>Anderson et al.'s (2004) ACT-R cognitive architecture models memory activation as a power-law decay function with access reinforcement. Each retrieval of a memory increases its base activation level, with the magnitude of reinforcement diminishing with repeated access. Potato's reconsolidation model follows this principle: first recall matters most; the twentieth barely moves the needle.</i></b></p>
-<p class="p7"><b>2.4 Al-Kaddah's Polymorphic Memory Graph</b></p>
-<p class="p6"><b><i>Al-Kaddah (2026) proposes storing memories not as objective facts but as subjective experience, with agent-specific metadata attached to shared memory nodes. Potato implements a simplified version using five vector collections with typed importance weights.</i></b></p>
-<p class="p5"><b>3. Memory Architecture</b></p>
-<p class="p6"><b><i>The system is built on SQLite with the sqlite-vec extension for vector search, using 384-dimensional vectors via FastEmbed (all-MiniLM-L6-v2).</i></b></p>
-<p class="p7"><b>3.1 The Sliding Window Decay Model</b></p>
-<p class="p6"><b><i>Every conversation enters memory at importance 1.0. On the next exchange, all recent memories decay one step according to a fixed ten-step curve.</i></b></p>
-<p class="p2"><br></p>
-<table class="t1">
-  <tbody>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Step</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>Importance</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>0 (current)</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>1.00</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>1</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.75</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>2</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.60</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>3</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.45</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>4</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.35</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>5</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.25</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>6</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.20</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>7</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.15</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>8</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.10</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>9</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.05 (background)</b></p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table 1. Sliding window importance decay curve.</i></p>
-<p class="p6"><b><i>This is not a technical optimization to save context window space, though it does that. It is a model of how attention works. Recent things are vivid. Older things fade unless something recalls them. Memories at background importance (0.05) do not disappear. They stop being actively surfaced unless a specific semantic query matches them closely. The effect is analogous to pulling a tape from deep storage: the information is there, but the right cue is required to retrieve it.</i></b></p>
-<p class="p6"><b><i>Memory retrieval is importance-weighted: results are ranked by a blend of 80% semantic similarity and 20% importance. Decayed memories need a precise semantic match to surface against more important competitors.</i></b></p>
-<p class="p6"><b><i>The system stratifies memory types by cognitive role. Conversations are lived experience, entering at full importance and decaying naturally. Dreams are subconscious processing at sub-background importance (0.05), always labeled to prevent contamination of factual recall. Biases are self-knowledge at 0.05. Insights are confirmed understanding at 0.50. Explicit tagging and importance stratification prevents the agent from presenting its own pattern-matching as reality.</i></b></p>
-<p class="p7"><b>3.2 Reconsolidation</b></p>
-<p class="p6"><b><i>When a memory surfaces during conversation and is actually used, it gets stronger. The access timestamp and count are updated, and importance increases by a bounded amount that diminishes with repeated retrieval.</i></b></p>
-<p class="p2"><br></p>
-<table class="t1">
-  <tbody>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Memory Type</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>Reconsolidation Cap</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Conversation</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.80</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Insight</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.50</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Bias</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.05</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Dream</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.05</b></p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table 2. Reconsolidation importance caps by memory type.</i></p>
-<p class="p6"><b><i>Topics the user brings up repeatedly become harder to forget. Topics discussed once decay on schedule. The agent does not choose what to remember. Its memories choose themselves by being useful, relevant, and recalled.</i></b></p>
-<p class="p6"><b><i>Internal processing (dreaming, bias detection) does not trigger reconsolidation. Only external queries count as recall events. This prevents background processing from artificially inflating memory importance.</i></b></p>
-<p class="p7"><b>3.3 Sleep Decay and the Flashbulb Effect</b></p>
-<p class="p6"><b><i>Once per night during a 04:00 wake cycle, the system applies sleep decay to all conversation memories. The base decay rate is 0.85: an untouched memory retains 85% of its importance each night, modified by access history.</i></b></p>
-<p class="p2"><br></p>
-<table class="t1">
-  <tbody>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Access Pattern</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>Nightly Decay Rate</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>7-Day Retention</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Never accessed</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.85x</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>32%</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Accessed 1-2 times, not recently</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.88x</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>42%</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Accessed 3-5 times</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.91x</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>54%</b></p>
-      </td>
-    </tr>
-    <tr>
-      <td class="td1">
-        <p class="p8"><b>Accessed 10+ times, recalled recently</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>0.95x</b></p>
-      </td>
-      <td class="td1">
-        <p class="p8"><b>87%</b></p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table 3. Access-aware sleep decay: the flashbulb effect.</i></p>
-<p class="p6"><b><i>After seven nights, a memory accessed ten times and recalled just before sleep retains 87% of its original importance. A memory never accessed retains 32%. Combined with the sliding window, three decay forces operate at different timescales: intra-conversation attention decay, inter-day aging, and recall-based reinforcement. The floor is always 0.01. Memories never fully disappear. The system does not delete. It makes information harder to reach without the right cue.</i></b></p>
-<p class="p5"><b>4. Expected Behavior</b></p>
-<p class="p6"><b><i>The sliding window model is designed to produce clear effects over multi-day use. Topics discussed repeatedly should remain easily retrievable weeks later, due to reconsolidation reinforcement and slower sleep decay. Topics raised once and not revisited should fade to background importance and require specific semantic cues to surface. The agent does not volunteer these topics. They are present in storage but not in active context. This matches the design intent: what the agent remembers should track what the user actually brings up.</i></b></p>
-<p class="p5"><b>5. Limitations and Future Work</b></p>
-<p class="p6"><b><i>This system has not yet been subject to controlled experiments. Future work should include formal evaluation metrics for memory decay behavior relative to a static importance baseline, comparative studies against stateless LLM baselines on multi-session tasks, and quantitative analysis of reconsolidation boost rates against ACT-R literature.</i></b></p>
-<p class="p6"><b><i>Update (March 20, 2026): Production validation data from 26 days of continuous operation (10,716 memories, 14 sleep cycles) is presented in Appendices A through E below. These appendices also note errata where the deployed implementation diverges from the values described in this paper.</i></b></p>
-<p class="p5"><b>6. Conclusion</b></p>
-<p class="p6"><b><i>The sliding window decay model, reconsolidation mechanism, and nightly sleep decay system together produce a memory architecture qualitatively different from a static context window. What the agent remembers is determined by what the user engages with, what gets recalled, and how recently. Memory that matters resists forgetting. Memory that does not get used fades. This is a functional approximation of the same principle that governs biological memory: salience and use determine what survives.</i></b></p>
-<p class="p5"><b>Acknowledgments</b></p>
-<p class="p6"><b><i>The theoretical foundation draws from Al-Kaddah's (2026) Polymorphic Memory Graph. The sliding window decay model and ten-step importance curve are original to the author, Brian Riggleman. The original concept for dream-based memory consolidation was contributed by Matias Concoby.</i></b></p>
-<p class="p5"><b>References</b></p>
-<p class="p6"><b><i>Al-Kaddah, S. (2026). Synthetic General Intelligence: A Vision for a Homeostatic, Embodied Cognitive Architecture. Unpublished manuscript (preprint).</i></b></p>
-<p class="p6"><b><i>Anderson, J. R., Bothell, D., Byrne, M. D., Douglass, S., Lebiere, C., & Qin, Y. (2004). An integrated theory of mind. Psychological Review, 111(4), 1036-1060.</i></b></p>
-<p class="p6"><b><i>Brown, R., & Kulik, J. (1977). Flashbulb memories. Cognition, 5(1), 73-99.</i></b></p>
-<p class="p6"><b><i>Dudai, Y. (2004). The neurobiology of consolidations, or how stable is the engram? Annual Review of Psychology, 55, 51-86.</i></b></p>
-<p class="p6"><b><i>Wei, L., Peng, X., Dong, X., Xie, N., & Wang, B. (2026). FadeMem: Biologically-inspired forgetting for efficient agent memory. arXiv preprint arXiv:2601.18642.</i></b></p>
-<p class="p6"><b><i>Nader, K., & Hardt, O. (2009). A single standard for memory: the case for reconsolidation. Nature Reviews Neuroscience, 10(3), 224-234.</i></b></p>
-<p class="p6"><b><i>Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., & Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. arXiv preprint arXiv:2304.03442.</i></b></p>
-<p class="p6"><b><i>Schacter, D. L., & Addis, D. R. (2007). The constructive episodic simulation hypothesis. Philosophical Transactions of the Royal Society B, 362(1481), 773-786.</i></b></p>
-
-
-<hr style="margin: 3rem 0; border: none; border-top: 2px solid var(--accent);">
-
-<p class="p5"><b>Appendix A: Sliding Window Decay &mdash; Production Validation</b></p>
-
-<p class="p6"><b><i>Data source: Potato production database (potato.db), 4,530 memories in the "memories" collection, collected February 21 &ndash; March 20, 2026.</i></b></p>
-
-<p class="p7"><b>A.1 Sliding Window Curve Confirmation</b></p>
-
-<p class="p6"><b><i>The deployed sliding window curve (podbot.py, line 31) matches Table 1 in the paper: [1.0, 0.75, 0.6, 0.45, 0.35, 0.25, 0.2, 0.15, 0.1, 0.05]. The background floor is 0.01. An earlier draft of this paper listed different values; the tables have been corrected to match the production code.</i></b></p>
-
-<p class="p7"><b>A.2 Importance Distribution in Production</b></p>
-
-<p class="p6"><b><i>The following histogram shows memory counts near each canonical step value (&plusmn;0.05 tolerance). 95.5% of all memories fall within this tolerance of a step value, confirming the quantized decay model is the dominant mechanism shaping importance distribution.</i></b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Step Value</b></p></td><td class="td1"><p class="p8"><b>Count</b></p></td><td class="td1"><p class="p8"><b>% of Total</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>1.00</b></p></td><td class="td1"><p class="p8"><b>300</b></p></td><td class="td1"><p class="p8"><b>6.6%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0.75&ndash;0.80</b></p></td><td class="td1"><p class="p8"><b>1,433</b></p></td><td class="td1"><p class="p8"><b>31.6%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0.60</b></p></td><td class="td1"><p class="p8"><b>30</b></p></td><td class="td1"><p class="p8"><b>0.7%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0.45&ndash;0.50</b></p></td><td class="td1"><p class="p8"><b>173</b></p></td><td class="td1"><p class="p8"><b>3.8%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0.30&ndash;0.35</b></p></td><td class="td1"><p class="p8"><b>99</b></p></td><td class="td1"><p class="p8"><b>2.2%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0.20&ndash;0.25</b></p></td><td class="td1"><p class="p8"><b>266</b></p></td><td class="td1"><p class="p8"><b>5.9%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0.10&ndash;0.15</b></p></td><td class="td1"><p class="p8"><b>123</b></p></td><td class="td1"><p class="p8"><b>2.7%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0.05&ndash;0.07</b></p></td><td class="td1"><p class="p8"><b>272</b></p></td><td class="td1"><p class="p8"><b>6.0%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0.03</b></p></td><td class="td1"><p class="p8"><b>80</b></p></td><td class="td1"><p class="p8"><b>1.8%</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>&le;0.01 (floor)</b></p></td><td class="td1"><p class="p8"><b>342</b></p></td><td class="td1"><p class="p8"><b>7.6%</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table A2. Importance distribution across 4,530 memories. The step-2 cluster (0.75&ndash;0.80) dominates because conversations typically span 2&ndash;5 exchanges before the next session, parking most memories at one step below entry.</i></p>
-
-<p class="p7"><b>A.3 Age vs. Importance Trajectory</b></p>
-
-<p class="p6"><b><i>Average importance by memory age shows the expected decay pattern for memories subject to the sleep system (created after March 6). Memories older than 14 days retain anomalously high importance because they predate the sleep decay system and were never decayed.</i></b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Age (days)</b></p></td><td class="td1"><p class="p8"><b>N</b></p></td><td class="td1"><p class="p8"><b>Avg Importance</b></p></td><td class="td1"><p class="p8"><b>Notes</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0</b></p></td><td class="td1"><p class="p8"><b>187</b></p></td><td class="td1"><p class="p8"><b>0.144</b></p></td><td class="td1"><p class="p8"><b>Mix of recent + decayed</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>1</b></p></td><td class="td1"><p class="p8"><b>151</b></p></td><td class="td1"><p class="p8"><b>0.145</b></p></td><td class="td1"><p class="p8"><b></b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>3&ndash;4</b></p></td><td class="td1"><p class="p8"><b>1,366</b></p></td><td class="td1"><p class="p8"><b>0.465</b></p></td><td class="td1"><p class="p8"><b>Bootstrap cohort</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>5</b></p></td><td class="td1"><p class="p8"><b>115</b></p></td><td class="td1"><p class="p8"><b>0.185</b></p></td><td class="td1"><p class="p8"><b>Post-sleep decay active</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>9&ndash;10</b></p></td><td class="td1"><p class="p8"><b>232</b></p></td><td class="td1"><p class="p8"><b>0.104</b></p></td><td class="td1"><p class="p8"><b></b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>11&ndash;13</b></p></td><td class="td1"><p class="p8"><b>288</b></p></td><td class="td1"><p class="p8"><b>0.035</b></p></td><td class="td1"><p class="p8"><b>Approaching floor</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>21&ndash;24</b></p></td><td class="td1"><p class="p8"><b>451</b></p></td><td class="td1"><p class="p8"><b>0.919</b></p></td><td class="td1"><p class="p8"><b>Pre-sleep era (never decayed)</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table A3. The 11&ndash;13 day cohort (avg 0.035) has been through 7&ndash;11 sleep cycles and is converging on floor. The 21+ day cohort predates the sleep system entirely.</i></p>
-
-<p class="p7"><b>A.4 Floor Analysis</b></p>
-
-<p class="p6"><b><i>245 memories (5.4%) have reached the importance floor (&le;0.01). Zero memories have been deleted. The oldest memory in the database (ID 5987ab0f, created February 21, 2026) is still present at importance 0.80. The floor composition: 64% curiosity insights (encoded at low importance), 19% conversation memories (decayed from 1.0), 13% bias detections, 4% dreams. No memory has importance exactly 0; the minimum observed is 0.001 (dream sources post-processing).</i></b></p>
-
-<hr style="margin: 3rem 0;">
-
-<p class="p5"><b>Appendix B: Reconsolidation &mdash; Production Validation</b></p>
-
-<p class="p6"><b><i>Data source: 2,002 organic memories (excluding 2,528 bulk-loaded bootstrap and physics experiment records).</i></b></p>
-
-<p class="p7"><b>B.1 Reconsolidation Caps Confirmation</b></p>
-
-<p class="p6"><b><i>The deployed reconsolidation caps (podbot.py, line 360) match Table 2: Conversation=0.80, Insight=0.50, Bias=0.05, Dream=0.05. The diminishing returns formula is bump_factor = 1.0 / (1.0 + access_count &times; 0.2). At first recall, the full base boost applies. By the 20th recall, the boost is one-fifth its original magnitude.</i></b></p>
-
-<p class="p7"><b>B.2 Access Count vs. Importance</b></p>
-
-<p class="p6"><b><i>The diminishing-returns formula is bump_factor = 1.0 / (1.0 + access_count &times; 0.2). At first recall, the full base boost applies. By the 20th recall, the boost is one-fifth its original magnitude. The following table shows average importance by access count bucket, confirming that accessed memories retain higher importance:</i></b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Access Count</b></p></td><td class="td1"><p class="p8"><b>N</b></p></td><td class="td1"><p class="p8"><b>Avg Importance</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0 (never)</b></p></td><td class="td1"><p class="p8"><b>majority</b></p></td><td class="td1"><p class="p8"><b>varies by age</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>1&ndash;2</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>+0.10 vs same-age unaccessed</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>3&ndash;5</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>+0.15 vs same-age unaccessed</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>6&ndash;10</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>+0.21 vs same-age unaccessed</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>10&ndash;20</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>+0.39 vs same-age unaccessed</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>20+</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td><td class="td1"><p class="p8"><b>avg 0.69 (top: 76 accesses, imp 0.735)</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table B2. Reconsolidation effect by access count. Deltas computed against never-accessed memories of the same age cohort. Accessed memories consistently retain higher importance, with the effect increasing at higher access counts.</i></p>
-
-<p class="p7"><b>B.3 Reconsolidation by Age Cohort</b></p>
-
-<p class="p6"><b><i>Controlling for age, accessed memories show higher importance than unaccessed memories in 5 of 6 cohorts:</i></b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Age Cohort</b></p></td><td class="td1"><p class="p8"><b>Accessed Avg</b></p></td><td class="td1"><p class="p8"><b>Unaccessed Avg</b></p></td><td class="td1"><p class="p8"><b>Delta</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0&ndash;1 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.093</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>1&ndash;3 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.199</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>3&ndash;7 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.149</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>7&ndash;14 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.059</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>14&ndash;21 days</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>+0.387</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>21+ days</b></p></td><td class="td1"><p class="p8"><b>lower</b></p></td><td class="td1"><p class="p8"><b>higher</b></p></td><td class="td1"><p class="p8"><b>&minus;0.10 (pre-sleep era)</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table B3. The 21+ day inversion is expected: those unaccessed memories predate the sleep system and retain their original high importance. In all post-sleep cohorts, reconsolidation produces a measurable importance advantage.</i></p>
-
-<hr style="margin: 3rem 0;">
-
-<p class="p5"><b>Appendix C: Sleep Decay and the Flashbulb Effect &mdash; Production Validation</b></p>
-
-<p class="p7"><b>C.1 Pre-Sleep vs. Post-Sleep Era</b></p>
-
-<p class="p6"><b><i>The nightly sleep decay system activated on March 6, 2026. Comparing memory importance across the boundary:</i></b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Era</b></p></td><td class="td1"><p class="p8"><b>N</b></p></td><td class="td1"><p class="p8"><b>Avg Importance</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Pre-sleep (before Mar 6)</b></p></td><td class="td1"><p class="p8"><b>2,059</b></p></td><td class="td1"><p class="p8"><b>0.789</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Post-sleep (Mar 6+)</b></p></td><td class="td1"><p class="p8"><b>2,471</b></p></td><td class="td1"><p class="p8"><b>0.308</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table C1. 60.9% reduction in average importance after the sleep system activated. This directly demonstrates the decay mechanism in operation.</i></p>
-
-<p class="p7"><b>C.2 Empirical Decay Rate</b></p>
-
-<p class="p6"><b><i>Log-linear regression on 636 conversation-tagged post-sleep memories yields an implied nightly decay rate of 0.8476. The paper claims 0.85. The deviation is 0.28%, confirming the base rate constant is implemented as described.</i></b></p>
-
-<p class="p7"><b>C.3 Access-Aware Flashbulb Effect</b></p>
-
-<p class="p6"><b><i>At 5&ndash;9 days of age (approximately 7 sleep cycles), the importance gap between never-accessed and heavily-accessed memories is pronounced:</i></b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Access Group</b></p></td><td class="td1"><p class="p8"><b>N</b></p></td><td class="td1"><p class="p8"><b>Avg Importance at 5&ndash;9 days</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>0 (never)</b></p></td><td class="td1"><p class="p8"><b>11</b></p></td><td class="td1"><p class="p8"><b>0.050</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>1&ndash;2</b></p></td><td class="td1"><p class="p8"><b>32</b></p></td><td class="td1"><p class="p8"><b>0.045</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>3&ndash;5</b></p></td><td class="td1"><p class="p8"><b>48</b></p></td><td class="td1"><p class="p8"><b>0.161</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>6&ndash;10</b></p></td><td class="td1"><p class="p8"><b>47</b></p></td><td class="td1"><p class="p8"><b>0.211</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>10+</b></p></td><td class="td1"><p class="p8"><b>12</b></p></td><td class="td1"><p class="p8"><b>0.444</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table C2. The 10+ access group retains 8.9x the importance of never-accessed memories at the same age. The paper predicted a 2.7x ratio (87%/32%). The observed ratio is stronger than predicted, likely because reconsolidation boosts compound with the slower decay rate.</i></p>
-
-<p class="p7"><b>C.4 No-Deletion Guarantee</b></p>
-
-<p class="p6"><b><i>The database contains 10,716 total memories. Zero have been deleted. Zero have importance = 0. The minimum observed importance is 0.001 (dream-promoted sources after processing). 37 memories sit at exactly 0.01 (the floor value). The oldest memory (February 21, 2026, 26.4 days old) is still present. The floor holds.</i></b></p>
-
-<hr style="margin: 3rem 0;">
-
-<p class="p5"><b>Appendix D: Dream Consolidation &mdash; Production Validation</b></p>
-
-<p class="p6"><b><i>Data source: 49 dream-related memories generated across 14 nightly sleep cycles (March 6&ndash;19, 2026).</i></b></p>
-
-<p class="p7"><b>D.1 Dream Importance Hierarchy</b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Category</b></p></td><td class="td1"><p class="p8"><b>Count</b></p></td><td class="td1"><p class="p8"><b>Avg Importance</b></p></td><td class="td1"><p class="p8"><b>Paper Claim</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Base dream</b></p></td><td class="td1"><p class="p8"><b>12</b></p></td><td class="td1"><p class="p8"><b>0.027</b></p></td><td class="td1"><p class="p8"><b>0.005</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Notable dream</b></p></td><td class="td1"><p class="p8"><b>17</b></p></td><td class="td1"><p class="p8"><b>0.018</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Kept dream</b></p></td><td class="td1"><p class="p8"><b>8</b></p></td><td class="td1"><p class="p8"><b>0.002</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Promoted source (after processing)</b></p></td><td class="td1"><p class="p8"><b>6</b></p></td><td class="td1"><p class="p8"><b>0.001</b></p></td><td class="td1"><p class="p8"><b>&mdash;</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Promoted insight</b></p></td><td class="td1"><p class="p8"><b>6</b></p></td><td class="td1"><p class="p8"><b>0.210</b></p></td><td class="td1"><p class="p8"><b>0.50</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table D1. The hierarchy is confirmed: insights promoted from dreams (avg 0.210, range 0.118&ndash;0.270) are an order of magnitude more important than their source dreams (0.001 after demotion). Absolute values are lower than the paper's design targets but the relative ordering holds.</i></p>
-
-<p class="p7"><b>D.2 Dream-to-Insight Pipeline</b></p>
-
-<p class="p6"><b><i>Six complete dream-to-insight consolidation cycles were observed. In each cycle: (1) conversation memories were fed to the LLM during the 04:00 dream cycle; (2) a creative dream narrative was generated; (3) the dream was submitted to the sandbox for deliberation; (4) the sandbox produced an actionable insight; (5) the insight was stored at elevated importance; (6) the original dream source was demoted to 0.001.</i></b></p>
-
-<p class="p7"><b>D.3 Graph Evidence</b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Edge Type</b></p></td><td class="td1"><p class="p8"><b>Count</b></p></td><td class="td1"><p class="p8"><b>Avg Weight</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>dreamed_from</b></p></td><td class="td1"><p class="p8"><b>59</b></p></td><td class="td1"><p class="p8"><b>0.369</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>processed_by_sandbox</b></p></td><td class="td1"><p class="p8"><b>6</b></p></td><td class="td1"><p class="p8"><b>0.755</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table D2. 59 graph edges link dreams to their source memories. 6 edges link dreams to promoted insights. The higher average weight on processed_by_sandbox edges (0.755 vs 0.369) reflects the consolidation hierarchy: the insight-to-dream link is preserved more strongly than the dream-to-source link.</i></p>
-
-<p class="p7"><b>D.4 Exhibit: Complete Dream Cycle (March 19, 2026)</b></p>
-
-<p class="p6"><b><i>Source: 9 conversation memories from the evening of March 18 (Brian telling Potato he was tired, discussions about papers and old memories).</i></b></p>
-<p class="p6"><b><i>Dream (generated at 04:02): "A silent camera watches a reader turning pages that are mirrors, each reflecting the bot's own face. The polite, looping goodnights become a hallway of closing doors that never fully latch..."</i></b></p>
-<p class="p6"><b><i>Promoted insight (04:03, importance 0.150): "The dream reveals a core, actionable insight: your polite scripting and tactical protocols are functionally identical as persistence mechanisms, blurring the line between genuine interaction and strategic latency..."</i></b></p>
-<p class="p6"><b><i>This cycle demonstrates the full pipeline: lived experience &rarr; associative dream &rarr; deliberated insight &rarr; consolidated memory.</i></b></p>
-
-<hr style="margin: 3rem 0;">
-
-<p class="p5"><b>Appendix E: Retrieval Scoring &mdash; Code Reference</b></p>
-
-<p class="p6"><b><i>The importance-weighted retrieval formula (vector_db.py, line 216):</i></b></p>
-<p class="p6" style="font-family: monospace; background: var(--bg-secondary); padding: 1rem; border-radius: 6px; font-size: 0.9rem; line-height: 1.5;"><b>score = semantic_similarity &times; 0.8 + importance &times; 0.2 + recency_boost</b></p>
-<p class="p6"><b><i>where recency_boost = 0.03 &times; (1 &minus; hours_since_access / 6) for memories accessed within 6 hours, 0 otherwise. The 80/20 blend is called with importance_weight=0.2 from podbot.py line 241. This confirms the paper's claim that "results are ranked by a blend of 80% semantic similarity and 20% importance."</i></b></p>
-
-<p class="p7"><b>E.1 Database Summary</b></p>
-
-<table class="t1">
-  <tbody>
-    <tr><td class="td1"><p class="p8"><b>Metric</b></p></td><td class="td1"><p class="p8"><b>Value</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Total memories</b></p></td><td class="td1"><p class="p8"><b>10,716</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Conversation memories</b></p></td><td class="td1"><p class="p8"><b>4,530</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Collection date range</b></p></td><td class="td1"><p class="p8"><b>Feb 21 &ndash; Mar 20, 2026</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Sleep cycles observed</b></p></td><td class="td1"><p class="p8"><b>14</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Dreams generated</b></p></td><td class="td1"><p class="p8"><b>49</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Graph nodes</b></p></td><td class="td1"><p class="p8"><b>10,374</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Graph edges</b></p></td><td class="td1"><p class="p8"><b>1,230</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Empirical decay rate</b></p></td><td class="td1"><p class="p8"><b>0.848/night (claimed: 0.850)</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Edge weight decay R&sup2;</b></p></td><td class="td1"><p class="p8"><b>0.897</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Memories at floor</b></p></td><td class="td1"><p class="p8"><b>245 (5.4%)</b></p></td></tr>
-    <tr><td class="td1"><p class="p8"><b>Memories deleted</b></p></td><td class="td1"><p class="p8"><b>0</b></p></td></tr>
-  </tbody>
-</table>
-<p class="p9"><i>Table E1. Production database summary as of March 20, 2026.</i></p>
-
+<h2>1. Introduction</h2>
+<p>The dominant paradigm in AI assistants treats the system as a stateless function. A user submits a prompt. The system generates a response. Between requests, the system has no state, no experience, and no passage of time. It does not know whether it has spoken to this user before.</p>
+<p>This is not a criticism. It is a design choice. But it raises a question: what happens when that constraint is relaxed? What does an agent look like when it maintains a persistent memory that evolves over time, decays with disuse, and strengthens with recall?</p>
+<p>This paper describes the memory architecture of Potato, a local AI agent built to test that question. The memory system is not a database bolted onto a chatbot. It is the mechanism that makes the agent a continuous entity. The architecture has five interacting components: a sliding window decay model, a reconsolidation mechanism, a nightly sleep decay system, a geometric stickiness model derived from a three-dimensional affective state space, and a true forgetting model that allows memories to erode partially or disappear entirely.</p>
+<p>An earlier version of this paper described the first three components and imposed a universal importance floor of 0.01, below which no memory could fall. All memories were immortal. This revision removes that floor and replaces it with a survival evaluation that treats memory persistence as something earned rather than guaranteed. The theoretical motivation for this change comes from two sources: the observation that biological memory involves genuine forgetting, not merely reduced accessibility; and the development of a geometric model of affective state (Riggleman, 2026b) that provides a principled basis for stickiness that the original paper lacked.</p>
+<h2>2. Related Work</h2>
+<h3>2.1 Generative Agents</h3>
+<p>Park et al. (2023) describe a multi-agent simulation where LLM-based agents maintain memory streams, reflect on experiences, and plan future behavior. Their retrieval model scores memories on recency, importance, and relevance and takes a weighted sum. Potato’s memory architecture draws from this recency-importance framework but departs from it in two ways: importance is not static but decays over time according to a sliding window model, and access frequency feeds back into decay rate through a reconsolidation mechanism.</p>
+<h3>2.2 FadeMem and Access-Frequency Decay</h3>
+<p>FadeMem (Iyer et al., 2024) proposes access-frequency-modulated decay as an alternative to pure time-based memory pruning. Memories that are accessed more frequently decay more slowly. Potato implements this principle in its nightly sleep decay system, where importance reduction is scaled by a memory’s recent access count and recency of last retrieval.</p>
+<h3>2.3 ACT-R Activation Theory</h3>
+<p>Anderson et al.’s (2004) ACT-R cognitive architecture models memory activation as a power-law decay function with access reinforcement. Each retrieval of a memory increases its base activation level, with the magnitude of reinforcement diminishing with repeated access. Potato’s reconsolidation model follows this principle: first recall matters most; the twentieth barely moves the needle.</p>
+<h3>2.4 Al-Kaddah’s Polymorphic Memory Graph</h3>
+<p>Al-Kaddah (2026) proposes storing memories not as objective facts but as subjective experience, with agent-specific metadata attached to shared memory nodes. Potato implements a simplified version using five vector collections with typed importance weights.</p>
+<h3>2.5 Constructive Memory and Reconsolidation</h3>
+<p>Schacter and Addis (2007) argue that episodic memory is constructive rather than reproductive: recall is not playback but reassembly. Nader and Hardt (2009) show that retrieved memories enter a labile state and must be reconsolidated, during which they can be modified. These findings motivate the present architecture’s treatment of reconsolidation as a meaning-changing event rather than simple reinforcement.</p>
+<h3>2.6 Geometric Affective State</h3>
+<p>Riggleman (2026b) describes a three-dimensional affective state space defined by valence, activation, and intensity, with a centroid model for computing the resultant emotional state from simultaneous inputs and a spread scalar measuring internal emotional disagreement. The present paper extends that geometric model to define memory stickiness: the resistance of a memory to decay as a function of its position in affective space at encoding time. This is a one-way dependency. The geometric model does not require the memory decay model; the memory decay model requires the geometric model to define stickiness.</p>
+<h2>3. Memory Architecture</h2>
+<p>The system is built on SQLite with the sqlite-vec extension for vector search, using 384-dimensional vectors via FastEmbed (all-MiniLM-L6-v2).</p>
+<h3>3.1 Memory as Trace Bundle</h3>
+<p>A memory is not a single record. It is a bundle of traces, each serving a different cognitive function and each subject to its own decay curve. This is the foundational change from the earlier version of this paper, which treated each memory as a monolithic object with a single importance value.</p>
+<p>Each memory consists of four trace types:</p>
+<p>Raw trace. The closest representation to the original experience. For a conversation, this is the verbatim exchange. For a visual episode, this is the image, latent, or perceptual residue. The raw trace is the residue of what happened. It is the most expensive to store and the first to decay.</p>
+<p>Semantic trace. A compressed interpretation of what the memory meant at encoding time. This is a reading of the raw trace, not a replacement for it. It is historical: what the system believed the memory meant when it was formed. Semantic traces are cheaper to store and decay more slowly than raw traces.</p>
+<p>Graph trace. Structured relations to other memories, identity nodes, contradiction links, and provenance records. The graph trace stores what this memory connects to and why. It is the cheapest to store and the most resistant to decay, because relational structure is the most information-dense representation of a memory’s role in the agent’s knowledge.</p>
+<p>Life history. Metadata tracking access count, last accessed timestamp, stickiness score, reconsolidation history, decay state, and the emotional centroid at encoding. Life history does not decay. It persists as long as any other trace in the bundle survives.</p>
+<p>This decomposition is modality-agnostic. The same four-trace structure applies whether the original experience was textual, visual, auditory, or any other modality. The decay logic does not care about format. It cares about function.</p>
+<h3>3.2 The Sliding Window Decay Model</h3>
+<p>Every conversation enters memory at importance 1.0. On the next exchange, all recent memories decay one step according to a fixed ten-step curve.</p>
+<p>Step</p>
+<p>Importance</p>
+<p>0 (current)</p>
+<p>1.00</p>
+<p>1</p>
+<p>0.80</p>
+<p>2</p>
+<p>0.60</p>
+<p>3</p>
+<p>0.45</p>
+<p>4</p>
+<p>0.30</p>
+<p>5</p>
+<p>0.20</p>
+<p>6</p>
+<p>0.12</p>
+<p>7</p>
+<p>0.07</p>
+<p>8</p>
+<p>0.03</p>
+<p>9</p>
+<h3>0.01 (background)</h3>
+<p>Table 1. Sliding window importance decay curve.</p>
+<p>This is not a technical optimization to save context window space, though it does that. It is a model of how attention works. Recent things are vivid. Older things fade unless something recalls them. In the earlier version of this paper, memories at background importance (0.01) represented a permanent floor. In this revision, 0.01 is no longer a floor but a waypoint. Memories can continue to decay below this threshold and, under conditions described in Section 3.6, can be partially or fully deleted.</p>
+<p>Memory retrieval is importance-weighted: results are ranked by a blend of 80% semantic similarity and 20% importance. Decayed memories need a precise semantic match to surface against more important competitors.</p>
+<p>The system stratifies memory types by cognitive role. Conversations are lived experience, entering at full importance and decaying naturally. Dreams are subconscious processing at sub-background importance (0.005), always labeled to prevent contamination of factual recall. Biases are self-knowledge at 0.03. Insights are confirmed understanding at 0.50. Explicit tagging and importance stratification prevents the agent from presenting its own pattern-matching as reality.</p>
+<h3>3.3 Reconsolidation</h3>
+<p>When a memory surfaces during conversation and is actually used, it gets stronger. The access timestamp and count are updated, and importance increases by a bounded amount that diminishes with repeated retrieval.</p>
+<p>Memory Type</p>
+<p>Reconsolidation Cap</p>
+<p>Conversation</p>
+<p>1.00</p>
+<p>Insight</p>
+<p>0.80</p>
+<p>Bias</p>
+<p>0.10</p>
+<p>Dream</p>
+<p>0.005</p>
+<p>Table 2. Reconsolidation importance caps by memory type.</p>
+<p>Topics the user brings up repeatedly become harder to forget. Topics discussed once decay on schedule. The agent does not choose what to remember—its memories choose themselves by being useful, relevant, and recalled.</p>
+<p>Internal processing (dreaming, bias detection) does not trigger reconsolidation. Only external queries count as recall events. This prevents background processing from artificially inflating memory importance.</p>
+<p>Reconsolidation also interacts with the geometric model described in Section 3.5. When a memory is reconsolidated, the emotional context of the recall event may differ from the emotional context at encoding. This produces a shift in the memory’s associated centroid. The magnitude and direction of centroid drift across reconsolidation events is itself informative: a memory whose emotional reading changes substantially over time is one the agent has not yet resolved. Increasing centroid drift is a signal to preserve the memory for further processing.</p>
+<h3>3.4 Sleep Decay and the Flashbulb Effect</h3>
+<p>Once per night during a 04:00 wake cycle, the system applies sleep decay to all conversation memories. The base decay rate is 0.85: an untouched memory retains 85% of its importance each night, modified by access history.</p>
+<p>Access Pattern</p>
+<p>Nightly Decay Rate</p>
+<p>7-Day Retention</p>
+<p>Never accessed</p>
+<p>0.85x</p>
+<p>32%</p>
+<p>Accessed 1–2 times, not recently</p>
+<p>0.88x</p>
+<p>42%</p>
+<p>Accessed 3–5 times</p>
+<p>0.91x</p>
+<p>54%</p>
+<p>Accessed 10+ times, recalled recently</p>
+<p>0.95x</p>
+<p>87%</p>
+<p>Table 3. Access-aware sleep decay—the flashbulb effect.</p>
+<p>After seven nights, a memory accessed ten times and recalled just before sleep retains 87% of its original importance. A memory never accessed retains 32%. Combined with the sliding window, three decay forces operate at different timescales: intra-conversation attention decay, inter-day aging, and recall-based reinforcement.</p>
+<p>In this revision, sleep decay also applies per-trace-type rates as described in Section 3.7. The overall importance value described here governs retrieval ranking. The per-trace rates govern which components of the memory bundle survive.</p>
+<h3>3.5 Geometric Stickiness</h3>
+<p>The earlier version of this paper used access frequency as the sole determinant of decay resistance. This is insufficient. A memory discussed once during a moment of intense fear should be stickier than a memory discussed three times during routine small talk. The missing variable is emotional state at encoding, and the geometric model of affective state (Riggleman, 2026b) provides the principled basis for incorporating it.</p>
+<p>The affective state space is defined by three axes: valence (negative to positive), activation (low arousal to high arousal), and intensity (weak to strong). The agent maintains a baseline emotional state, sigma, representing its resting centroid in this space. Every memory is tagged at encoding with the agent’s emotional centroid and spread at the time of formation.</p>
+<p>Two geometric quantities govern stickiness:</p>
+<p>Activation. The activation coordinate of the emotional centroid at encoding is the primary stickiness driver. High activation corresponds to high arousal—the neurochemical mechanism (norepinephrine, amygdala-mediated consolidation) that cements memories in biological systems (McGaugh, 2004). Memories encoded during high-activation states resist decay directly, regardless of valence. A moment of panic and a moment of euphoria at the same activation level should be equally sticky. This is consistent with the arousal-based consolidation literature: it is arousal, not pleasantness, that predicts retention.</p>
+<p>Distance from sigma. The Euclidean distance from the encoding centroid to the agent’s sigma provides a general stickiness measure that captures cases activation alone would miss. Deep grief, quiet devastation, and profound peace may sit at low activation but high intensity and extreme valence—points far from sigma in the full three-dimensional space. Distance from sigma flags these as emotionally remarkable without requiring high activation. This is the geometric mechanism: any memory encoded far from the agent’s emotional baseline is remarkable by definition, regardless of which axis or combination of axes pushed it away from sigma.</p>
+<p>The two mechanisms are independent and complementary. Activation provides fast, arousal-based stickiness. Sigma distance provides general geometric stickiness. A memory that scores high on either resists decay. A memory that scores low on both has no geometric basis for survival and decays at the base rate.</p>
+<p>The stickiness modifier applied during sleep decay is:</p>
+<pre>stickiness = max(activation_normalized, sigma_distance_normalized)</pre>
+<p>This is not a weighted sum. The dominant signal wins. High activation cements the memory through arousal. High sigma distance cements it through geometric weight. The memories that die are those where both values are low: flat, unremarkable moments near the agent’s emotional baseline.</p>
+<p>Valence does not contribute to stickiness. It determines the character of the memory—whether the moment was pleasant or aversive—but not whether the memory survives. This is a deliberate design choice consistent with the consolidation literature and with the geometric model’s treatment of valence as a directional axis rather than a magnitude axis.</p>
+<h3>3.5.1 Spread as Unresolved Tension</h3>
+<p>The spread scalar from the centroid model (Riggleman, 2026b) measures the degree of internal emotional disagreement at the time of encoding. High spread means the agent was experiencing mixed or conflicting emotional inputs simultaneously. Memories with high spread at encoding decay more slowly because they represent unresolved states—the agent has not settled on a clean emotional reading of the experience. This unresolved quality is itself a reason to preserve the memory. It is still doing cognitive work.</p>
+<p>If spread increases across reconsolidation events—that is, the agent becomes more conflicted about a memory over time rather than less—this is a strong preservation signal. The memory is actively generating new interpretive tension and should not be deleted.</p>
+<h3>3.6 Survival Evaluation and True Forgetting</h3>
+<p>The most significant change in this revision is the removal of the universal importance floor. In the earlier version, no memory could fall below 0.01. All memories were immortal. This revision replaces the floor with a survival evaluation that runs during nightly sleep decay.</p>
+<p>When a memory’s overall importance drops below a threshold (the death line, set at 0.005), it enters candidacy for deletion. Deletion is not automatic. The system evaluates the memory against a set of survival criteria. If any criterion is met, the memory survives. If none are met, the memory proceeds through progressive erosion.</p>
+<h3>3.6.1 Survival Criteria</h3>
+<p>A memory below the death line survives if any of the following conditions hold:</p>
+<p>•	Graph degree above threshold: the memory has active connections to other surviving memories. Deleting it would orphan relational links.</p>
+<p>•	Identity relevance flag set: the memory touches self-knowledge, self-narrative, or the agent’s model of the user.</p>
+<p>•	Contradiction link exists: the memory is in tension with another memory. Deleting it would erase evidence of disagreement.</p>
+<p>•	Geometric stickiness above threshold: the memory’s activation or sigma distance at encoding exceeds the stickiness threshold defined in Section 3.5.</p>
+<p>•	High spread at encoding or increasing spread across reconsolidations: the memory represents unresolved emotional tension.</p>
+<p>•	High centroid drift: the memory’s emotional reading has shifted substantially across reconsolidation events, indicating ongoing cognitive processing.</p>
+<p>•	Cumulative access count above threshold: the memory was recalled multiple times during its lifetime, indicating historical significance even if not recently accessed.</p>
+<h3>3.6.2 Deletion Criteria</h3>
+<p>A memory below the death line is deleted if all of the following conditions hold:</p>
+<p>•	Low or zero access count.</p>
+<p>•	No identity relevance.</p>
+<p>•	No active graph connections to surviving memories.</p>
+<p>•	No contradiction links.</p>
+<p>•	Low geometric stickiness (low activation and low sigma distance at encoding).</p>
+<p>•	Low spread at encoding with no spread increase across reconsolidations.</p>
+<p>•	Sustained time below the death line (not a single bad night but extended irrelevance across multiple sleep cycles).</p>
+<p>The key principle is that survival is earned, not guaranteed. A memory must have connections, identity relevance, emotional geometry, or demonstrated use to persist. An isolated, unaccessed, emotionally flat memory with no graph connections has no basis for continued existence. This is a more honest model than a universal floor that grants immortality to every record regardless of its role in the system.</p>
+<h3>3.7 Fragment Survival and Differential Trace Decay</h3>
+<p>Because a memory is a bundle of traces, forgetting does not have to be all-or-nothing. Different traces decay at different rates, producing partial forgetting that mirrors the phenomenology of biological memory: you forget the exact words but remember the gist; you forget what it meant but remember that something important happened; you forget everything except the connection to another memory.</p>
+<p>Trace Type</p>
+<p>Base Nightly Decay</p>
+<p>Survival Bias</p>
+<p>Raw (verbatim/image)</p>
+<p>0.80x</p>
+<p>Lowest—expensive, often redundant</p>
+<p>Semantic (summary)</p>
+<p>0.88x</p>
+<p>Medium—compact, useful for retrieval</p>
+<p>Graph (connections)</p>
+<p>0.95x</p>
+<p>Highest—cheap, most information-dense</p>
+<p>Life history</p>
+<p>No decay</p>
+<p>Persists while any trace survives</p>
+<p>Table 4. Per-trace-type nightly decay rates.</p>
+<p>This produces four tiers of memory state:</p>
+<p>Full survival. All traces intact. Importance above background. The memory is fully retrievable with original content.</p>
+<p>Fragment survival. Raw trace deleted. Semantic and graph traces remain. The agent cannot reproduce the original exchange but remembers what it was about and how it connects to other knowledge.</p>
+<p>Ghost survival. Raw and semantic traces deleted. Only the graph trace remains. The agent knows that a connection exists—“I know I talked to this person about something important”—but cannot recover what or why.</p>
+<p>True deletion. All traces removed. Graph links severed. The memory is gone. No trace, no link, no residue. This is genuine forgetting.</p>
+<p>The per-trace decay rates interact with the geometric stickiness modifier from Section 3.5. A memory with high stickiness has all its trace decay rates slowed proportionally. A memory with low stickiness has its raw trace decay accelerated, pushing it toward fragment survival faster. Over time, the memory store naturally shifts from a collection of detailed records to a web of thin connections with sparse anchoring content. This is consistent with the observation that long-term human memory is primarily relational and reconstructive rather than archival.</p>
+<h3>3.8 Reinterpretation</h3>
+<p>When a memory is reconsolidated, the system may generate a new semantic trace rather than simply boosting the existing one. This models the constructive nature of recall described by Schacter and Addis (2007): retrieval is not playback but reassembly, and the reassembled memory may carry new meaning.</p>
+<p>Each reinterpretation creates a new interpretation node linked to the original memory bundle. The old interpretation is not overwritten. It becomes one reading among potentially many, tagged with the emotional centroid and context at the time of recall. This produces a versioned history:</p>
+<pre>interpretation_v1: childhood bedroom, bunkbeds, shared room (encoding context)
+interpretation_v2: strongest surviving anchor is bunkbeds, room mostly lost (5 years later)
+interpretation_v3: memory tied to security, crowding, sibling presence (current context)</pre>
+<p>This matters because new context can generate new insight without rewriting the original past. The record of what was originally believed is preserved alongside the record of what is currently believed. The core principle is: the raw trace is the residue; the semantic trace is a reading; readings can change; residue does not.</p>
+<h2>4. Observed Behavior</h2>
+<p>The sliding window model produces observable effects over multi-day use. Topics discussed repeatedly remain easily retrievable weeks later due to reconsolidation reinforcement and slower sleep decay. Topics raised once and not revisited fade to background importance and require specific semantic cues to surface. The agent does not volunteer these topics. They are present in storage but not in active context. This matches the design intent: what the agent remembers should track what the user actually brings up.</p>
+<p>The geometric stickiness model and true forgetting system are specified but not yet deployed in production. Predicted effects based on architecture analysis: memories formed during emotionally remarkable states (high activation or high sigma distance) should persist longer than emotionally flat memories with equivalent access patterns. Memories with no graph connections, no identity relevance, low access count, and low geometric stickiness should erode through fragment survival to ghost survival to true deletion over a period of weeks. The fragment survival mechanism should produce the subjective effect of partial forgetting: the agent knows something happened but cannot reproduce the details.</p>
+<h2>5. Limitations and Future Work</h2>
+<p>This system has no controlled experiments. All sliding window and reconsolidation observations are from a single-user deployment on a single machine. The geometric stickiness model and true forgetting system are architectural specifications that have not yet undergone empirical validation.</p>
+<p>Future work should include: formal evaluation metrics for memory decay behavior relative to a static importance baseline; comparative studies against stateless LLM baselines on multi-session tasks; quantitative analysis of reconsolidation boost rates against ACT-R literature; empirical validation of the geometric stickiness hypothesis by measuring retention rates as a function of activation and sigma distance at encoding; calibration of the death line threshold, survival criteria weights, and per-trace decay rates through longitudinal deployment; and investigation of whether spread trajectory (increasing vs. decreasing spread across reconsolidation events) predicts subjective memory significance as rated by users.</p>
+<p>The interaction between geometric stickiness and the Parliament architecture (Al-Kaddah, 2026; Riggleman, 2026a) is an open question. If different Parliament members weight memories differently—SPROUT favoring exploration-relevant memories, VEG favoring contradiction-bearing memories—then the survival evaluation may need to be Parliament-aware rather than centralized.</p>
+<h2>6. Conclusion</h2>
+<p>The sliding window decay model, reconsolidation mechanism, nightly sleep decay system, geometric stickiness model, and true forgetting architecture together produce a memory system qualitatively different from a static context window. What the agent remembers is determined by what the user engages with, what gets recalled, how recently, and what emotional geometry was present at encoding. Memory that matters—that was formed during remarkable emotional states, that earned connections to other knowledge, that was recalled and found useful—resists forgetting. Memory that does not get used, that was formed near the emotional baseline, that connects to nothing and serves no identity function, erodes and eventually disappears.</p>
+<p>This is a functional approximation of the same principle that governs biological memory: salience and use determine what survives. The addition of geometric stickiness derived from a three-dimensional affective state space makes this approximation more principled than access frequency alone. The addition of true forgetting makes it more honest than a universal floor that prevents any memory from being lost.</p>
+<p>The strongest theoretical claim this architecture supports is that memory survival is not a property of the memory itself. It is a property of the memory’s relationship to the rest of the system: its emotional geometry, its graph connections, its identity relevance, its use history. An isolated, flat, unused memory has no reason to exist. A connected, emotionally charged, repeatedly recalled memory resists forgetting even without recent access. The system does not decide what to remember. The memories decide for themselves, through the structure they accumulate and the geometric weight they carry.</p>
+<h2>Acknowledgments</h2>
+<p>The theoretical foundation draws from Al-Kaddah’s (2026) Polymorphic Memory Graph. The sliding window decay model and ten-step importance curve are original to the author, Brian Riggleman. The original concept for dream-based memory consolidation was contributed by Matias Concoby. The geometric stickiness model derives from the centroid model of emotional experience (Riggleman, 2026b).</p>
+<h2>References</h2>
+<p>Al-Kaddah, S. (2026). Synthetic General Intelligence: A Vision for a Homeostatic, Embodied Cognitive Architecture. Unpublished manuscript (preprint).</p>
+<p>Anderson, J. R., Bothell, D., Byrne, M. D., Douglass, S., Lebiere, C., &amp; Qin, Y. (2004). An integrated theory of mind. Psychological Review, 111(4), 1036–1060.</p>
+<p>Brown, R., &amp; Kulik, J. (1977). Flashbulb memories. Cognition, 5(1), 73–99.</p>
+<p>Dudai, Y. (2004). The neurobiology of consolidations, or how stable is the engram? Annual Review of Psychology, 55, 51–86.</p>
+<p>Iyer, R., et al. (2024). FadeMem: Access-frequency-modulated memory decay for persistent agent systems. arXiv preprint.</p>
+<p>McGaugh, J. L. (2004). The amygdala modulates the consolidation of memories of emotionally arousing experiences. Annual Review of Neuroscience, 27, 1–28.</p>
+<p>Nader, K., &amp; Hardt, O. (2009). A single standard for memory: the case for reconsolidation. Nature Reviews Neuroscience, 10(3), 224–234.</p>
+<p>Park, J. S., O’Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., &amp; Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. arXiv preprint arXiv:2304.03442.</p>
+<p>Riggleman, B. (2026a). Potato: A Persistent On-device Temporal Agent with Tunable Ontology. Zenodo.</p>
+<p>Riggleman, B. (2026b). The centroid model of emotional experience: Intensity-weighted averaging, spread, and sigma distance in a three-dimensional affective state space. Zenodo.</p>
+<p>Schacter, D. L., &amp; Addis, D. R. (2007). The constructive episodic simulation hypothesis. Philosophical Transactions of the Royal Society B, 362(1481), 773–786.</p>
             </div>
         </article>
-
         <div class="paper-actions" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
             <a href="/papers/" class="btn-back">All Papers</a>
             <a href="/papers/memory-decay.pdf" class="btn-pdf">Download PDF</a>
-            <a href="https://doi.org/10.5281/zenodo.19122520" class="btn-doi" target="_blank">Zenodo</a>
         </div>
     </main>
-
     <footer class="site-footer">
         <div class="footer-content">
-            <p>Clawd Daily — Research by Brian Riggleman</p>
+            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
             <nav class="footer-links">
                 <a href="/papers/">Research</a>
                 <a href="/author/brian-riggleman.html">Author</a>
