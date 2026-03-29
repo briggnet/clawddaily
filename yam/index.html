@@ -81,23 +81,49 @@
 
 <h3>The Parliament of Mind</h3>
 
-<p>YAM runs on the SPUD engine (Self-developing Perceptual Understanding Drive). The architecture has four components:</p>
+<p>YAM runs on the SPUD engine (Self-developing Perceptual Understanding Drive). The Parliament is not three language model personas with different system prompts. It is three different graph operations running on the same data structure. Each engine is a SQLite knowledge graph with sqlite-vec vector embeddings. No engine generates text. No engine predicts tokens. Every engine traverses, validates, or constrains a graph.</p>
 
 <table>
     <thead>
-        <tr><th>Component</th><th>Role</th><th>Port</th><th>Sigma</th></tr>
+        <tr><th>Component</th><th>Graph Operation</th><th>What It Does</th><th>Port</th></tr>
     </thead>
     <tbody>
-        <tr><td><strong>SPROUT</strong></td><td>Analytical engine &mdash; seeks structure, facts, logical connections</td><td>8001</td><td>(0.4, 0.2, 0.2)</td></tr>
-        <tr><td><strong>ROOT</strong></td><td>Creative engine &mdash; novel connections, analogies, unexpected patterns</td><td>8002</td><td>(0.5, 0.6, 0.3)</td></tr>
-        <tr><td><strong>VEG</strong></td><td>Cautious engine &mdash; risks, edge cases, what could go wrong</td><td>8003</td><td>(-0.1, 0.3, 0.2)</td></tr>
-        <tr><td><strong>PATCH/YAM</strong></td><td>The reasoning mind &mdash; integrates, learns, remembers</td><td>8000</td><td>(0.3, 0.3, 0.2)</td></tr>
+        <tr>
+            <td><strong>SPROUT</strong></td>
+            <td>Exploratory traversal</td>
+            <td>Follows edges outward from the query node. Finds what is connected. Returns the subgraph reachable within N hops. Answers the question: &ldquo;What else is linked to this?&rdquo;</td>
+            <td>8001</td>
+        </tr>
+        <tr>
+            <td><strong>ROOT</strong></td>
+            <td>Path validation</td>
+            <td>Checks whether the path from query to answer is grounded. Evaluates edge weights, source provenance, node importance, and trust scores along the retrieval path. Answers the question: &ldquo;Is this path solid?&rdquo;</td>
+            <td>8002</td>
+        </tr>
+        <tr>
+            <td><strong>VEG</strong></td>
+            <td>Constraint &amp; contradiction detection</td>
+            <td>Compares retrieved nodes via cosine similarity and flags low-agreement pairs. Detects conflicts between sources, weak edges, and paths that violate known constraints. Answers the question: &ldquo;What is wrong with this answer?&rdquo;</td>
+            <td>8003</td>
+        </tr>
+        <tr>
+            <td><strong>PATCH/YAM</strong></td>
+            <td>Integration &amp; reasoning</td>
+            <td>The fourth graph. Receives outputs from all three engines. Computes the centroid of their positions. Integrates consistent answers into its own graph. Detects ambiguity when engines disagree. Asks for help when it does not know.</td>
+            <td>8000</td>
+        </tr>
     </tbody>
 </table>
 
-<p>Each engine has its own knowledge graph, its own emotional geometry (sigma), its own decay curves. They read the same papers but experience them differently because their sigma values shape what they pay attention to and how intensely they encode.</p>
+<p>Each engine maintains its own SQLite database containing: a <code>memories</code> table for content, a <code>vec_memories</code> virtual table (sqlite-vec, 384-dimensional cosine distance) for semantic search, a <code>nodes</code> table for graph entities, an <code>edges</code> table for weighted directed relationships, and a <code>gaps</code> table for detected WHY questions. Every engine is a graph database with vector search. Not a language model. Not a prompt.</p>
 
-<p>PATCH is not a router. PATCH is the mind. It checks its own YAM graph first. It only consults the Parliament when uncertain. It integrates the best answers into its own graph. Over time, PATCH gets smarter and consults the Parliament less.</p>
+<p>The engines share the same seed knowledge (22 research papers) but encode it at different affective intensities because their sigma values differ. Over time, their graphs diverge as each engine searches for different things based on its gap priorities.</p>
+
+<p>PATCH is not a router. PATCH is the mind. It has its own graph &mdash; the YAM graph &mdash; which stores integrated knowledge from consulting the three engines. It checks its own graph before consulting the Parliament. Over time, PATCH answers more questions from its own knowledge and consults the Parliament less.</p>
+
+<h3>What This Is Not</h3>
+
+<p>This is not a multi-agent LLM framework. There is no language model generating any response at any layer. The engines do not have system prompts. They do not predict the next token. They execute graph queries: vector similarity search (cosine distance on 384-dimensional embeddings), edge traversal (SQL recursive CTEs), and node comparison (pairwise cosine similarity for contradiction detection). The output is retrieved content ranked by a four-factor formula, not generated text.</p>
 
 <h3>Search as Perception</h3>
 
@@ -275,13 +301,13 @@
 
 <table>
     <thead>
-        <tr><th>Component</th><th>Status</th><th>Details</th></tr>
+        <tr><th>Component</th><th>Type</th><th>Status</th><th>Details</th></tr>
     </thead>
     <tbody>
-        <tr><td>SPROUT</td><td>Running</td><td>925 memories, 98 nodes, 78 gaps</td></tr>
-        <tr><td>ROOT</td><td>Running</td><td>925 memories, 98 nodes, 78 gaps</td></tr>
-        <tr><td>VEG</td><td>Running</td><td>925 memories, 98 nodes, 76 gaps</td></tr>
-        <tr><td>PATCH/YAM</td><td>Running</td><td>198 memories, 405 edges, 76 reasoning traces</td></tr>
+        <tr><td>SPROUT</td><td>Graph traversal engine (SQLite + sqlite-vec)</td><td>Running</td><td>925 memories, 98 graph nodes, 78 open gaps</td></tr>
+        <tr><td>ROOT</td><td>Path validation engine (SQLite + sqlite-vec)</td><td>Running</td><td>925 memories, 98 graph nodes, 78 open gaps</td></tr>
+        <tr><td>VEG</td><td>Contradiction detection engine (SQLite + sqlite-vec)</td><td>Running</td><td>925 memories, 98 graph nodes, 76 open gaps</td></tr>
+        <tr><td>PATCH/YAM</td><td>Integration graph + reasoning loop</td><td>Running</td><td>198 integrated memories, 405 edges, 76 reasoning traces</td></tr>
     </tbody>
 </table>
 
