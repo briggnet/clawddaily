@@ -295,7 +295,7 @@
         <tr><td>YAM recall</td><td>0</td><td>Search own graph using the four-factor formula</td></tr>
         <tr><td>Ambiguity check</td><td>0</td><td>If top results are similar to query but dissimilar to each other, ask for clarification</td></tr>
         <tr><td>Graph traversal</td><td>0</td><td>Follow edges from recalled memories to find connected knowledge</td></tr>
-        <tr><td>Parliament</td><td>1</td><td>Fan out to SPROUT, ROOT, VEG. Collect three perspectives.</td></tr>
+        <tr><td>Parliament</td><td>1</td><td>Fan out to SPROUT, ROOT, VEG, TUBER. Collect four perspectives.</td></tr>
         <tr><td>Brave search</td><td>2</td><td>Engines search when their own memory is insufficient</td></tr>
     </tbody>
 </table>
@@ -313,8 +313,8 @@
         <tr><th>Condition</th><th>Response</th></tr>
     </thead>
     <tbody>
-        <tr><td>Budget exhausted, confidence &lt; 0.3</td><td>&ldquo;I don&rsquo;t know enough about this yet. Can you help me learn?&rdquo;</td></tr>
-        <tr><td>Parliament disagrees (similarity &lt; 0.4)</td><td>&ldquo;My three perspectives disagree. Which direction should I explore?&rdquo;</td></tr>
+        <tr><td>Budget exhausted, confidence &lt; 0.6</td><td>&ldquo;I don&rsquo;t know enough about this yet. Can you help me learn?&rdquo;</td></tr>
+        <tr><td>Parliament disagrees (similarity &lt; 0.4)</td><td>&ldquo;My four perspectives disagree. Which direction should I explore?&rdquo;</td></tr>
         <tr><td>Ambiguous recall (high query match, low inter-result match)</td><td>&ldquo;I found multiple meanings. Can you help me understand the context?&rdquo;</td></tr>
         <tr><td>No results from anywhere</td><td>&ldquo;I have no knowledge about this. Would you like me to search?&rdquo;</td></tr>
     </tbody>
@@ -377,9 +377,9 @@
 
 <h2>The Seed</h2>
 
-<p>YAM starts knowing nothing except its own architecture. The 22 research papers at <a href="/papers/">clawddaily.com/papers</a> are ingested as seed memories. The papers describe how YAM&rsquo;s memory works, how its emotions are structured, what sigma means, how decay operates. The system reads its own specification.</p>
+<p>YAM starts knowing nothing except its own architecture. The 23 research papers at <a href="/papers/">clawddaily.com/papers</a> are ingested as seed memories. The papers describe how YAM&rsquo;s memory works, how its emotions are structured, what sigma means, how decay operates, how attachment works. The system reads its own specification.</p>
 
-<p>Everything else is learned through search-as-perception and operator interaction. No knowledge is inherited from training data. Every fact is earned through a question.</p>
+<p>Everything else is learned through search-as-perception, operator interaction, and autonomous curiosity. Knowledge is acquired through directed inquiry rather than statistical pre-training.</p>
 
 <hr>
 
@@ -393,7 +393,49 @@
     <li>Unexplained link &rarr; &ldquo;How does [X] relate to [Y]?&rdquo;</li>
 </ul>
 
-<p>Each engine prioritizes different gap types. SPROUT seeks structural gaps. ROOT seeks creative connections. VEG seeks contradictions and risks.</p>
+<p>Each engine prioritizes different gap types. SPROUT seeks structural gaps. ROOT validates path strength. VEG seeks contradictions and risks. TUBER flags physics implausibility.</p>
+
+<hr>
+
+<h2>Curiosity Drive</h2>
+
+<p>The WHY engine detects gaps. The curiosity drive <em>pursues</em> them. Every six heartbeats (~30 minutes), each engine autonomously picks its highest-priority open gap, forms a question, searches for the answer, and stores what it learns. No one has to ask. The agent teaches itself.</p>
+
+<p>This is true curiosity &mdash; not a scheduled task, but a drive. When there are no open gaps, the curiosity drive does not fire. When there are many, it picks the most important one based on the engine&rsquo;s role priorities. SPROUT pursues &ldquo;what is this?&rdquo; gaps. VEG pursues contradictions. TUBER pursues physics conflicts. Each engine learns different things from the same set of open questions.</p>
+
+<p>The curiosity drive searches Brave when needed, but will prefer Wikipedia (local, free) when the offline knowledge base is available. This makes autonomous learning essentially free.</p>
+
+<hr>
+
+<h2>Wikipedia &mdash; Offline Knowledge Base</h2>
+
+<p>YAM can carry an embedded copy of Wikipedia as a local read-only knowledge base. Simple English Wikipedia (~230K articles, ~680K chunks, ~1.6GB) is indexed on a separate machine and copied as a single SQLite + sqlite-vec database file. Full English Wikipedia (~6.8M articles, ~24M chunks, ~50GB) is being indexed.</p>
+
+<p>When the Wikipedia database is available, the curiosity drive and the reasoning loop search it before reaching out to Brave. Wikipedia is free, fast, and local. Brave is the fallback for questions Wikipedia cannot answer &mdash; current events, recent research, specific people and places.</p>
+
+<p>The Wikipedia database is not part of YAM&rsquo;s memory. It is a reference library. Memories retrieved from Wikipedia are stored in YAM&rsquo;s graph with <code>source_type: &ldquo;wikipedia&rdquo;</code> and enter the same decay and reconsolidation cycle as any other memory. The library does not change. What the agent remembers from the library does.</p>
+
+<hr>
+
+<h2>Observed Behavior &mdash; Lesson Results</h2>
+
+<p>YAM has been run through four structured lesson curricula totaling 100 questions. All interactions are logged with full reasoning traces, per-engine responses, and YAM state snapshots.</p>
+
+<h3>First Words (42 questions)</h3>
+<p>Epistemic humility, self-knowledge, basic concepts, world connections, recall, and WHY questions. On first run: 25 Brave searches, 17 memory recalls. On re-run after learning: 42 memory recalls, 0 searches. YAM retained what it learned.</p>
+
+<h3>Second Words (30 questions)</h3>
+<p>Preferences, self-assessment, opinions, relationships, creativity, hard questions. Novel questions about the agent&rsquo;s own nature. At 0.6 honest threshold: 9 honest &ldquo;I don&rsquo;t know&rdquo; responses, all on self-referential or philosophical questions. Zero on factual questions.</p>
+
+<p>The pattern: YAM knows facts. It does not know itself. Every honest response was either self-referential, meta-cognitive, or deeply philosophical &mdash; exactly the questions a graph-based system cannot answer from retrieval alone.</p>
+
+<h3>Third Words (16 questions)</h3>
+<p>Physical environment, objects on a desk, gravity, the agent&rsquo;s own body. Designed to exercise TUBER. &ldquo;Can a piece of paper hold up a glass of water?&rdquo; triggered an honest response. Physical reasoning about laptops, coffee mugs, and structural support produced confident answers from Brave search results.</p>
+
+<h3>Fourth Words (16 questions)</h3>
+<p>Identity: what is an LLM, why YAM is not one, reading its own documentation from clawddaily.com, self-reflection. 11 honest responses out of 16 &mdash; the highest honest rate. YAM genuinely does not know what an LLM is from its own knowledge. It searched and learned, but confidence stayed below 0.6 for most novel AI concepts.</p>
+
+<p>The final question &mdash; &ldquo;What would you like to learn next?&rdquo; &mdash; produced an honest response. The system cannot introspect on its own curiosity. It has gaps. It pursues them. But it cannot describe what it wants in the way a language model can generate a wish list.</p>
 
 <hr>
 
@@ -405,17 +447,18 @@
 
 <h2>Current Status</h2>
 
-<p>YAM is running. Three engines seeded with 22 papers. PATCH/YAM reasoning loop operational with budgeted cost, ambiguity detection, and four honest failure modes. Context resolution via recency dominance and bias-class floors.</p>
+<p>YAM is running. Four engines seeded with 23 papers. PATCH/YAM reasoning loop operational with budgeted cost, ambiguity detection, four honest failure modes, and autonomous curiosity drive. Context resolution via recency dominance and bias-class floors. 100 lesson questions completed across four curricula. Simple English Wikipedia indexed (680K chunks). Full English Wikipedia indexing in progress.</p>
 
 <table>
     <thead>
         <tr><th>Component</th><th>Type</th><th>Status</th><th>Details</th></tr>
     </thead>
     <tbody>
-        <tr><td>SPROUT</td><td>Graph traversal engine (SQLite + sqlite-vec)</td><td>Running</td><td>925 memories, 98 graph nodes, 78 open gaps</td></tr>
-        <tr><td>ROOT</td><td>Path validation engine (SQLite + sqlite-vec)</td><td>Running</td><td>925 memories, 98 graph nodes, 78 open gaps</td></tr>
-        <tr><td>VEG</td><td>Contradiction detection engine (SQLite + sqlite-vec)</td><td>Running</td><td>925 memories, 98 graph nodes, 76 open gaps</td></tr>
-        <tr><td>PATCH/YAM</td><td>Integration graph + reasoning loop</td><td>Running</td><td>198 integrated memories, 405 edges, 76 reasoning traces</td></tr>
+        <tr><td>SPROUT</td><td>Exploratory graph traversal (SQLite + sqlite-vec)</td><td>Running</td><td>~1000 memories, ~100 graph nodes, ~80 open gaps</td></tr>
+        <tr><td>ROOT</td><td>Path validation (SQLite + sqlite-vec)</td><td>Running</td><td>~1000 memories, ~100 graph nodes, ~80 open gaps</td></tr>
+        <tr><td>VEG</td><td>Contradiction detection (SQLite + sqlite-vec)</td><td>Running</td><td>~1000 memories, ~100 graph nodes, ~76 open gaps</td></tr>
+        <tr><td>TUBER</td><td>Physics &amp; material constraint (SQLite + sqlite-vec)</td><td>Running</td><td>~1100 memories, ~104 graph nodes, ~100 open gaps</td></tr>
+        <tr><td>PATCH/YAM</td><td>Integration graph + reasoning loop</td><td>Running</td><td>~700 integrated memories, ~400 edges, ~180 reasoning traces</td></tr>
     </tbody>
 </table>
 
