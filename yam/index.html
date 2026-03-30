@@ -189,6 +189,26 @@
     <li><strong>True deletion:</strong> All traces removed. Graph links severed. The memory is gone. Genuine forgetting.</li>
 </ul>
 
+<h3>Visual Traces and Dual Vector Spaces</h3>
+
+<p>Some memories carry a visual residue &mdash; an image rendered by a diffusion model (SD-Turbo, 256x256, 1 step) from the semantic description at encoding time. The image file is stored on disk. Its CLIP embedding (512-dim) is stored in a separate vector table.</p>
+
+<table>
+    <thead>
+        <tr><th>Vector Space</th><th>Model</th><th>Dimensions</th><th>Stores</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><code>vec_memories</code></td><td>all-MiniLM-L6-v2</td><td>384</td><td>Text meaning (semantic search)</td></tr>
+        <tr><td><code>vec_visual</code></td><td>CLIP vit-base-patch32</td><td>512</td><td>Image perception (visual search)</td></tr>
+    </tbody>
+</table>
+
+<p>Same SQLite database. Same sqlite-vec extension. Two virtual tables. On recall, both spaces are searched: text query embeds with MiniLM for semantic matches and with CLIP&rsquo;s text encoder for visual matches. CLIP maps text and images to the same coordinate system &mdash; you can find images using words without converting the image to text.</p>
+
+<p>On recall, if the visual trace is alive, CLIP re-embeds the stored image and compares it against graph node labels. The closest matches become the new interpretation. No text is generated. The graph provides the vocabulary. CLIP provides the matching. This is perception, not generation.</p>
+
+<p>When a visual trace is eroded during decay, the image file is deleted, the CLIP vector is removed, but the text embeddings and graph connections may still survive. The room is gone. The bunkbeds are still sharp &mdash; until they aren&rsquo;t.</p>
+
 <h3>Reinterpretation</h3>
 
 <p>When a memory resurfaces, the system does not overwrite the old interpretation. It creates a new one. The old interpretation becomes one reading among many:</p>
