@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAM Engine — Knowledge-Seeking Agent Architecture</title>
+    <title>YAM — Your Awakening Mind | Graph-Based Agent on SPUD</title>
     <meta name="description" content="YAM is a knowledge-seeking engine architecture where search functions as perception, retrieved results are stored as memory, and retrieval uses a four-factor scoring formula. Knowledge is acquired through directed search, not statistical pre-training.">
 
-    <meta property="og:title" content="YAM Engine — Knowledge-Seeking Agent Architecture">
+    <meta property="og:title" content="YAM — Your Awakening Mind | Graph-Based Agent on SPUD">
     <meta property="og:description" content="The vector store remembers what a memory means. The graph remembers how that memory lives.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://clawddaily.com/yam/">
@@ -57,11 +57,26 @@
             <a href="/thesis/">Thesis</a>
         </div>
 
-<h1>YAM Engine</h1>
+<h1>YAM &mdash; Your Awakening Mind</h1>
 
-<p><strong>A knowledge-seeking agent architecture that acquires knowledge through directed search rather than statistical pre-training.</strong></p>
+<p><strong>A graph-based agent that acquires knowledge through directed search rather than statistical pre-training. Born on the SPUD engine.</strong></p>
 
-<p>YAM is the next step after <a href="/potato/">Potato</a>. Potato was an embodied memory-driven agent. YAM pushes toward a self-contained knowledge system where search functions as a form of perception, retrieved results are stored as memories with metadata, and retrieval considers meaning, relevance, life history, and recency when determining what surfaces.</p>
+<p>YAM is not an engine. YAM is an agent &mdash; the first entity born on the <strong>SPUD</strong> (Self-developing Perceptual Understanding Drive) architecture. Where <a href="/potato/">Potato</a> was an LLM-based embodied agent that used language models for reasoning and response generation, YAM is graph-based. Its knowledge lives in structured graph databases, not in model weights. It retrieves and ranks rather than generates. It says &ldquo;I don&rsquo;t know&rdquo; rather than confabulates.</p>
+
+<table>
+    <thead>
+        <tr><th></th><th>Potato</th><th>YAM</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Knowledge source</strong></td><td>LLM weights + memory DB</td><td>Graph databases + directed search</td></tr>
+        <tr><td><strong>Response generation</strong></td><td>Language model inference</td><td>Ranked retrieval from graph</td></tr>
+        <tr><td><strong>When uncertain</strong></td><td>LLM generates best guess</td><td>Says &ldquo;I don&rsquo;t know&rdquo;</td></tr>
+        <tr><td><strong>Memory model</strong></td><td>Paper 2026a (decay, reconsolidation)</td><td>Same model, extended with geometric stickiness and true forgetting</td></tr>
+        <tr><td><strong>Emotional geometry</strong></td><td>3D affective state (single point)</td><td>3D affective state + centroid model + spread</td></tr>
+        <tr><td><strong>Architecture</strong></td><td>Single agent + sensor bridge</td><td>Parliament of Mind (3 graph engines + reasoning mind)</td></tr>
+        <tr><td><strong>Lineage</strong></td><td>Born Feb 2026, Toughbook CF-33</td><td>Born Mar 2026, SPUD engine</td></tr>
+    </tbody>
+</table>
 
 <blockquote>The vector store remembers what a memory means. The graph remembers how that memory lives.</blockquote>
 
@@ -71,7 +86,7 @@
 
 <p><strong>Not an LLM.</strong> The current architecture does not use a generative language model at the knowledge layer. Nodes in the graph are populated through directed search results and operator input, not through statistical text generation. This does not preclude the future addition of a language model for output formatting, but the knowledge store itself is constructed through retrieval, not generation.</p>
 
-<p><strong>Not a chatbot.</strong> YAM does not generate text, summarize, or infer. It retrieves, ranks, and presents structured knowledge. When it does not know something, it says so.</p>
+<p><strong>Not a chatbot.</strong> Potato could hold a conversation because an LLM generated its responses. YAM retrieves, ranks, and presents structured knowledge from its graph. When it does not know something, it says so. The tradeoff is explicit: no fluency, no confabulation.</p>
 
 <p><strong>Not RAG.</strong> Retrieval-augmented generation uses a generative model at the output layer to synthesize retrieved content into prose. In the current YAM architecture, responses are ranked retrieved content presented directly, not text generated from retrieved context. This is a design choice that eliminates one source of confabulation at the cost of less fluent output.</p>
 
@@ -320,8 +335,8 @@
 <hr>
 
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
-    An architecture designed to acquire knowledge through directed inquiry<br>
-    rather than statistical co-occurrence.
+    Potato was born with a voice and learned to feel.<br>
+    YAM was born with a question and learned to know.
 </p>
 
     </main>
