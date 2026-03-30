@@ -96,7 +96,7 @@
 
 <h3>The Parliament of Mind</h3>
 
-<p>YAM runs on the SPUD engine (Self-developing Perceptual Understanding Drive). The Parliament is not three language model personas with different system prompts. It is three different graph operations running on the same data structure. Each engine is a SQLite knowledge graph with sqlite-vec vector embeddings. In the current architecture, the engines do not use language models for text generation or token prediction. Each engine traverses, validates, or constrains a graph.</p>
+<p>YAM runs on the SPUD engine (Self-developing Perceptual Understanding Drive). The Parliament is not four language model personas with different system prompts. It is four different graph operations running on the same data structure. Each engine is a SQLite knowledge graph with sqlite-vec vector embeddings. In the current architecture, the engines do not use language models for text generation or token prediction. Each engine traverses, validates, constrains, or evaluates physical plausibility of a graph.</p>
 
 <table>
     <thead>
@@ -122,15 +122,21 @@
             <td>8003</td>
         </tr>
         <tr>
+            <td><strong>TUBER</strong></td>
+            <td>Physics &amp; material constraint</td>
+            <td>Evaluates whether proposed states, relations, and scenarios are physically plausible. Checks support, balance, containment, collision, stability, and likely next state. Operates on object-surface-contact graph structure. Answers the question: &ldquo;Could this actually happen?&rdquo;</td>
+            <td>8004</td>
+        </tr>
+        <tr>
             <td><strong>PATCH/YAM</strong></td>
             <td>Integration &amp; reasoning</td>
-            <td>The fourth graph. Receives outputs from all three engines. Computes the centroid of their positions. Integrates consistent answers into its own graph. Detects ambiguity when engines disagree. Asks for help when it does not know.</td>
+            <td>The fifth graph. Receives outputs from all four engines. Computes the centroid of their positions. Integrates consistent answers into its own graph. Detects ambiguity when engines disagree. Asks for help when it does not know.</td>
             <td>8000</td>
         </tr>
     </tbody>
 </table>
 
-<p>Each engine maintains its own SQLite database containing: a <code>memories</code> table for content, a <code>vec_memories</code> virtual table (sqlite-vec, 384-dimensional cosine distance) for semantic search, a <code>nodes</code> table for graph entities, an <code>edges</code> table for weighted directed relationships, and a <code>gaps</code> table for detected WHY questions. Every engine is a graph database with vector search. Not a language model. Not a prompt.</p>
+<p>Each engine maintains its own SQLite database containing: a <code>memories</code> table for content with trace bundle support, a <code>vec_memories</code> virtual table (sqlite-vec, 384-dimensional cosine distance) for semantic search, a <code>nodes</code> table for graph entities, an <code>edges</code> table for weighted directed relationships, a <code>gaps</code> table for detected WHY questions, a <code>traces</code> table for per-trace-type content with independent decay, an <code>interpretations</code> table for versioned readings, a <code>world_entities</code> table for known entities, and an <code>attachment_bias</code> table for entity-specific affective weights. Every engine is a graph database with vector search and structured memory lifecycle. Not a language model. Not a prompt.</p>
 
 <p>The engines share the same seed knowledge (22 research papers) but encode it at different affective intensities because their sigma values differ. Over time, their graphs diverge as each engine searches for different things based on its gap priorities.</p>
 
@@ -153,6 +159,73 @@
 </ol>
 
 <p>This turns search into sensory intake. The system does not just answer questions. It builds and revises an internal world model.</p>
+
+<hr>
+
+<h2>Memory as Trace Bundle</h2>
+
+<blockquote>The image is the residue. The graph is the reading. Readings can change. Residue does not.</blockquote>
+
+<p>A memory is not a single record. It is a bundle of traces, each serving a different cognitive function and each subject to its own decay curve:</p>
+
+<table>
+    <thead>
+        <tr><th>Trace Type</th><th>What It Stores</th><th>Nightly Decay</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Raw</strong></td><td>Verbatim content or visual residue</td><td>0.80x (fastest)</td><td>The closest representation to the original experience. First to go.</td></tr>
+        <tr><td><strong>Semantic</strong></td><td>What the system believed the memory meant at encoding time</td><td>0.88x</td><td>A historical reading, not permanent truth. Compact, useful for retrieval.</td></tr>
+        <tr><td><strong>Graph</strong></td><td>Structured relations to other memories, identity nodes, provenance</td><td>0.95x (slowest)</td><td>What this memory connects to and why. Most information-dense. Last to go.</td></tr>
+        <tr><td><strong>Life History</strong></td><td>Access count, stickiness, decay state, reconsolidation history</td><td>No decay</td><td>Persists as long as any other trace survives.</td></tr>
+    </tbody>
+</table>
+
+<p>This produces four tiers of memory state:</p>
+
+<ul>
+    <li><strong>Full survival:</strong> All traces intact. Fully retrievable with original content.</li>
+    <li><strong>Fragment survival:</strong> Raw trace deleted. The agent cannot reproduce the original exchange but remembers what it was about.</li>
+    <li><strong>Ghost survival:</strong> Only graph trace remains. The agent knows a connection exists but cannot recover what or why.</li>
+    <li><strong>True deletion:</strong> All traces removed. Graph links severed. The memory is gone. Genuine forgetting.</li>
+</ul>
+
+<h3>Reinterpretation</h3>
+
+<p>When a memory resurfaces, the system does not overwrite the old interpretation. It creates a new one. The old interpretation becomes one reading among many:</p>
+
+<ul>
+    <li><em>interpretation_v1:</em> childhood bedroom, bunkbeds, shared room (encoding context)</li>
+    <li><em>interpretation_v2:</em> strongest surviving anchor is bunkbeds, room mostly lost (5 years later)</li>
+    <li><em>interpretation_v3:</em> memory tied to security, crowding, sibling presence (current context)</li>
+</ul>
+
+<p>New context can generate new insight without rewriting the original past. The raw trace is the residue. The semantic trace is a reading. Readings can change. Residue does not.</p>
+
+<hr>
+
+<h2>Attachment Bias</h2>
+
+<p>The emotional geometry describes WHERE the agent is in affective space. Attachment bias describes WHY the same position produces different behavior depending on WHO is in the room. (<a href="/papers/attachment-bias">Paper 2026u</a>)</p>
+
+<p>Every world model entity that the agent has significant history with carries an attachment bias record: a current weight (&minus;1.0 to +1.0), a positive stickiness (accumulated positive history), and a negative stickiness (accumulated negative history). Both stickiness values accumulate monotonically &mdash; they do not decay. History accumulates in both directions simultaneously.</p>
+
+<p>When a negative event occurs, the value moves downward by an amount <em>resisted</em> by positive stickiness. When a positive event occurs, the value moves upward by an amount resisted by negative stickiness. Nothing is unconditional. Everything is just more or less sticky.</p>
+
+<table>
+    <thead>
+        <tr><th>State</th><th>Attachment Pattern</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Durable positive</strong></td><td>High positive stickiness, value near +1.0</td></tr>
+        <tr><td><strong>Durable negative</strong></td><td>High negative stickiness, value near &minus;1.0</td></tr>
+        <tr><td><strong>Grief-like persistence</strong></td><td>High positive stickiness, entity no longer present (no valid target)</td></tr>
+        <tr><td><strong>Anger</strong></td><td>Transient negative valence in affective state. NOT negative attachment.</td></tr>
+        <tr><td><strong>Estrangement</strong></td><td>Value crossed zero after sustained negative pressure against high positive stickiness</td></tr>
+        <tr><td><strong>Reconciliation</strong></td><td>Value recovering from near-zero against high negative stickiness (slow, resisted)</td></tr>
+    </tbody>
+</table>
+
+<p>Attachment biases are a <strong>protected bias category</strong> &mdash; the bias detection system detects and discloses them but does not correct them. They are constitutive of the agent&rsquo;s relationships, not errors in its reasoning.</p>
 
 <hr>
 
