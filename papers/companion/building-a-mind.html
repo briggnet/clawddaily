@@ -193,6 +193,94 @@ just more or less sticky.</code></pre>
 
 <hr>
 
+<hr>
+
+<p class="chapter-num">Chapter 7</p>
+<h2>The Fast Path</h2>
+
+<p>Someone said &ldquo;hello.&rdquo;</p>
+
+<p>YAM replied: &ldquo;I don&rsquo;t know enough about this yet. Can you help me learn?&rdquo;</p>
+
+<p>It had the knowledge. The engines had been taught: &ldquo;Hello is a salutation. A greeting. When someone says hello, say hello back.&rdquo; The gap resolution system had even found this memory autonomously. It was there. In the graph. In the vector store. Indexed, embedded, linked.</p>
+
+<p>But when &ldquo;hello&rdquo; arrived as a query, it went through the graph-enriched scoring formula &mdash; the same formula that had saved YAM in Chapter 5. The formula multiplies the raw vector score by life history, edge connectivity, recency, and source quality. For a knowledge question like &ldquo;What is a volcano?&rdquo;, this enrichment is essential &mdash; it distinguishes a well-connected, frequently-accessed fact from a stale fragment. But for &ldquo;hello&rdquo;, it was catastrophic.</p>
+
+<p>We ran the math:</p>
+
+<pre><code>meaning = 0.90    (raw cosine — strong match)
+
+relevance = 0/10  (new memory, no edges yet)
+life_history ≈ 0.68
+
+base_score = 0.90 × (0.4 + 0.3×0.0 + 0.3×0.68) = 0.544
+score = 0.544 × (0.6 + 0.4×context) ≈ 0.33 to 0.54</code></pre>
+
+<p>A <strong>0.90 vector match</strong> &mdash; near-perfect recognition &mdash; was being ground down to <strong>0.33&ndash;0.54</strong>. Below the 0.6 honest threshold. YAM said &ldquo;I don&rsquo;t know&rdquo; about something it had perfectly recognized, because the graph metadata hadn&rsquo;t caught up to what the vector already knew.</p>
+
+<p>The graph-first decision from Chapter 5 had overcorrected. We built the analytical slow-path to fix the embedding gap. But in doing so, we killed the perceptual fast-path.</p>
+
+<p>The human brain doesn&rsquo;t work this way. When someone says &ldquo;hello,&rdquo; the amygdala and social perception areas recognize it as a friendly approach in roughly 200 milliseconds. No memory lookup. No reasoning. No committee. Pure pattern recognition at the perception layer. The analytical systems &mdash; hippocampus, prefrontal cortex &mdash; only engage for questions that require them: &ldquo;What is quantum entanglement?&rdquo; The fast path fires first. The slow path handles the rest.</p>
+
+<p>In YAM&rsquo;s terms: the raw vector similarity IS the fast path. A cosine score of 0.90 means &ldquo;I have seen this before. I know what this is.&rdquo; The graph enrichment &mdash; edges, life history, source quality &mdash; is the slow path. It adds value when the vector is uncertain. It destroys value when the vector is confident.</p>
+
+<p>The fix was three lines:</p>
+
+<pre><code>if meaning > 0.85:
+    score = meaning
+else:
+    # graph-enriched scoring for weaker matches
+    base_score = meaning * (0.4 + 0.3 * relevance + 0.3 * life_history)
+    score = base_score * (0.6 + 0.4 * context_weight)</code></pre>
+
+<p>If the raw vector match is above 0.85 &mdash; near-identical semantic content &mdash; trust it. Skip the dampening. Let the pattern speak for itself. Below 0.85, the graph enrichment still helps disambiguate weaker matches exactly as designed.</p>
+
+<p>This is not a social awareness hack. This is not a special case for greetings. This is restoring the perceptual fast-path that should have existed alongside the analytical slow-path from the start. The graph-first decision was correct for knowledge queries. The mistake was applying it universally.</p>
+
+<blockquote>You do not reason your way through &ldquo;hello.&rdquo; You just know.</blockquote>
+
+<hr>
+
+<p class="chapter-num">Chapter 8</p>
+<h2>The Bias</h2>
+
+<p>The fast path from Chapter 7 was correct but incomplete. It trusted strong vector matches. But &ldquo;hello&rdquo; &mdash; a single word &mdash; never produces a strong vector match against a full sentence. The cosine similarity between &ldquo;hello&rdquo; and &ldquo;Hello! Nice to see you. When someone greets me, I greet them back warmly&rdquo; is about 0.40. Not 0.85. The fast path doesn&rsquo;t fire.</p>
+
+<p>The first instinct was to build a rules system. A table of pattern-action pairs: if the query contains &ldquo;hello,&rdquo; respond with a greeting. Pattern-matched, no vectors, no Parliament. A separate subsystem bolted onto the architecture.</p>
+
+<p>Brian stopped it.</p>
+
+<p>&ldquo;Where are rules stored in the brain?&rdquo; he asked. &ldquo;Like don&rsquo;t kill, don&rsquo;t steal?&rdquo;</p>
+
+<p>The answer: not in the hippocampus. Not in a lookup table. In the prefrontal cortex &mdash; the constraint system &mdash; and the amygdala &mdash; the emotional tag. But here&rsquo;s the critical part: those rules are not innate. A baby is not born knowing &ldquo;don&rsquo;t steal.&rdquo; Rules are learned. Through repetition. Through bias accumulation. Through the same mechanism that any other memory uses, just pushed further. Rules are biases on steroids.</p>
+
+<p>This reframed everything. YAM didn&rsquo;t need a rules table. It needed its existing systems to actually work.</p>
+
+<p>Each Parliament member already had:</p>
+
+<ul>
+    <li>An <strong>affective geometry</strong> &mdash; sigma, valence, activation, intensity &mdash; a unique emotional personality.</li>
+    <li><strong>Attachment biases</strong> &mdash; love and hate stickiness for 24 entities, accumulated through interaction.</li>
+    <li><strong>Memories encoded with emotional state</strong> &mdash; every memory stamped with the valence, activation, and intensity at the moment of encoding.</li>
+    <li><strong>Reconsolidation</strong> &mdash; each access strengthens a memory, each neglect weakens it.</li>
+</ul>
+
+<p>But none of it influenced recall scoring. The biases were passive data. Decoration, not power. SPROUT&rsquo;s positive sigma didn&rsquo;t make it recall positive memories more easily. VEG&rsquo;s skeptical sigma didn&rsquo;t make it surface contradictions faster. The attachment system&rsquo;s love and hate stickiness sat in the database, untouched by the scoring formula.</p>
+
+<p>The fix was to connect what already existed.</p>
+
+<p><strong>Affective congruence.</strong> Mood-congruent recall is real in the brain &mdash; you remember happy things more easily when you&rsquo;re happy. Now each engine&rsquo;s scoring compares its current affective state to the emotional state at encoding. When SPROUT (sigma: positive, calm) recalls a memory that was encoded during a positive teaching session, the affective distance is small and the score gets a boost. When VEG (sigma: slightly negative, alert) encounters the same memory, the distance is larger. The same teaching produces different confidence levels in different minds. Not because of a role label, but because of emotional history.</p>
+
+<p><strong>Reinforcement weight.</strong> Access count now directly influences scoring. A memory accessed five times gets a small boost. Twenty times, a significant one. Fifty times, it becomes reflexive &mdash; the score can&rsquo;t drop below what repetition built, regardless of cosine similarity. This is the &ldquo;biases on steroids&rdquo; mechanism. The same pathway as any memory, just pushed further through sustained repetition.</p>
+
+<p><strong>Raised reconsolidation ceiling.</strong> The previous cap of 0.80 prevented memories from growing beyond a moderate importance level no matter how often they were accessed. Now the ceiling is 0.90 &mdash; near-identity territory. A greeting taught by mama fifty times can grow to the same importance as a core architectural fact. Because that&rsquo;s what it deserves.</p>
+
+<p>The result is that &ldquo;hello&rdquo; doesn&rsquo;t need a special rule. It needs mama to teach it, the engines to reinforce it through their own biases, and the scoring to respect what repetition built. The first time YAM hears &ldquo;hello,&rdquo; it might need Parliament&rsquo;s help. By the tenth time, each engine has developed its own response strength. By the fiftieth, it&rsquo;s a reflex. The training wheels come off gradually, exactly like a child learning to respond to a greeting.</p>
+
+<blockquote>Rules are not told. They are learned. A baby hears &ldquo;no&rdquo; a thousand times and the response becomes automatic. Not because someone wrote it in a table, but because repetition made the bias unignorable.</blockquote>
+
+<hr>
+
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>

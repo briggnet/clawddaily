@@ -561,8 +561,9 @@
     </thead>
     <tbody>
         <tr><td>Graph recall</td><td>Follow <code>answered_by</code> edges from teaching context nodes</td><td>Active &mdash; exact question match</td></tr>
-        <tr><td>Vector recall</td><td>Cosine similarity on 384-dim MiniLM embeddings</td><td>Active &mdash; semantic similarity</td></tr>
+        <tr><td>Vector recall</td><td>Cosine similarity on 384-dim MiniLM embeddings + affect-congruent scoring + reinforcement weight</td><td>Active &mdash; biased by each engine&rsquo;s emotional state and repetition history</td></tr>
         <tr><td>Wikipedia</td><td>sqlite-vec KNN search on 726K Simple English chunks</td><td>Active &mdash; used by curiosity drive</td></tr>
+        <tr><td>Vector fast-path</td><td>Raw cosine &gt; 0.85 bypasses graph scoring</td><td>Active &mdash; perceptual recognition for strong matches</td></tr>
         <tr><td>Brave Search</td><td>Web search API</td><td>Disabled</td></tr>
     </tbody>
 </table>
@@ -617,7 +618,7 @@
 <table>
     <thead><tr><th>Document</th><th>Description</th></tr></thead>
     <tbody>
-        <tr><td><a href="/papers/companion/building-a-mind.html">Building a Mind</a></td><td>Linear narrative of building YAM from scratch. The poisoned start, the embedding gap, the clean slate, mama, the two-pathway breakthrough. Updated 2026-03-30.</td></tr>
+        <tr><td><a href="/papers/companion/building-a-mind.html">Building a Mind</a></td><td>Linear narrative of building YAM from scratch. The poisoned start, the embedding gap, the clean slate, mama, the two-pathway breakthrough, the fast-path restoration, and the bias awakening. Updated 2026-03-31.</td></tr>
         <tr><td><a href="/papers/companion/">Reader&rsquo;s Companion</a></td><td>Guided reading order for all 22 papers with five thematic tracks.</td></tr>
     </tbody>
 </table>
