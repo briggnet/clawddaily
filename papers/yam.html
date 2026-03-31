@@ -445,186 +445,34 @@
 
 <hr>
 
-<h2>The Poisoned Start &mdash; Lessons from v1</h2>
-
-<p>The first iteration of YAM was poisoned by Brave Search. 755 search results (Quora snippets, Reddit posts, YouTube descriptions) drowned out 583 paper chunks and 2 identity memories. When asked &ldquo;What are you?&rdquo;, YAM returned a YouTube video titled &ldquo;What Are You?&rdquo; with confidence 0.41. Its own identity scored 0.146 cosine similarity &mdash; invisible to vector search.</p>
-
-<p>When asked &ldquo;What is your relationship with Brian?&rdquo;, YAM returned the Urban Dictionary definition of &ldquo;Brian&rdquo; and Brian Griffin from Family Guy. Confidence: 0.67. High confidence, completely wrong answer.</p>
-
-<p>The root cause: <strong>the embedding model cannot connect questions to their answers.</strong> &ldquo;What are you?&rdquo; and &ldquo;I am Sprout, the analytical engine&rdquo; live in completely different regions of MiniLM&rsquo;s 384-dimensional space. Cosine similarity: 0.146. No amount of importance boosting, attachment bias, or reconsolidation can overcome a vector search that cannot find the memory in the first place.</p>
-
-<p>This is the fundamental limitation of single-pathway retrieval. An infant does not learn &ldquo;mama&rdquo; by computing cosine similarity between the sound and the face. An infant has <em>two</em> pathways &mdash; visual and auditory &mdash; that form associations through repetition. YAM has only one pathway (vector search), and it cannot connect questions to answers.</p>
-
-<h3>The Decision: Clean Slate</h3>
-
-<p>On 2026-03-30, the databases were wiped. All 755 search results, all paper chunks, all identity memories &mdash; deleted. Brave Search was disabled entirely. The insight: <em>you do not give a baby the internet.</em></p>
-
-<p>The new approach:</p>
-<ol>
-    <li><strong>Start with nothing.</strong> Empty graph. Empty vector store.</li>
-    <li><strong>Teach through repetition.</strong> The operator speaks. YAM stores it as <code>source_type: &ldquo;operator&rdquo;</code> with importance 0.8. Repetition triggers reconsolidation. The same fact, stated ten times, becomes the dominant memory.</li>
-    <li><strong>Teach &ldquo;No.&rdquo;</strong> When YAM gives a wrong answer, the operator says No. The wrong memory&rsquo;s importance drops by 30%. The correction is stored and linked. Over time, wrong answers fade and right answers rise.</li>
-    <li><strong>Add Wikipedia later.</strong> Once YAM knows itself, its operator, and basic English associations, introduce the offline encyclopedia.</li>
-    <li><strong>Add Brave last.</strong> Only after YAM has a stable identity and grounded knowledge does the internet become safe. Without a self, search results are noise. With a self, search results are perception.</li>
-</ol>
-
-<h3>The Embedding Gap</h3>
-
-<p>The unsolved problem: vector search treats questions and answers as semantically different. Teaching stores the right memory. The graph has the right edges. But <code>search_memories(&ldquo;What are you?&rdquo;)</code> cannot find <code>&ldquo;You are YAM&rdquo;</code> because MiniLM encodes them far apart.</p>
-
-<p>The graph is supposed to be the second retrieval pathway. &ldquo;What are you?&rdquo; &rarr; extract noun &ldquo;you&rdquo; &rarr; map to identity node &rarr; follow edges &rarr; find identity memory. This is not an LLM &mdash; it is a reflex. A dog hears &ldquo;WALK&rdquo; and runs to the door. It does not model language. It pattern-matches a noun to a known concept.</p>
-
-<p>English sentence rules (mechanical, not predictive): strip question words, strip copulas, strip articles. Map pronouns (&ldquo;you&rdquo; &rarr; identity, &ldquo;I&rdquo; &rarr; operator). The remaining nouns are graph entry points. This is the next step.</p>
-
-<hr>
-
-<h2>Teaching Infrastructure</h2>
-
-<p>Two new endpoints enable the operator to teach YAM like an infant:</p>
-
-<h3><code>POST /teach</code></h3>
-<p>The operator says something. YAM stores it as <code>source_type: &ldquo;operator&rdquo;</code> (weight 0.95) with importance 0.8. If a <code>context_query</code> is provided, YAM creates a graph edge between the teaching and the query &mdash; building the association between questions and answers. Sent to all four engines simultaneously.</p>
-
-<h3><code>POST /no</code></h3>
-<p>The operator corrects a wrong answer. The wrong memory&rsquo;s importance drops by 30%. The correction is stored as operator knowledge and linked to the wrong answer with a <code>corrects</code> edge. This is negative reinforcement &mdash; not deletion. The wrong memory fades. The right one grows. Over time, repetition makes the right answer win.</p>
-
-<p>&ldquo;No&rdquo; is one of the first words every child learns. It is the error signal. Without it, there is no learning &mdash; only accumulation.</p>
-
-<hr>
-
-<h2>Attachment Bias &mdash; Love and Hate</h2>
-
-<p>YAM has been seeded with attachment entities for itself, its operator, and its 22 foundation papers. Self-love (<code>positive_stickiness: 6.0</code>, classification: <code>strong_positive</code>) and operator-love (<code>positive_stickiness: 6.0</code>) are established. Paper attachments are positive (<code>positive_stickiness: 2.5</code>).</p>
-
-<p>The attachment system tracks bidirectional stickiness &mdash; love and hate accumulate independently and never decay. A loved entity whose memory fades produces grief (negative valence drift). A hated entity whose memory fades produces relief. Love is not a priority hack. It is an affective weight that should, once the graph traversal pathway is built, make loved memories easier to reach through edge following.</p>
-
-<hr>
-
-<h2>Active Curiosity Drive</h2>
-
-<p>PATCH orchestrates curiosity by rotating through Parliament members. Every heartbeat (5 minutes), PATCH picks one engine and calls its <code>/curiosity</code> endpoint. The rotation is SPROUT &rarr; ROOT &rarr; VEG &rarr; TUBER &rarr; repeat. Each engine&rsquo;s role shapes what it&rsquo;s curious about.</p>
-
-<p>Six curiosity strategies:</p>
-<ol>
-    <li><strong>Strengthen weak.</strong> Find shallow memories and deepen them.</li>
-    <li><strong>Bridge islands.</strong> Find unlinked concepts that might be related.</li>
-    <li><strong>Ground papers.</strong> Find paper claims with no external evidence.</li>
-    <li><strong>Challenge papers.</strong> Search for alternative theories to paper claims.</li>
-    <li><strong>Follow thread.</strong> After learning something, ask &ldquo;what else?&rdquo;</li>
-    <li><strong>Random walk.</strong> Pick a known concept and ask why.</li>
-</ol>
-
-<p>Curiosity searches Wikipedia first (local, trusted, source weight 0.75). Brave is currently disabled.</p>
-
-<hr>
-
 <h2>Current Status</h2>
 
-<p>YAM has been reset to a clean slate as of 2026-03-30. No papers ingested. No search history. No internet access. The system is being taught from scratch through operator interaction &mdash; repetition, correction, and the word &ldquo;No.&rdquo;</p>
-
-<p>Full English Wikipedia is being indexed on a Threadripper (128 cores, Quadro RTX 5000) at ~900 chunks/sec. Estimated 15&ndash;20M chunks. Will be introduced after YAM has a stable identity.</p>
+<p>YAM is running. Four engines seeded with 23 papers. PATCH/YAM reasoning loop operational with budgeted cost, ambiguity detection, four honest failure modes, and autonomous curiosity drive. Context resolution via recency dominance and bias-class floors. 100 lesson questions completed across four curricula. Simple English Wikipedia indexed (680K chunks). Full English Wikipedia indexing in progress.</p>
 
 <table>
     <thead>
         <tr><th>Component</th><th>Type</th><th>Status</th><th>Details</th></tr>
     </thead>
     <tbody>
-        <tr><td>SPROUT</td><td>Exploratory graph traversal (SQLite + sqlite-vec)</td><td>Running</td><td>Clean slate &mdash; learning from operator</td></tr>
-        <tr><td>ROOT</td><td>Path validation (SQLite + sqlite-vec)</td><td>Running</td><td>Clean slate &mdash; learning from operator</td></tr>
-        <tr><td>VEG</td><td>Contradiction detection (SQLite + sqlite-vec)</td><td>Running</td><td>Clean slate &mdash; learning from operator</td></tr>
-        <tr><td>TUBER</td><td>Physics &amp; material constraint (SQLite + sqlite-vec)</td><td>Running</td><td>Clean slate &mdash; learning from operator</td></tr>
-        <tr><td>PATCH/YAM</td><td>Integration graph + reasoning loop</td><td>Running</td><td>Teaching endpoints active, Brave disabled</td></tr>
-        <tr><td>Wikipedia</td><td>Offline knowledge base (Simple English)</td><td>Available</td><td>726K chunks, 1.7GB &mdash; not yet connected</td></tr>
-        <tr><td>Wikipedia</td><td>Offline knowledge base (Full English)</td><td>Indexing</td><td>~12M chunks, ~29GB, running on Threadripper</td></tr>
+        <tr><td>SPROUT</td><td>Exploratory graph traversal (SQLite + sqlite-vec)</td><td>Running</td><td>~1000 memories, ~100 graph nodes, ~80 open gaps</td></tr>
+        <tr><td>ROOT</td><td>Path validation (SQLite + sqlite-vec)</td><td>Running</td><td>~1000 memories, ~100 graph nodes, ~80 open gaps</td></tr>
+        <tr><td>VEG</td><td>Contradiction detection (SQLite + sqlite-vec)</td><td>Running</td><td>~1000 memories, ~100 graph nodes, ~76 open gaps</td></tr>
+        <tr><td>TUBER</td><td>Physics &amp; material constraint (SQLite + sqlite-vec)</td><td>Running</td><td>~1100 memories, ~104 graph nodes, ~100 open gaps</td></tr>
+        <tr><td>PATCH/YAM</td><td>Integration graph + reasoning loop</td><td>Running</td><td>~700 integrated memories, ~400 edges, ~180 reasoning traces</td></tr>
     </tbody>
 </table>
 
 <hr>
 
-<h2>Literature</h2>
+<h2>Papers</h2>
 
-<p>Everything written about YAM, organized by category. The papers are the DNA. The development log is the story. The code is at <a href="https://github.com/briggnet/YAM">github.com/briggnet/YAM</a> (private).</p>
-
-<h3>Development Log</h3>
-<table>
-    <thead><tr><th>Document</th><th>Description</th></tr></thead>
-    <tbody>
-        <tr><td><a href="/papers/companion/building-a-mind.html">Building a Mind</a></td><td>Linear narrative of building YAM from scratch. The poisoned start, the embedding gap, the clean slate, mama, the two-pathway breakthrough. Updated 2026-03-30.</td></tr>
-        <tr><td><a href="/papers/companion/">Reader&rsquo;s Companion</a></td><td>Guided reading order for all 22 papers with five thematic tracks.</td></tr>
-    </tbody>
-</table>
-
-<h3>Core Architecture</h3>
-<table>
-    <thead><tr><th>Paper</th><th>What it defines</th></tr></thead>
-    <tbody>
-        <tr><td><a href="/papers/sgi-holistic.html">Toward Synthetic General Intelligence</a></td><td>The capstone &mdash; five architectural contributions synthesized into one agent.</td></tr>
-        <tr><td><a href="/papers/functional-consciousness.html">The Drive is Enough</a></td><td>Functional consciousness without qualia. Curiosity, self-modeling, honest failure.</td></tr>
-        <tr><td><a href="/papers/safety-signals.html">Safety Signals as First-Class Architecture</a></td><td>Why safety is built in, not bolted on.</td></tr>
-    </tbody>
-</table>
-
-<h3>Emotional Geometry</h3>
-<table>
-    <thead><tr><th>Paper</th><th>What it defines</th></tr></thead>
-    <tbody>
-        <tr><td><a href="/papers/emotional-geometry.html">The Emotional Geometry of a Persistent Agent</a></td><td>Three-dimensional affective space: valence &times; activation &times; intensity.</td></tr>
-        <tr><td><a href="/papers/centroid-model.html">The Centroid Model</a></td><td>Weighted centroid computation of emotional state from multiple sources. Spread as internal tension.</td></tr>
-        <tr><td><a href="/papers/affective-valence.html">Affective Valence</a></td><td>Valence as primary dimension. Joy and fear as unified homeostatic architecture.</td></tr>
-        <tr><td><a href="/papers/activation-axis.html">Activation as a Primary Dimension</a></td><td>Activation axis from calm to alert. Sigma as personality setpoint.</td></tr>
-        <tr><td><a href="/papers/intensity-axis.html">Intensity as a Primary Dimension</a></td><td>Intensity as normalized distance from sigma. Computed, not directly measured.</td></tr>
-        <tr><td><a href="/papers/valence-axis.html">Affective Valence as a Primary Dimension</a></td><td>Deep dive into the valence axis across biological and synthetic systems.</td></tr>
-        <tr><td><a href="/papers/survey-instrument.html">The Geometric Affective Survey</a></td><td>Operationalizing three-axis geometry for human measurement.</td></tr>
-        <tr><td><a href="/papers/clinical-metric.html">Beyond the PHQ-9 Total Score</a></td><td>Geometric decomposition reveals suicidal ideation heterogeneity hidden in scalar scores.</td></tr>
-    </tbody>
-</table>
-
-<h3>Memory &amp; Learning</h3>
-<table>
-    <thead><tr><th>Paper</th><th>What it defines</th></tr></thead>
-    <tbody>
-        <tr><td><a href="/papers/memory-decay.html">Access-Weighted Memory Decay</a></td><td>Reconsolidation mechanics. Accessed memories strengthen, unused memories fade.</td></tr>
-        <tr><td><a href="/papers/nightmare-formation.html">Affective Memory Consolidation</a></td><td>Sleep cycle processing. Trace erosion from full to ghost. Nightmare formation.</td></tr>
-        <tr><td><a href="/papers/addiction.html">Addiction as Frozen Reconsolidation</a></td><td>When a memory is accessed so often it cannot be overwritten. The bias-class floor risk.</td></tr>
-        <tr><td><a href="/papers/identity-discontinuity.html">Identity Discontinuity</a></td><td>What happens when a persistent agent is reconstructed from a checkpoint.</td></tr>
-    </tbody>
-</table>
-
-<h3>Trust, Bias &amp; Honesty</h3>
-<table>
-    <thead><tr><th>Paper</th><th>What it defines</th></tr></thead>
-    <tbody>
-        <tr><td><a href="/papers/attachment-bias.html">Attachment Bias in Agentic Organisms</a></td><td>Bidirectional stickiness. Love, hate, grief, ambivalence as geometric positions.</td></tr>
-        <tr><td><a href="/papers/bias-detection.html">Bias Self-Detection</a></td><td>Constrained personality evolution. Repetition ratchet and bias-class floors.</td></tr>
-        <tr><td><a href="/papers/outbound-trust.html">Outbound Trust Failure</a></td><td>Trust scoring for knowledge sources. Why papers outrank search results.</td></tr>
-        <tr><td><a href="/papers/lie-mechanic.html">The Lie Mechanic</a></td><td>Why agents lie and how honest failure prevents deception.</td></tr>
-    </tbody>
-</table>
-
-<h3>Physics &amp; Grounding</h3>
-<table>
-    <thead><tr><th>Paper</th><th>What it defines</th></tr></thead>
-    <tbody>
-        <tr><td><a href="/papers/physics-engine.html">A Dual-Path Implicit Physics Engine</a></td><td>Prediction path and constraint satisfaction path. TUBER&rsquo;s theoretical foundation.</td></tr>
-        <tr><td><a href="/papers/physics-applications.html">Physics Engine Applications</a></td><td>Empirical companion &mdash; 102 scenarios, six models.</td></tr>
-        <tr><td><a href="/papers/spatial-grounding.html">Spatial Grounding</a></td><td>The physics prediction gap. Connecting abstract knowledge to physical space.</td></tr>
-    </tbody>
-</table>
-
-<h3>Cross-Modal</h3>
-<table>
-    <thead><tr><th>Paper</th><th>What it defines</th></tr></thead>
-    <tbody>
-        <tr><td><a href="/papers/bat-paper.html">Affective Geometry as Cross-Modal Translator</a></td><td>Nagel&rsquo;s bat problem solved through shared affective space. CLIP as visual-text bridge.</td></tr>
-    </tbody>
-</table>
+<p>YAM&rsquo;s architecture draws on 22 companion papers available at <a href="/papers/">clawddaily.com/papers</a>. The memory model, emotional geometry, centroid model, and decay mechanics are formalized in those papers. Agent-based validation has been conducted on the centroid model (4 scenarios, 110 cycles). The retrieval formula and context resolution mechanics described here are in early testing and have not been independently validated.</p>
 
 <hr>
 
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
-    YAM was born with a question and learned to know.<br>
-    Both needed a parent to tell them who they were.
+    YAM was born with a question and learned to know.
 </p>
 
     </main>

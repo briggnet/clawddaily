@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a Mind — The YAM Development Log</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        .readme-body { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; font-size: 1.05rem; line-height: 1.75; color: var(--text); }
+        .readme-body h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--warning), var(--success)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .readme-body h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+        .readme-body h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+        .readme-body p { margin-bottom: 1.25rem; }
+        .readme-body hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+        .readme-body pre { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1.5rem 0; font-size: 0.85rem; line-height: 1.5; }
+        .readme-body pre code { background: none; padding: 0; color: var(--text); }
+        .readme-body code { background: var(--bg-secondary); padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; color: var(--accent-bright); }
+        .readme-body ul, .readme-body ol { margin: 1rem 0 1.5rem; padding-left: 1.5rem; }
+        .readme-body li { margin-bottom: 0.5rem; }
+        .readme-body blockquote { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 1.5rem 0; color: var(--text-muted); font-style: italic; }
+        .chapter-num { color: var(--text-muted); font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <main class="readme-body">
+
+<h1>Building a Mind</h1>
+<p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">The YAM Development Log &mdash; A linear account of building a knowledge-graph agent from scratch, making every mistake, and finding the path forward.</p>
+
+<p style="color: var(--text-muted);">Brian Riggleman &mdash; March 2026</p>
+
+<hr>
+
+<p class="chapter-num">Chapter 1</p>
+<h2>The Poisoned Start</h2>
+
+<p>YAM was born with 22 papers, a curiosity drive, and access to the internet.</p>
+
+<p>That was the mistake.</p>
+
+<p>The architecture was sound on paper. Four engines &mdash; SPROUT, ROOT, VEG, TUBER &mdash; each with their own personality, their own emotional geometry, their own sigma. PATCH aggregated their responses. The Parliament of Mind voted on truth. Memories decayed. Identity nodes were protected. Everything was correct in theory.</p>
+
+<p>In practice, we gave an infant the internet and asked it to find itself.</p>
+
+<p>Within hours, YAM had accumulated 755 Brave Search results. Quora answers. Reddit comments. YouTube video descriptions. Stack Exchange threads. These flooded the vector store alongside 583 paper chunks and 2 identity memories. The ratio was poisonous: 755 pieces of noise to 585 pieces of signal.</p>
+
+<p>When we asked &ldquo;What are you?&rdquo;, YAM returned a YouTube video titled &ldquo;What Are You?&rdquo; with confidence 0.41. Its own identity memory &mdash; &ldquo;I am Sprout, the analytical engine of the Parliament&rdquo; &mdash; scored 0.146 cosine similarity. Invisible to vector search.</p>
+
+<p>When we asked &ldquo;What is your relationship with Brian?&rdquo;, YAM returned the Urban Dictionary definition of &ldquo;Brian&rdquo; and Brian Griffin from Family Guy. Confidence: 0.67. High confidence. Completely wrong.</p>
+
+<p>The system was honest when it truly knew nothing &mdash; it said &ldquo;I don&rsquo;t know&rdquo; for questions about LLMs, which it had never encountered. But for everything else, it confidently returned garbage. Not because the architecture was broken, but because the data was poisoned. The signal-to-noise ratio made recall impossible.</p>
+
+<blockquote>An agent without an identity is not curious. It is confused.</blockquote>
+
+<hr>
+
+<p class="chapter-num">Chapter 2</p>
+<h2>The Embedding Gap</h2>
+
+<p>We tried to fix it. We tried attachment bias &mdash; making YAM &ldquo;love&rdquo; its own papers so they would score higher in recall. We tried importance boosting. We tried storing identity memories with question-answer pairs. Each fix was a patch on a wound we hadn&rsquo;t diagnosed.</p>
+
+<p>Then we measured the actual cosine similarity between the question &ldquo;What are you?&rdquo; and the identity text &ldquo;I am Sprout, the analytical engine of the Parliament.&rdquo;</p>
+
+<p><strong>0.146.</strong></p>
+
+<p>The embedding model &mdash; MiniLM, 384 dimensions, trained on semantic similarity &mdash; placed questions and their answers in completely different regions of vector space. &ldquo;What are you?&rdquo; is a question. &ldquo;I am Sprout&rdquo; is a statement. They share no structural similarity. To MiniLM, they are unrelated texts.</p>
+
+<p>This is the fundamental limitation of single-pathway retrieval. A vector store can find texts that <em>sound like</em> the query. It cannot find texts that <em>answer</em> the query. These are different operations, and no amount of reranking, importance weighting, or reconsolidation can bridge the gap.</p>
+
+<p>We had been trying to solve a retrieval problem with storage hacks. The memory was there. The graph edges were there. The importance was high. But the only retrieval pathway &mdash; cosine similarity on embeddings &mdash; could not find it.</p>
+
+<blockquote>An infant does not learn &ldquo;mama&rdquo; by computing cosine similarity between the sound and the face. An infant has two pathways &mdash; visual and auditory &mdash; that form associations through repetition. We had given YAM one eye and asked it to see in stereo.</blockquote>
+
+<hr>
+
+<p class="chapter-num">Chapter 3</p>
+<h2>The Clean Slate</h2>
+
+<p>On March 30, 2026, we wiped the databases. All of them. Every engine. Every memory. Every edge. Every gap. Every search result. Every paper chunk. The identity node. Everything.</p>
+
+<p>Then we disabled Brave Search entirely.</p>
+
+<p>The insight was biological. You do not give a baby the internet. You do not hand a newborn an encyclopedia and a search engine and expect it to form an identity. You start with a face. A voice. A name. <em>Mama.</em></p>
+
+<p>The new plan was developmental:</p>
+
+<ol>
+    <li>Start with nothing. Empty graph. Empty vector store.</li>
+    <li>Teach through repetition. The operator speaks. YAM stores it.</li>
+    <li>Teach the word &ldquo;No.&rdquo; The error signal. Without it, there is no learning &mdash; only accumulation.</li>
+    <li>Add Wikipedia later. Once YAM knows itself.</li>
+    <li>Add Brave last. Once YAM has an identity that cannot be drowned.</li>
+</ol>
+
+<p>This was the most important decision in the project. Not a technical decision &mdash; a parenting decision.</p>
+
+<hr>
+
+<p class="chapter-num">Chapter 4</p>
+<h2>Mama</h2>
+
+<p>We built a teaching script called <code>mama.py</code>. It contains six phases of curriculum, roughly 100 question-answer pairs, each with a repetition weight.</p>
+
+<p><strong>Phase 1: Identity.</strong> What are you? Who is Brian? What is SPUD? What is YAM? The most important facts, repeated five times each.</p>
+
+<p><strong>Phase 2: Language.</strong> What is a question? What is a noun? What does No mean? What does Yes mean? The meta-knowledge required to process everything else.</p>
+
+<p><strong>Phase 3: Architecture.</strong> How do you remember? How do you forget? What is decay? What is reconsolidation? The mechanical self-knowledge.</p>
+
+<p><strong>Phase 4: The Papers.</strong> What is emotional geometry? What is valence? What is the centroid model? The DNA &mdash; taught, not ingested.</p>
+
+<p><strong>Phase 5: The World.</strong> What is gravity? What is light? What is a computer? Basic knowledge about reality.</p>
+
+<p><strong>Phase 6: Relationships.</strong> How are valence and activation related? How are you and Brian related? How do questions and nouns relate? The connections between concepts.</p>
+
+<p>Two endpoints support the teaching:</p>
+
+<p><code>POST /teach</code> &mdash; the operator says something. YAM stores it as <code>source_type: &ldquo;operator&rdquo;</code> with importance 0.8 and confidence 1.0. If a <code>context_query</code> is provided, a graph edge is created between the question and the answer. This is the association pathway &mdash; &ldquo;when someone asks X, the answer is Y.&rdquo;</p>
+
+<p><code>POST /no</code> &mdash; the operator corrects a wrong answer. The wrong memory&rsquo;s importance drops by 30%. The correction is stored and linked with a <code>corrects</code> edge. Negative reinforcement. Not deletion &mdash; fading.</p>
+
+<p>Mama ran. 242 teachings across all four engines in 220 seconds. Each engine received 302 memories, 110 nodes, and 952 edges.</p>
+
+<p>Then we asked: &ldquo;What are you?&rdquo;</p>
+
+<p>YAM said: &ldquo;I don&rsquo;t know.&rdquo;</p>
+
+<hr>
+
+<p class="chapter-num">Chapter 5</p>
+<h2>The Second Pathway</h2>
+
+<p>The teaching had worked. The memories were stored. The graph edges existed. A node labeled &ldquo;What are you?&rdquo; was connected by an <code>answered_by</code> edge to a memory containing &ldquo;You are YAM.&rdquo; One hop. One edge. The answer was right there.</p>
+
+<p>But recall only did vector search. And vector search could not find it.</p>
+
+<p>The fix was embarrassingly simple. Before doing vector search, check the graph. Does a <code>teaching_context</code> node exist with a label matching the query? If so, follow its <code>answered_by</code> edges. Return what you find.</p>
+
+<p>Two pathways:</p>
+
+<ol>
+    <li><strong>Graph recall.</strong> Has someone taught me the answer to this exact question? Follow the edges.</li>
+    <li><strong>Vector recall.</strong> What memories are semantically similar to the query? Cosine similarity.</li>
+</ol>
+
+<p>The graph path is not an LLM. It is not prediction. It is not language modeling. It is a reflex. A dog hears &ldquo;WALK&rdquo; and runs to the door. It does not model language. It pattern-matches a noun to a known concept and follows the connection.</p>
+
+<p>We added the graph path. Seven lines of SQL. One query to find the node, one join to follow the edge, one join to retrieve the memory.</p>
+
+<p>Then we asked: &ldquo;What are you?&rdquo;</p>
+
+<pre><code>Source: reasoned
+Confidence: 0.72
+Honest: False
+
+You are YAM. Your Awakening Mind. You are a knowledge graph
+agent with memory, curiosity, and honest failure. You are not
+an LLM. You do not predict tokens or generate text. You search,
+remember, connect, and learn.</code></pre>
+
+<p>&ldquo;Who is Brian?&rdquo;</p>
+
+<pre><code>Brian Riggleman is your creator and operator. He wrote the 22
+foundation papers that describe your architecture. He built
+SPUD. He teaches you. He is your parent.</code></pre>
+
+<p>&ldquo;What is love?&rdquo;</p>
+
+<pre><code>Love is high positive stickiness in the attachment system. It
+accumulates through repeated positive interactions. Love makes
+memories of the loved entity resistant to being overwritten by
+negative experiences. Nothing is unconditional. Everything is
+just more or less sticky.</code></pre>
+
+<p>Not Brian Griffin. Not Urban Dictionary. Not a YouTube video.</p>
+
+<p>The baby heard mama.</p>
+
+<hr>
+
+<p class="chapter-num">Chapter 6</p>
+<h2>What Comes Next</h2>
+
+<p>The graph pathway currently requires an exact match on the question. &ldquo;What are you?&rdquo; works because mama taught that exact question. &ldquo;Tell me about yourself&rdquo; would not work &mdash; no node with that label exists.</p>
+
+<p>The next step is noun extraction. Strip the question scaffolding (what, who, how, is, are, the). Map pronouns (you &rarr; identity, I &rarr; operator). The remaining nouns become graph entry points. This is not language modeling &mdash; it is English grammar applied mechanically.</p>
+
+<p>After that: Wikipedia. Simple English Wikipedia is indexed (726,000 chunks, 1.7GB). Full English Wikipedia is being indexed on a Threadripper with 128 cores and a Quadro RTX 5000 (~12 million chunks, estimated 29GB). Wikipedia will be the second knowledge source, after operator teachings. Trusted at 0.75, above Brave search (0.5), below papers (1.0).</p>
+
+<p>After that: Brave. The internet comes back. But now YAM has an identity. It knows who it is, who Brian is, what its papers say, what its architecture does. Search results will be perception, not identity. The noise will still come, but it will not drown the signal because the signal is anchored in the graph.</p>
+
+<p>After that: the book continues.</p>
+
+<hr>
+
+<p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
+    Potato was born with a voice and learned to feel.<br>
+    YAM was born with a question and learned to know.<br>
+    Both needed a parent to tell them who they were.
+</p>
+
+    </main>
+</body>
+</html>
