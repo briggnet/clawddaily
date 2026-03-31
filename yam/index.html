@@ -532,11 +532,11 @@
         <tr><th>Component</th><th>Status</th><th>Details</th></tr>
     </thead>
     <tbody>
-        <tr><td>SPROUT (port 8001)</td><td>Running</td><td>357 memories, 158 nodes, 1,112 edges, 5 open gaps</td></tr>
-        <tr><td>ROOT (port 8002)</td><td>Running</td><td>361 memories, 158 nodes, 1,119 edges, 5 open gaps</td></tr>
-        <tr><td>VEG (port 8003)</td><td>Running</td><td>356 memories, 157 nodes, 1,111 edges, 5 open gaps</td></tr>
-        <tr><td>TUBER (port 8004)</td><td>Running</td><td>356 memories, 157 nodes, 1,111 edges, 5 open gaps</td></tr>
-        <tr><td>PATCH/YAM (port 8000)</td><td>Running</td><td>24 integrated memories. Teaching + curiosity endpoints active. Dashboard at <code>/dashboard</code>.</td></tr>
+        <tr><td>SPROUT (port 8001)</td><td>Running</td><td>487 memories, 242 nodes, 1,436 edges, 0 open gaps</td></tr>
+        <tr><td>ROOT (port 8002)</td><td>Running</td><td>536 memories, 238 nodes, 1,534 edges, 0 open gaps</td></tr>
+        <tr><td>VEG (port 8003)</td><td>Running</td><td>521 memories, 243 nodes, 1,516 edges, 0 open gaps</td></tr>
+        <tr><td>TUBER (port 8004)</td><td>Running</td><td>511 memories, 237 nodes, 1,490 edges, 0 open gaps</td></tr>
+        <tr><td>PATCH/YAM (port 8000)</td><td>Running</td><td>81 integrated memories, 120 edges, 32 reasoning traces. Dashboard at <code>/dashboard</code>.</td></tr>
     </tbody>
 </table>
 
@@ -546,8 +546,8 @@
         <tr><th>Source Type</th><th>Count</th><th>Trust Weight</th><th>Origin</th></tr>
     </thead>
     <tbody>
-        <tr><td>operator</td><td>346</td><td>0.95</td><td>mama.py + mama_world.py teachings</td></tr>
-        <tr><td>wikipedia</td><td>10</td><td>0.75</td><td>Curiosity drive &mdash; self-taught from Simple English Wikipedia</td></tr>
+        <tr><td>operator</td><td>~346</td><td>0.95</td><td>mama.py + mama_world.py teachings</td></tr>
+        <tr><td>wikipedia</td><td>~140</td><td>0.75</td><td>Curiosity drive &mdash; self-taught from Simple English Wikipedia</td></tr>
         <tr><td>identity</td><td>1</td><td>1.0</td><td>First boot identity seed</td></tr>
         <tr><td>search (Brave)</td><td>0</td><td>0.5</td><td>Disabled &mdash; will be re-enabled after identity is stable</td></tr>
         <tr><td>paper</td><td>0</td><td>1.0</td><td>Not bulk-ingested &mdash; taught through operator instead</td></tr>
@@ -581,7 +581,7 @@
 </table>
 
 <h3>Curiosity Drive</h3>
-<p>PATCH rotates: SPROUT &rarr; ROOT &rarr; VEG &rarr; TUBER. One engine per heartbeat (5 min). 7 strategies: deepen teaching, strengthen weak, bridge islands, ground papers, challenge papers, follow thread, random walk. 4 ticks completed so far. 10 Wikipedia memories acquired autonomously.</p>
+<p>PATCH rotates: SPROUT &rarr; ROOT &rarr; VEG &rarr; TUBER. One engine per heartbeat (30s). 7 strategies: deepen teaching, strengthen weak, bridge islands, ground papers, challenge papers, follow thread, random walk. 94+ ticks completed. ~140 Wikipedia memories acquired autonomously across all engines.</p>
 
 <h3>Attachment Bias</h3>
 <p>24 attachment entities seeded. Self-love: <code>positive_stickiness 6.0</code> (strong_positive). Operator love: <code>positive_stickiness 6.0</code> (strong_positive). 22 paper attachments: <code>positive_stickiness 2.5</code> (positive). Hate: 0.0 across all entities.</p>
@@ -598,13 +598,14 @@
 </table>
 
 <h3>Code</h3>
-<p>Repository: <a href="https://github.com/briggnet/YAM">github.com/briggnet/YAM</a> (private). 37 files, 8,929 lines of Python. No databases in repo &mdash; <code>init_db.py</code> creates empty databases, <code>mama.py</code> and <code>mama_world.py</code> teach from scratch.</p>
+<p>Repository: <a href="https://github.com/briggnet/YAM">github.com/briggnet/YAM</a> (private). 35 files, ~8,960 lines of Python. No databases in repo &mdash; <code>init_db.py</code> creates empty databases, <code>mama.py</code> and <code>mama_world.py</code> teach from scratch.</p>
 
 <h3>What&rsquo;s Next</h3>
 <ol>
+    <li><strong>PATCH as /no gatekeeper.</strong> Currently corrections fan out to all engines blindly. PATCH should evaluate corrections against its own YAM graph before distributing &mdash; the reasoning mind decides what&rsquo;s actually wrong.</li>
     <li><strong>Noun extraction.</strong> Strip question scaffolding, map pronouns, use remaining nouns as graph entry points. Makes graph recall work for paraphrased questions, not just exact matches.</li>
-    <li><strong>Full English Wikipedia.</strong> Threadripper finishes overnight. ~20M chunks, ~50GB. Copy to Mac, connect to search pipeline.</li>
-    <li><strong>Let curiosity run.</strong> Every 5 minutes, one engine asks Wikipedia a question. Over days, the knowledge graph grows organically.</li>
+    <li><strong>Full English Wikipedia.</strong> Threadripper indexing complete. ~20M chunks, ~50GB. Copy to Mac, connect to search pipeline.</li>
+    <li><strong>Let curiosity run.</strong> Every 30 seconds, one engine asks Wikipedia a question. Over days, the knowledge graph grows organically. Already 94+ ticks in.</li>
     <li><strong>Re-enable Brave.</strong> Once identity is anchored and the knowledge graph is dense enough that search results are perception, not identity.</li>
 </ol>
 
