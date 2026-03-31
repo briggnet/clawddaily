@@ -520,24 +520,92 @@
 
 <h2>Current Status</h2>
 
-<p>YAM has been reset to a clean slate as of 2026-03-30. No papers ingested. No search history. No internet access. The system is being taught from scratch through operator interaction &mdash; repetition, correction, and the word &ldquo;No.&rdquo;</p>
+<p><em>Last updated: 2026-03-30, 22:00 CDT</em></p>
 
-<p>Full English Wikipedia is being indexed on a Threadripper (128 cores, Quadro RTX 5000) at ~900 chunks/sec. Estimated 15&ndash;20M chunks. Will be introduced after YAM has a stable identity.</p>
+<p>YAM was reset to a clean slate on 2026-03-30 and taught from scratch using <code>mama.py</code> (identity, language, architecture &mdash; 100 teachings) and <code>mama_world.py</code> (physics, biology, chemistry, earth science, math, history, logic, computing &mdash; 134 teachings). No papers ingested as bulk text. No internet access. Brave Search disabled. Teaching through operator repetition only.</p>
 
+<p>The curiosity drive is active and self-teaching from Simple English Wikipedia. After 4 curiosity ticks, YAM has independently acquired 10 Wikipedia memories across the engines. The WHY engine is working.</p>
+
+<h3>Live Specs</h3>
 <table>
     <thead>
-        <tr><th>Component</th><th>Type</th><th>Status</th><th>Details</th></tr>
+        <tr><th>Component</th><th>Status</th><th>Details</th></tr>
     </thead>
     <tbody>
-        <tr><td>SPROUT</td><td>Exploratory graph traversal (SQLite + sqlite-vec)</td><td>Running</td><td>Clean slate &mdash; learning from operator</td></tr>
-        <tr><td>ROOT</td><td>Path validation (SQLite + sqlite-vec)</td><td>Running</td><td>Clean slate &mdash; learning from operator</td></tr>
-        <tr><td>VEG</td><td>Contradiction detection (SQLite + sqlite-vec)</td><td>Running</td><td>Clean slate &mdash; learning from operator</td></tr>
-        <tr><td>TUBER</td><td>Physics &amp; material constraint (SQLite + sqlite-vec)</td><td>Running</td><td>Clean slate &mdash; learning from operator</td></tr>
-        <tr><td>PATCH/YAM</td><td>Integration graph + reasoning loop</td><td>Running</td><td>Teaching endpoints active, Brave disabled</td></tr>
-        <tr><td>Wikipedia</td><td>Offline knowledge base (Simple English)</td><td>Available</td><td>726K chunks, 1.7GB &mdash; not yet connected</td></tr>
-        <tr><td>Wikipedia</td><td>Offline knowledge base (Full English)</td><td>Indexing</td><td>~12M chunks, ~29GB, running on Threadripper</td></tr>
+        <tr><td>SPROUT (port 8001)</td><td>Running</td><td>357 memories, 158 nodes, 1,112 edges, 5 open gaps</td></tr>
+        <tr><td>ROOT (port 8002)</td><td>Running</td><td>361 memories, 158 nodes, 1,119 edges, 5 open gaps</td></tr>
+        <tr><td>VEG (port 8003)</td><td>Running</td><td>356 memories, 157 nodes, 1,111 edges, 5 open gaps</td></tr>
+        <tr><td>TUBER (port 8004)</td><td>Running</td><td>356 memories, 157 nodes, 1,111 edges, 5 open gaps</td></tr>
+        <tr><td>PATCH/YAM (port 8000)</td><td>Running</td><td>24 integrated memories. Teaching + curiosity endpoints active. Dashboard at <code>/dashboard</code>.</td></tr>
     </tbody>
 </table>
+
+<h3>Memory Composition (per engine)</h3>
+<table>
+    <thead>
+        <tr><th>Source Type</th><th>Count</th><th>Trust Weight</th><th>Origin</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>operator</td><td>346</td><td>0.95</td><td>mama.py + mama_world.py teachings</td></tr>
+        <tr><td>wikipedia</td><td>10</td><td>0.75</td><td>Curiosity drive &mdash; self-taught from Simple English Wikipedia</td></tr>
+        <tr><td>identity</td><td>1</td><td>1.0</td><td>First boot identity seed</td></tr>
+        <tr><td>search (Brave)</td><td>0</td><td>0.5</td><td>Disabled &mdash; will be re-enabled after identity is stable</td></tr>
+        <tr><td>paper</td><td>0</td><td>1.0</td><td>Not bulk-ingested &mdash; taught through operator instead</td></tr>
+    </tbody>
+</table>
+
+<h3>Retrieval</h3>
+<table>
+    <thead>
+        <tr><th>Pathway</th><th>Method</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Graph recall</td><td>Follow <code>answered_by</code> edges from teaching context nodes</td><td>Active &mdash; exact question match</td></tr>
+        <tr><td>Vector recall</td><td>Cosine similarity on 384-dim MiniLM embeddings</td><td>Active &mdash; semantic similarity</td></tr>
+        <tr><td>Wikipedia</td><td>sqlite-vec KNN search on 726K Simple English chunks</td><td>Active &mdash; used by curiosity drive</td></tr>
+        <tr><td>Brave Search</td><td>Web search API</td><td>Disabled</td></tr>
+    </tbody>
+</table>
+
+<h3>Teaching Infrastructure</h3>
+<table>
+    <thead>
+        <tr><th>Endpoint</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><code>POST /teach</code></td><td>Operator teaches a fact. Stored as <code>source_type: operator</code>, importance 0.8. Graph edge links question to answer.</td></tr>
+        <tr><td><code>POST /no</code></td><td>Operator corrects a wrong answer. Wrong memory importance drops 30%. Correction stored and linked.</td></tr>
+        <tr><td><code>POST /curiosity</code></td><td>PATCH triggers one engine to self-teach. 7 strategies. Searches Wikipedia.</td></tr>
+    </tbody>
+</table>
+
+<h3>Curiosity Drive</h3>
+<p>PATCH rotates: SPROUT &rarr; ROOT &rarr; VEG &rarr; TUBER. One engine per heartbeat (5 min). 7 strategies: deepen teaching, strengthen weak, bridge islands, ground papers, challenge papers, follow thread, random walk. 4 ticks completed so far. 10 Wikipedia memories acquired autonomously.</p>
+
+<h3>Attachment Bias</h3>
+<p>24 attachment entities seeded. Self-love: <code>positive_stickiness 6.0</code> (strong_positive). Operator love: <code>positive_stickiness 6.0</code> (strong_positive). 22 paper attachments: <code>positive_stickiness 2.5</code> (positive). Hate: 0.0 across all entities.</p>
+
+<h3>Hardware</h3>
+<table>
+    <thead>
+        <tr><th>Machine</th><th>Role</th><th>Specs</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>MacBook Air M4</td><td>YAM runtime &mdash; all 5 services</td><td>24GB RAM, 10 cores, macOS. launchd service registered.</td></tr>
+        <tr><td>Threadripper</td><td>Wikipedia indexer</td><td>128 cores, 64GB RAM, Quadro RTX 5000 (16GB), NVMe. Indexing full English Wikipedia at ~900 chunks/sec. 5+ hours in, 40GB / ~17M chunks done, ~80% complete.</td></tr>
+    </tbody>
+</table>
+
+<h3>Code</h3>
+<p>Repository: <a href="https://github.com/briggnet/YAM">github.com/briggnet/YAM</a> (private). 37 files, 8,929 lines of Python. No databases in repo &mdash; <code>init_db.py</code> creates empty databases, <code>mama.py</code> and <code>mama_world.py</code> teach from scratch.</p>
+
+<h3>What&rsquo;s Next</h3>
+<ol>
+    <li><strong>Noun extraction.</strong> Strip question scaffolding, map pronouns, use remaining nouns as graph entry points. Makes graph recall work for paraphrased questions, not just exact matches.</li>
+    <li><strong>Full English Wikipedia.</strong> Threadripper finishes overnight. ~20M chunks, ~50GB. Copy to Mac, connect to search pipeline.</li>
+    <li><strong>Let curiosity run.</strong> Every 5 minutes, one engine asks Wikipedia a question. Over days, the knowledge graph grows organically.</li>
+    <li><strong>Re-enable Brave.</strong> Once identity is anchored and the knowledge graph is dense enough that search results are perception, not identity.</li>
+</ol>
 
 <hr>
 
