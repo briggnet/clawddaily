@@ -731,6 +731,33 @@
     </tbody>
 </table>
 
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Appendix A: The Sigma Intensity Anomaly</h2>
+
+<p>The state issue comes from defining intensity as a derived quantity while also assigning it an independent resting value. In this model, intensity is computed from displacement in the valence&ndash;activation plane:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>I</em>(<em>v</em>, <em>a</em>) = min(1, &radic;((<em>v</em> &minus; &sigma;<sub>v</sub>)&sup2; + (<em>a</em> &minus; &sigma;<sub>a</sub>)&sup2;) / &radic;2)
+</p>
+
+<p>At the resting point, where <em>v</em> = &sigma;<sub>v</sub> and <em>a</em> = &sigma;<sub>a</sub>, this gives <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0 by definition. But the deployed sigma was set to &sigma; = (&sigma;<sub>v</sub>, &sigma;<sub>a</sub>, &sigma;<sub>i</sub>) = (0.4, 0.2, 0.2), which means the model claimed a resting intensity of &sigma;<sub>i</sub> = 0.2. That creates a contradiction: the resting state computes intensity as 0, while sigma stores intensity as 0.2. In other words, the system&rsquo;s supposed resting point was not actually reachable.</p>
+
+<p>This contradiction produces the distance anomaly. If activation is held fixed at <em>a</em> = &sigma;<sub>a</sub> and only valence varies, let &delta; = <em>v</em> &minus; &sigma;<sub>v</sub>. Then <em>I</em>(<em>v</em>, &sigma;<sub>a</sub>) = |&delta;| / &radic;2, so the squared distance from state to sigma becomes:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>d</em>&sup2; = (<em>v</em> &minus; &sigma;<sub>v</sub>)&sup2; + (<em>I</em> &minus; &sigma;<sub>i</sub>)&sup2; = (3/2)&delta;&sup2; &minus; &radic;2 &middot; &sigma;<sub>i</sub> &middot; |&delta;| + &sigma;<sub>i</sub>&sup2;
+</p>
+
+<p>With &sigma;<sub>i</sub> = 0.2, this has a minimum at |&delta;*| = &radic;2 &middot; &sigma;<sub>i</sub> / 3 &asymp; 0.094, meaning a small move away from sigma can make the state appear closer to sigma than rest itself. The fix is the self-consistency constraint &sigma;<sub>i</sub> = <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0. Then the distance reduces cleanly to:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>d</em>&sup2; = &delta;&sup2; + (|&delta;| / &radic;2)&sup2; = (3/2)&delta;&sup2;
+</p>
+
+<p>So <em>d</em> = |&delta;| &middot; &radic;(3/2), which is monotonic as originally intended.</p>
+
+<p>Full investigation, timeline, and corrected proof: <a href="/thesis/sigma-intensity-anomaly.md">sigma-intensity-anomaly.md</a></p>
+
         </div>
 
         <!-- ═══════════════════════════════════════════════ -->
