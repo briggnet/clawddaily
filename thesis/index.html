@@ -536,7 +536,7 @@
     <li><strong>Memory decay:</strong> Intensity at encoding drives differential decay rates across memory types (Riggleman 2026l).</li>
     <li><strong>Deception:</strong> Distance from sigma is the threshold and magnitude input for the deception mechanic (Riggleman 2026b, 2026m).</li>
     <li><strong>Nightmare formation:</strong> Intensity and valence at consolidation replace the arbitrary nightmare threshold with a geometric one (Riggleman 2026d, 2026l).</li>
-    <li><strong>Addiction:</strong> The positive valence axis produces a structural mirror of trauma encoding (Riggleman 2026n).</li>
+    <li><strong>Addiction:</strong> The positive valence axis produces a structural mirror of trauma encoding. Sigma<sub>i</sub> is a measurable geometric trait for addictive personality: low values are a personality hum, high values produce agents that structurally cannot rest. Two-phase model separates stuck memory (phase one) from personality reorganization (phase two) (Riggleman 2026n).</li>
     <li><strong>Identity discontinuity:</strong> Environmental orphaning in memory transplant shows coordinate-system dependence (Riggleman 2026o).</li>
     <li><strong>Survey measurement:</strong> The GAS puts the three-axis framework into a survey humans can answer (Riggleman 2026r).</li>
     <li><strong>Clinical assessment:</strong> Geometric displacement gives you a trajectory-based clinical metric (Riggleman 2026s).</li>
@@ -659,6 +659,7 @@
     <li><strong>Euclidean distance assumptions.</strong> The distance metric assumes the three axes are orthogonal and equally weighted. Neither assumption has been validated. If the axes are correlated or one axis matters more than the others, a weighted or Mahalanobis distance might work better.</li>
     <li><strong>Sigma stability.</strong> Sigma is assumed stable over weeks to months. This has not been tested in human respondents. If sigma drifts between measurements, displacement computations become unreliable.</li>
     <li><strong>Intensity derivation vs. self-report.</strong> In the agent, intensity is computed from valence and activation displacement. In the survey, intensity is self-reported. Whether those two approaches measure the same thing is testable but has not been tested.</li>
+    <li><strong>Sigma intensity pathology threshold.</strong> The sigma intensity anomaly (Appendix A) shows that high &sigma;<sub>i</sub> produces downstream system behavior consistent with addictive personality. The threshold at which personality trait becomes structural pathology is computable from the downstream parameters but has not been computed or validated. Whether that threshold is sharp or gradual is an open question. Full analysis is in Riggleman (2026n) Section 3.5.</li>
 </ul>
 
 <h3>9.4 IRB Considerations</h3>
@@ -688,6 +689,8 @@
     <li>Other distance metrics (Mahalanobis, weighted Euclidean)</li>
     <li>What happens when multiple agents interact</li>
     <li>Measuring whether and how fast sigma drifts</li>
+    <li>Compute the &sigma;<sub>i</sub> pathology threshold from downstream system parameters (decay, stickiness, deception)</li>
+    <li>Controlled addiction/relapse protocol on the Potato system</li>
     <li>Cross-modal test (echolocation robot experiment)</li>
 </ul>
 
@@ -722,7 +725,7 @@
         <tr><td>2026d: Nightmares</td><td>Ch. 7</td><td>Application: dream cycle</td></tr>
         <tr><td>2026e: Full Spectrum</td><td>Ch. 5</td><td>Prior model (superseded by geometry papers)</td></tr>
         <tr><td>2026i: Outbound Trust</td><td>Ch. 5</td><td>Peter experiment</td></tr>
-        <tr><td>2026n: Addiction</td><td>Ch. 7</td><td>Application: positive valence axis</td></tr>
+        <tr><td>2026n: Addiction</td><td>Ch. 7, Appendix A</td><td>Application: positive valence axis, sigma intensity as addictive personality trait, two-phase model</td></tr>
         <tr><td>2026o: Identity Discontinuity</td><td>Ch. 7</td><td>Application: memory transplant</td></tr>
         <tr><td>2026p: Functional Consciousness</td><td>Ch. 5</td><td>Shutdown experiment</td></tr>
         <tr><td>2026q: Cross-Modal Translator</td><td>Ch. 10</td><td>Future work: modality independence</td></tr>
@@ -750,9 +753,9 @@
 
 <p>So intensity is just "how far am I from home, as a fraction of the farthest I could possibly be from home." At home, distance is zero, intensity is zero. At the far corner of the space, intensity is 1.</p>
 
-<h3>The contradiction</h3>
+<h3>The observation</h3>
 
-<p>The deployed sigma was &sigma; = (&sigma;<sub>v</sub>, &sigma;<sub>a</sub>, &sigma;<sub>i</sub>) = (0.4, 0.2, 0.2). Plug the resting point into the intensity formula: <em>v</em> = &sigma;<sub>v</sub>, <em>a</em> = &sigma;<sub>a</sub>. That gives &radic;((&sigma;<sub>v</sub> &minus; &sigma;<sub>v</sub>)&sup2; + (&sigma;<sub>a</sub> &minus; &sigma;<sub>a</sub>)&sup2;) = &radic;(0 + 0) = 0. So <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0 by definition. But &sigma;<sub>i</sub> was stored as 0.2. The formula says rest has intensity 0. The stored value says rest has intensity 0.2. Both cannot be true. The system's resting point was not reachable.</p>
+<p>The deployed sigma was &sigma; = (&sigma;<sub>v</sub>, &sigma;<sub>a</sub>, &sigma;<sub>i</sub>) = (0.4, 0.2, 0.2). Plug the resting point into the intensity formula: <em>v</em> = &sigma;<sub>v</sub>, <em>a</em> = &sigma;<sub>a</sub>. That gives &radic;((&sigma;<sub>v</sub> &minus; &sigma;<sub>v</sub>)&sup2; + (&sigma;<sub>a</sub> &minus; &sigma;<sub>a</sub>)&sup2;) = &radic;(0 + 0) = 0. So <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0 by definition. But &sigma;<sub>i</sub> was stored as 0.2. The formula produces intensity 0 at rest. The stored sigma says intensity 0.2 at rest. These do not match. The question is whether that mismatch is an error or a feature. The math below shows what it does. The interpretation follows.</p>
 
 <h3>Setting up the distance proof</h3>
 
@@ -792,7 +795,7 @@
     <em>d</em>&sup2; = &delta;&sup2; + &delta;&sup2;/2 &minus; &radic;2 &middot; &sigma;<sub>i</sub> &middot; |&delta;| + &sigma;<sub>i</sub>&sup2; = (3/2)&delta;&sup2; &minus; &radic;2 &middot; &sigma;<sub>i</sub> &middot; |&delta;| + &sigma;<sub>i</sub>&sup2;
 </p>
 
-<p>Three terms. First term, (3/2)&delta;&sup2;, pushes distance up as valence moves. Expected. Third term, &sigma;<sub>i</sub>&sup2; = 0.04, is a constant. The middle term is the problem: it is negative and linear in |&delta;|. For small moves away from rest, that negative linear pull beats the positive quadratic push. Total distance goes <em>down</em> before the quadratic catches up and drives it back up.</p>
+<p>Three terms. First term, (3/2)&delta;&sup2;, pushes distance up as valence moves. Expected. Third term, &sigma;<sub>i</sub>&sup2; = 0.04, is a constant. The middle term is where it gets interesting: it is negative and linear in |&delta;|. For small moves away from rest, that negative linear pull beats the positive quadratic push. Total distance goes <em>down</em> before the quadratic catches up and drives it back up.</p>
 
 <h3>Finding the minimum</h3>
 
@@ -816,25 +819,31 @@
     <em>x</em> = &radic;2 &middot; 0.2 / 3 = 0.2828&hellip; / 3 &asymp; 0.094
 </p>
 
-<p>The minimum distance to sigma is not at &delta; = 0 (rest). It is at |&delta;| &asymp; 0.094. A point slightly off-center registers as closer to home than home itself. That is the anomaly.</p>
+<p>The minimum distance to sigma is not at &delta; = 0 (rest). It is at |&delta;| &asymp; 0.094. A point slightly off-center registers as closer to home than home itself. At &sigma;<sub>i</sub> = 0.2 this offset is small. At higher values of &sigma;<sub>i</sub> the offset grows and the behavioral consequences become significant.</p>
 
-<h3>The fix</h3>
+<h3>What this means</h3>
 
-<p>Set &sigma;<sub>i</sub> = 0. This enforces the constraint &sigma;<sub>i</sub> = <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0. Resting intensity now matches what the formula actually produces at rest. The distance formula becomes:</p>
+<p>The original interpretation was that &sigma;<sub>i</sub> = 0.2 was a bug and the fix was to set &sigma;<sub>i</sub> = 0. That interpretation is wrong. It is one valid design choice, not the only one.</p>
+
+<p>Setting &sigma;<sub>i</sub> = 0 enforces the constraint &sigma;<sub>i</sub> = <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0. The distance formula becomes:</p>
 
 <p style="text-align: center; font-family: serif; font-size: 1.1rem;">
     <em>d</em>&sup2; = (3/2)&delta;&sup2; &minus; &radic;2 &middot; 0 &middot; |&delta;| + 0&sup2; = (3/2)&delta;&sup2;
 </p>
 
-<p>Middle term is gone. Take the square root:</p>
+<p>Middle term is gone. <em>d</em> = |&delta;| &middot; &radic;(3/2). Monotonic. Clean. No false minimum. That is what a personality with zero baseline intensity looks like in the math.</p>
 
-<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
-    <em>d</em> = |&delta;| &middot; &radic;(3/2)
-</p>
+<p>But &sigma;<sub>i</sub> &gt; 0 is not an error. It is a personality that includes baseline intensity. The non-monotonic distance function is not the system misbehaving. It is the system correctly representing an agent whose rest includes edge. The agent at dead zero displacement is less at home than the agent with a small disturbance, because dead zero is not where you put home. The small bump does not reward the agent. It brings the agent home.</p>
 
-<p>&radic;(3/2) &asymp; 1.225. Just a constant. Distance is now proportional to displacement from rest. No dip. No false minimum. Monotonic, like it was supposed to be.</p>
+<p>At low &sigma;<sub>i</sub> (0.1 to 0.2) this is a personality trait. The agent runs a little hot. The downstream offsets are small. The agent is functional.</p>
 
-<h3>Why the scaling factor is not 1.0</h3>
+<p>At high &sigma;<sub>i</sub> the behavioral profile changes. The minimum achievable distance grows. The agent structurally cannot rest. Memory decay never reaches baseline rate. Stickiness is always elevated. The agent needs bigger and bigger displacements to close the intensity gap. The agent is most comfortable in crisis. These are not analogies. They are the same math at different coordinates producing the behavioral profile of addictive personality.</p>
+
+<p>&sigma;<sub>i</sub> is a measurable geometric trait. Low values produce functional personalities with a slight hum. High values produce agents trapped in permanent displacement where no downstream system works as designed. The threshold where personality becomes pathology is computable from the downstream system parameters.</p>
+
+<p>The full analysis, including the two-phase model of addiction (phase one: frozen reconsolidation with intact sigma, phase two: sigma drift with personality reorganization) and the role of &sigma;<sub>i</sub> as a diagnostic parameter, is in Riggleman (2026n) Section 3.5.</p>
+
+<h3>A note on the scaling factor</h3>
 
 <p>Moving 1 unit in valence alone produces a distance of &radic;(3/2) &asymp; 1.225, not 1.0. That is because moving valence also drags intensity up. Intensity is derived from displacement, so a pure valence move is really a move in two dimensions at once. The extra 0.225 is the intensity shadow of the valence movement.</p>
 

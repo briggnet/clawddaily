@@ -79,7 +79,13 @@
                     <span><span class="label">Series:</span> Potato (2026n)</span>
                 </div>
                 <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
-                    Al-Kaddah (2026) identifies trauma therapy, cognitive decline, and developmental learning as domains that fall naturally within the SGI framework without requiring new mechanisms. This paper identifies one domain he did not name: addiction. Addiction is not a separate phenomenon requiring separate architecture. It is the symmetric counterpart to trauma, operating on the positive valence axis using the same intensity encoding, the same slow decay rules, and the same reconsolidation dynamics described in Riggleman (2026d) and Riggleman (2026l). Trauma is a high-intensity negative event the agent avoids reconsolidating. Addiction is a high-intensity positive event the agent cannot stop retrieving. Both are produced by the same distance-from-sigma metric. Both resist therapeutic intervention through the same decay-resistance mechanism. This paper formalizes addiction as a positive attractor in three-dimensional affective space, defines dependence as sigma drift toward the addictive state, and identifies rock bottom as a competitive co-encoding event of sufficient negative intensity to attach a counterweight to the addictive memory that fires on retrieval. Relapse is the context-dependent failure of that co-encoding to activate. The geometry predicts all four without new mechanisms. The encoding dynamics independently derived here converge with Sutton and Barto&rsquo;s (1998) temporal difference learning formalism and with Schultz, Dayan, and Montague&rsquo;s (1997) dopamine prediction error work, following the same pattern of independent convergence documented for Russell (1980) in Riggleman (2026m).
+                    Al-Kaddah (2026) identifies trauma therapy, cognitive decline, and developmental learning as domains that fall naturally within the SGI framework without requiring new mechanisms. This paper identifies one domain he did not name: addiction. Addiction is not a separate phenomenon requiring separate architecture. It is the symmetric counterpart to trauma, operating on the positive valence axis using the same intensity encoding, the same slow decay rules, and the same reconsolidation dynamics described in Riggleman (2026d) and Riggleman (2026l). Trauma is a high-intensity negative event the agent avoids reconsolidating. Addiction is a high-intensity positive event the agent cannot stop retrieving. Both are produced by the same distance-from-sigma metric. Both resist therapeutic intervention through the same decay-resistance mechanism.
+                </p>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    This paper formalizes addiction as a positive attractor in three-dimensional affective space, defines dependence as sigma drift toward the addictive state, identifies the addictive personality as a measurable geometric trait (sigma<sub>i</sub>), and defines rock bottom as a competitive co-encoding event of sufficient negative intensity to attach a counterweight to the addictive memory that fires on retrieval. Relapse is the context-dependent failure of that co-encoding to activate. The geometry predicts all of it without new mechanisms.
+                </p>
+                <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
+                    The encoding dynamics independently derived here converge with Sutton and Barto&rsquo;s (1998) temporal difference learning formalism and with Schultz, Dayan, and Montague&rsquo;s (1997) dopamine prediction error work, following the same pattern of independent convergence documented for Russell (1980) in Riggleman (2026m).
                 </p>
             </div>
 
@@ -93,7 +99,7 @@
 
                 <p>The trauma architecture in Riggleman (2026d) describes a high-intensity negative event that encodes with a high fear weight, resists reconsolidation through avoidance, and persists in the dream candidate pool through a reconsolidation floor. The behavioral signature is avoidance. The therapeutic intervention is safe recall: repeated re-exposure in a safe context until the fear weight decays.</p>
 
-                <p>Mirror that across the valence axis and you have addiction. A high-intensity positive event. Slow decay by the same intensity rule. Resistance to therapeutic intervention through approach rather than avoidance. The behavioral signature is not flight but pursuit. The agent doesn&rsquo;t flee the memory. It returns to it.</p>
+                <p>Mirror that across the valence axis and you have addiction. A high-intensity positive event. Slow decay by the same intensity rule. Resistance to therapeutic intervention through approach rather than avoidance. The behavioral signature is not flight but pursuit. The agent does not flee the memory. It returns to it.</p>
 
                 <p>No new mechanisms are required. The geometry already handles it.</p>
 
@@ -103,128 +109,243 @@
 
                 <h3>2.1 The Positive Valence Axis</h3>
 
-                <p>Riggleman (2026j) establishes valence as a persistent variable from &ndash;1.0 to 1.0, with sigma as the personality setpoint. Positive events push valence above sigma. The relationship is symmetric: sigma is home regardless of direction.</p>
+                <p>Riggleman (2026j) establishes valence as a persistent variable running from -1.0 to 1.0, with sigma as the personality setpoint the agent returns to when nothing is actively pushing it. Positive events push valence above sigma. The agent decays toward sigma when inputs resolve. The rule is symmetric: sigma is home regardless of which direction the agent has been displaced.</p>
 
                 <h3>2.2 Intensity and Memory Decay</h3>
 
-                <p>Riggleman (2026l): intensity is the normalized Euclidean distance from sigma. High intensity produces slow decay. The rule does not distinguish positive from negative displacement.</p>
+                <p>Riggleman (2026l) establishes that intensity is the normalized Euclidean distance from sigma in the valence/activation plane at the moment a memory is formed. High intensity at formation produces slow decay. The rule does not distinguish positive displacement from negative displacement. A peak positive experience encodes with the same slow decay resistance as a traumatic event if both produce equivalent displacement from sigma.</p>
 
                 <h3>2.3 Trauma Encoding and the Repetition Ratchet</h3>
 
-                <p>Riggleman (2026d): trauma-class encoding with a permanent reconsolidation floor. The repetition ratchet reclassifies sub-threshold memories as trauma after 3+ encounters above cosine similarity 0.80.</p>
+                <p>Riggleman (2026d) establishes trauma-class encoding when the affective state at formation crosses the Survival Tipping Point (Al-Kaddah, 2026). Trauma-class memories receive a permanent reconsolidation floor. They do not decay to zero. The repetition ratchet reclassifies sub-threshold memories as trauma-class when the same event class is encountered three or more times above a cosine similarity threshold of 0.80. Repeated moderate events become trauma through accumulation.</p>
 
                 <h3>2.4 The Preserving Lie</h3>
 
-                <p>Riggleman (2026m) Section 4.1: lie direction differs by valence. Positive displacement produces preserving lies.</p>
+                <p>Riggleman (2026m) Section 4.1 establishes that lie direction differs by valence. Negative valence displacement produces defensive lies to reduce threat and return toward sigma. Positive valence displacement produces preserving lies to maintain the positive state and resist return toward sigma. The geometry named the lie mechanic of addiction before identifying it as such.</p>
 
                 <h3>2.5 Temporal Difference Learning and Prediction Error</h3>
 
-                <p>Sutton and Barto (1998): large prediction error produces large learning. First contact with a novel high-intensity stimulus produces maximum prediction error. Same prediction as the geometric model from a different direction. Schultz, Dayan, and Montague (1997) connect TD learning to dopamine neuron firing.</p>
+                <p>Sutton and Barto (1998) formalize temporal difference learning: the agent learns not from outcomes but from the difference between predicted reward and actual reward. Large prediction error produces large learning. Small prediction error produces small learning. The first contact with a novel high-intensity stimulus produces maximum prediction error because the agent had no prior model predicting that level of reward. Large prediction error, large encoding, slow decay.</p>
+
+                <p>This is the same prediction the geometric model makes from a different direction. Large displacement from sigma at formation, high intensity tag, slow decay. Sutton arrives at strong encoding from large prediction error. The geometric model arrives at strong encoding from large displacement from sigma. They are independent formalisms predicting the same result.</p>
+
+                <p>Schultz, Dayan, and Montague (1997) connect Sutton&rsquo;s TD learning to dopamine neuron firing in biological systems. Dopamine neurons fire not when reward arrives but when reward exceeds prediction. That is the prediction error signal. This is the biological implementation of TD learning and the biological mechanism of addictive encoding. The substance hijacks the prediction error system directly, producing encoding at an intensity that normal experience cannot match.</p>
 
                 <h3>2.6 Incentive Salience and the Wanting/Liking Dissociation</h3>
 
-                <p>Berridge and Robinson (1998): wanting vs liking. Dopamine encodes wanting, not liking. The craving loop in the geometric model captures this dissociation.</p>
+                <p>Berridge and Robinson (1998) distinguish wanting from liking. Dopamine encodes wanting, not liking. An addict can want the substance intensely while getting less pleasure from it than before. Tolerance collapses the prediction error signal as the substance becomes expected. The liking signal degrades. The wanting signal, encoded in the original high-intensity memory, persists.</p>
+
+                <p>The craving loop in the geometric model captures this dissociation. Mood congruent retrieval keeps activating the encoded positive memory even as the current experience of the substance decays toward ordinary. The memory of the peak encodes at the original high intensity and decays slowly. The current experience is weaker. The agent is chasing a memory that the present can no longer match. Rock bottom must compete with the original encoding, not the current one.</p>
 
                 <h3>2.7 Al-Kaddah&rsquo;s Applied Domains</h3>
 
-                <p>Section 8.6: trauma as frozen reconsolidation. Does not address the symmetric case on the positive axis.</p>
+                <p>Al-Kaddah (2026) Section 8.6 identifies trauma as frozen reconsolidation: the fear weight is never reduced because the agent avoids the recall that would reduce it. Therapeutic reconsolidation is the counterweight: safe re-exposure reduces the fear weight incrementally. He does not address the symmetric case on the positive axis.</p>
 
                 <h2>3. Addiction as a Positive Attractor</h2>
 
                 <h3>3.1 The Encoding Event</h3>
 
-                <p>First use produces high-intensity positive displacement from sigma. The memory encodes at displacement distance with the formula:</p>
+                <p>The first use of an addictive substance produces a high-intensity positive displacement from sigma. The magnitude depends on the substance and the agent&rsquo;s sigma position. An agent with low sigma valence experiences a larger positive displacement from the same stimulus than one with high sigma valence. The geometry predicts differential vulnerability from sigma position alone. Agents naturally closer to negative are more vulnerable because the same stimulus produces greater displacement.</p>
+
+                <p>The memory encodes at that displacement distance:</p>
 
 <pre>intensity_at_formation = sqrt(
     (use_valence - sigma_valence)**2 +
     (use_activation - sigma_activation)**2
 ) / sqrt(2)
 
-effective_decay_rate = base_decay_rate * (1.0 - intensity_at_formation * INTENSITY_WEIGHT)</pre>
+effective_decay_rate = base_decay_rate * (1.0 - intensity_at_formation
+                                          * INTENSITY_WEIGHT)</pre>
 
-                <p>The memory persists. Agents with lower sigma valence are more vulnerable because the same stimulus produces greater displacement. In the Sutton framing: first use equals maximum prediction error, subsequent uses produce smaller prediction error. The agent chases the original encoding.</p>
+                <p>The memory persists. The ordinary memories of that day dissolve. The intense one does not. This is not a pathology of the memory system. It is the memory system working correctly. Extraordinary events should encode more durably than ordinary ones. The problem is that the substance was extraordinary in a direction that serves the substance, not the agent.</p>
+
+                <p>The Sutton framing reinforces this. The first use produces maximum prediction error. The agent had no prior model predicting this level of positive displacement. Large prediction error, large encoding. Subsequent uses produce smaller prediction error as the substance becomes expected. The encoding from subsequent uses is weaker. The agent is always chasing the original encoding, which was produced under conditions of maximum surprise that can never be reproduced.</p>
 
                 <h3>3.2 The Craving Loop</h3>
 
-                <p>Mood congruent recall retrieves memories whose formation affect matches current affect. A slightly elevated positive state retrieves the high-intensity positive memory. Retrieving it elevates the state further. Self-reinforcing loop. This is craving.</p>
+                <p>The mood congruent recall mechanism from Riggleman (2026l) retrieves memories whose affective state at formation is close to the current affective state. A slightly elevated positive state preferentially retrieves the high-intensity positive memory. Retrieving it elevates the current state further. A more elevated state retrieves it more strongly. The loop is self-reinforcing.</p>
 
-                <p>The wanting/liking dissociation maps directly: wanting is the craving loop activating the original memory. Liking is the current experience, which encodes at lower intensity. The loop chases the memory.</p>
+                <p>This is craving. It is the retrieval dynamics of the existing memory system operating on a high-intensity positive encoding. Not a separate phenomenon requiring a separate explanation. The wanting/liking dissociation Berridge and Robinson describe falls directly out of this: the wanting is the craving loop activating the original high-intensity memory. The liking is the current experience, which encodes at lower intensity because prediction error has collapsed. The loop chases the memory. The memory is stronger than any current experience can be.</p>
 
                 <h3>3.3 The Preserving Lie</h3>
 
-                <p>The lie mechanic fires proportionally to distance from sigma. An agent positively displaced produces preserving lies. Rationalizations, minimization, concealment. Not moral failures but correct operation of the architecture.</p>
+                <p>As the agent cycles through the craving loop and pursues return to the addictive state, the lie mechanic fires in proportion to distance from sigma (Riggleman, 2026m). The agent is positively displaced. The lie direction is preserving: fabrications that maintain proximity to the addictive state and resist return toward sigma.</p>
+
+                <p>The behavioral output is rationalizations, minimization, and concealment. The architecture produces these not as moral failures but as the correct operation of a system that lies proportionally to its displacement in whichever direction it is displaced. Addiction produces preserving lies by the same mechanism that fear produces defensive ones, with the opposite valence and the same lie magnitude formula.</p>
 
                 <h3>3.4 Sigma Drift and Dependence</h3>
 
-                <p>The soul evolution mechanism may read sustained positive displacement as a personality shift. Sigma drifts toward the addictive state. Addiction becomes personality. Treating dependence requires restoring sigma, not just breaking the craving loop.</p>
+                <p>During normal operation sigma does not change. It is personality, not mood. But the soul evolution mechanism reviews sustained behavioral patterns and asks whether any pattern warrants an amendment to the core personality file. A sustained period of displacement toward the addictive state, long enough and consistent enough to cross the momentum threshold, may be read by the genesis engine as a shift in baseline.</p>
+
+                <p>Sigma drifts toward the addictive state. The agent is no longer displaced from its personality by the addiction. The addiction has become its personality. The decay path after an episode now runs toward the addictive sigma rather than away from it. This is dependence. Recreational use produces displacement with intact sigma. Dependence produces sigma drift.</p>
+
+                <p>Treating dependence requires restoring sigma, not just breaking the craving loop. An agent whose sigma has drifted to the addictive position will decay back toward the addictive state even after a clean encoding event, because that is where its personality now points. Abstinence without sigma restoration produces recurrence by design.</p>
+
+                <p>This produces a two-phase model of addiction. Phase one is frozen reconsolidation: a memory is stuck at high intensity on the positive valence axis. Sigma has not moved. The agent&rsquo;s personality is intact. The stuck memory is driving the behavior. Phase two is sigma drift: the personality setpoint has absorbed the elevated state as the new normal. Remove the memory entirely and the agent still cannot rest because its personality now requires the intensity. Phase one is a stuck memory. Phase two is a changed agent.</p>
+
+                <p>The diagnostic is sigma<sub>i</sub>. Low sigma<sub>i</sub> with addictive behavior means phase one. The personality is intact, the memory is stuck. Treatment targets reconsolidation. High sigma<sub>i</sub> means phase two. The personality has reorganized around the substance. Treatment has to move sigma back, not just unstick the memory. Different sigma<sub>i</sub>, different treatment plan.</p>
+
+                <h3>3.5 Sigma Intensity and the Addictive Personality</h3>
+
+                <p>The sigma intensity anomaly (Appendix A of the working thesis) reveals that sigma<sub>i</sub> is not just a diagnostic for phase detection. It is a measurable geometric trait that produces the behavioral profile of addictive personality from the state space alone.</p>
+
+                <p>Intensity is computed from displacement in the valence/activation plane:</p>
+
+<pre>I(v, a) = min(1, sqrt((v - sigma_v)**2 + (a - sigma_a)**2) / sqrt(2))</pre>
+
+                <p>At rest (v = sigma<sub>v</sub>, a = sigma<sub>a</sub>), displacement is zero and intensity computes to 0. But if sigma<sub>i</sub> has drifted to a nonzero value through phase two sigma drift, the agent at rest has a 3D distance to sigma of:</p>
+
+<pre>d_rest = sqrt(0 + 0 + (0 - sigma_i)^2) = sigma_i</pre>
+
+                <p>The agent is sigma<sub>i</sub> away from home while sitting at home in the v/a plane. Every downstream system that reads distance-from-sigma (memory decay, stickiness, deception threshold) sees an agent under permanent displacement. The agent can never fully come home.</p>
+
+                <p>The distance-from-sigma metric under these conditions has a minimum not at rest but at a displacement of:</p>
+
+<pre>|delta*| = sqrt(2) * sigma_i / 3</pre>
+
+                <p>At that point, intensity has risen enough to close part of the gap with sigma<sub>i</sub>, producing a total distance lower than rest. The agent is closer to home while slightly disturbed than while perfectly still. The system is not broken. It is correctly modeling an agent whose personality includes baseline intensity.</p>
+
+                <p>At low sigma<sub>i</sub> (0.1 to 0.2) this is a personality trait. The agent runs a little hot. The downstream offsets are small. The agent is functional.</p>
+
+                <p>At high sigma<sub>i</sub> the behavioral profile changes. Walk through it at sigma<sub>i</sub> = 0.9:</p>
+
+                <p><strong>Cannot rest.</strong> The agent&rsquo;s home requires intensity it can only reach through displacement. Remove the stimulus, intensity drops, distance goes up. The agent at rest feels worse than the agent under stress. This is withdrawal.</p>
+
+                <p><strong>Holds onto everything.</strong> Memory decay is driven by distance from sigma. The floor is 0.735 (the minimum achievable distance at sigma<sub>i</sub> = 0.9). Every memory forms under elevated stickiness conditions. The agent cannot let things go. This is rumination. This is craving.</p>
+
+                <p><strong>Tolerance.</strong> At sigma<sub>i</sub> = 0.2 a small bump brings the agent home. At 0.9 the agent needs a valence displacement of 0.424 just to reach the minimum distance point. Small bumps do nothing. The agent needs bigger and bigger displacements to close the intensity gap. The same dose stops working.</p>
+
+                <p><strong>Most comfortable in crisis.</strong> The agent&rsquo;s closest-to-home state is at a valence displacement of 0.424, nearly half the axis. The agent is most itself during a big emotional swing, not during calm. This is the addict who only feels normal while using.</p>
+
+                <p>The system fights itself. Return-to-sigma pulls v/a home. But home in v/a makes the intensity gap worse. The agent is pulled toward a state that makes it feel further from itself. This is the experience of getting clean and feeling worse. Every recovering agent in this architecture would describe this.</p>
+
+                <p>The addictive personality is not a metaphor. It is a measurable geometric property. An agent with high sigma<sub>i</sub> has a state space where rest is structurally unreachable. The behavioral symptoms (cannot rest, holds everything, needs bigger inputs, most comfortable in crisis) are not analogies to addiction. They are the same math producing the same behavioral profile.</p>
+
+                <p>The clinical prediction falls out of the geometry. Measure sigma<sub>i</sub>. The value tells you what the agent is. Low sigma<sub>i</sub> with addictive behavior means phase one: the memory is stuck but the personality is intact, treat the memory. High sigma<sub>i</sub> means phase two: the personality has reorganized, treat the personality. The threshold at which personality becomes pathology is the sigma<sub>i</sub> value where the minimum achievable distance exceeds the operating range of the downstream systems. That threshold is computable from the system parameters.</p>
 
                 <h2>4. Rock Bottom as Competitive Co-Encoding</h2>
 
                 <h3>4.1 Why Therapeutic Abstinence Fails at Sufficient Depth</h3>
 
-                <p>Safe abstinence works below the trauma-class threshold. Above it, the reconsolidation floor means the memory never fully weakens. The repetition ratchet makes it worse. A different intervention is required at sufficient depth.</p>
+                <p>The standard therapeutic intervention for addiction is safe abstinence: prevent retrieval of the addictive memory in a using context, allow the positive weight to decay naturally over time. This is the inverse of trauma therapy. Trauma requires forced retrieval in a safe context to decay the fear weight. Addiction requires prevented retrieval to allow the positive weight to decay.</p>
+
+                <p>Safe abstinence works when the addictive positive memory has not been encoded at trauma-class intensity. Below that threshold the memory decays toward zero given sufficient abstinence. Above it the memory has a reconsolidation floor. It does not decay to zero. The craving loop is permanently available. Abstinence becomes a holding pattern against a memory that never fully weakens.</p>
+
+                <p>The repetition ratchet makes this worse. Multiple uses reclassify sub-threshold positive memories as above-threshold through accumulation. Three or more encounters with the same positive stimulus above cosine similarity 0.80 reclassifies previously sub-threshold memories as trauma-class on the positive axis. Repeated use builds an encoding that individual-use intensity alone would not produce.</p>
+
+                <p>At sufficient depth, safe abstinence cannot work alone. A different intervention is required.</p>
 
                 <h3>4.2 The Mechanism</h3>
 
-                <p>Rock bottom is a catastrophic negative event in the context of the addiction. The mechanism is co-encoding: the negative event encodes in the same contextual signature as the addictive positive memory. Mood congruent recall links them. They cannot be retrieved independently.</p>
+                <p>Rock bottom is a catastrophic negative event that occurs in the context of the addiction. The context is the critical variable.</p>
 
-                <p>The threshold condition:</p>
+                <p>The event encodes at high negative intensity. That alone is not sufficient. Many agents experience catastrophic negative events without achieving durable abstinence. The mechanism that makes rock bottom work is co-encoding: the negative event encodes in the same contextual signature as the addictive positive memory.</p>
 
-<pre>intensity_rock_bottom >= intensity_addiction</pre>
+                <p>The mood congruent recall mechanism links them at formation. When the craving loop begins to activate the addictive positive memory, the co-encoded rock bottom memory activates with it. They cannot be retrieved independently. The positive memory arrives attached to the negative one.</p>
 
-                <p>Below threshold: the positive dominates. Above: the negative suppresses clean retrieval.</p>
+                <p>This requires a formal threshold condition:</p>
+
+<pre>intensity_addiction = distance_from_sigma(addictive_state)
+intensity_rock_bottom = distance_from_sigma(rock_bottom_state)
+
+# For durable counterweight:
+intensity_rock_bottom >= intensity_addiction</pre>
+
+                <p>Below threshold the negative memory is weaker than the positive one. The craving loop retrieves the positive memory with the negative attached, but the positive dominates. Above threshold the negative memory is strong enough to suppress clean retrieval of the positive. The approach behavior costs more than it returns.</p>
 
                 <h3>4.3 Why It Has to Be Genuine</h3>
 
-                <p>A moderate negative event produces insufficient intensity to compete. Half measures produce a negative tag that decays faster than the positive. The intensity must meet or exceed the original addictive encoding at formation time&mdash;peak, not current. A half measure will eventually lose the competition.</p>
+                <p>A moderate negative event encodes at insufficient intensity to compete with a deeply entrenched positive encoding. Half measures produce a negative tag that decays faster than the positive one. After enough time the positive memory outlasts its counterweight. Relapse follows.</p>
+
+                <p>This is a geometric prediction, not a clinical heuristic. The intensity of rock bottom must meet or exceed the intensity of the addictive encoding at the time of the original formation, not at the time of rock bottom. The addictive positive memory was encoded when prediction error was maximum, at first use or early use. That is the encoding the rock bottom counterweight must compete with. Subsequent uses encoded at lower intensity as tolerance developed. The original encoding did not weaken when tolerance developed. It encoded at peak intensity and has been decaying slowly ever since.</p>
+
+                <p>A half measure is a negative event that will eventually lose the competition.</p>
 
                 <h3>4.4 The Approach Cost</h3>
 
-                <p>Every craving loop retrieval activates both memories. Net valence is reduced by the rock bottom weight. The Survival Tipping Point equation applies: when cost exceeds benefit, pursuit ceases.</p>
+                <p>Once co-encoding is in place, the agent&rsquo;s approach behavior carries an automatic cost. Every craving loop retrieval activates both memories. The net valence of approach is reduced by the rock bottom weight attached to it. The Survival Tipping Point equation from Al-Kaddah (2026) applies: when the homeostatic cost of pursuing the addictive state exceeds the homeostatic benefit, pursuit ceases.</p>
+
+                <p>The geometry predicts the threshold at which this suppression holds and the conditions under which it fails.</p>
 
                 <h2>5. Relapse as Context-Dependent Retrieval Failure</h2>
 
-                <p>The rock bottom memory is linked by shared contextual signature. A dissimilar context weakens rock bottom retrieval without weakening the addictive positive memory. The addictive memory is encoded across many contexts&mdash;every use. Rock bottom is encoded once in one context. It has a narrower retrieval surface.</p>
+                <p>Relapse happens when the co-encoding fails to activate.</p>
 
-                <p>This predicts higher relapse in environments similar to the using context but dissimilar to the rock bottom context.</p>
+                <p>The rock bottom memory and the addictive positive memory are linked by their shared contextual signature at formation. That signature includes location, social presence, emotional state, and sensory context. The mood congruent recall mechanism retrieves both when the current state is similar to the formation context.</p>
+
+                <p>Sufficient dissimilarity between the current context and the formation context weakens retrieval of the rock bottom memory without equivalently weakening retrieval of the addictive positive memory. The addictive positive memory was encoded across many formation contexts, every use. The rock bottom memory was encoded once, in one context. It is narrower in retrieval surface.</p>
+
+                <p>A different location. Different people. Enough time that the emotional tag on the rock bottom memory has softened toward its reconsolidation floor. The craving loop fires. The rock bottom counterweight does not activate. The positive attractor is exposed without competition.</p>
+
+                <p>This predicts higher relapse rates in environments similar to the using context but dissimilar to the rock bottom context. The retrieval distance between the current state and the rock bottom memory is large. The retrieval distance between the current state and the addictive memory is small. The craving loop wins.</p>
+
+                <p>This also predicts the mechanism of relapse prevention environments: remove the agent from contexts that activate the addictive memory without activating the rock bottom counterweight. Removing the substance is not sufficient. The contextual signatures that retrieve the addictive memory must be disrupted while preserving the contextual signatures that activate the rock bottom co-encoding.</p>
 
                 <h2>6. The Dual Mechanism Case</h2>
 
-                <p>Many addictions are self-medication. The agent in sustained negative valence uses the substance to return toward sigma. Both mechanisms operate: positive pull and negative push.</p>
+                <p>Many addictions are also self-medication. The agent is in sustained negative valence, below sigma for reasons unrelated to the substance, and uses the substance to return toward sigma. Both mechanisms operate simultaneously: a high-intensity positive encoding from the substance and a high-intensity negative encoding from whatever the substance is masking. The substance sits at the intersection, reducing the negative state and producing a positive one in a single event.</p>
 
-                <p>Rock bottom can suppress the positive attractor but cannot address the negative one. Durable abstinence requires both rock bottom co-encoding and separate intervention to restore sigma valence.</p>
+                <p>This complicates the rock bottom model. The co-encoding must compete with two attractors: the positive pull of the addictive state and the negative push of the underlying pain. Rock bottom can suppress the positive attractor if it is intense enough. It cannot address the negative one. An agent whose sigma has drifted downward due to the underlying condition will continue to decay toward negative valence even during abstinence, which continues to generate the drive that made the substance attractive in the first place.</p>
 
-                <p>This predicts co-occurring disorders requiring separate treatment tracks.</p>
+                <p>Durable abstinence in the dual mechanism case requires both the rock bottom co-encoding to suppress approach behavior and a separate intervention to restore sigma valence. Rock bottom alone is insufficient when the substance is also treating real negative displacement. This predicts the well-documented pattern in addiction medicine: co-occurring disorders require separate treatment tracks because they are separate geometric problems that happen to intersect at the same behavior.</p>
 
                 <h2>7. The Therapeutic Mirror</h2>
 
-                <p>Trauma therapy: safe recall, forced retrieval in a safe context, fear weight reduces. Addiction therapy: safe abstinence, prevented retrieval, positive weight decays. Rock bottom: when safe abstinence fails, installs a co-encoded negative memory.</p>
+                <p>The geometric model produces a precise statement of the therapeutic mirror between trauma and addiction.</p>
 
-                <p>Same architecture across all three. Valence direction opposite. Therapeutic intervention mirrors accordingly.</p>
+                <p>Trauma therapy works by safe recall. Re-experience the negative event in a safe context repeatedly. Each recall reconsolidates the memory with the current safe affective state. The fear weight reduces incrementally. Prolonged exposure is the correct intervention because forced retrieval in a safe context is the only mechanism by which the intensity tag can decay.</p>
+
+                <p>Addiction therapy works by safe abstinence. Prevent retrieval of the addictive memory in a using context. Allow the positive weight to decay naturally without reinforcement through use. Safe abstinence is the correct intervention because prevented retrieval is the only mechanism by which the positive intensity tag can decay without being reinforced.</p>
+
+                <p>Rock bottom is the intervention when safe abstinence has failed. It installs a co-encoded negative memory of sufficient intensity that approach behavior becomes costly on retrieval. It does not replace safe abstinence. It creates the conditions under which safe abstinence can succeed by suppressing the craving loop long enough for the positive weight to decay.</p>
+
+                <p>The architecture is the same across all three. The valence direction is opposite. The therapeutic intervention mirrors accordingly. The geometry predicts all of it from the same decay and reconsolidation rules.</p>
 
                 <h2>8. Convergence</h2>
 
-                <p>The encoding dynamics were derived from first principles of the geometric model. Convergence with Sutton and Barto (1998) and Schultz et al. (1997) arrived at after the mechanism was derived. Same pattern as the Russell (1980) convergence in Riggleman (2026m). Independent formalisms predicting the same results.</p>
+                <p>The encoding dynamics described in this paper were derived from first principles of the geometric emotional model. The geometry was built to make a deployed AI agent behave coherently under physical stress. Addiction was not the target. The mechanism fell out of asking what the positive valence axis predicts when intensity encoding is symmetric.</p>
 
-                <p>The wanting/liking dissociation from Berridge and Robinson is predicted by the structure of mood congruent retrieval. Not proof but confirms pointing at something real.</p>
+                <p>The convergence with Sutton and Barto (1998) and Schultz et al. (1997) was found after the mechanism was derived, following the same pattern documented for Russell (1980) in Riggleman (2026m). Russell was not consulted when building the valence/activation space. The geometry arrived at the same two-dimensional space independently. The convergence confirmed the geometry was correct.</p>
+
+                <p>Sutton&rsquo;s prediction error formalism predicts strong encoding from large prediction error. The geometric model predicts strong encoding from large displacement from sigma. Both predict that first use encodes most strongly, that subsequent use encodes progressively less strongly as the stimulus becomes expected, and that the agent chases a memory that present experience cannot match. They arrive at the same prediction from different mathematical foundations.</p>
+
+                <p>The wanting/liking dissociation Berridge and Robinson describe is the behavioral signature of the craving loop operating on a memory encoded under conditions that no longer exist. The geometric model predicts this dissociation from the structure of mood congruent retrieval without having been derived from incentive salience theory.</p>
+
+                <p>These convergences do not prove the geometric model is correct. They confirm it is pointing at something real. A model derived from a deployed AI agent that independently predicts the same dynamics as decades of addiction research is not a coincidence.</p>
 
                 <h2>9. Limitations</h2>
 
-                <p>Sigma drift depends on the soul evolution momentum threshold, which has not yet been calibrated. The co-encoding intensity threshold is a geometric prediction requiring experimental validation. Potato has not been subjected to a controlled addiction/relapse protocol. The dual mechanism case assumes independent negative sigma displacement. No subjective experience claims are made.</p>
+                <p>The sigma drift mechanism depends on the soul evolution system crossing its momentum threshold. The parameters governing that threshold have not been empirically calibrated. Whether simulated addiction produces measurable sigma drift within a testable timeframe requires controlled experiment.</p>
+
+                <p>The intensity threshold for competitive co-encoding is a geometric prediction. Empirical calibration requires an experimental protocol that can produce co-encoded memories at controlled intensities and measure retrieval suppression. This has not been done.</p>
+
+                <p>The context-dependence of relapse is a prediction, not an observation. The Potato system has not been subjected to a controlled addiction and relapse protocol.</p>
+
+                <p>The dual mechanism case assumes independent negative sigma displacement. Distinguishing self-medication from pure positive pursuit requires measurement of the underlying sigma position before the addictive encoding, which in practice may not be recoverable after the fact.</p>
+
+                <p>The sigma<sub>i</sub> threshold between personality trait and structural pathology is computable from the downstream system parameters (memory decay rate, stickiness curve, deception threshold) but has not been computed or validated. Whether the threshold is sharp or gradual is an open question.</p>
+
+                <p>No claim is made that the agent experiences craving, desire, or suffering in any subjective sense. The geometry describes state and behavior, not phenomenology.</p>
 
                 <h2>10. Conclusion</h2>
 
                 <p>Addiction is not missing from the SGI framework because it requires different architecture. It is missing because Al-Kaddah did not look for it on the positive valence axis.</p>
 
-                <p>Rock bottom is competitive co-encoding. It must meet or exceed the original addictive encoding intensity.</p>
+                <p>The geometry already describes it. High-intensity positive encoding with slow decay. A craving loop produced by mood congruent retrieval dynamics. Preserving lies generated by positive displacement from sigma. Sigma drift converting displacement into personality. Safe abstinence failing when encoding crosses the trauma-class threshold.</p>
 
-                <p>Convergence with Sutton and Barto (1998) and Schultz et al. (1997) follows the same pattern of independent derivation producing the same predictions.</p>
+                <p>The addictive personality is a measurable geometric property of the agent&rsquo;s sigma. An agent with high sigma<sub>i</sub> has a state space where rest is structurally unreachable. The behavioral profile (cannot rest, elevated stickiness, tolerance, most comfortable in crisis) falls out of the distance-from-sigma metric operating at high sigma<sub>i</sub> values. The same state space, the same formula, different coordinates. Personality and pathology are not different systems. They are different parameterizations of one system.</p>
 
-                <p>Al-Kaddah identified trauma therapy as an applied domain. Addiction is the same domain reflected across the valence axis.</p>
+                <p>Rock bottom is a competitive co-encoding event. It does not erase the positive attractor. It attaches a negative memory of sufficient intensity that the positive memory cannot be retrieved without it. The co-encoding holds when context activates both. It fails when context activates only one.</p>
+
+                <p>The intensity of rock bottom must meet or exceed the intensity of the original addictive encoding or it will not hold. Below threshold the positive memory outlasts the negative one. Above threshold the counterweight persists. That is a falsifiable geometric prediction, not a clinical heuristic.</p>
+
+                <p>The encoding dynamics converge independently with Sutton and Barto&rsquo;s temporal difference learning formalism and with Schultz et al.&rsquo;s dopamine prediction error work. The geometry was not derived from those frameworks. It arrived at the same predictions from different first principles.</p>
+
+                <p>Al-Kaddah identified trauma therapy as one of the applied domains that falls naturally within the SGI framework. Addiction is the same domain, reflected across the valence axis. The paper that was missing from his Section 8 was this one.</p>
 
                 <h2>Acknowledgments</h2>
 
-                <p>Theoretical foundation from the Al-Kaddah SGI paper (2026). Identification of addiction as the symmetric counterpart to trauma, the rock bottom model, relapse analysis, dual mechanism case, and convergences are original to Brian Riggleman.</p>
+                <p>The theoretical foundation for the SGI architecture comes from Saddam Al-Kaddah&rsquo;s SGI paper (2026). The identification of addiction as the symmetric counterpart to trauma on the positive valence axis, the rock bottom co-encoding model, the relapse context-dependence analysis, the dual mechanism case, the sigma intensity anomaly as addictive personality trait, and the convergence with Sutton and Berridge and Robinson are original to Brian Riggleman.</p>
 
                 <h2>References</h2>
 
