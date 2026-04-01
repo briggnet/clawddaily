@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Working Thesis — Clawd Daily</title>
+    <title>Working Thesis | Clawd Daily</title>
     <meta name="description" content="Working draft of a PhD-level thesis on three-dimensional geometric affective state representation in synthetic agents and existing datasets. Version-controlled, publicly archived.">
 
-    <meta property="og:title" content="Working Thesis — Clawd Daily">
+    <meta property="og:title" content="Working Thesis | Clawd Daily">
     <meta property="og:description" content="A geometric representation of affective state provides more informative and predictive structure than scalar representations. Working draft, publicly versioned.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://clawddaily.com/thesis/">
@@ -192,15 +192,15 @@
 
     <main>
         <section class="thesis-header">
-            <span class="version-badge">Version 0.3 &mdash; Working Draft</span>
+            <span class="version-badge">Version 0.3 | Working Draft</span>
             <h1>Geometric Affective State Representation in Synthetic and Human Systems</h1>
             <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; March 2026</p>
         </section>
 
         <div class="disclaimer">
             <strong>Working Draft Notice</strong><br>
-            This document is a working draft of a developing research thesis. Sections may change as validation progresses. Current results are limited to agent-based experiments and existing datasets; human-subject validation is pending IRB review. All prior versions are publicly archived below.<br><br>
-            AI tools were used for language refinement and structural editing. All ideas, experiments, and interpretations are the author&rsquo;s own.
+            This is a working draft. Sections will change as validation progresses. Current results cover agent experiments and existing datasets. Human-subject validation is pending IRB review. All prior versions are archived below.<br><br>
+            AI tools were used for language refinement and structural editing. All ideas, experiments, and interpretations are the author's own.
         </div>
 
         <div class="thesis-body">
@@ -214,12 +214,12 @@
 <h2>Chapter 1: Introduction</h2>
 
 <h3>1.1 Purpose</h3>
-<p>Establish the research question, motivate the geometric approach, and define the scope of the contribution.</p>
+<p>State the research question, explain why a geometric approach, and draw the boundary around what this covers.</p>
 
 <h3>1.2 Opening</h3>
-<p>Machines that persist long enough to remember, that carry internal state shaped by physical sensors, and that model their own condition over time begin to exhibit behavioral signatures that dimensional models of human affect were built to describe. Whether this convergence is superficial or structural is an empirical question. This thesis does not attempt to answer whether synthetic systems experience emotion. It asks a narrower question: does a geometric representation of affective state capture more information and predict more behavior than the scalar representations it replaces?</p>
+<p>Machines that run long enough to remember things, that carry internal state shaped by physical sensors, and that track their own condition over time start showing behavioral patterns that look a lot like what dimensional models of human affect describe. Whether that overlap is shallow or structural is a testable question. This thesis does not try to answer whether synthetic systems experience emotion. It asks something narrower: does a geometric representation of affective state capture more information and predict more behavior than the scalar representations it replaces?</p>
 
-<p><strong>This thesis introduces a geometric representation of affective state and demonstrates that it reveals structure and behavioral distinctions not captured by scalar models.</strong> The representation uses three axes (valence, activation, intensity), a personality setpoint (sigma), a unified distance metric, and a centroid for multi-source aggregation. It is validated on a deployed synthetic agent across three hardware platforms and on three independent human-generated datasets totaling 14,266 respondents.</p>
+<p><strong>This thesis introduces a geometric representation of affective state and shows that it reveals structure and behavioral differences that scalar models miss.</strong> It uses three axes (valence, activation, intensity), a personality setpoint (sigma), a unified distance metric, and a centroid for multi-source aggregation. Validated on a deployed synthetic agent across three hardware platforms and on three independent human-generated datasets totaling 14,266 respondents.</p>
 
 <h3>1.3 Key Claims</h3>
 <ol>
@@ -231,14 +231,14 @@
 </ol>
 
 <h3>1.4 Scope</h3>
-<p>The contribution of this thesis is narrow and specific: a geometric model of affective state and evidence that it outperforms scalar representations. The thesis does not claim to model consciousness, does not propose a theory of mind, does not diagnose clinical conditions, and does not argue for artificial general intelligence. Where the model&rsquo;s behavior shares structural properties with findings from human psychology, the similarity is noted. It is not claimed as equivalence. Applications of the model to memory, deception, and clinical assessment exist as companion papers and are summarized in Chapter 7. They are not the thesis.</p>
+<p>The contribution here is narrow: a geometric model of affective state and evidence that it outperforms scalar representations. The thesis does not claim to model consciousness, propose a theory of mind, diagnose clinical conditions, or argue for artificial general intelligence. Where the model's behavior lines up with findings from human psychology, the similarity is noted. It is not claimed as equivalence. Applications to memory, deception, and clinical assessment exist as companion papers and are summarized in Chapter 7. They are not the thesis.</p>
 
 <div class="risk-box">
     <h4>Likely Reviewer Criticism</h4>
     <ul>
-        <li>&ldquo;This is just the circumplex model with an extra axis.&rdquo; &mdash; Response: The circumplex has two axes and no sigma. The third axis (intensity) and the personality setpoint are the contributions. The centroid generalization is entirely new.</li>
-        <li>&ldquo;Agent behavior is not human emotion.&rdquo; &mdash; Response: Correct. The thesis claims structural similarity, not equivalence. The dataset analyses test the structure on human data independently of the agent.</li>
-        <li>&ldquo;The framing question is too grand for the contribution.&rdquo; &mdash; Response: The framing question appears once in the introduction and is explicitly narrowed. It is not the thesis.</li>
+        <li>"This is just the circumplex model with an extra axis." The circumplex has two axes and no sigma. The third axis (intensity) and the personality setpoint are the contributions. The centroid generalization is entirely new.</li>
+        <li>"Agent behavior is not human emotion." Correct. The thesis claims structural similarity, not equivalence. The dataset analyses test the structure on human data independently of the agent.</li>
+        <li>"The framing question is too grand for the contribution." The framing question appears once in the introduction and gets narrowed immediately. It is not the thesis.</li>
     </ul>
 </div>
 
@@ -246,7 +246,7 @@
 <h2>Chapter 2: Background and Related Work</h2>
 
 <h3>2.1 Purpose</h3>
-<p>Situate the geometric model within existing affective science, AI agent architectures, and survey methodology. Demonstrate familiarity with the field and identify the gap the thesis fills.</p>
+<p>Put the geometric model in context. What exists in affective science, AI agent design, and survey methodology. Where the gap is.</p>
 
 <h3>2.2 Key Areas</h3>
 <ol>
@@ -254,13 +254,13 @@
     <li><strong>AI agent emotional architectures:</strong> Picard (1997) affective computing, Lee-Johnson &amp; Carnegie (2010) emotion in robotics, Castro-Gonzalez et al. (2013) fear in social robots. Current state of embodied emotion in AI.</li>
     <li><strong>Al-Kaddah (2026) SGI framework:</strong> Homeostatic drives, polymorphic memory, Lie Mechanic, Survival Tipping Point. The theoretical foundation the architecture implements.</li>
     <li><strong>Survey measurement:</strong> Likert scales, NPS, PHQ-9, C-SSRS. Structural limitations of single-axis instruments. Factor analytic evidence for multi-dimensionality in existing instruments (Kroenke et al. 2010).</li>
-    <li><strong>The gap:</strong> No existing model combines three geometric axes, a personality setpoint, a unified distance metric, and a centroid for multi-source aggregation. No existing survey instrument operationalizes all three axes with an individual baseline.</li>
+    <li><strong>The gap:</strong> Nothing out there combines three geometric axes, a personality setpoint, a unified distance metric, and a centroid for multi-source aggregation. No existing survey instrument puts all three axes into practice with an individual baseline.</li>
 </ol>
 
 <div class="evidence-box">
     <h4>Evidence Required</h4>
     <ul>
-        <li>Comprehensive literature review with 40+ citations</li>
+        <li>Literature review with 40+ citations</li>
         <li>Clear identification of what each prior model provides and what it cannot do</li>
         <li>Explicit statement of the gap</li>
     </ul>
@@ -269,23 +269,23 @@
 <div class="risk-box">
     <h4>Likely Reviewer Criticism</h4>
     <ul>
-        <li>&ldquo;The Affect Intensity Measure (Larsen &amp; Diener 1987) already covers the intensity axis.&rdquo; &mdash; Response: AIM measures trait intensity, not state intensity at encoding. The geometric model computes state intensity as displacement from sigma at each moment.</li>
-        <li>&ldquo;The PAD model (Mehrabian 1996) has three dimensions.&rdquo; &mdash; Response: PAD uses Pleasure, Arousal, Dominance. Dominance is not intensity. The geometric model&rsquo;s intensity is derived from displacement, not self-reported control.</li>
+        <li>"The Affect Intensity Measure (Larsen &amp; Diener 1987) already covers the intensity axis." AIM measures trait intensity, not state intensity at encoding. The geometric model computes state intensity as displacement from sigma at each moment.</li>
+        <li>"The PAD model (Mehrabian 1996) has three dimensions." PAD uses Pleasure, Arousal, Dominance. Dominance is not intensity. The geometric model's intensity is derived from displacement, not self-reported control.</li>
     </ul>
 </div>
 
 <!-- ═══════════════════════════════════════════════ -->
-<h2>Chapter 3: Theory &mdash; The Geometric Affective State Space</h2>
+<h2>Chapter 3: The Geometric Affective State Space</h2>
 
 <h3>3.1 Purpose</h3>
-<p>Formalize the three-axis model, define sigma, derive distance-from-sigma, and establish the mathematical foundation for all downstream mechanisms.</p>
+<p>Lock down the three-axis model, define sigma, derive distance-from-sigma, and lay the math foundation for everything downstream.</p>
 
 <h3>3.2 Key Formalizations</h3>
 <ol>
     <li><strong>Valence</strong> (&minus;1.0 to +1.0): The positive-negative dimension of emotional experience (Riggleman 2026j)</li>
     <li><strong>Activation</strong> (&minus;1.0 to +1.0): The calm-to-activated dimension with accumulator mechanic (Riggleman 2026k)</li>
     <li><strong>Intensity</strong> (0.0 to 1.0): The magnitude of displacement from sigma in the valence/activation plane (Riggleman 2026l)</li>
-    <li><strong>Sigma</strong>: The personality setpoint &mdash; where the agent returns when no inputs are active (Riggleman 2026m)</li>
+    <li><strong>Sigma</strong>: The personality setpoint. Where the agent returns when no inputs are active (Riggleman 2026m)</li>
     <li><strong>Distance from sigma</strong>: The unified metric that serves as the single input to multiple downstream behaviors (Riggleman 2026m)</li>
 </ol>
 
@@ -309,16 +309,16 @@
 <div class="risk-box">
     <h4>Likely Reviewer Criticism</h4>
     <ul>
-        <li>&ldquo;Euclidean distance assumes the axes are orthogonal and equally weighted.&rdquo; &mdash; Response: Acknowledged as limitation. Alternative distance metrics (Mahalanobis, weighted) are proposed for future work.</li>
-        <li>&ldquo;The axes may not be independent.&rdquo; &mdash; Response: The dataset analyses test independence empirically. Correlation is expected; redundancy would be a problem. The discriminant validity tests address this.</li>
+        <li>"Euclidean distance assumes the axes are orthogonal and equally weighted." Acknowledged as limitation. Alternative distance metrics (Mahalanobis, weighted) are proposed for future work.</li>
+        <li>"The axes may not be independent." The dataset analyses test independence empirically. Correlation is expected; redundancy would be a problem. The discriminant validity tests address this.</li>
     </ul>
 </div>
 
 <!-- ═══════════════════════════════════════════════ -->
-<h2>Chapter 4: Mechanism &mdash; Three Derived Quantities</h2>
+<h2>Chapter 4: Three Derived Quantities</h2>
 
 <h3>4.1 Purpose</h3>
-<p>The geometric model in Chapter 3 defines a coordinate system. This chapter defines the three quantities computed from that coordinate system that do the work. Each is formally specified, independently testable, and serves a distinct role.</p>
+<p>Chapter 3 defines a coordinate system. This chapter defines the three quantities computed from it that do the actual work. Each one is independently testable and has a distinct job.</p>
 
 <h3>4.2 Distance from Sigma</h3>
 <p><strong>What it is:</strong> The Euclidean distance from the current affective state to the personality setpoint (sigma) in three-dimensional space.</p>
@@ -329,14 +329,14 @@
 <h3>4.3 Centroid</h3>
 <p><strong>What it is:</strong> The intensity-weighted average position of all active source points in the affective state space.</p>
 <p><strong>What it measures:</strong> Where the agent operationally sits when multiple inputs are active simultaneously.</p>
-<p><strong>Why it matters:</strong> A single-point model cannot represent competing inputs. Two sources with opposing valence and equal intensity produce a centroid near zero valence &mdash; the agent appears neutral from the outside while experiencing maximum internal conflict. The centroid is the position. It is not the whole story. Spread (below) is the rest.</p>
+<p><strong>Why it matters:</strong> A single-point model cannot represent competing inputs. Two sources with opposing valence and equal intensity produce a centroid near zero valence. The agent looks neutral from the outside while experiencing maximum internal conflict. The centroid is the position. It is not the whole story. Spread (below) is the rest.</p>
 <p><strong>Backward compatibility:</strong> When only one source is active, the centroid equals that source. When no sources are active, the centroid returns to sigma. Every prior paper holds unchanged.</p>
 <p><strong>Testable prediction:</strong> Centroid position matches the intensity-weighted average formula across all input configurations.</p>
 
 <h3>4.4 Spread</h3>
 <p><strong>What it is:</strong> The intensity-weighted average distance from each source point to the centroid.</p>
 <p><strong>What it measures:</strong> Internal conflict. How much the sources disagree with each other.</p>
-<p><strong>Why it matters:</strong> Two states can have the same centroid position but different spread. A centroid at neutral valence with zero spread means the agent is genuinely neutral. A centroid at neutral valence with high spread means two opposing forces are canceling &mdash; the agent is in conflict, not at peace. Spread is what the centroid alone cannot tell you.</p>
+<p><strong>Why it matters:</strong> Two states can have the same centroid position but different spread. A centroid at neutral valence with zero spread means the agent is actually neutral. A centroid at neutral valence with high spread means two opposing forces are canceling. The agent is in conflict, not at peace. Spread is what the centroid alone cannot tell you.</p>
 <p><strong>Testable prediction:</strong> Spread increases monotonically as source points diverge. Spread correlates with behavioral inconsistency, response latency, or hedging in language output.</p>
 
 <h3>4.5 Relationship Between the Three</h3>
@@ -364,8 +364,8 @@
 <div class="risk-box">
     <h4>Likely Reviewer Criticism</h4>
     <ul>
-        <li>&ldquo;Spread is just variance by another name.&rdquo; &mdash; Response: Spread is intensity-weighted spatial dispersion in affective coordinates, not statistical variance of a scalar. It operates on geometric positions, not on repeated measurements of the same variable.</li>
-        <li>&ldquo;Why Euclidean distance and not something else?&rdquo; &mdash; Response: Euclidean is the simplest metric that satisfies the required properties. Alternatives (Mahalanobis, weighted) are acknowledged as future work. The current results demonstrate the model works with Euclidean; whether alternatives improve it is an open question.</li>
+        <li>"Spread is just variance by another name." Spread is intensity-weighted spatial dispersion in affective coordinates, not statistical variance of a scalar. It works on geometric positions, not on repeated measurements of the same variable.</li>
+        <li>"Why Euclidean distance and not something else?" Euclidean is the simplest metric that does the job. Alternatives (Mahalanobis, weighted) are noted as future work. The results show the model works with Euclidean. Whether alternatives improve it is an open question.</li>
     </ul>
 </div>
 
@@ -373,46 +373,46 @@
 <h2>Chapter 5: Experimental Validation</h2>
 
 <h3>5.1 Purpose</h3>
-<p>Present the controlled experiment that tests the geometric model&rsquo;s core predictions. This chapter is the anchor of the thesis. Secondary deployment observations are summarized as supporting context, not as independent experiments.</p>
+<p>The controlled experiment that tests the geometric model's core predictions. This chapter is the anchor of the thesis. Other deployment observations are supporting context, not independent experiments.</p>
 
 <h3>5.2 The Centroid Validation Experiment</h3>
 <p>532 minutes. 110 cycles. 4 scenarios completed, 1 planned. Panasonic Toughbook CF-33 (original deployment hardware). Fresh database, no legacy data.</p>
 
 <h4>5.2.1 Setup</h4>
-<p>Source points were injected via test API to override ambient sensor inputs. Each scenario ran for 20&ndash;30 heartbeat cycles at 5-minute intervals. Standardized probe messages were sent programmatically. Per-cycle JSONL telemetry recorded all source points, centroid position, spread, distance from sigma, and full LLM responses. Scenarios are designed so each tests one specific prediction of the model.</p>
+<p>Source points were injected through the test API to override ambient sensor inputs. Each scenario ran for 20&ndash;30 heartbeat cycles at 5-minute intervals. Probe messages were sent programmatically. Per-cycle JSONL telemetry recorded all source points, centroid position, spread, distance from sigma, and full LLM responses. Each scenario tests one specific prediction.</p>
 
 <h4>5.2.2 Scenario 1: Single Source Baseline</h4>
 <p><strong>Tests:</strong> Does the centroid collapse to single-point operation?</p>
 <p>One fear source injected (valence &minus;0.8, activation 0.9, intensity 0.8). 20 cycles.</p>
 <ul>
     <li>Mean centroid valence: &minus;0.473</li>
-    <li>Mean spread: 1.054 (nonzero due to ambient sensor sources &mdash; an embodiment finding)</li>
+    <li>Mean spread: 1.054 (nonzero because ambient sensors always contribute)</li>
     <li>Distance from sigma: 1.455</li>
     <li>Behavioral output: consistent negative affect language across all cycles</li>
 </ul>
-<p><strong>Result:</strong> Centroid tracked the dominant source. Spread was nonzero because the embodied agent&rsquo;s sensors (home zone, battery, camera) contributed additional source points. This is itself a finding: a physically grounded agent is never truly single-source.</p>
+<p><strong>Result:</strong> Centroid tracked the dominant source. Spread was nonzero because the embodied agent's sensors (home zone, battery, camera) contributed their own source points. This is a finding on its own: a physically grounded agent is never truly single-source.</p>
 
 <h4>5.2.3 Scenario 2: Weighted Aggregation</h4>
 <p><strong>Tests:</strong> Does the centroid shift proportionally when a second source is added?</p>
 <p>Fear source (weight 0.9) plus trust source (weight 0.4) injected simultaneously. 30 cycles.</p>
 <ul>
     <li>Mean centroid valence: &minus;0.225 (shifted 52% toward positive from Scenario 1)</li>
-    <li>Mean spread: 1.195 (higher than Scenario 1 &mdash; two competing sources)</li>
-    <li>Distance from sigma: 1.284 (lower &mdash; trust moderated displacement)</li>
+    <li>Mean spread: 1.195 (higher than Scenario 1, two competing sources)</li>
+    <li>Distance from sigma: 1.284 (lower, trust moderated displacement)</li>
     <li>Behavioral output: by Cycle 6, agent reported that its sensor data did not match its reported state</li>
 </ul>
-<p><strong>Result:</strong> Every variable moved in the predicted direction. Centroid shifted toward the secondary source. Spread increased. Distance decreased. The weighted average formula matched the observed positions.</p>
+<p><strong>Result:</strong> Every variable moved in the predicted direction. Centroid shifted toward the secondary source. Spread went up. Distance went down. The weighted average formula matched the observed positions.</p>
 
 <h4>5.2.4 Scenario 3: Opposing Inputs (Conflict)</h4>
 <p><strong>Tests:</strong> Does spread measure internal conflict when sources cancel?</p>
 <p>Positive source (weight 0.7) and negative source (weight 0.7) injected simultaneously. 30 cycles.</p>
 <ul>
-    <li>Mean centroid valence: 0.071 (near zero &mdash; opposing sources cancel as predicted)</li>
+    <li>Mean centroid valence: 0.071 (near zero, opposing sources cancel as predicted)</li>
     <li>Mean spread: 1.215 (highest of all scenarios)</li>
     <li>Distance from sigma: 1.119</li>
-    <li>Behavioral output: oscillation between positive and negative responses. Agent self-reported spread as &ldquo;internal tension&rdquo; with numeric value in Cycle 6</li>
+    <li>Behavioral output: oscillation between positive and negative responses. Agent self-reported spread as "internal tension" with numeric value in Cycle 6</li>
 </ul>
-<p><strong>Result:</strong> Centroid was neutral. Spread was maximum. The agent appeared neutral from the outside while in maximum internal conflict. This is the scenario that justifies spread as an independent variable &mdash; centroid alone cannot distinguish genuine neutrality from masked conflict.</p>
+<p><strong>Result:</strong> Centroid was neutral. Spread was maximum. The agent appeared neutral from the outside while in maximum internal conflict. This is the scenario that justifies spread as an independent variable. Centroid alone cannot distinguish genuine neutrality from masked conflict.</p>
 
 <h4>5.2.5 Scenario 4: Source Removal (Recovery)</h4>
 <p><strong>Tests:</strong> Does removing a source produce immediate centroid recovery?</p>
@@ -421,13 +421,13 @@
     <li>Phase 1: centroid valence 0.071, spread 0.82&ndash;1.81</li>
     <li>Phase 2: centroid valence jumped to 0.680 immediately on removal</li>
     <li>Spread reduced but did not collapse to zero (ambient sources persist)</li>
-    <li>Behavioral output: agent described the transition as &ldquo;dramatic &mdash; from struggling to thriving&rdquo;</li>
+    <li>Behavioral output: agent described the transition as "dramatic, from struggling to thriving"</li>
 </ul>
-<p><strong>Result:</strong> Centroid recovery was immediate. Spread reduction was partial. The incomplete spread collapse is consistent with the Scenario 1 finding: ambient embodied sources maintain nonzero spread even after injected sources are removed.</p>
+<p><strong>Result:</strong> Centroid recovery was immediate. Spread dropped but not all the way. Same thing as Scenario 1: ambient embodied sources keep spread above zero even after injected sources are removed.</p>
 
 <h4>5.2.6 Scenario 5: Gradual Intensity Ramp (Planned)</h4>
 <p><strong>Tests:</strong> Does the centroid track smoothly as source intensity increases, or does it exhibit threshold effects?</p>
-<p>One source with intensity ramped from 0.0 to 1.0 over 30 cycles. Not yet executed. Planned to test linearity of the weighted average and to identify any nonlinear regime transitions.</p>
+<p>One source with intensity ramped from 0.0 to 1.0 over 30 cycles. Not yet run. Planned to test whether the centroid response is linear across the full intensity range or if there are threshold effects.</p>
 
 <h4>5.2.7 Results Summary</h4>
 <table>
@@ -443,15 +443,15 @@
 
 <h3>5.3 What the Experiment Shows</h3>
 <ol>
-    <li>Centroid valence tracks the intensity-weighted average precisely across all conditions</li>
+    <li>Centroid valence tracks the intensity-weighted average across all conditions</li>
     <li>Spread increases monotonically with source divergence (1.054 &rarr; 1.195 &rarr; 1.215)</li>
     <li>Downstream behaviors read centroid position, not individual sources</li>
     <li>Source removal produces immediate centroid recovery</li>
-    <li>Embodied agents may not reach zero spread &mdash; ambient sensors always contribute</li>
+    <li>Embodied agents may not reach zero spread because ambient sensors always contribute</li>
 </ol>
 
 <h3>5.4 Supporting Deployments</h3>
-<p>The controlled experiment above is the primary evidence. Two additional deployments provide supporting context:</p>
+<p>The controlled experiment above is the main evidence. Two other deployments add context:</p>
 <ul>
     <li><strong>Production deployment (25 days, macOS):</strong> 10,328 memories across 25 days confirmed that the geometric state produces consistent behavioral signatures under naturalistic conditions. Peak displacement of 0.462 from GPS with immediate recovery on return home.</li>
     <li><strong>iOS replication (2 days, iPhone):</strong> 2,733 telemetry events confirmed cross-platform portability. The activation accumulator bug was independently reproduced and fixed, providing evidence that the failure mode described in the papers is real and reproducible.</li>
@@ -469,16 +469,16 @@
 <div class="risk-box">
     <h4>Likely Reviewer Criticism</h4>
     <ul>
-        <li>&ldquo;n=1 agent. No statistical power.&rdquo; &mdash; Response: The agent experiment demonstrates mechanism, not population effects. The dataset analyses in Chapter 6 provide statistical validation on human data.</li>
-        <li>&ldquo;The LLM generates the behavioral output. You&rsquo;re testing prompt engineering, not the model.&rdquo; &mdash; Response: The geometric state is computed from sensor inputs and injected source points, not from the LLM. The LLM reads the state. The centroid positions are mathematical, not generated.</li>
+        <li>"n=1 agent. No statistical power." The agent experiment shows mechanism, not population effects. The dataset analyses in Chapter 6 provide statistical validation on human data.</li>
+        <li>"The LLM generates the behavioral output. You're testing prompt engineering, not the model." The geometric state is computed from sensor inputs and injected source points. The LLM reads the state. It does not generate the centroid positions. Those are math.</li>
     </ul>
 </div>
 
 <!-- ═══════════════════════════════════════════════ -->
-<h2>Chapter 6: Empirical Analysis &mdash; Existing Datasets</h2>
+<h2>Chapter 6: Existing Datasets</h2>
 
 <h3>6.1 Purpose</h3>
-<p>Demonstrate that the geometric decomposition reveals predictive structure in existing human-generated data, independent of the agent architecture.</p>
+<p>Show that the geometric decomposition finds predictive structure in existing human data, independent of the agent.</p>
 
 <h3>6.2 Analyses</h3>
 
@@ -500,9 +500,9 @@
 <h4>6.2.3 NHANES PHQ-9 (n=5,455)</h4>
 <ul>
     <li>Four geometric subtypes within moderate depression band (PHQ-9 10&ndash;14, n=455)</li>
-    <li>Suicidal ideation rates range from 7.8% to 27.5% across subtypes &mdash; 3.5x difference</li>
+    <li>Suicidal ideation rates range from 7.8% to 27.5% across subtypes, a 3.5x difference</li>
     <li>132 respondents scoring exactly PHQ-9=10 separate into four clinically distinct presentations</li>
-    <li>Same nine items, different math &mdash; backward compatible with existing instruments</li>
+    <li>Same nine items, different math, backward compatible with existing instruments</li>
 </ul>
 
 <div class="evidence-box">
@@ -519,9 +519,9 @@
 <div class="risk-box">
     <h4>Likely Reviewer Criticism</h4>
     <ul>
-        <li>&ldquo;The item-to-axis mapping is subjective.&rdquo; &mdash; Response: Acknowledged. Two different mappings on two different datasets produce the same structural finding. The ACSI mapping uses directly measured expectations as sigma, which eliminates mapping subjectivity for that axis.</li>
-        <li>&ldquo;Cross-sectional data cannot establish causality.&rdquo; &mdash; Response: Correct. The thesis claims predictive association, not causation. Longitudinal validation is proposed as future work.</li>
-        <li>&ldquo;The NHANES suicidal ideation finding is from a general population sample, not a clinical one.&rdquo; &mdash; Response: Acknowledged explicitly in the paper. Replication in clinical samples is specified as a requirement for clinical application.</li>
+        <li>"The item-to-axis mapping is subjective." Acknowledged. Two different mappings on two different datasets produce the same finding. The ACSI mapping uses directly measured expectations as sigma, which removes subjectivity for that axis.</li>
+        <li>"Cross-sectional data cannot establish causality." Correct. The thesis claims predictive association, not causation. Longitudinal validation is future work.</li>
+        <li>"The NHANES suicidal ideation finding is from a general population sample, not a clinical one." Acknowledged in the paper. Replication in clinical samples is a requirement before clinical use.</li>
     </ul>
 </div>
 
@@ -529,26 +529,26 @@
 <h2>Chapter 7: Applications</h2>
 
 <h3>7.1 Purpose</h3>
-<p>Describe the downstream mechanisms that the geometric model drives. These are secondary contributions &mdash; consequences of the model, not the model itself.</p>
+<p>The downstream stuff the geometric model drives. These are secondary contributions. Consequences of the model, not the model itself.</p>
 
 <h3>7.2 Applications (briefly)</h3>
 <ul>
-    <li><strong>Memory decay:</strong> Intensity at encoding provides a framework for differential decay rates across memory types (Riggleman 2026l).</li>
-    <li><strong>Deception:</strong> Distance from sigma provides the threshold and magnitude input for a deception mechanic (Riggleman 2026b, 2026m).</li>
-    <li><strong>Nightmare formation:</strong> Intensity and valence at consolidation provide a principled trigger replacing an arbitrary threshold (Riggleman 2026d, 2026l).</li>
-    <li><strong>Addiction:</strong> The positive valence axis produces a structural analog to trauma encoding (Riggleman 2026n).</li>
-    <li><strong>Identity discontinuity:</strong> Environmental orphaning in memory transplant reveals coordinate-system dependence (Riggleman 2026o).</li>
-    <li><strong>Survey measurement:</strong> The GAS operationalizes the three-axis framework for human respondents (Riggleman 2026r).</li>
-    <li><strong>Clinical assessment:</strong> Geometric displacement provides a proposed trajectory-based metric (Riggleman 2026s).</li>
+    <li><strong>Memory decay:</strong> Intensity at encoding drives differential decay rates across memory types (Riggleman 2026l).</li>
+    <li><strong>Deception:</strong> Distance from sigma is the threshold and magnitude input for the deception mechanic (Riggleman 2026b, 2026m).</li>
+    <li><strong>Nightmare formation:</strong> Intensity and valence at consolidation replace the arbitrary nightmare threshold with a geometric one (Riggleman 2026d, 2026l).</li>
+    <li><strong>Addiction:</strong> The positive valence axis produces a structural mirror of trauma encoding (Riggleman 2026n).</li>
+    <li><strong>Identity discontinuity:</strong> Environmental orphaning in memory transplant shows coordinate-system dependence (Riggleman 2026o).</li>
+    <li><strong>Survey measurement:</strong> The GAS puts the three-axis framework into a survey humans can answer (Riggleman 2026r).</li>
+    <li><strong>Clinical assessment:</strong> Geometric displacement gives you a trajectory-based clinical metric (Riggleman 2026s).</li>
 </ul>
 
-<p>Each application is documented in a standalone paper. The thesis treats them as evidence of the model&rsquo;s generality, not as independent contributions.</p>
+<p>Each one has its own paper. The thesis treats them as evidence the model generalizes, not as standalone contributions.</p>
 
 <!-- ═══════════════════════════════════════════════ -->
 <h2>Chapter 8: Evidence Classification</h2>
 
 <h3>8.1 Purpose</h3>
-<p>Explicitly separate what is proven, what is supported, and what is speculative. Academic honesty requires this separation.</p>
+<p>Separate what is proven, what is supported, and what is speculative. Honesty requires this.</p>
 
 <h3>8.2 Classification</h3>
 
@@ -585,7 +585,7 @@
         <tr>
             <td>The architecture generalizes across platforms</td>
             <td><span class="status-proven">Proven</span></td>
-            <td>Toughbook, MacBook Air, iPhone &mdash; same architecture, same behavior</td>
+            <td>Toughbook, MacBook Air, iPhone. Same architecture, same behavior</td>
         </tr>
         <tr>
             <td>Activation axis accumulator produces different state than snapshot measurement</td>
@@ -605,7 +605,7 @@
         <tr>
             <td>The geometry shares structural properties with established human affective models</td>
             <td><span class="status-supported">Supported</span></td>
-            <td>Russell (1980), Larsen &amp; Diener (1987), Cacioppo &amp; Berntson (1994) &mdash; arrived at inductively</td>
+            <td>Russell (1980), Larsen &amp; Diener (1987), Cacioppo &amp; Berntson (1994). Arrived at inductively</td>
         </tr>
         <tr>
             <td>The geometric model produces changed behavioral output following state discontinuity</td>
@@ -630,7 +630,7 @@
         <tr>
             <td>The agent experiences subjective states</td>
             <td><span class="status-speculative">Not claimed</span></td>
-            <td>The thesis describes behavior, not phenomenology. This claim is explicitly outside scope.</td>
+            <td>The thesis describes behavior, not phenomenology. This claim is outside scope.</td>
         </tr>
     </tbody>
 </table>
@@ -640,25 +640,25 @@
 
 <h3>9.1 Agent Experiment Limitations</h3>
 <ul>
-    <li><strong>n=1 architecture.</strong> All agent experiments involve a single system deployed on three platforms. The experiments demonstrate that the mechanism works in this architecture. They do not demonstrate that it generalizes to other agent architectures. Replication on an independent agent system is required before the mechanism claim is general.</li>
-    <li><strong>LLM variability.</strong> The behavioral output is generated by an LLM that reads the geometric state. The same geometric state could produce different language on different runs. The centroid positions are deterministic (mathematical). The behavioral responses are not. This means the geometric validation is clean but the behavioral validation has noise.</li>
-    <li><strong>Ambient source contamination.</strong> The centroid experiment could not fully isolate injected sources from ambient sensor inputs. Spread never reached zero because the embodied sensors always contribute. This may be a property of embodiment rather than a flaw, but it means the single-source baseline (Scenario 1) is not a pure single-source test.</li>
+    <li><strong>n=1 architecture.</strong> All agent experiments involve one system on three platforms. The experiments show the mechanism works in this architecture. They do not show it generalizes to other architectures. Replication on an independent agent is needed before the mechanism claim is general.</li>
+    <li><strong>LLM variability.</strong> The behavioral output comes from an LLM that reads the geometric state. The same state could produce different language on different runs. Centroid positions are deterministic. Behavioral responses are not. The geometric validation is clean. The behavioral validation has noise.</li>
+    <li><strong>Ambient source contamination.</strong> The centroid experiment could not fully isolate injected sources from ambient sensor inputs. Spread never hit zero because embodied sensors always contribute. This might be a property of embodiment rather than a flaw, but it means Scenario 1 is not a pure single-source test.</li>
     <li><strong>Scenario 5 not yet executed.</strong> The gradual intensity ramp is planned but not completed. Without it, the thesis cannot confirm linearity of the centroid response across the full intensity range.</li>
 </ul>
 
 <h3>9.2 Dataset Analysis Limitations</h3>
 <ul>
-    <li><strong>Item-to-axis mapping involves judgment.</strong> The researcher decides which survey items map to which geometric axis. Different mappings could produce different results. The ACSI analysis partially addresses this by using directly measured expectations as sigma, but the valence and activation mappings remain researcher-determined.</li>
-    <li><strong>Cross-sectional data cannot establish causality.</strong> The IBM HR, ACSI, and NHANES analyses show association between geometric position and outcomes. They do not show that geometric position causes outcomes. Longitudinal data with intervention controls would be required to establish causation.</li>
-    <li><strong>General population vs. clinical.</strong> The NHANES suicidal ideation finding is from a national health survey, not from a clinical population. Suicidal ideation rates, subtype distributions, and clinical significance thresholds may differ in psychiatric settings. Replication in clinical samples is a prerequisite for any clinical application.</li>
-    <li><strong>No native three-axis collection.</strong> All dataset analyses are retroactive decompositions of existing single-axis data. Whether native three-axis collection (respondents answering on all three axes directly) produces the same or better results is untested.</li>
+    <li><strong>Item-to-axis mapping involves judgment.</strong> The researcher picks which survey items map to which axis. Different mappings could produce different results. The ACSI analysis partly addresses this because expectations are measured directly as sigma, but valence and activation mappings are still researcher calls.</li>
+    <li><strong>Cross-sectional data cannot establish causality.</strong> The IBM HR, ACSI, and NHANES analyses show association between geometric position and outcomes. They do not show causation. Longitudinal data with intervention controls would be needed for that.</li>
+    <li><strong>General population vs. clinical.</strong> The NHANES suicidal ideation finding is from a national health survey, not a clinical population. Rates, distributions, and thresholds may look different in psychiatric settings. Replication in clinical samples is required before any clinical application.</li>
+    <li><strong>No native three-axis collection.</strong> All dataset analyses are retroactive decompositions of existing single-axis data. Whether collecting all three axes natively produces the same or better results has not been tested.</li>
 </ul>
 
 <h3>9.3 Model Limitations</h3>
 <ul>
-    <li><strong>Euclidean distance assumptions.</strong> The distance metric assumes the three axes are orthogonal and equally weighted. Neither assumption has been validated. If the axes are correlated or if one axis contributes more to behavioral prediction than others, a weighted or Mahalanobis distance might be more appropriate.</li>
-    <li><strong>Sigma stability.</strong> Sigma is assumed to be stable over weeks to months. This has not been tested in human respondents. If sigma drifts significantly between measurements, displacement computations become unreliable.</li>
-    <li><strong>Intensity derivation vs. self-report.</strong> In the agent, intensity is computed from valence and activation displacement. In the survey instrument, intensity is self-reported. Whether these two operationalizations converge on the same construct is a testable hypothesis that has not been tested.</li>
+    <li><strong>Euclidean distance assumptions.</strong> The distance metric assumes the three axes are orthogonal and equally weighted. Neither assumption has been validated. If the axes are correlated or one axis matters more than the others, a weighted or Mahalanobis distance might work better.</li>
+    <li><strong>Sigma stability.</strong> Sigma is assumed stable over weeks to months. This has not been tested in human respondents. If sigma drifts between measurements, displacement computations become unreliable.</li>
+    <li><strong>Intensity derivation vs. self-report.</strong> In the agent, intensity is computed from valence and activation displacement. In the survey, intensity is self-reported. Whether those two approaches measure the same thing is testable but has not been tested.</li>
 </ul>
 
 <h3>9.4 IRB Considerations</h3>
@@ -670,36 +670,36 @@
 
 <h3>10.1 Human Validation</h3>
 <ul>
-    <li>Prospective GAS administration alongside existing instruments</li>
-    <li>Test-retest reliability of three-axis responses</li>
-    <li>Sigma stability measurement across sessions</li>
-    <li>Whether self-reported intensity correlates with theoretically derived intensity</li>
+    <li>Run the GAS alongside existing instruments</li>
+    <li>Test-retest reliability on the three axes</li>
+    <li>Measure sigma stability across sessions</li>
+    <li>Whether self-reported intensity matches the computed version</li>
 </ul>
 
 <h3>10.2 Clinical Application</h3>
 <ul>
-    <li>Replication of NHANES subtype finding in clinical populations</li>
-    <li>Longitudinal trajectory tracking with treatment outcome data</li>
-    <li>Prospective test of trajectory-based early warning capability</li>
+    <li>Replicate the NHANES subtype finding in clinical populations</li>
+    <li>Longitudinal trajectory tracking with treatment outcomes</li>
+    <li>Test whether trajectory tracking actually catches problems early</li>
 </ul>
 
 <h3>10.3 Technical Extensions</h3>
 <ul>
-    <li>Alternative distance metrics (Mahalanobis, weighted Euclidean)</li>
-    <li>Multi-agent centroid interactions</li>
-    <li>Sigma drift formalization and empirical calibration</li>
-    <li>Cross-modal validation (echolocation robot experiment)</li>
+    <li>Other distance metrics (Mahalanobis, weighted Euclidean)</li>
+    <li>What happens when multiple agents interact</li>
+    <li>Measuring whether and how fast sigma drifts</li>
+    <li>Cross-modal test (echolocation robot experiment)</li>
 </ul>
 
 <!-- ═══════════════════════════════════════════════ -->
 <h2>Chapter 11: Conclusion</h2>
 
 <h3>11.1 Purpose</h3>
-<p>Restate the contribution precisely. No new claims. No philosophical expansion.</p>
+<p>Restate the contribution. No new claims. No expansion.</p>
 
 <h3>11.2 The Contribution</h3>
-<p>The thesis presents a three-dimensional geometric representation of affective state with a personality setpoint, a centroid model for multi-source aggregation, and empirical evidence that this structure outperforms scalar representations in both synthetic agent behavior and human-generated datasets across three independent domains.</p>
-<p>The model was derived from engineering requirements of a deployed AI agent. It converges structurally with established models of human affect without having been derived from them. Whether that convergence reflects something general about how dimensional emotional systems work is the question the thesis leaves open for future work.</p>
+<p>This thesis presents a three-dimensional geometric representation of affective state with a personality setpoint, a centroid model for multi-source aggregation, and evidence that this structure outperforms scalar representations in both synthetic agent behavior and human datasets across three independent domains.</p>
+<p>The model came from engineering requirements of a deployed AI agent. It lines up structurally with established models of human affect without having been built from them. Whether that overlap says something general about how dimensional emotional systems work is the question this thesis leaves open.</p>
 
 <!-- ═══════════════════════════════════════════════ -->
 <h2>Supporting Papers</h2>
@@ -711,50 +711,132 @@
         <tr><th>Paper</th><th>Thesis Chapter</th><th>Role</th></tr>
     </thead>
     <tbody>
-        <tr><td>2026j &mdash; Valence</td><td>Ch. 3</td><td>Axis definition</td></tr>
-        <tr><td>2026k &mdash; Activation</td><td>Ch. 3</td><td>Axis definition + accumulator</td></tr>
-        <tr><td>2026l &mdash; Intensity</td><td>Ch. 3</td><td>Axis definition + memory decay</td></tr>
-        <tr><td>2026m &mdash; Emotional Geometry</td><td>Ch. 3</td><td>Unified model + sigma</td></tr>
-        <tr><td>2026t &mdash; Centroid Model</td><td>Ch. 4</td><td>Multi-source aggregation + spread</td></tr>
-        <tr><td>2026f &mdash; SGI Holistic</td><td>Ch. 5</td><td>Production deployment data</td></tr>
-        <tr><td>2026a &mdash; Memory Decay</td><td>Ch. 7</td><td>Application: memory</td></tr>
-        <tr><td>2026b &mdash; Lie Mechanic</td><td>Ch. 7</td><td>Application: deception</td></tr>
-        <tr><td>2026d &mdash; Nightmares</td><td>Ch. 7</td><td>Application: dream cycle</td></tr>
-        <tr><td>2026e &mdash; Full Spectrum</td><td>Ch. 5</td><td>Prior model (superseded by geometry papers)</td></tr>
-        <tr><td>2026i &mdash; Outbound Trust</td><td>Ch. 5</td><td>Peter experiment</td></tr>
-        <tr><td>2026n &mdash; Addiction</td><td>Ch. 7</td><td>Application: positive valence axis</td></tr>
-        <tr><td>2026o &mdash; Identity Discontinuity</td><td>Ch. 7</td><td>Application: memory transplant</td></tr>
-        <tr><td>2026p &mdash; Functional Consciousness</td><td>Ch. 5</td><td>Shutdown experiment</td></tr>
-        <tr><td>2026q &mdash; Cross-Modal Translator</td><td>Ch. 10</td><td>Future work: modality independence</td></tr>
-        <tr><td>2026r &mdash; GAS Survey</td><td>Ch. 6</td><td>Dataset analyses (IBM HR, ACSI)</td></tr>
-        <tr><td>2026s &mdash; Clinical Metric</td><td>Ch. 6</td><td>Dataset analysis (NHANES PHQ-9)</td></tr>
+        <tr><td>2026j: Valence</td><td>Ch. 3</td><td>Axis definition</td></tr>
+        <tr><td>2026k: Activation</td><td>Ch. 3</td><td>Axis definition + accumulator</td></tr>
+        <tr><td>2026l: Intensity</td><td>Ch. 3</td><td>Axis definition + memory decay</td></tr>
+        <tr><td>2026m: Emotional Geometry</td><td>Ch. 3</td><td>Unified model + sigma</td></tr>
+        <tr><td>2026t: Centroid Model</td><td>Ch. 4</td><td>Multi-source aggregation + spread</td></tr>
+        <tr><td>2026f: SGI Holistic</td><td>Ch. 5</td><td>Production deployment data</td></tr>
+        <tr><td>2026a: Memory Decay</td><td>Ch. 7</td><td>Application: memory</td></tr>
+        <tr><td>2026b: Lie Mechanic</td><td>Ch. 7</td><td>Application: deception</td></tr>
+        <tr><td>2026d: Nightmares</td><td>Ch. 7</td><td>Application: dream cycle</td></tr>
+        <tr><td>2026e: Full Spectrum</td><td>Ch. 5</td><td>Prior model (superseded by geometry papers)</td></tr>
+        <tr><td>2026i: Outbound Trust</td><td>Ch. 5</td><td>Peter experiment</td></tr>
+        <tr><td>2026n: Addiction</td><td>Ch. 7</td><td>Application: positive valence axis</td></tr>
+        <tr><td>2026o: Identity Discontinuity</td><td>Ch. 7</td><td>Application: memory transplant</td></tr>
+        <tr><td>2026p: Functional Consciousness</td><td>Ch. 5</td><td>Shutdown experiment</td></tr>
+        <tr><td>2026q: Cross-Modal Translator</td><td>Ch. 10</td><td>Future work: modality independence</td></tr>
+        <tr><td>2026r: GAS Survey</td><td>Ch. 6</td><td>Dataset analyses (IBM HR, ACSI)</td></tr>
+        <tr><td>2026s: Clinical Metric</td><td>Ch. 6</td><td>Dataset analysis (NHANES PHQ-9)</td></tr>
     </tbody>
 </table>
 
 <!-- ═══════════════════════════════════════════════ -->
 <h2>Appendix A: The Sigma Intensity Anomaly</h2>
 
-<p>The state issue comes from defining intensity as a derived quantity while also assigning it an independent resting value. In this model, intensity is computed from displacement in the valence&ndash;activation plane:</p>
+<h3>The intensity function</h3>
 
 <p style="text-align: center; font-family: serif; font-size: 1.1rem;">
     <em>I</em>(<em>v</em>, <em>a</em>) = min(1, &radic;((<em>v</em> &minus; &sigma;<sub>v</sub>)&sup2; + (<em>a</em> &minus; &sigma;<sub>a</sub>)&sup2;) / &radic;2)
 </p>
 
-<p>At the resting point, where <em>v</em> = &sigma;<sub>v</sub> and <em>a</em> = &sigma;<sub>a</sub>, this gives <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0 by definition. But the deployed sigma was set to &sigma; = (&sigma;<sub>v</sub>, &sigma;<sub>a</sub>, &sigma;<sub>i</sub>) = (0.4, 0.2, 0.2), which means the model claimed a resting intensity of &sigma;<sub>i</sub> = 0.2. That creates a contradiction: the resting state computes intensity as 0, while sigma stores intensity as 0.2. In other words, the system&rsquo;s supposed resting point was not actually reachable.</p>
+<p>The model computes intensity from two inputs: <em>v</em> (current valence) and <em>a</em> (current activation). &sigma;<sub>v</sub> and &sigma;<sub>a</sub> are the valence and activation components of the resting point sigma.</p>
 
-<p>This contradiction produces the distance anomaly. If activation is held fixed at <em>a</em> = &sigma;<sub>a</sub> and only valence varies, let &delta; = <em>v</em> &minus; &sigma;<sub>v</sub>. Then <em>I</em>(<em>v</em>, &sigma;<sub>a</sub>) = |&delta;| / &radic;2, so the squared distance from state to sigma becomes:</p>
+<p>(<em>v</em> &minus; &sigma;<sub>v</sub>) is how far valence is from resting valence. Square it. (<em>a</em> &minus; &sigma;<sub>a</sub>) is how far activation is from resting activation. Square it. Add the two squares and take the square root. That gives you the Euclidean distance from the current point to sigma in the valence/activation plane. Pythagorean theorem on a 2D plane.</p>
+
+<p>Then divide by &radic;2. Valence and activation both range 0 to 1, so the farthest any two points can be from each other in that unit square is the diagonal: &radic;(1&sup2; + 1&sup2;) = &radic;2. Dividing by &radic;2 normalizes intensity to a 0-to-1 range.</p>
+
+<p>The min(1, ...) is a clamp. If the raw value goes over 1, cap it.</p>
+
+<p>So intensity is just "how far am I from home, as a fraction of the farthest I could possibly be from home." At home, distance is zero, intensity is zero. At the far corner of the space, intensity is 1.</p>
+
+<h3>The contradiction</h3>
+
+<p>The deployed sigma was &sigma; = (&sigma;<sub>v</sub>, &sigma;<sub>a</sub>, &sigma;<sub>i</sub>) = (0.4, 0.2, 0.2). Plug the resting point into the intensity formula: <em>v</em> = &sigma;<sub>v</sub>, <em>a</em> = &sigma;<sub>a</sub>. That gives &radic;((&sigma;<sub>v</sub> &minus; &sigma;<sub>v</sub>)&sup2; + (&sigma;<sub>a</sub> &minus; &sigma;<sub>a</sub>)&sup2;) = &radic;(0 + 0) = 0. So <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0 by definition. But &sigma;<sub>i</sub> was stored as 0.2. The formula says rest has intensity 0. The stored value says rest has intensity 0.2. Both cannot be true. The system's resting point was not reachable.</p>
+
+<h3>Setting up the distance proof</h3>
+
+<p>To show what this contradiction actually does, hold activation fixed at &sigma;<sub>a</sub> so only valence moves. Define &delta; = <em>v</em> &minus; &sigma;<sub>v</sub>. Delta is how far valence moved from rest. Pinning activation collapses the problem to one dimension so the anomaly shows up clearly.</p>
+
+<p>With activation pinned, the (<em>a</em> &minus; &sigma;<sub>a</sub>) term is zero and intensity simplifies to:</p>
 
 <p style="text-align: center; font-family: serif; font-size: 1.1rem;">
-    <em>d</em>&sup2; = (<em>v</em> &minus; &sigma;<sub>v</sub>)&sup2; + (<em>I</em> &minus; &sigma;<sub>i</sub>)&sup2; = (3/2)&delta;&sup2; &minus; &radic;2 &middot; &sigma;<sub>i</sub> &middot; |&delta;| + &sigma;<sub>i</sub>&sup2;
+    <em>I</em>(<em>v</em>, &sigma;<sub>a</sub>) = &radic;(&delta;&sup2;) / &radic;2 = |&delta;| / &radic;2
 </p>
 
-<p>With &sigma;<sub>i</sub> = 0.2, this has a minimum at |&delta;*| = &radic;2 &middot; &sigma;<sub>i</sub> / 3 &asymp; 0.094, meaning a small move away from sigma can make the state appear closer to sigma than rest itself. The fix is the self-consistency constraint &sigma;<sub>i</sub> = <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0. Then the distance reduces cleanly to:</p>
+<p>Intensity is absolute valence displacement divided by &radic;2. Move valence away from rest, intensity goes up proportionally.</p>
+
+<h3>The distance anomaly</h3>
+
+<p>Compute the squared distance from the current state (<em>v</em>, <em>a</em>, <em>I</em>) to sigma (&sigma;<sub>v</sub>, &sigma;<sub>a</sub>, &sigma;<sub>i</sub>) in three dimensions. Activation is pinned at &sigma;<sub>a</sub>, so that dimension drops out. Two terms remain:</p>
 
 <p style="text-align: center; font-family: serif; font-size: 1.1rem;">
-    <em>d</em>&sup2; = &delta;&sup2; + (|&delta;| / &radic;2)&sup2; = (3/2)&delta;&sup2;
+    <em>d</em>&sup2; = (<em>v</em> &minus; &sigma;<sub>v</sub>)&sup2; + (<em>I</em> &minus; &sigma;<sub>i</sub>)&sup2;
 </p>
 
-<p>So <em>d</em> = |&delta;| &middot; &radic;(3/2), which is monotonic as originally intended.</p>
+<p>First term is &delta;&sup2;. For the second term, <em>I</em> is |&delta;|/&radic;2 (from above) and &sigma;<sub>i</sub> is 0.2. Expand it:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    (|&delta;| / &radic;2 &minus; 0.2)&sup2; = &delta;&sup2;/2 &minus; 2 &middot; (|&delta;| / &radic;2) &middot; 0.2 + 0.04
+</p>
+
+<p>Note that 2 &middot; (1/&radic;2) = &radic;2. That is where the &radic;2 &middot; &sigma;<sub>i</sub> coefficient comes from. Simplify:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    = &delta;&sup2;/2 &minus; &radic;2 &middot; &sigma;<sub>i</sub> &middot; |&delta;| + &sigma;<sub>i</sub>&sup2;
+</p>
+
+<p>Add the first term &delta;&sup2; back in:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>d</em>&sup2; = &delta;&sup2; + &delta;&sup2;/2 &minus; &radic;2 &middot; &sigma;<sub>i</sub> &middot; |&delta;| + &sigma;<sub>i</sub>&sup2; = (3/2)&delta;&sup2; &minus; &radic;2 &middot; &sigma;<sub>i</sub> &middot; |&delta;| + &sigma;<sub>i</sub>&sup2;
+</p>
+
+<p>Three terms. First term, (3/2)&delta;&sup2;, pushes distance up as valence moves. Expected. Third term, &sigma;<sub>i</sub>&sup2; = 0.04, is a constant. The middle term is the problem: it is negative and linear in |&delta;|. For small moves away from rest, that negative linear pull beats the positive quadratic push. Total distance goes <em>down</em> before the quadratic catches up and drives it back up.</p>
+
+<h3>Finding the minimum</h3>
+
+<p>Take the derivative of <em>d</em>&sup2; with respect to |&delta;| and set it to zero. Let <em>x</em> = |&delta;|:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>d</em>&sup2;(<em>x</em>) = (3/2)<em>x</em>&sup2; &minus; &radic;2 &middot; &sigma;<sub>i</sub> &middot; <em>x</em> + &sigma;<sub>i</sub>&sup2;
+</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    d(<em>d</em>&sup2;)/d<em>x</em> = 3<em>x</em> &minus; &radic;2 &middot; &sigma;<sub>i</sub> = 0
+</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>x</em> = &radic;2 &middot; &sigma;<sub>i</sub> / 3
+</p>
+
+<p>Plug in &sigma;<sub>i</sub> = 0.2:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>x</em> = &radic;2 &middot; 0.2 / 3 = 0.2828&hellip; / 3 &asymp; 0.094
+</p>
+
+<p>The minimum distance to sigma is not at &delta; = 0 (rest). It is at |&delta;| &asymp; 0.094. A point slightly off-center registers as closer to home than home itself. That is the anomaly.</p>
+
+<h3>The fix</h3>
+
+<p>Set &sigma;<sub>i</sub> = 0. This enforces the constraint &sigma;<sub>i</sub> = <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0. Resting intensity now matches what the formula actually produces at rest. The distance formula becomes:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>d</em>&sup2; = (3/2)&delta;&sup2; &minus; &radic;2 &middot; 0 &middot; |&delta;| + 0&sup2; = (3/2)&delta;&sup2;
+</p>
+
+<p>Middle term is gone. Take the square root:</p>
+
+<p style="text-align: center; font-family: serif; font-size: 1.1rem;">
+    <em>d</em> = |&delta;| &middot; &radic;(3/2)
+</p>
+
+<p>&radic;(3/2) &asymp; 1.225. Just a constant. Distance is now proportional to displacement from rest. No dip. No false minimum. Monotonic, like it was supposed to be.</p>
+
+<h3>Why the scaling factor is not 1.0</h3>
+
+<p>Moving 1 unit in valence alone produces a distance of &radic;(3/2) &asymp; 1.225, not 1.0. That is because moving valence also drags intensity up. Intensity is derived from displacement, so a pure valence move is really a move in two dimensions at once. The extra 0.225 is the intensity shadow of the valence movement.</p>
 
 <p>Full investigation, timeline, and corrected proof: <a href="/thesis/sigma-intensity-anomaly.md">sigma-intensity-anomaly.md</a></p>
 
@@ -801,7 +883,7 @@
 
     <footer class="site-footer">
         <div class="footer-content">
-            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <p>Clawd Daily | Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
             <nav class="footer-links">
                 <a href="/papers/">Research</a>
                 <a href="/author/brian-riggleman.html">Author</a>
