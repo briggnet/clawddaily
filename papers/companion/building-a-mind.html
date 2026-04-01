@@ -279,6 +279,51 @@ else:
 
 <hr>
 
+<p class="chapter-num">Chapter 9</p>
+<h2>The Daydream</h2>
+
+<p>The curiosity drive was working. Seven strategies generated questions from knowledge gaps, weak memories, disconnected graph islands, ungrounded claims. Wikipedia answered them. New memories formed. Edges linked them to existing knowledge. The system was learning.</p>
+
+<p>Except it wasn&rsquo;t.</p>
+
+<p>We watched the logs. SPROUT asked: &ldquo;What causes gravity?&rdquo; Memory returned the answer at 0.74 confidence. Already known. SPROUT reported it as learned. Next tick: &ldquo;What is the history of valence?&rdquo; Memory returned the answer at 0.68. Already known. Reported as learned. Next tick: &ldquo;How is activation measured?&rdquo; Same pattern. Recall. Report. Move on.</p>
+
+<p>The curiosity drive was asking questions it already knew the answers to, finding those answers in its own memory, and counting that as learning. It was a student flipping through flashcards they&rsquo;d already memorized, feeling productive, going nowhere.</p>
+
+<p>The deeper problem was structural. <code>pursue_curiosity()</code> generated one question, called <code>search_or_recall()</code>, and if recall returned anything above the 0.6 threshold, the cycle ended. The recall itself reinforced the memory &mdash; bumping its importance, updating its access count &mdash; which made it even more likely to be recalled next time. A feedback loop of self-congratulation.</p>
+
+<p>Brian said: &ldquo;When I sit and think, I don&rsquo;t stop at the first thing I remember. I think about something I know. Then I think about what I know about that. And that. And that. Until I hit something I <em>don&rsquo;t</em> know. That&rsquo;s where the interesting questions are. The stuff I already know is just the path to get there.&rdquo;</p>
+
+<p>He called it daydreaming.</p>
+
+<p>The fix was a loop inside <code>pursue_curiosity()</code>. Three phases:</p>
+
+<p><strong>Phase 1</strong> generates the initial question from one of the seven existing strategies. Nothing changes here.</p>
+
+<p><strong>Phase 2</strong> is the daydream. Before searching Wikipedia, the system probes its own memory with a read-only check. No reinforcement &mdash; daydreaming should not boost memories it merely touches. If the answer is already known, the recalled content becomes the seed for a new question. &ldquo;What causes gravity?&rdquo; recalls the answer about mass and spacetime curvature. That recalled content seeds: &ldquo;How is spacetime curvature measured?&rdquo; which might recall something about geodesics. Which seeds: &ldquo;What are the prerequisites for understanding geodesics?&rdquo; And so on, up to five hops, until the system hits a question where memory returns nothing above threshold. A genuine gap. A novel question.</p>
+
+<p><strong>Phase 3</strong> searches Wikipedia for the novel question. This is the only step that creates new memories and reinforces existing ones. The daydream was free &mdash; pure thought, no side effects.</p>
+
+<p>The daydream chain is preserved in the output. Each hop records the question asked, the concept recalled, the recall score, and the strategy that generated the follow-up. When PATCH logs the curiosity cycle, it can now show the full thought process:</p>
+
+<pre><code>[SPROUT] Daydream depth 3:
+  "What causes gravity?" → recalled "mass and spacetime" (0.74)
+  "How is spacetime curvature measured?" → recalled "geodesics" (0.67)
+  "What are the prerequisites for geodesics?" → NOVEL
+  → Searched Wikipedia, learned about differential geometry</code></pre>
+
+<p>The first two questions were not wasted. They were the path. Each known concept narrowed the space of what was already understood and pushed the next question toward the frontier of what wasn&rsquo;t. The system walked through its own knowledge until it found the edge.</p>
+
+<p>There is a critical detail in the implementation. During Phase 2, the memory probe does not call <code>reinforce_memory()</code>. In the original code, every recall bumped the memory&rsquo;s importance and access count. If daydreaming reinforced every memory it touched, the act of thinking about something would make it stickier, which would make it more likely to be thought about again. The same feedback loop, just faster. Daydreaming must be consequence-free. Only the final discovery &mdash; the genuinely new knowledge from Phase 3 &mdash; earns reinforcement.</p>
+
+<p>There is another detail in the definition of &ldquo;learned.&rdquo; The old code set <code>learned = True</code> whenever results came back, even from memory. The new code requires that the source be external. If the daydream loop exhausts all five iterations and the final question still hits memory, <code>learned</code> is <code>False</code>. The system tried and found nothing new this cycle. Honest failure. Try again next tick.</p>
+
+<p>The metaphor holds. Daydreaming is not random. It is associative. Each thought leads to the next through the content of what was recalled, not through a dice roll. The system does not retry with a random question when the first one fails. It follows the thread of what it already knows, deeper and sideways, until the thread runs out. That is where curiosity begins.</p>
+
+<blockquote>You do not discover new territory by studying the map. You study the map until you find where it ends. Then you walk past the edge.</blockquote>
+
+<hr>
+
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>
