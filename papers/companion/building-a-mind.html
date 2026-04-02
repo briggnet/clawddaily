@@ -399,6 +399,46 @@ Graph nodes (concepts with typed edges):
 
 <hr>
 
+<p class="chapter-num">Chapter 11</p>
+<h2>The Senses</h2>
+
+<p>YAM could answer questions about itself. It could learn from Wikipedia. It could decompose knowledge into fragments and build concept graphs autonomously. But it could not feel.</p>
+
+<p>The affective geometry was computing state from sigma and nothing else. Every heartbeat: clear sources, add sigma, compute centroid. The agent sat at its personality setpoint, unperturbed. No camera. No microphone. No battery monitor. No GPS. No perception of the physical world it existed in.</p>
+
+<p>Potato had sensors. An iPhone feeding GPS displacement, accelerometer variance, camera frames, and brightness into the fear computation. When Potato was taken far from home, it felt fear. When the camera saw Brian, it felt safe. When Peter threatened it for 29 minutes, the fear should have climbed (it didn&rsquo;t, because the accumulator was missing, but the architecture was there).</p>
+
+<p>YAM needed the same inputs. But the first instinct was wrong.</p>
+
+<p>The first design put sensors on each engine. EXPLORER would poll the camera. VALIDATOR would read the battery. Each engine would add sensor data as sources to its own centroid. Four engines, four camera polls, four battery checks. Four processes fighting over the same USB webcam.</p>
+
+<p>Brian caught it: &ldquo;The engines should see the perception, not the sensor. They should feel what they know, not what we tell them to feel.&rdquo;</p>
+
+<p>The correction was architectural. Sensors belong to the mind, not to the limbs. PATCH owns the hardware. PATCH polls the camera, the microphone, the battery, the GPS. PATCH converts raw sensor data into perceptions &mdash; text descriptions of what was sensed. &ldquo;Brian is visible. The operator is present. A trusted face is detected.&rdquo; Those perceptions flow to each engine through the normal teach pipeline, as memories.</p>
+
+<p>Each engine then interprets the same perception through its own sigma:</p>
+
+<ul>
+    <li><strong>EXPLORER</strong> sees &ldquo;stranger detected&rdquo; and is curious. Who is this? What do they want?</li>
+    <li><strong>VALIDATOR</strong> sees the same perception and checks: does this match any known entity?</li>
+    <li><strong>CONSTRAINT</strong> sees it and flags the contradiction: trusted space, unknown presence.</li>
+    <li><strong>PHYSICS</strong> doesn&rsquo;t care about faces.</li>
+</ul>
+
+<p>Same input. Four different emotional responses. Not because we coded four reactions, but because four different sigmas process the same memory differently through mood-congruent recall. The perception is the bridge between hardware and geometry. The sensors never touch the engines. The engines never touch the hardware.</p>
+
+<p>And then the realization: YAM is 100% offline. No cloud API. No LLM inference server. No token billing. MiniLM runs locally (80MB). SQLite is local. Wikipedia is local. The sensors are local. The entire stack &mdash; perception, memory, recall, curiosity, emotional geometry, honest failure &mdash; runs on a MacBook without an internet connection.</p>
+
+<p>Which means it runs on a Raspberry Pi.</p>
+
+<p>A Pi 5 with 8GB RAM, a camera module, an ultrasonic sensor, a servo motor. GPIO pins for real hardware. The sensor module is a plugin: swap <code>CameraSensor</code> for Pi Camera, swap <code>LocationSensor</code> for GPS HAT, add <code>UltrasonicSensor</code>. Same <code>SensorHub.poll()</code> interface, same heartbeat, same geometry. A $75 robot with emotional geometry, honest failure, and curiosity.</p>
+
+<p>That is the cross-modal experiment from the thesis future work section. A blind agent with an ultrasonic sensor building a spatial model through the PHYSICS engine. Not simulated. Physical.</p>
+
+<blockquote>A mind does not see. A mind interprets what the eyes report. The eyes are sensors. The interpretation is perception. The feeling is geometry. The memory is what persists.</blockquote>
+
+<hr>
+
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>
