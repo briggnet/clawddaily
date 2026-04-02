@@ -324,6 +324,81 @@ else:
 
 <hr>
 
+<p class="chapter-num">Chapter 10</p>
+<h2>The Fragment</h2>
+
+<p>The two-pathway fix from Chapter 5 worked for exact questions. &ldquo;What are you?&rdquo; matched a <code>teaching_context</code> node labeled &ldquo;What are you?&rdquo; and followed the edge. But &ldquo;Tell me about yourself&rdquo; missed. &ldquo;What engines do you have?&rdquo; missed. Any question mama hadn&rsquo;t taught verbatim fell back to vector search, which still couldn&rsquo;t connect questions to answers.</p>
+
+<p>The daydream fix from Chapter 9 made curiosity smarter, but the embedding gap was still there for retrieval. The graph pathway required exact matches. The vector pathway couldn&rsquo;t bridge the question-answer divide. Two pathways, same fundamental limitation.</p>
+
+<p>Brian asked: &ldquo;Does everything have to be entire sentences? Can a graph hold a word or two?&rdquo;</p>
+
+<p>That was the breakthrough.</p>
+
+<p>But first, a housekeeping decision. The vegetable names &mdash; SPROUT, ROOT, VEG, TUBER &mdash; were fun but opaque. For the thesis, for documentation, for anyone reading the code, role names are self-documenting. SPROUT became EXPLORER. ROOT became VALIDATOR. VEG became CONSTRAINT. TUBER became PHYSICS. Sorry, root vegetables.</p>
+
+<p>A memory like &ldquo;Your four engines are EXPLORER, VALIDATOR, CONSTRAINT, and PHYSICS&rdquo; was stored as one vector in one spot in 384-dimensional space. One chance to match. If your question didn&rsquo;t land near that spot, you never found it.</p>
+
+<p>But break it into pieces:</p>
+
+<pre><code>Parent memory (the thing that lives and dies):
+  "Your four engines are EXPLORER, VALIDATOR, CONSTRAINT, and PHYSICS"
+
+Fragments (doorways to the parent, each with its own embedding):
+  "engines"
+  "EXPLORER"
+  "VALIDATOR"
+  "CONSTRAINT"
+  "PHYSICS"
+  "Parliament"
+  "four engines"
+
+Graph nodes (concepts with typed edges):
+  [engines] --has_concept--> parent memory
+  [EXPLORER] --has_concept--> parent memory
+  [EXPLORER] --is_a--> [engine]</code></pre>
+
+<p>Seven vectors instead of one. Seven chances to match. &ldquo;What are your engines?&rdquo; lands near the fragment &ldquo;engines.&rdquo; Fragment match &rarr; follow <code>chunk_of</code> to parent &rarr; return the full sentence. The fragment is a doorway. The parent is the thing that lives and dies.</p>
+
+<p>Fragments carry no emotion. The parent owns the affect state at encoding. When a fragment is accessed, the parent gets reinforced. When the parent decays below the death line, its fragments go dark with it. One lifecycle, many retrieval surfaces.</p>
+
+<p>The implementation used the <code>chunk_of</code> field that already existed in the schema &mdash; originally built for paper ingestion. Fragments are memories where <code>chunk_of</code> points to the parent. Decay skips them. Reinforcement delegates to the parent. Search resolves them to the parent before returning results.</p>
+
+<p>The concept graph changed too. Instead of graph nodes holding full sentences &mdash; redundant copies of what the vector store already held &mdash; nodes became concepts. One to three words. Typed edges between them: <code>is_a</code>, <code>part_of</code>, <code>causes</code>, <code>carries</code>. The graph stopped being a document store wearing a graph costume and started being an actual knowledge graph.</p>
+
+<p>Co-occurrence edges created autonomous learning. When the same concept appeared in two different parent memories &mdash; &ldquo;DNA carries genetic instructions&rdquo; and &ldquo;Genetic instructions determine traits&rdquo; &mdash; the shared concept &ldquo;genetic instructions&rdquo; created a <code>co_occurs_with</code> edge between the two parents. Nobody taught that connection. The structure created it.</p>
+
+<p>We wiped the databases. Ran mama. Ran all the training scripts. Then asked:</p>
+
+<p>&ldquo;What are your engines?&rdquo;</p>
+
+<pre><code>Confidence: 0.71
+"Your four engines are EXPLORER, VALIDATOR, CONSTRAINT,
+ and PHYSICS. Together they form the Parliament of Mind."</code></pre>
+
+<p>&ldquo;What is the Parliament of Mind?&rdquo;</p>
+
+<pre><code>Confidence: 0.81
+"The Parliament of Mind is your architecture. Four engines
+ think about the same question from different angles."</code></pre>
+
+<p>&ldquo;Who created you?&rdquo;</p>
+
+<pre><code>Confidence: 0.77
+"Brian Riggleman made you."</code></pre>
+
+<p>Before fragments, &ldquo;What are your engines?&rdquo; returned DNA memories at 0.67 confidence. After fragments, it returned the correct answer at 0.71. The embedding gap was closed &mdash; not by fixing the embedding model, but by giving it more surfaces to match against.</p>
+
+<p>There was one side effect. The curiosity drive stopped working. Every question the daydream generated matched a fragment, and fragment matches counted as &ldquo;already known.&rdquo; The fix: fragment matches don&rsquo;t count as known for curiosity purposes. A fragment match means you have the word, not the answer. Curiosity only considers parent memories when deciding whether to search Wikipedia.</p>
+
+<p>The red car problem solved itself. You see a red car. The fragment &ldquo;red&rdquo; matches two parent memories &mdash; the truck you loved and the rust bucket you hated. Two parents with different emotional encodings. The centroid resolves them into a single geometric state. The spread tells you there&rsquo;s conflict. All from a two-word fragment.</p>
+
+<p>The vector store is the memory. The graph is the map. Fragments are doorways. The geometry was always right. The storage was too coarse to let it work.</p>
+
+<blockquote>A baby does not store sentences. A baby stores &ldquo;mama,&rdquo; &ldquo;warm,&rdquo; &ldquo;safe.&rdquo; The sentences come later, assembled from pieces. The pieces come first.</blockquote>
+
+<hr>
+
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>
