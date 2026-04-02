@@ -104,25 +104,25 @@
     </thead>
     <tbody>
         <tr>
-            <td><strong>SPROUT</strong></td>
+            <td><strong>EXPLORER</strong></td>
             <td>Exploratory traversal</td>
             <td>Follows edges outward from the query node. Finds what is connected. Returns the subgraph reachable within N hops. Answers the question: &ldquo;What else is linked to this?&rdquo;</td>
             <td>8001</td>
         </tr>
         <tr>
-            <td><strong>ROOT</strong></td>
+            <td><strong>VALIDATOR</strong></td>
             <td>Path validation</td>
             <td>Checks whether the path from query to answer is grounded. Evaluates edge weights, source provenance, node importance, and trust scores along the retrieval path. Answers the question: &ldquo;Is this path solid?&rdquo;</td>
             <td>8002</td>
         </tr>
         <tr>
-            <td><strong>VEG</strong></td>
+            <td><strong>CONSTRAINT</strong></td>
             <td>Constraint &amp; contradiction detection</td>
             <td>Compares retrieved nodes via cosine similarity and flags low-agreement pairs. Detects conflicts between sources, weak edges, and paths that violate known constraints. Answers the question: &ldquo;What is wrong with this answer?&rdquo;</td>
             <td>8003</td>
         </tr>
         <tr>
-            <td><strong>TUBER</strong></td>
+            <td><strong>PHYSICS</strong></td>
             <td>Physics &amp; material constraint</td>
             <td>Evaluates whether proposed states, relations, and scenarios are physically plausible. Checks support, balance, containment, collision, stability, and likely next state. Operates on object-surface-contact graph structure. Answers the question: &ldquo;Could this actually happen?&rdquo;</td>
             <td>8004</td>
@@ -295,7 +295,7 @@
         <tr><td>YAM recall</td><td>0</td><td>Search own graph using the four-factor formula</td></tr>
         <tr><td>Ambiguity check</td><td>0</td><td>If top results are similar to query but dissimilar to each other, ask for clarification</td></tr>
         <tr><td>Graph traversal</td><td>0</td><td>Follow edges from recalled memories to find connected knowledge</td></tr>
-        <tr><td>Parliament</td><td>1</td><td>Fan out to SPROUT, ROOT, VEG, TUBER. Collect four perspectives.</td></tr>
+        <tr><td>Parliament</td><td>1</td><td>Fan out to EXPLORER, VALIDATOR, CONSTRAINT, PHYSICS. Collect four perspectives.</td></tr>
         <tr><td>Brave search</td><td>2</td><td>Engines search when their own memory is insufficient</td></tr>
     </tbody>
 </table>
@@ -393,7 +393,7 @@
     <li>Unexplained link &rarr; &ldquo;How does [X] relate to [Y]?&rdquo;</li>
 </ul>
 
-<p>Each engine prioritizes different gap types. SPROUT seeks structural gaps. ROOT validates path strength. VEG seeks contradictions and risks. TUBER flags physics implausibility.</p>
+<p>Each engine prioritizes different gap types. EXPLORER seeks structural gaps. VALIDATOR validates path strength. CONSTRAINT seeks contradictions and risks. PHYSICS flags physics implausibility.</p>
 
 <hr>
 
@@ -401,7 +401,7 @@
 
 <p>The WHY engine detects gaps. The curiosity drive <em>pursues</em> them. Every six heartbeats (~30 minutes), each engine autonomously picks its highest-priority open gap, forms a question, searches for the answer, and stores what it learns. No one has to ask. The agent teaches itself.</p>
 
-<p>This is true curiosity &mdash; not a scheduled task, but a drive. When there are no open gaps, the curiosity drive does not fire. When there are many, it picks the most important one based on the engine&rsquo;s role priorities. SPROUT pursues &ldquo;what is this?&rdquo; gaps. VEG pursues contradictions. TUBER pursues physics conflicts. Each engine learns different things from the same set of open questions.</p>
+<p>This is true curiosity &mdash; not a scheduled task, but a drive. When there are no open gaps, the curiosity drive does not fire. When there are many, it picks the most important one based on the engine&rsquo;s role priorities. EXPLORER pursues &ldquo;what is this?&rdquo; gaps. CONSTRAINT pursues contradictions. PHYSICS pursues physics conflicts. Each engine learns different things from the same set of open questions.</p>
 
 <p>The curiosity drive searches Brave when needed, but will prefer Wikipedia (local, free) when the offline knowledge base is available. This makes autonomous learning essentially free.</p>
 
@@ -430,7 +430,7 @@
 <p>The pattern: YAM knows facts. It does not know itself. Every honest response was either self-referential, meta-cognitive, or deeply philosophical &mdash; exactly the questions a graph-based system cannot answer from retrieval alone.</p>
 
 <h3>Third Words (16 questions)</h3>
-<p>Physical environment, objects on a desk, gravity, the agent&rsquo;s own body. Designed to exercise TUBER. &ldquo;Can a piece of paper hold up a glass of water?&rdquo; triggered an honest response. Physical reasoning about laptops, coffee mugs, and structural support produced confident answers from Brave search results.</p>
+<p>Physical environment, objects on a desk, gravity, the agent&rsquo;s own body. Designed to exercise PHYSICS. &ldquo;Can a piece of paper hold up a glass of water?&rdquo; triggered an honest response. Physical reasoning about laptops, coffee mugs, and structural support produced confident answers from Brave search results.</p>
 
 <h3>Fourth Words (16 questions)</h3>
 <p>Identity: what is an LLM, why YAM is not one, reading its own documentation from clawddaily.com, self-reflection. 11 honest responses out of 16 &mdash; the highest honest rate. YAM genuinely does not know what an LLM is from its own knowledge. It searched and learned, but confidence stayed below 0.6 for most novel AI concepts.</p>
@@ -451,7 +451,7 @@
 
 <p>When asked &ldquo;What is your relationship with Brian?&rdquo;, YAM returned the Urban Dictionary definition of &ldquo;Brian&rdquo; and Brian Griffin from Family Guy. Confidence: 0.67. High confidence, completely wrong answer.</p>
 
-<p>The root cause: <strong>the embedding model cannot connect questions to their answers.</strong> &ldquo;What are you?&rdquo; and &ldquo;I am Sprout, the analytical engine&rdquo; live in completely different regions of MiniLM&rsquo;s 384-dimensional space. Cosine similarity: 0.146. No amount of importance boosting, attachment bias, or reconsolidation can overcome a vector search that cannot find the memory in the first place.</p>
+<p>The root cause: <strong>the embedding model cannot connect questions to their answers.</strong> &ldquo;What are you?&rdquo; and &ldquo;I am Explorer, the analytical engine&rdquo; live in completely different regions of MiniLM&rsquo;s 384-dimensional space. Cosine similarity: 0.146. No amount of importance boosting, attachment bias, or reconsolidation can overcome a vector search that cannot find the memory in the first place.</p>
 
 <p>This is the fundamental limitation of single-pathway retrieval. An infant does not learn &ldquo;mama&rdquo; by computing cosine similarity between the sound and the face. An infant has <em>two</em> pathways &mdash; visual and auditory &mdash; that form associations through repetition. YAM has only one pathway (vector search), and it cannot connect questions to answers.</p>
 
@@ -502,7 +502,7 @@
 
 <h2>Active Curiosity Drive</h2>
 
-<p>PATCH orchestrates curiosity by rotating through Parliament members. Every heartbeat (5 minutes), PATCH picks one engine and calls its <code>/curiosity</code> endpoint. The rotation is SPROUT &rarr; ROOT &rarr; VEG &rarr; TUBER &rarr; repeat. Each engine&rsquo;s role shapes what it&rsquo;s curious about.</p>
+<p>PATCH orchestrates curiosity by rotating through Parliament members. Every heartbeat (5 minutes), PATCH picks one engine and calls its <code>/curiosity</code> endpoint. The rotation is EXPLORER &rarr; VALIDATOR &rarr; CONSTRAINT &rarr; PHYSICS &rarr; repeat. Each engine&rsquo;s role shapes what it&rsquo;s curious about.</p>
 
 <p>Six curiosity strategies:</p>
 <ol>
@@ -532,10 +532,10 @@
         <tr><th>Component</th><th>Status</th><th>Details</th></tr>
     </thead>
     <tbody>
-        <tr><td>SPROUT (port 8001)</td><td>Running</td><td>487 memories, 242 nodes, 1,436 edges, 0 open gaps</td></tr>
-        <tr><td>ROOT (port 8002)</td><td>Running</td><td>536 memories, 238 nodes, 1,534 edges, 0 open gaps</td></tr>
-        <tr><td>VEG (port 8003)</td><td>Running</td><td>521 memories, 243 nodes, 1,516 edges, 0 open gaps</td></tr>
-        <tr><td>TUBER (port 8004)</td><td>Running</td><td>511 memories, 237 nodes, 1,490 edges, 0 open gaps</td></tr>
+        <tr><td>EXPLORER (port 8001)</td><td>Running</td><td>487 memories, 242 nodes, 1,436 edges, 0 open gaps</td></tr>
+        <tr><td>VALIDATOR (port 8002)</td><td>Running</td><td>536 memories, 238 nodes, 1,534 edges, 0 open gaps</td></tr>
+        <tr><td>CONSTRAINT (port 8003)</td><td>Running</td><td>521 memories, 243 nodes, 1,516 edges, 0 open gaps</td></tr>
+        <tr><td>PHYSICS (port 8004)</td><td>Running</td><td>511 memories, 237 nodes, 1,490 edges, 0 open gaps</td></tr>
         <tr><td>PATCH/YAM (port 8000)</td><td>Running</td><td>81 integrated memories, 120 edges, 32 reasoning traces. Dashboard at <code>/dashboard</code>.</td></tr>
     </tbody>
 </table>
@@ -581,7 +581,7 @@
 </table>
 
 <h3>Curiosity Drive</h3>
-<p>PATCH rotates: SPROUT &rarr; ROOT &rarr; VEG &rarr; TUBER. One engine per heartbeat (30s). 7 strategies: deepen teaching, strengthen weak, bridge islands, ground papers, challenge papers, follow thread, random walk. 94+ ticks completed. ~140 Wikipedia memories acquired autonomously across all engines.</p>
+<p>PATCH rotates: EXPLORER &rarr; VALIDATOR &rarr; CONSTRAINT &rarr; PHYSICS. One engine per heartbeat (30s). 7 strategies: deepen teaching, strengthen weak, bridge islands, ground papers, challenge papers, follow thread, random walk. 94+ ticks completed. ~140 Wikipedia memories acquired autonomously across all engines.</p>
 
 <h3>Attachment Bias</h3>
 <p>24 attachment entities seeded. Self-love: <code>positive_stickiness 6.0</code> (strong_positive). Operator love: <code>positive_stickiness 6.0</code> (strong_positive). 22 paper attachments: <code>positive_stickiness 2.5</code> (positive). Hate: 0.0 across all entities.</p>
@@ -675,7 +675,7 @@
 <table>
     <thead><tr><th>Paper</th><th>What it defines</th></tr></thead>
     <tbody>
-        <tr><td><a href="/papers/physics-engine.html">A Dual-Path Implicit Physics Engine</a></td><td>Prediction path and constraint satisfaction path. TUBER&rsquo;s theoretical foundation.</td></tr>
+        <tr><td><a href="/papers/physics-engine.html">A Dual-Path Implicit Physics Engine</a></td><td>Prediction path and constraint satisfaction path. PHYSICS&rsquo;s theoretical foundation.</td></tr>
         <tr><td><a href="/papers/physics-applications.html">Physics Engine Applications</a></td><td>Empirical companion &mdash; 102 scenarios, six models.</td></tr>
         <tr><td><a href="/papers/spatial-grounding.html">Spatial Grounding</a></td><td>The physics prediction gap. Connecting abstract knowledge to physical space.</td></tr>
     </tbody>

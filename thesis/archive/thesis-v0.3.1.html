@@ -823,8 +823,6 @@
 
 <h3>What this means</h3>
 
-<p>Automated testing caught the inconsistency. The test harness flagged a non-monotonic distance function and the initial read was that &sigma;<sub>i</sub> = 0.2 was an implementation error. But interpreting what the math was actually doing took iterative explanation, challenge, and rethinking before the result could be defended as an accidental design choice rather than a simple bug.</p>
-
 <p>The original interpretation was that &sigma;<sub>i</sub> = 0.2 was a bug and the fix was to set &sigma;<sub>i</sub> = 0. That interpretation is wrong. It is one valid design choice, not the only one.</p>
 
 <p>Setting &sigma;<sub>i</sub> = 0 enforces the constraint &sigma;<sub>i</sub> = <em>I</em>(&sigma;<sub>v</sub>, &sigma;<sub>a</sub>) = 0. The distance formula becomes:</p>
@@ -849,9 +847,17 @@
 
 <p>Moving 1 unit in valence alone produces a distance of &radic;(3/2) &asymp; 1.225, not 1.0. That is because moving valence also drags intensity up. Intensity is derived from displacement, so a pure valence move is really a move in two dimensions at once. The extra 0.225 is the intensity shadow of the valence movement.</p>
 
-<p>Full investigation, timeline, and corrected proof: <a href="/thesis/sigma-intensity-anomaly.md">sigma-intensity-anomaly.md</a></p>
+<p>Full investigation, timeline, and corrected proof: <a href="sigma-intensity-anomaly.md">sigma-intensity-anomaly.md</a></p>
 
         </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <section class="archive-section">
+            <h2>Experimental Validation</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">The complete test record. Every run, every bug, every aborted attempt. 16 runs from first blood to clean sweep.</p>
+            <p><a href="test-regime.html" style="font-weight: 600; font-size: 1rem;">View the full test regime &rarr;</a></p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">29 tests &middot; 82 checks &middot; 7 phases &middot; Formal proof verification (10,000 random trials per theorem)</p>
+        </section>
 
         <!-- ═══════════════════════════════════════════════ -->
         <section class="archive-section">
