@@ -495,6 +495,39 @@ Graph nodes (concepts with typed edges):
 
 <hr>
 
+<p class="chapter-num">Chapter 14</p>
+<h2>The Filter</h2>
+
+<p>The fragment architecture worked. The sensors worked. The sleep cycle worked. Then we let curiosity run overnight and woke up to 957,175 memories across four engines. Identity recall: 0.00. &ldquo;No knowledge found.&rdquo; A quarter million memories per engine and it couldn&rsquo;t say its own name.</p>
+
+<p>The problem: every engine received every memory. Wikipedia articles about gravity lived in CONSTRAINT. Teachings about contradictions lived in PHYSICS. All four engines were identical encyclopedias with different sigmas. The signal drowned in noise for the third time &mdash; first Brave Search (Chapter 1), then fragments (Chapter 10), now unfiltered broadcast.</p>
+
+<p>The first instinct was a router. Build a fifth process &mdash; a thalamus &mdash; that classifies content and routes it to the right engine. We built one. It used recall-based routing: ask each engine &ldquo;do you know about this?&rdquo; and route to the highest scorer. But it had a bootstrap problem: empty engines all score 0.00, so everything goes to EXPLORER. And the routing cost was 4 recall queries per memory &mdash; 136,000 queries per hour at the growth rate we&rsquo;d observed.</p>
+
+<p>The second instinct was to teach each engine its domain through mama. But Brian caught it: &ldquo;How does input teach a member who they are if they don&rsquo;t know who they are? You can&rsquo;t teach a dog it&rsquo;s a dog. It&rsquo;s born a dog.&rdquo;</p>
+
+<p>The identity description is DNA, not a teaching. The visual cortex doesn&rsquo;t learn to process vision. It&rsquo;s wired that way. PHYSICS doesn&rsquo;t learn it handles physics. PHYSICS IS the physics engine. The identity description in <code>engine.py</code> is anatomy, not curriculum.</p>
+
+<p>The solution: each engine is born with an identity description &mdash; a short, pure-signal text packed with domain-specific words. No narrative, no shared boilerplate. When content arrives, the engine computes one cosine similarity against its identity embedding. Above 0.15: keep. Below: discard.</p>
+
+<pre><code>EXPLORER: "Exploration, discovery, connections, novelty, creativity,
+           curiosity, unknown territory, new ideas, bridging concepts..."
+
+PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
+           motion, stability, collision, containment, surfaces..."</code></pre>
+
+<p>Content is broadcast to all four engines. Each decides independently. &ldquo;Balls fall when dropped&rdquo; scores 0.25 against PHYSICS, 0.06 against CONSTRAINT, 0.06 against EXPLORER, 0.04 against VALIDATOR. PHYSICS keeps it. The others discard. &ldquo;A bridge must support its weight&rdquo; scores above threshold for both PHYSICS and CONSTRAINT. Both keep it. The same memory in two engines, because it belongs in both.</p>
+
+<p>Content nobody claims stays in PATCH/YAM. &ldquo;What are you?&rdquo; scores below 0.15 against all four engines. PATCH catches it. Identity lives in the mind, not in the organs.</p>
+
+<p>After mama ran with filtering active, the engines differentiated for the first time: EXPLORER 5,508 memories, VALIDATOR 4,386, CONSTRAINT 4,060, PHYSICS 2,613. Before filtering, all four had identical counts. PHYSICS was the most selective &mdash; it only kept physical content. EXPLORER was the broadest &mdash; curiosity and novelty match many things.</p>
+
+<p>No router. No keyword lists. No rules table. No thalamus process. The engines self-filter based on who they are. The routing is a cosine similarity check against a hardwired string. Microseconds, not seconds.</p>
+
+<blockquote>You do not teach a kidney to filter blood. It is a kidney. That is what kidneys do.</blockquote>
+
+<hr>
+
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>
