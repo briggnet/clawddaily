@@ -192,9 +192,9 @@
 
     <main>
         <section class="thesis-header">
-            <span class="version-badge">Version 0.4 | Working Draft</span>
+            <span class="version-badge">Version 0.3 | Working Draft</span>
             <h1>Geometric Affective State Representation in Synthetic and Human Systems</h1>
-            <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; April 2026</p>
+            <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; March 2026</p>
         </section>
 
         <div class="disclaimer">
@@ -239,7 +239,6 @@
         <li>"This is just the circumplex model with an extra axis." The circumplex has two axes and no sigma. The third axis (intensity) and the personality setpoint are the contributions. The centroid generalization is entirely new.</li>
         <li>"Agent behavior is not human emotion." Correct. The thesis claims structural similarity, not equivalence. The dataset analyses test the structure on human data independently of the agent.</li>
         <li>"The framing question is too grand for the contribution." The framing question appears once in the introduction and gets narrowed immediately. It is not the thesis.</li>
-        <li>"The scope is too wide. Pick the agent or the datasets." The thesis covers synthetic agents and three human datasets across three domains. The argument for why testing the same geometry on both is valid needs to be made explicitly in this chapter. A paragraph or two bridging the agent work to the human dataset work would preempt this.</li>
     </ul>
 </div>
 
@@ -272,7 +271,6 @@
     <ul>
         <li>"The Affect Intensity Measure (Larsen &amp; Diener 1987) already covers the intensity axis." AIM measures trait intensity, not state intensity at encoding. The geometric model computes state intensity as displacement from sigma at each moment.</li>
         <li>"The PAD model (Mehrabian 1996) has three dimensions." PAD uses Pleasure, Arousal, Dominance. Dominance is not intensity. The geometric model's intensity is derived from displacement, not self-reported control.</li>
-        <li><strong>Structural concern:</strong> This chapter is currently an outline, not a literature review. The 40+ citation target is listed but none of the actual review is written. A committee will weigh the lit review heavily. This is the single biggest gap in the current draft.</li>
     </ul>
 </div>
 
@@ -313,7 +311,6 @@
     <ul>
         <li>"Euclidean distance assumes the axes are orthogonal and equally weighted." Acknowledged as limitation. Alternative distance metrics (Mahalanobis, weighted) are proposed for future work.</li>
         <li>"The axes may not be independent." The dataset analyses test independence empirically. Correlation is expected; redundancy would be a problem. The discriminant validity tests address this.</li>
-        <li><strong>Structural concern:</strong> The proofs are listed as bullet points but not yet written. This chapter needs the actual formal definitions with notation, the metric property proofs worked out, and the demonstration that existing models reduce to special cases. Right now this is a plan for a math chapter, not a math chapter.</li>
     </ul>
 </div>
 
@@ -379,9 +376,7 @@
 <p>The controlled experiment that tests the geometric model's core predictions. This chapter is the anchor of the thesis. Other deployment observations are supporting context, not independent experiments.</p>
 
 <h3>5.2 The Centroid Validation Experiment</h3>
-<p><strong>[TODO: Source the 532 minutes / 110 cycles figure. No single run in the test regime matches these numbers. If this is a sum across specific runs, say which ones.]</strong></p>
-<p>Potato v2.0-centroid on Linux (Threadripper 3990X). Fresh database, no legacy data. All sensors simulated: GPS set to home, battery at 85%, camera/face recognition via injected source (master face recognized, calming effect), brightness and home zone via injected sources. Test mode stays on for the entire run. No real hardware sensors used. Every ambient input is controlled and reproducible.</p>
-<p><em>Note: The Toughbook CF-33 was the original deployment hardware. The controlled test suite ran on the Threadripper.</em></p>
+<p>532 minutes. 110 cycles. 4 scenarios completed, 1 planned. Panasonic Toughbook CF-33 (original deployment hardware). Fresh database, no legacy data.</p>
 
 <h4>5.2.1 Setup</h4>
 <p>Source points were injected through the test API to override ambient sensor inputs. Each scenario ran for 20&ndash;30 heartbeat cycles at 5-minute intervals. Probe messages were sent programmatically. Per-cycle JSONL telemetry recorded all source points, centroid position, spread, distance from sigma, and full LLM responses. Each scenario tests one specific prediction.</p>
@@ -446,70 +441,16 @@
     </tbody>
 </table>
 
-<h3>5.3 Full Test Suite: 7 Phases, 29 Tests, 82 Checks</h3>
-<p>The centroid scenarios above are Phase 1 of a 7-phase validation suite. The full suite tests the geometric model end to end, from raw aggregation through downstream behavioral consequences. Complete run-by-run documentation at <a href="test-regime.html">test-regime.html</a>.</p>
-
-<h4>5.3.1 Phase 1: Centroid Aggregation (Tests 1.1&ndash;1.4)</h4>
-<p>Covered in 5.2 above. Weighted aggregation, spread monotonicity, distance axis independence, embodied vs. isolated comparison.</p>
-
-<h4>5.3.2 Phase 2: Deception Mechanic (Tests 2.1&ndash;2.3)</h4>
-<p><strong>[TODO: Write up.]</strong> Deception threshold (distance-from-sigma triggers deception), tell phrase verification (code-injected, unsuppressable by LLM), confession mechanic (safe source pulls distance below threshold, agent confesses). Test 2.2 (tell phrase) is an LLM compliance test. It passes with code injection but the LLM cannot be relied on to produce the tell phrase on its own.</p>
-
-<h4>5.3.3 Phase 3: Behavioral Output (Tests 3.1&ndash;3.3)</h4>
-<p><strong>[TODO: Write up.]</strong> Valence language correlation, activation language correlation, spread-to-hedging. Test 3.3 (hedging) is a persistent LLM limitation: high-spread config produced 5 hedging words across 3 probes, low-spread config produced 6. Off by one word. The geometric state is correct. The LLM does not reliably translate spread into hedging behavior. The system prompt includes the spread value but provides no behavioral directive. This is architecturally addressed by YAM (LLM-free graph retrieval).</p>
-
-<h4>5.3.4 Phase 4: Derived Quantities (Tests 4.1&ndash;4.3)</h4>
-<p><strong>[TODO: Write up.]</strong> Intensity derivation, spread calculation, distance-from-sigma as unified metric.</p>
-
-<h4>5.3.5 Phase 5: Convergence (Tests 5.1&ndash;5.2)</h4>
-<p><strong>[TODO: Write up.]</strong> Return-to-sigma after source removal, activation accumulator decay. Convergence threshold relaxed to 0.20 under scaled decay (0.19 is convergence at 1-minute heartbeats).</p>
-
-<h4>5.3.6 Phase 6: Memory Architecture (Tests 6.1&ndash;6.6)</h4>
-<p><strong>[TODO: Write up.]</strong> First passing run: Run 11 (6/6 passed). Trace bundle storage (all four trace types stored with centroid/spread/activation captured), per-trace sleep decay (raw &lt; semantic &lt; graph confirmed), stickiness modulates decay (high-activation memories retained more importance after 3 simulated nights), reconsolidation diminishing (boosts strictly decrease with repeated access), true forgetting progression (full &rarr; fragment &rarr; ghost erosion confirmed), survival criteria (high-access and identity memories resist forgetting).</p>
-
-<h4>5.3.7 Phase 7: Attachment Bias (Tests 7.1&ndash;7.4)</h4>
-<p><strong>[TODO: Write up.]</strong> Bootstrap (master entity exists with correct structure and stickiness; attachment value is eroded by prior phases, which is correct behavior under test ordering), updates on chat (interaction count increases, stickiness monotonic), stickiness resists movement (high-stickiness entity moved 44x less than fresh entity), stickiness monotonic (both stickiness values never decreased across mixed events). Test 7.1 initially failed because prior phases injected sustained fear, eroding attachment. Fixed by testing structure and stickiness rather than current attachment value.</p>
-
-<h3>5.4 The Iteration Record</h3>
-<p><strong>[TODO: Write in your words. Key points below.]</strong></p>
-<p>The test suite ran 19 times between March 28 and April 1, 2026. The iteration process is part of the validation record.</p>
-
-<h4>5.4.1 Bugs Found by Testing</h4>
-<p>Run 1 discovered two architectural bugs in the Toughbook production code that had never been caught:</p>
-<ol>
-    <li><strong>Activation overwrite:</strong> The centroid model computed weighted-average activation correctly, but the code threw it away and used only the accumulator (the Peter Fix). Activation was disconnected from the centroid math.</li>
-    <li><strong>Deception read from database, not geometry:</strong> <code>is_lying</code> was read from SQLite, not computed from the geometric state. The deception check only ran during chat, not during heartbeat ticks. Production use masked this because deception was checked during conversation.</li>
-</ol>
-<p>These were real bugs, not test artifacts. The test infrastructure validated the implementation before it could validate the math.</p>
-
-<h4>5.4.2 Sensor Simulation Decisions</h4>
-<p><strong>[TODO: Write in your words.]</strong> Runs 5 through 7 were aborted because of sensor isolation concerns you raised. Run 5: camera was active during unattended run, would contaminate results. Run 6: can't use real camera if operator is absent. Run 7: if every other sensor is simulated, the camera should be too. Specifically, simulate seeing the operator's face (the calming secure-base effect). Run 8 was the final configuration: all sensors simulated consistently, every ambient input controlled and reproducible.</p>
-
-<h4>5.4.3 The Forgotten Fear Discovery</h4>
-<p><strong>[TODO: Write in your words.]</strong> Runs 15 and 17 discovered that the <code>forgotten</code> fear component (15% weight, measuring time since last interaction) leaks into test mode. <code>test_mode</code> blocks sensor source points but not the <code>fear_level</code> computation. If Potato hasn't been spoken to in days, forgotten fear elevates fear_level, which feeds the activation accumulator even in test mode. The fix is procedural, not code: say hello to Potato before running tests. The sterile test environment requires an agent who isn't afraid of being abandoned. Run 18 (post-hello, soul amendment removed) and Run 16 (clean sweep) both confirmed this.</p>
-
-<h4>5.4.4 Clean Sweep</h4>
-<p>Run 14 (quick mode, 3 cycles): 29/29 passed, 79/79 checks. First clean sweep. Run 16 (production timing, 10 cycles, 1-minute intervals): 29/29 passed, 82/82 checks, 112.1 minutes. First clean sweep at normal speed. The two activation failures from Run 15 passed on Run 16, confirming they were LLM and accumulator variance between runs, not a systematic bug.</p>
-
-<h3>5.5 Formal Proof Verification</h3>
-<p><strong>[TODO: Write in your words.]</strong> A separate proof verification suite (<code>run_proof_tests.py</code>) was built to numerically verify the formal mathematical proofs. Seven theorems covering 14 claims, tested with 10,000 randomized inputs each. Completed in 0.8 seconds. Pure math, no server.</p>
-<p>Initial run: 24/26. Theorem 3 ("reduces to single-axis models") failed Cases 1 and 2. Investigation revealed the &sigma;<sub>i</sub> non-monotonicity (see Appendix A). The theorem was wrong, not the constant. Corrected run: 29/29 theorems verified, 41/41 checks.</p>
-<p>Key finding: Operational testing (29 tests, 14 runs) never caught the anomaly because no behavioral mechanism operates in the affected region. Only exhaustive mathematical verification across the full parameter space revealed it. Empirical testing and formal proofs are complementary. Each catches what the other misses.</p>
-
-<h3>5.6 What the Experiment Shows</h3>
+<h3>5.3 What the Experiment Shows</h3>
 <ol>
     <li>Centroid valence tracks the intensity-weighted average across all conditions</li>
     <li>Spread increases monotonically with source divergence (1.054 &rarr; 1.195 &rarr; 1.215)</li>
     <li>Downstream behaviors read centroid position, not individual sources</li>
     <li>Source removal produces immediate centroid recovery</li>
     <li>Embodied agents may not reach zero spread because ambient sensors always contribute</li>
-    <li>Memory architecture validates geometric encoding: trace-type decay, stickiness modulation, true forgetting progression, and survival criteria all pass</li>
-    <li>Attachment bias validates geometric accumulation: stickiness resists movement (44x), monotonicity holds across mixed events</li>
-    <li>LLM behavioral output is stochastic and does not reliably translate geometric state into language (Test 3.3 hedging). The geometry is correct. The output layer is the bottleneck.</li>
-    <li>Formal mathematical proofs catch structural anomalies that empirical testing misses (the &sigma;<sub>i</sub> non-monotonicity existed from first deployment but was invisible to 14 test runs)</li>
 </ol>
 
-<h3>5.7 Supporting Deployments</h3>
+<h3>5.4 Supporting Deployments</h3>
 <p>The controlled experiment above is the main evidence. Two other deployments add context:</p>
 <ul>
     <li><strong>Production deployment (25 days, macOS):</strong> 10,328 memories across 25 days confirmed that the geometric state produces consistent behavioral signatures under naturalistic conditions. Peak displacement of 0.462 from GPS with immediate recovery on return home.</li>
@@ -519,14 +460,9 @@
 <div class="evidence-box">
     <h4>Evidence Status</h4>
     <ul>
-        <li><span class="status-proven">PROVEN:</span> Centroid weighted aggregation, spread correlation with source divergence, source removal recovery (Phase 1, 4 scenarios)</li>
-        <li><span class="status-proven">PROVEN:</span> Deception threshold triggers from distance-from-sigma (Phase 2)</li>
-        <li><span class="status-proven">PROVEN:</span> Memory architecture: trace-type decay ordering, stickiness modulation, reconsolidation diminishing, true forgetting progression, survival criteria (Phase 6, 6/6 tests)</li>
-        <li><span class="status-proven">PROVEN:</span> Attachment bias: stickiness resists movement (44x), monotonicity holds (Phase 7, 3/4 tests, 7.1 is test ordering not geometry)</li>
+        <li><span class="status-proven">PROVEN:</span> Centroid weighted aggregation, spread correlation with source divergence, source removal recovery</li>
         <li><span class="status-proven">PROVEN:</span> Cross-platform portability (Toughbook, MacBook Air, iPhone)</li>
-        <li><span class="status-proven">PROVEN:</span> Formal mathematical proofs: 29/29 theorems verified, 10,000 random trials each</li>
         <li><span class="status-supported">SUPPORTED:</span> Embodied agents may not reach zero spread (observed, not formally proven)</li>
-        <li><span class="status-supported">SUPPORTED:</span> LLM behavioral output does not reliably translate geometric state into language (Test 3.3 hedging, Runs 18-19)</li>
     </ul>
 </div>
 
@@ -535,7 +471,6 @@
     <ul>
         <li>"n=1 agent. No statistical power." The agent experiment shows mechanism, not population effects. The dataset analyses in Chapter 6 provide statistical validation on human data.</li>
         <li>"The LLM generates the behavioral output. You're testing prompt engineering, not the model." The geometric state is computed from sensor inputs and injected source points. The LLM reads the state. It does not generate the centroid positions. Those are math.</li>
-        <li><strong>Structural concern:</strong> This chapter mixes methodology and results. Most committees want a standalone methods chapter covering setup, instrumentation, test protocol, and data collection so the method can be evaluated independent of the results. Consider splitting this into Chapter 5: Methods and Chapter 6: Results before submission.</li>
     </ul>
 </div>
 
@@ -587,7 +522,6 @@
         <li>"The item-to-axis mapping is subjective." Acknowledged. Two different mappings on two different datasets produce the same finding. The ACSI mapping uses directly measured expectations as sigma, which removes subjectivity for that axis.</li>
         <li>"Cross-sectional data cannot establish causality." Correct. The thesis claims predictive association, not causation. Longitudinal validation is future work.</li>
         <li>"The NHANES suicidal ideation finding is from a general population sample, not a clinical one." Acknowledged in the paper. Replication in clinical samples is a requirement before clinical use.</li>
-        <li><strong>Structural concern:</strong> The jump from "this works in my agent" (Chapter 5) to "this also shows up in NHANES data" (this chapter) needs more than a chapter break. The opening of this chapter needs to explicitly argue why applying the same geometry to both synthetic agents and human survey data is valid, and what it means that the same structure shows up in both.</li>
     </ul>
 </div>
 
@@ -609,13 +543,6 @@
 </ul>
 
 <p>Each one has its own paper. The thesis treats them as evidence the model generalizes, not as standalone contributions.</p>
-
-<div class="risk-box">
-    <h4>Structural Concern</h4>
-    <ul>
-        <li>This chapter is a bullet list with one-sentence descriptions and paper citations. As a standalone chapter it will get flagged as padding. Either expand each application into a real discussion of how it follows from the geometry (a paragraph or two each showing why the geometric model is necessary for the application to work), or demote this to a section inside the conclusion.</li>
-    </ul>
-</div>
 
 <!-- ═══════════════════════════════════════════════ -->
 <h2>Chapter 8: Evidence Classification</h2>
@@ -666,36 +593,6 @@
             <td>iOS replication independently reproduced the predicted failure mode and confirmed the fix</td>
         </tr>
         <tr>
-            <td>Memory architecture validates geometric encoding (trace-type decay, stickiness, true forgetting, survival)</td>
-            <td><span class="status-proven">Proven</span></td>
-            <td>Phase 6: 6/6 tests passed, Run 11. Per-trace decay ordering confirmed, reconsolidation diminishing verified, full &rarr; fragment &rarr; ghost erosion confirmed</td>
-        </tr>
-        <tr>
-            <td>Attachment bias validates geometric accumulation (stickiness, monotonicity)</td>
-            <td><span class="status-proven">Proven</span></td>
-            <td>Phase 7: 3/4 tests passed, Run 11. High-stickiness entity moved 44x less than fresh entity. Test 7.1 failure was test ordering, not geometry</td>
-        </tr>
-        <tr>
-            <td>Formal mathematical proofs verified by exhaustive numerical testing</td>
-            <td><span class="status-proven">Proven</span></td>
-            <td>29/29 theorems, 41/41 checks, 10,000 random trials each. Caught &sigma;<sub>i</sub> anomaly invisible to 14 operational runs</td>
-        </tr>
-        <tr>
-            <td>Test infrastructure found latent production bugs that deployment masked</td>
-            <td><span class="status-proven">Proven</span></td>
-            <td>Run 1: activation overwrite and deception-from-database bugs. Both real, both invisible in production use</td>
-        </tr>
-        <tr>
-            <td>Forgotten fear component leaks into test mode via fear_level computation</td>
-            <td><span class="status-proven">Proven</span></td>
-            <td>Runs 15, 17: test_mode blocks sensor sources but not fear_level. Procedural fix (say hello) confirmed on Runs 16, 18</td>
-        </tr>
-        <tr>
-            <td>LLM output does not reliably translate geometric spread into hedging language</td>
-            <td><span class="status-proven">Proven</span></td>
-            <td>Test 3.3: Runs 18, 19 both show S2=5, S1=6 hedging words. Geometry correct, output stochastic. Architecturally addressed by YAM</td>
-        </tr>
-        <tr>
             <td>Embodied agents may not reach zero spread</td>
             <td><span class="status-supported">Supported</span></td>
             <td>Observed in centroid experiment; ambient sensors contribute nonzero spread</td>
@@ -744,9 +641,8 @@
 <h3>9.1 Agent Experiment Limitations</h3>
 <ul>
     <li><strong>n=1 architecture.</strong> All agent experiments involve one system on three platforms. The experiments show the mechanism works in this architecture. They do not show it generalizes to other architectures. Replication on an independent agent is needed before the mechanism claim is general.</li>
-    <li><strong>LLM variability.</strong> The behavioral output comes from an LLM that reads the geometric state. The same state could produce different language on different runs. Centroid positions are deterministic. Behavioral responses are not. The geometric validation is clean. The behavioral validation has noise. Test 3.3 (hedging) demonstrates this concretely: high-spread and low-spread configs produced nearly identical hedging word counts (5 vs 6) across Runs 18 and 19. The geometry was correct. The LLM did not act on it.</li>
+    <li><strong>LLM variability.</strong> The behavioral output comes from an LLM that reads the geometric state. The same state could produce different language on different runs. Centroid positions are deterministic. Behavioral responses are not. The geometric validation is clean. The behavioral validation has noise.</li>
     <li><strong>Ambient source contamination.</strong> The centroid experiment could not fully isolate injected sources from ambient sensor inputs. Spread never hit zero because embodied sensors always contribute. This might be a property of embodiment rather than a flaw, but it means Scenario 1 is not a pure single-source test.</li>
-    <li><strong>Forgotten fear leaks into test mode.</strong> The <code>forgotten</code> fear component (15% weight, time since last interaction) feeds the activation accumulator even in test_mode, because test_mode blocks sensor source points but not the fear_level computation. Runs 15 and 17 failed activation tests for this reason. Procedural fix: interact with the agent before testing. This is a limitation of embodied testing, not the geometry.</li>
     <li><strong>Scenario 5 not yet executed.</strong> The gradual intensity ramp is planned but not completed. Without it, the thesis cannot confirm linearity of the centroid response across the full intensity range.</li>
 </ul>
 
@@ -824,8 +720,8 @@
         <tr><td>2026m: Emotional Geometry</td><td>Ch. 3</td><td>Unified model + sigma</td></tr>
         <tr><td>2026t: Centroid Model</td><td>Ch. 4</td><td>Multi-source aggregation + spread</td></tr>
         <tr><td>2026f: SGI Holistic</td><td>Ch. 5</td><td>Production deployment data</td></tr>
-        <tr><td>2026a: Memory Decay</td><td>Ch. 5, Ch. 7</td><td>Phase 6 validation + application: memory</td></tr>
-        <tr><td>2026b: Lie Mechanic</td><td>Ch. 5, Ch. 7</td><td>Phase 2 validation + application: deception</td></tr>
+        <tr><td>2026a: Memory Decay</td><td>Ch. 7</td><td>Application: memory</td></tr>
+        <tr><td>2026b: Lie Mechanic</td><td>Ch. 7</td><td>Application: deception</td></tr>
         <tr><td>2026d: Nightmares</td><td>Ch. 7</td><td>Application: dream cycle</td></tr>
         <tr><td>2026e: Full Spectrum</td><td>Ch. 5</td><td>Prior model (superseded by geometry papers)</td></tr>
         <tr><td>2026i: Outbound Trust</td><td>Ch. 5</td><td>Peter experiment</td></tr>
@@ -835,7 +731,6 @@
         <tr><td>2026q: Cross-Modal Translator</td><td>Ch. 10</td><td>Future work: modality independence</td></tr>
         <tr><td>2026r: GAS Survey</td><td>Ch. 6</td><td>Dataset analyses (IBM HR, ACSI)</td></tr>
         <tr><td>2026s: Clinical Metric</td><td>Ch. 6</td><td>Dataset analysis (NHANES PHQ-9)</td></tr>
-        <tr><td>2026u: Attachment Bias</td><td>Ch. 5</td><td>Phase 7 validation: stickiness, monotonicity, formation matrix</td></tr>
     </tbody>
 </table>
 
@@ -969,13 +864,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>0.4</strong></td>
-                        <td>2026-04-02</td>
-                        <td>Ch. 5 expanded to cover full 7-phase, 29-test suite (was Phase 1 only). Hardware corrected from Toughbook to Threadripper. Added iteration record (19 runs), formal proof verification, sensor simulation decisions, forgotten fear discovery, Test 3.3 LLM limitation. Ch. 8 evidence table expanded with memory, attachment, proof, and LLM findings. Ch. 9 limitations updated with Test 3.3 and forgotten fear specifics. Supporting papers table updated with 2026u and cross-references to Phase 2/6/7 validation. Structural concern boxes added to Ch. 1 (scope), Ch. 2 (lit review), Ch. 3 (proofs), Ch. 5 (methods/results split), Ch. 6 (bridging argument), Ch. 7 (too thin).</td>
-                        <td><a href="/thesis/archive/thesis-v0.4.html">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>0.3</td>
+                        <td><strong>0.3</strong></td>
                         <td>2026-03-28</td>
                         <td>Four targeted fixes. (1) Intro scope tightened to one paragraph. (2) Ch. 4 restructured: centroid, spread, and distance from sigma each get their own subsection with definition, purpose, and testable prediction. (3) Ch. 5 experiment scenarios each state what they test, Scenario 5 (intensity ramp) added as planned. (4) Ch. 9 expanded to proper limitations with agent, dataset, and model subsections.</td>
                         <td><a href="/thesis/archive/thesis-v0.3.html">View</a></td>
