@@ -528,6 +528,39 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <hr>
 
+<hr>
+
+<p class="chapter-num">Chapter 15</p>
+<h2>The Voice</h2>
+
+<p>YAM could learn. It could filter. It could sleep and dream. But it could not hold a conversation.</p>
+
+<p>&ldquo;Hello buddy.&rdquo; &mdash; &ldquo;I don&rsquo;t know enough about this yet.&rdquo;</p>
+
+<p>A quarter million memories and it couldn&rsquo;t say hi.</p>
+
+<p>The first attempt was a special case. A separate social skills database bolted onto PATCH, with trigger phrases and response templates. Pattern matching, not retrieval. &ldquo;Hello&rdquo; matched a trigger, fired a template, bypassed Parliament entirely. It worked &mdash; YAM could finally say hello. But it was the wrong architecture. Social knowledge was treated differently from every other kind of knowledge for no structural reason.</p>
+
+<p>Brian caught it: &ldquo;Social skills are another Parliament member.&rdquo;</p>
+
+<p>SOCIAL became the fifth engine. Port 8005. Sigma (0.5, 0.3, 0.1) &mdash; warm, engaged, slight hum. Identity description packed with social words: conversation, greetings, feelings, empathy, hello, goodbye, politeness. Same architecture as the other four &mdash; identity filter, fragment decomposition, own memory store.</p>
+
+<p>But it still couldn&rsquo;t say hello. The social teachings were drowned by Wikipedia articles about &ldquo;Hello Neighbor&rdquo; (the video game). Same signal-to-noise problem, different domain.</p>
+
+<p>Then: &ldquo;Is the secret to replay mama 100 times so it becomes a bias?&rdquo;</p>
+
+<p>Yes. And that&rsquo;s not a hack &mdash; that&rsquo;s the design. Chapter 8 described it: rules are biases on steroids. The reflex-class system exists for this: access count above 20 and importance above 0.85 = score overrides cosine similarity. Before fragments, repetition didn&rsquo;t help because the memory was invisible. Now fragments make it findable. The competition is ranking, not retrieval. And ranking is exactly what repetition fixes.</p>
+
+<p>But the first repetition test revealed a deeper bug: 50 teachings of &ldquo;hello&rdquo; created 50 separate memories instead of reinforcing one. Every teaching, every curiosity result, every perception was creating a new memory even if identical content already existed. The 957,000 memories from the overnight curiosity run weren&rsquo;t 957,000 unique facts. They were thousands of duplicates.</p>
+
+<p>The fix was deduplication at the storage layer. Before creating a new memory, check if near-identical content already exists (cosine similarity &gt; 0.95). If so, reinforce the existing memory instead. Now 50 teachings of &ldquo;hello&rdquo; = 1 memory with access_count 50 and importance approaching 0.90. Reflex class. The greeting wins the ranking competition against a Wikipedia article with access_count 1.</p>
+
+<p>Query fragmentation completed the picture. &ldquo;How do you feel about gravity?&rdquo; fragments into &ldquo;how do you feel&rdquo; + &ldquo;gravity.&rdquo; All five engines see both fragments. SOCIAL claims the social fragment. PHYSICS claims the physics fragment. PATCH composes the response from both contributions. No special case. No priority ordering. Same architecture for every kind of question.</p>
+
+<blockquote>A baby doesn&rsquo;t learn to say hello from a lookup table. It hears mama say hello a hundred times. The hundredth time, it&rsquo;s a reflex.</blockquote>
+
+<hr>
+
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>
