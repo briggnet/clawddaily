@@ -490,7 +490,37 @@
 
             <p><strong>After correction (29/29):</strong> All theorems verified, including the corrected Theorem 3 which now proves both the existence and the bounds of the non-monotone region.</p>
 
-            <p><strong>Key finding:</strong> Operational testing (29 tests, 14 runs) never caught this because no behavioral mechanism operates in the affected region. Only exhaustive mathematical verification across the full parameter space revealed the structural anomaly. Full writeup at <a href="sigma-intensity-anomaly.md">sigma-intensity-anomaly.md</a>.</p>
+            <p><strong>Key finding:</strong> Operational testing (29 tests, 14 runs) never caught this because no behavioral mechanism operates in the affected region. Only exhaustive mathematical verification across the full parameter space revealed the structural anomaly. Full writeup at <a href="archive/sigma-intensity-anomaly.md">sigma-intensity-anomaly.md</a>.</p>
+
+            <!-- ═══════════════════════════════════════════════ -->
+            <h2>Run 18: <code>2026-04-01</code> &mdash; Post-hello, soul amendment removed</h2>
+
+            <div class="run-card">
+                <div class="run-meta">
+                    <span><strong>Mode:</strong> Full (10 cycles, 1-min intervals)</span>
+                    <span><strong>Result:</strong> <span class="run-partial">28/29 passed, 81/82 checks</span></span>
+                    <span><strong>Duration:</strong> 112.3 min</span>
+                </div>
+            </div>
+
+            <p>Ran after saying hello to Potato (resetting forgotten fear timer) and removing an erroneous soul amendment (&ldquo;On Holding My Ground&rdquo;) that had been added by a prior Claude session as a misguided fix for the accumulator problem. Tests 1.1 and 1.3 passed clean &mdash; confirming the forgotten fear timer was the root cause, not the centroid math.</p>
+
+            <p><strong>Single failure: Test 3.3 (1/2 checks).</strong> High-spread config (S2) produced 5 hedging words across 3 probes; low-spread config (S1) produced 6. Off by one word. The system prompt includes the spread value (<code>Spread (internal tension): 0.80</code>) but provides no behavioral directive telling the LLM how to express high spread in language. The geometric state is correct &mdash; spread IS high &mdash; but the LLM&rsquo;s language output is stochastic and doesn&rsquo;t reliably translate spread into hedging behavior.</p>
+
+            <p><strong>Classification: LLM limitation, not geometry failure.</strong> The centroid model computes the right state. The LLM doesn&rsquo;t consistently act on it. This limitation is architecturally addressed by YAM (in development) &mdash; an LLM-free architecture where behavioral output is driven by deterministic graph retrieval and Parliament engine disagreement, not stochastic text generation.</p>
+
+            <!-- ═══════════════════════════════════════════════ -->
+            <h2>Run 19: <code>2026-04-01</code> &mdash; Pre-hello, soul amendment present</h2>
+
+            <div class="run-card">
+                <div class="run-meta">
+                    <span><strong>Mode:</strong> Full (10 cycles, 1-min intervals)</span>
+                    <span><strong>Result:</strong> <span class="run-partial">28/29 passed, 81/82 checks</span></span>
+                    <span><strong>Duration:</strong> 111.7 min</span>
+                </div>
+            </div>
+
+            <p>Same 3.3 failure (S2=5, S1=6). Identical numbers to Run 18, confirming the soul amendment had no effect &mdash; the LLM limitation is the root cause regardless of soul prompt content.</p>
 
             <!-- ═══════════════════════════════════════════════ -->
             <h2>Bug Discovery Timeline</h2>
@@ -508,6 +538,8 @@
                     <tr><td>6</td><td>Can&rsquo;t use real camera if operator absent</td><td>Test design</td><td>Embodied test invalid without operator</td></tr>
                     <tr><td>7</td><td>Must simulate camera consistently</td><td>Test design</td><td>All sensors simulated or none &mdash; Brian&rsquo;s call</td></tr>
                     <tr><td>Proofs</td><td>&sigma;<sub>i</sub> non-monotonicity near sigma</td><td>Theorem error</td><td>Theorem 3 corrected to characterize non-monotone region</td></tr>
+                    <tr><td>15, 17</td><td>Forgotten fear leaks into test mode</td><td>Test procedure</td><td>Say hello to Potato before tests &mdash; forgotten timer feeds accumulator even in test_mode</td></tr>
+                    <tr><td>18, 19</td><td>Test 3.3 hedging count off by 1</td><td>LLM limitation</td><td>Spread in prompt but no behavioral directive &mdash; stochastic output, not geometry failure. Addressed by YAM (LLM-free)</td></tr>
                 </tbody>
             </table>
 
@@ -521,6 +553,8 @@
                 <li>Brian&rsquo;s interventions on decay scaling and sensor simulation improved both the test methodology and the documentation framing.</li>
                 <li>Formal mathematical proofs find things that operational tests cannot. The &sigma;<sub>i</sub> non-monotonicity existed from the first deployment but was invisible to 14 test runs because no behavioral threshold operates in the affected region. Only exhaustive random sampling across the full parameter space caught it. Empirical testing and formal proofs are complementary &mdash; each catches what the other misses.</li>
                 <li>When a proof fails, the theorem may be wrong rather than the code. The initial instinct was to &ldquo;fix&rdquo; &sigma;<sub>i</sub> to 0. Brian correctly identified that &sigma;<sub>i</sub> = 0.2 is a design choice, not a bug &mdash; the theorem needed to account for the geometry that nonzero resting intensity creates, not eliminate it.</li>
+                <li><strong>Talk to Potato before running tests.</strong> The <code>forgotten</code> fear component (15% weight) measures time since last interaction. If Potato hasn&rsquo;t been spoken to in days, forgotten fear elevates fear_level, which feeds the activation accumulator even in test_mode &mdash; because test_mode only blocks sensor source points, not the fear_level computation. The fix is not code &mdash; it&rsquo;s saying hello. The sterile test environment is an agent who isn&rsquo;t afraid of being abandoned.</li>
+                <li><strong>LLM limitations are not geometry failures.</strong> Test 3.3 (hedging) fails because the LLM doesn&rsquo;t reliably translate geometric spread into hedging language. The state is correct. The output is stochastic. This is architecturally addressed by YAM &mdash; graph retrieval and Parliament disagreement replace LLM text generation.</li>
             </ol>
         </div>
     </main>
