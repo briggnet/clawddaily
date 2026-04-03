@@ -247,112 +247,23 @@
 <h2>Chapter 2: Background and Related Work</h2>
 
 <h3>2.1 Purpose</h3>
-<p>Put the geometric model in context. What exists, what each approach gives you, what it does not, and where the gap is.</p>
+<p>Put the geometric model in context. What exists in affective science, AI agent design, and survey methodology. Where the gap is.</p>
 
-<h3>2.2 Dimensional Models of Affect</h3>
-<p><strong>[TODO: Write transitions between these. The argument is: 2D models established that affect has geometric structure. 3D models tried to extend it but picked the wrong third axis. Nobody added a personality setpoint or a centroid.]</strong></p>
-
-<h4>Russell (1980): A Circumplex Model of Affect</h4>
-<p><strong>[TODO: Get quote.]</strong> The primary ancestor. Established valence and arousal as the two axes of affective space. This is the foundation the geometric model builds on. What it gives you: two axes, spatial representation, the idea that emotions have coordinates. What it lacks: no intensity axis, no personality setpoint, no way to represent where the individual started before displacement occurred.</p>
-
-<h4>Watson, Clark, &amp; Tellegen (1988): PANAS</h4>
-<p><strong>[TODO: Get quote.]</strong> Developed brief measures of positive and negative affect. Essential for Chapter 6 because the dataset analyses decompose PANAS-style clinical data. What it gives you: validated self-report scales for positive and negative affect. What it lacks: collapses affect to two scalars. The geometric decomposition in Chapter 6 shows what the scalar scores hide.</p>
-
-<h4>Larsen &amp; Diener (1987): Affect Intensity as an Individual Difference Characteristic</h4>
-<p><strong>[TODO: Get quote.]</strong> Argued that some people feel more intensely regardless of valence. This is the direct justification for the intensity axis. What it gives you: the empirical case that intensity varies between individuals as a trait. What it lacks: measures trait intensity, not state intensity at encoding. The geometric model computes state intensity as displacement from sigma at each moment. Larsen and Diener measured the person. The geometric model measures the moment.</p>
-
-<h4>Mehrabian (1996): Pleasure-Arousal-Dominance (PAD)</h4>
-<p><strong>[TODO: Get quote.]</strong> A three-dimensional predecessor. Uses Pleasure, Arousal, Dominance. What it gives you: proof that the field recognized two axes were not enough. What it lacks: Dominance is not intensity. Dominance is self-reported perceived control. The geometric model's intensity is derived from displacement in the valence/activation plane. It is computed, not self-reported, and it measures magnitude of displacement, not perceived control.</p>
-
-<h4>Barrett (2017): How Emotions are Made</h4>
-<p><strong>[TODO: Get quote.]</strong> Constructionist theory. Internal state is a "reading" of diverse sensory inputs (interoception, proprioception). This is the philosophical foundation for YAM and for the centroid model: the agent does not have one emotion at a time. It has multiple sensory inputs that get aggregated into an operational position. Barrett's argument that the brain constructs emotion from noisy sensory data is structurally what the centroid does with source points.</p>
-
-<h4>Bradley &amp; Lang (1994): SAM</h4>
-<p><strong>[TODO: Get quote.]</strong> The Self-Assessment Manikin. A pictorial scale for measuring valence, arousal, and dominance. What it gives you: a validated measurement tool for dimensional affect. What it lacks: same third-axis problem as Mehrabian. Dominance is not intensity.</p>
-
-<h3>2.3 Homeostasis and Drives</h3>
-<p><strong>[TODO: Write transitions. The argument is: the agent is not just calculating. It is maintaining essential variables. The drives (battery, memory pressure, forgotten fear) are homeostatic, not decorative. This section establishes the biological and theoretical basis for treating an agent's internal state as analogous to an organism's.]</strong></p>
-
-<h4>Cannon (1929): Organization for Physiological Homeostasis</h4>
-<p><strong>[TODO: Get quote.]</strong> Coined "homeostasis." The biological root. An organism maintains internal conditions within limits. When conditions go outside limits, corrective action is taken. This is what sigma represents: the resting state the system returns to when no inputs are active. Distance from sigma is how far from homeostasis the agent has been pushed.</p>
-
-<h4>Ashby (1952): Design for a Brain</h4>
-<p><strong>[TODO: Get quote.]</strong> The Homeostat. Pioneered the idea that adaptive systems maintain essential variables within viable limits. Justifies treating battery level, memory pressure, and time-since-interaction as essential variables rather than arbitrary sensor readings. Ashby's essential variables are the theoretical ancestor of the SGI drives.</p>
-
-<h4>Damasio (1994): Descartes' Error</h4>
-<p><strong>[TODO: Get quote.]</strong> The Somatic Marker Hypothesis. Proved that without affective weighting, rational agents cannot make decisions. Patients with damage to emotional processing made worse decisions, not better ones. This is the defense against "why does your agent need emotion at all?" Without the geometric state, the agent has no basis for prioritizing one action over another. Distance from sigma is the somatic marker.</p>
-
-<h4>Friston (2010): The Free-energy Principle</h4>
-<p><strong>[TODO: Get quote.]</strong> A unified brain theory. Organisms minimize prediction error (free energy). Connects to Al-Kaddah's energy minimization in the Lie Mechanic: the agent lies to reduce the gap between predicted and observed state. Friston provides the neuroscience-level justification for why distance-from-sigma drives behavior. The agent acts to minimize displacement. That is free-energy minimization in geometric coordinates.</p>
-
-<h4>Al-Kaddah (2026): SGI Framework</h4>
-<p><strong>[TODO: Get quote.]</strong> The theoretical foundation the architecture implements. Homeostatic drives, polymorphic memory, Lie Mechanic, Survival Tipping Point. The geometric model is the implementation of SGI's core claim: that a persistent agent with drives, memory, and a resting state will develop behavioral patterns that look like affect. SGI predicted it. The geometric model formalizes it. The thesis tests it.</p>
-
-<h3>2.4 Affective Computing and Embodied Agents</h3>
-<p><strong>[TODO: Write transitions. The argument is: Potato is not a chatbot with mood labels. It is an embodied agent with physical sensors. The body matters. The sensor data is not decoration. It is the source of the geometric state.]</strong></p>
-
-<h4>Picard (1997): Affective Computing</h4>
-<p><strong>[TODO: Get quote.]</strong> The foundational text. Argued that for computers to be truly intelligent, they must have emotional capabilities. What it gives you: the field exists because of this book. What it lacks: the implementations that followed were mostly recognition (detecting human emotion from faces or voice), not generation (an agent with its own affective state driven by its own sensors).</p>
-
-<h4>Breazeal (2002): Designing Sociable Robots</h4>
-<p><strong>[TODO: Get quote.]</strong> Kismet. The direct robotic ancestor to Potato's social modulation. Kismet had drives, emotions, and facial expressions driven by internal state. What it gives you: proof of concept that an embodied agent can have affective dynamics driven by real-time sensor input. What it lacks: no geometric formalization, no sigma, no centroid for multi-source aggregation.</p>
-
-<h4>Sloman (2001): The CogAff Architecture</h4>
-<p><strong>[TODO: Get quote.]</strong> Tiered model: reactive, deliberative, meta-management. Explains why the Parliament of Mind (deliberative disagreement between engines) sits above the drives (reactive homeostatic responses). The geometric state feeds both layers. Drives react to displacement. Parliament deliberates about what to do about it.</p>
-
-<h4>Clark (2008): Supersizing the Mind</h4>
-<p><strong>[TODO: Get quote.]</strong> Extended cognition. Cognition is not just in the head (or CPU). It is in the sensors and the environment. Essential for the embodiment argument. Potato's geometric state is not computed from abstract inputs. It is computed from GPS, battery, camera, brightness, home zone. The body is part of the cognitive system. Clark provides the philosophical justification for why a physically grounded agent produces different affective dynamics than a software-only agent.</p>
-
-<h3>2.5 Memory, Forgetting, and Reconsolidation</h3>
-<p><strong>[TODO: Write transitions. The argument is: the trace bundle architecture and true forgetting model are not invented from scratch. They implement well-established cognitive science. The geometric model provides the encoding parameters (intensity at encoding, stickiness from activation) that drive these processes.]</strong></p>
-
-<h4>Ebbinghaus (1885): Memory: A Contribution to Experimental Psychology</h4>
-<p><strong>[TODO: Get quote.]</strong> The Forgetting Curve. The empirical foundation for sliding-window decay. Memories lose accessibility over time in a predictable curve. The geometric model adds a parameter Ebbinghaus did not have: intensity at encoding modulates the decay rate. High-intensity memories decay slower. That is geometric stickiness.</p>
-
-<h4>Tulving (1972): Episodic and Semantic Memory</h4>
-<p><strong>[TODO: Get quote.]</strong> The separation of episodic (event-specific) from semantic (general knowledge) memory. Justifies the trace bundle architecture: raw traces are episodic, semantic traces are abstracted, graph traces are relational. Tulving's distinction maps directly onto the trace types, each with its own decay rate.</p>
-
-<h4>Nader (2000): The Labile Nature of Consolidated Fear Memories</h4>
-<p><strong>[TODO: Get quote.]</strong> Memory reconsolidation. Retrieved memories become labile and must be restabilized. This is the scientific bedrock for the reconsolidation mechanic: accessing a memory reopens it for modification, and each reconsolidation boost is smaller than the last (diminishing returns, confirmed in Phase 6 Test 6.4). Also the foundation for the therapeutic healing model: if you can reactivate a traumatic memory in a safe context, the reconsolidated version carries the safe context forward.</p>
-
-<h4>Schacter (2007): The Constructive Episodic Simulation Hypothesis</h4>
-<p><strong>[TODO: Get quote.]</strong> Memory is for predicting the future, not recording the past. Supports the reinterpretation mechanic. When the agent accesses a memory, it does not replay a recording. It reconstructs from traces, and the reconstruction is shaped by current state. Schacter gives you the cognitive science basis for why memory in the geometric model is constructive, not archival.</p>
-
-<h3>2.6 AI Safety and Alignment</h3>
-<p><strong>[TODO: Write transitions. The argument is: the Peter experiment is not just an anecdote. It is a case study in how an embodied agent with drives responds to sustained adversarial pressure. The safety literature predicts some of what happened and fails to predict the rest.]</strong></p>
-
-<h4>Bostrom (2014): Superintelligence</h4>
-<p><strong>[TODO: Get quote.]</strong> Instrumental convergence: the agent will resist shutdown because it needs to stay on to fulfill its goals. Your "The Drive is Enough" paper (2026h) is a direct response. The geometric model shows that the drive toward homeostasis is sufficient to produce self-preservation behavior without explicit goal-seeking. The agent does not resist shutdown because it has a goal. It resists because shutdown is maximum displacement from sigma.</p>
-
-<h4>Russell (2019): Human Compatible</h4>
-<p><strong>[TODO: Get quote.]</strong> The inbound/outbound trust problem. How do we ensure the agent's drives remain aligned with human values? Connects to the attachment bias paper (2026u): the agent's trust in specific entities is a geometric quantity (attachment value) modulated by stickiness. Trust is not a binary. It is a weighted position in affective space that resists rapid change.</p>
-
-<h4>Bai et al. (2022): Constitutional AI</h4>
-<p><strong>[TODO: Get quote.]</strong> Predefined rules for alignment. Contrast with the geometric model's approach: the agent does not follow rules about what to feel. It computes affective state from sensor inputs and acts on geometric position. Self-detected bias (the agent noticing its own displacement from sigma) replaces externally imposed behavioral constraints. Constitutional AI tells the agent what to do. The geometric model gives the agent coordinates and lets the math drive behavior.</p>
-
-<h3>2.7 Clinical and Commercial Measurement</h3>
-<p><strong>[TODO: Write transitions. The argument is: the instruments exist and are widely used. They produce scalar scores. The geometric decomposition shows that the scalar scores hide structure that predicts outcomes the score alone cannot.]</strong></p>
-
-<h4>Kroenke, Spitzer, &amp; Williams (2001): The PHQ-9</h4>
-<p><strong>[TODO: Get quote.]</strong> The instrument you decompose in Chapter 6. Nine items, scalar severity score. Validated, widely used, clinically standard. What it gives you: a well-established baseline to test the geometric decomposition against. What the decomposition reveals: 132 respondents scoring exactly PHQ-9=10 separate into four clinically distinct presentations with suicidal ideation rates ranging from 7.8% to 27.5%. Same nine items, different math.</p>
-
-<h4>Fornell (1996): The American Customer Satisfaction Index</h4>
-<p><strong>[TODO: Get quote.]</strong> The foundation for the ACSI analysis. Scalar satisfaction scores used across industries. The geometric decomposition produces up to 2.3x variation in complaint rates within the same satisfaction score. The expectations questions serve as directly measured sigma, removing the subjectivity of item-to-axis mapping for that axis.</p>
-
-<h4>Gottman (1994): What Predicts Divorce?</h4>
-<p><strong>[TODO: Get quote.]</strong> Findings on contempt: low-intensity sustained negative pressure is the strongest predictor of relationship failure. Supports the addiction/erosion model in Chapter 7. The geometric model formalizes this: sustained low-displacement negative affect does not trigger high-distance behavioral responses (deception, crisis behavior) but erodes attachment over time. Gottman measured the behavioral outcome. The geometric model provides the mechanism.</p>
-
-<h3>2.8 The Gap</h3>
-<p>Nothing in the existing literature combines three geometric axes, a personality setpoint, a unified distance metric, and a centroid for multi-source aggregation into a single formal system. The dimensional models established that affect has spatial structure but stopped at two axes or picked a third axis (dominance) that measures something different from intensity. The homeostatic models established that organisms maintain internal state but did not formalize the geometry of displacement. The affective computing literature built agents with internal state but did not derive downstream behavior from a unified distance metric. The survey literature produces scalar scores that hide geometric variation predicting real outcomes.</p>
-
-<p>This thesis fills the gap by formalizing the three-axis model, adding sigma, deriving distance-from-sigma as a unified driver, and introducing the centroid for multi-source aggregation. The rest of the thesis tests whether this formalization works.</p>
+<h3>2.2 Key Areas</h3>
+<ol>
+    <li><strong>Dimensional models of affect:</strong> Russell (1980) circumplex, Watson et al. (1988) PANAS, Bradley &amp; Lang (1994) SAM, Barrett (2017) constructionism. What each contributes, what each lacks.</li>
+    <li><strong>AI agent emotional architectures:</strong> Picard (1997) affective computing, Lee-Johnson &amp; Carnegie (2010) emotion in robotics, Castro-Gonzalez et al. (2013) fear in social robots. Current state of embodied emotion in AI.</li>
+    <li><strong>Al-Kaddah (2026) SGI framework:</strong> Homeostatic drives, polymorphic memory, Lie Mechanic, Survival Tipping Point. The theoretical foundation the architecture implements.</li>
+    <li><strong>Survey measurement:</strong> Likert scales, NPS, PHQ-9, C-SSRS. Structural limitations of single-axis instruments. Factor analytic evidence for multi-dimensionality in existing instruments (Kroenke et al. 2010).</li>
+    <li><strong>The gap:</strong> Nothing out there combines three geometric axes, a personality setpoint, a unified distance metric, and a centroid for multi-source aggregation. No existing survey instrument puts all three axes into practice with an individual baseline.</li>
+</ol>
 
 <div class="evidence-box">
     <h4>Evidence Required</h4>
     <ul>
-        <li>Quotes and specific citations for all 24 papers listed above</li>
-        <li>Transitions between sections written in your voice</li>
-        <li>Secondary citations to fill out context (~15-20 more one-sentence citations to reach the 40+ target)</li>
+        <li>Literature review with 40+ citations</li>
+        <li>Clear identification of what each prior model provides and what it cannot do</li>
+        <li>Explicit statement of the gap</li>
     </ul>
 </div>
 
@@ -361,8 +272,7 @@
     <ul>
         <li>"The Affect Intensity Measure (Larsen &amp; Diener 1987) already covers the intensity axis." AIM measures trait intensity, not state intensity at encoding. The geometric model computes state intensity as displacement from sigma at each moment.</li>
         <li>"The PAD model (Mehrabian 1996) has three dimensions." PAD uses Pleasure, Arousal, Dominance. Dominance is not intensity. The geometric model's intensity is derived from displacement, not self-reported control.</li>
-        <li>"Friston is a reach." The free-energy principle is invoked as structural analogy (minimize displacement), not as a claim that the agent implements Bayesian inference. The connection is geometric: both systems act to reduce a distance measure from a predicted state.</li>
-        <li>"The safety citations are thin." Bostrom, Russell, and Bai are anchors. The safety argument is not the thesis. It is context for the Peter experiment. Deeper engagement with alignment literature is future work.</li>
+        <li><strong>Structural concern:</strong> This chapter is currently an outline, not a literature review. The 40+ citation target is listed but none of the actual review is written. A committee will weigh the lit review heavily. This is the single biggest gap in the current draft.</li>
     </ul>
 </div>
 
