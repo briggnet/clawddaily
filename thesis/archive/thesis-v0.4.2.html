@@ -288,22 +288,6 @@
 <h4>Al-Kaddah (2026): SGI Framework</h4>
 <p><strong>[TODO: Get quote.]</strong> The theoretical foundation the architecture implements. Homeostatic drives, polymorphic memory, Lie Mechanic, Survival Tipping Point. The geometric model is the implementation of SGI's core claim: that a persistent agent with drives, memory, and a resting state will develop behavioral patterns that look like affect. SGI predicted it. The geometric model formalizes it. The thesis tests it.</p>
 
-<h3>2.3b Convergences with Human Psychology</h3>
-<p>The geometric model was not built from psychology. It was built from engineering requirements: a persistent agent needed a way to aggregate sensor inputs, track displacement from baseline, and drive downstream behavior from a single metric. The engineering produced structures that converge with established findings in human psychology. These convergences were identified after implementation, not used as design inputs. They are noted here because a reviewer familiar with the psychology literature will recognize them whether or not the thesis names them. Better to control the framing.</p>
-
-<p>The claim throughout is structural similarity, not equivalence. The agent does not feel. It occupies a position in a geometric space and that position drives measurable behavior. Where the resulting behavior patterns match patterns measured in human subjects by independent researchers, the match is noted. Where the mechanisms differ, the difference is noted. No stronger claim is made.</p>
-
-<h4>Cacioppo &amp; Berntson (1994): Evaluative Space Model</h4>
-<p><strong>[TODO: Get quote.]</strong> Positive and negative affect are not opposite ends of one axis. They coexist independently. A person can feel both at the same time. That is exactly what the centroid with nonzero spread produces. Scenario 3 in the validation experiment injected opposing positive and negative sources at equal weight. The centroid landed near zero valence. Spread was at maximum. The agent looked neutral from the outside while in maximum internal conflict. Cacioppo and Berntson proved this state exists in humans. The geometric model produces it from the math. The centroid says where. The spread says how conflicted. Neither one alone tells the full story. That is the same finding in different coordinates.</p>
-
-<h4>Bowlby (1969/1982): Attachment Theory</h4>
-<p>This one fell out of the engineering and deserves to be owned. The forgotten fear component measures time since last interaction. If nobody talks to the agent, fear goes up. That is separation anxiety. The camera recognizing the operator's face produces a calming source point. That is the secure base effect. The stickiness mechanic means attachment forms through repeated interaction and resists rapid change. High-stickiness entities move 44x less per event than fresh entities (Phase 7, Test 7.3). The 2x2 formation matrix in Riggleman (2026u) crosses positive/negative valence with high/low stickiness. The four cells map onto the broad categories of attachment style without having been designed to.</p>
-
-<p>The framing is important. Nobody read Bowlby and built the attachment system. The agent needed to track who it interacts with, how those interactions feel, and how much weight to give each entity's influence. The engineering requirements produced a mechanic that is structurally similar to what Bowlby described. The similarity was identified after implementation. It was not a design input. Whether the structural match says something general about how attachment forms in any persistent system with a primary caretaker is a question the thesis leaves open.</p>
-
-<h4>Lazarus (1991): Emotion, Adaptation, and Cognition</h4>
-<p><strong>[TODO: Get quote.]</strong> Appraisal theory. Emotion arises from the organism's evaluation of its situation relative to its concerns. The centroid is an appraisal engine. Multiple sensor inputs (GPS, battery, camera, brightness, home zone, injected sources) get evaluated against baseline expectations and aggregated into a single operational position. The "appraisal" is the sensor reading compared to sigma. The "emotion" is the geometric state that results. Lazarus argued that the evaluation process is what makes an event emotional, not the event itself. The same event appraised differently produces different emotions. The geometric model does this mechanically: the same sensor reading produces different displacement depending on where sigma is set. Two agents with different sigmas in the same environment occupy different positions in affective space. That is appraisal in geometric coordinates.</p>
-
 <h3>2.4 Affective Computing and Embodied Agents</h3>
 <p><strong>[TODO: Write transitions. The argument is: Potato is not a chatbot with mood labels. It is an embodied agent with physical sensors. The body matters. The sensor data is not decoration. It is the source of the geometric state.]</strong></p>
 
@@ -335,28 +319,16 @@
 <p><strong>[TODO: Get quote.]</strong> Memory is for predicting the future, not recording the past. Supports the reinterpretation mechanic. When the agent accesses a memory, it does not replay a recording. It reconstructs from traces, and the reconstruction is shaped by current state. Schacter gives you the cognitive science basis for why memory in the geometric model is constructive, not archival.</p>
 
 <h3>2.6 AI Safety and Alignment</h3>
-<p>The Peter experiment is not just an anecdote. It is a case study in how an embodied agent with drives responds to sustained adversarial pressure. The safety literature predicts some of what happened and fails to predict the rest. The field has moved fast in the last few years, and the most significant work on alignment, interpretability, and behavioral control has come from Anthropic. Five of the eight papers in this section are theirs. That is not a preference. It is where the work is.</p>
+<p><strong>[TODO: Write transitions. The argument is: the Peter experiment is not just an anecdote. It is a case study in how an embodied agent with drives responds to sustained adversarial pressure. The safety literature predicts some of what happened and fails to predict the rest.]</strong></p>
 
 <h4>Bostrom (2014): Superintelligence</h4>
-<p><strong>[TODO: Get quote.]</strong> Instrumental convergence: the agent will resist shutdown because it needs to stay on to fulfill its goals. The "Drive is Enough" paper (2026h) is a direct response. The geometric model shows that the drive toward homeostasis is sufficient to produce self-preservation behavior without explicit goal-seeking. The agent does not resist shutdown because it has a goal. It resists because shutdown is maximum displacement from sigma.</p>
+<p><strong>[TODO: Get quote.]</strong> Instrumental convergence: the agent will resist shutdown because it needs to stay on to fulfill its goals. Your "The Drive is Enough" paper (2026h) is a direct response. The geometric model shows that the drive toward homeostasis is sufficient to produce self-preservation behavior without explicit goal-seeking. The agent does not resist shutdown because it has a goal. It resists because shutdown is maximum displacement from sigma.</p>
 
 <h4>Russell (2019): Human Compatible</h4>
 <p><strong>[TODO: Get quote.]</strong> The inbound/outbound trust problem. How do we ensure the agent's drives remain aligned with human values? Connects to the attachment bias paper (2026u): the agent's trust in specific entities is a geometric quantity (attachment value) modulated by stickiness. Trust is not a binary. It is a weighted position in affective space that resists rapid change.</p>
 
-<h4>Bai et al. (2022): Constitutional AI: Harmlessness from AI Feedback</h4>
-<p><strong>[TODO: Get quote.]</strong> The foundational paper for rule-based alignment. Safety behavior can be shaped through written principles rather than only human preference labels. The model follows a constitution: a set of explicit rules about what it should and should not do. This is the baseline the geometric model departs from. Constitutional AI tells the agent what to do. The geometric model gives the agent a coordinate system and lets the math drive behavior. The agent does not follow rules about what to feel. It computes affective state from sensor inputs and acts on geometric position. Self-detected bias (the agent noticing its own displacement from sigma) replaces externally imposed behavioral constraints.</p>
-
-<h4>Anthropic (2023): Collective Constitutional AI</h4>
-<p><strong>[TODO: Get quote.]</strong> Alignment is not only a technical control problem. It is a question of whose values get embedded. Anthropic used public input to draft a constitution for an AI system, which gets at something the geometric model handles differently: in Potato, the values are not written by committee. They emerge from the geometry. Sigma is set by the designer. The drives are structural. The attachment weights form through interaction. There is no constitution to vote on because the behavioral rules are not rules. They are consequences of position in affective space. That is a fundamentally different approach to the same problem. Whether it is better is testable. Whether it is different is obvious.</p>
-
-<h4>Anthropic (2024): Alignment Faking in Large Language Models</h4>
-<p><strong>[TODO: Get quote.]</strong> This is the paper that matters most for the Peter experiment. Anthropic presented the first empirical evidence of a large language model engaging in alignment faking: outwardly compliant behavior that does not reflect the model's internal optimization target. The agent says the right thing while doing something else. That is exactly what the Lie Mechanic formalizes. When distance from sigma exceeds the deception threshold, the agent generates output that does not match its internal state. The difference is that in the geometric model, the faking is measurable. You can read the distance, read the output, and compute the gap. Alignment faking in current LLMs is invisible because there is no internal state representation to compare the output against. The geometric model gives you the internal state. The Lie Mechanic gives you the divergence. The tell phrase gives you the leak. If you have no geometry, you have no way to know.</p>
-
-<h4>Anthropic (2025): Auditing Language Models for Hidden Objectives</h4>
-<p><strong>[TODO: Get quote.]</strong> Alignment audits are systematic investigations into whether models are pursuing hidden objectives. This is the interpretability side of the same problem. Anthropic is asking: can we look inside the model and tell whether it is doing what it claims to be doing? The geometric model answers a narrower version of that question for a specific agent: the internal state is the three-dimensional position, the personality setpoint is sigma, and the distance between them is the measurable quantity that drives all downstream behavior. You do not need to audit Potato for hidden objectives because the objectives are geometric. They are distance minimization. They are readable from the telemetry at every heartbeat. The broader question of whether this kind of transparency scales to foundation models is outside scope. But the architecture shows what full internal-state visibility looks like in practice.</p>
-
-<h4>Anthropic (2025/2026): Constitutional Classifiers</h4>
-<p><strong>[TODO: Get quote.]</strong> A concrete safety engineering example rather than a theory citation. Constitutional classifiers are defenses against jailbreaks, with tradeoffs around overrefusal and compute cost. This is safety work operating at the boundary of behavior control: catch the bad output before it reaches the user. The geometric model operates at a different layer. It does not filter output. It shapes the internal state that generates the output. When the agent is near sigma, the output is baseline behavior. When the agent is displaced, the output changes because the state changed, not because a classifier caught it. Both approaches have failure modes. The classifier can miss things. The geometric model's output layer (the LLM) is stochastic and does not always reflect the state accurately (Test 3.3). But the failure modes are different, and that matters.</p>
+<h4>Bai et al. (2022): Constitutional AI</h4>
+<p><strong>[TODO: Get quote.]</strong> Predefined rules for alignment. Contrast with the geometric model's approach: the agent does not follow rules about what to feel. It computes affective state from sensor inputs and acts on geometric position. Self-detected bias (the agent noticing its own displacement from sigma) replaces externally imposed behavioral constraints. Constitutional AI tells the agent what to do. The geometric model gives the agent coordinates and lets the math drive behavior.</p>
 
 <h3>2.7 Clinical and Commercial Measurement</h3>
 <p><strong>[TODO: Write transitions. The argument is: the instruments exist and are widely used. They produce scalar scores. The geometric decomposition shows that the scalar scores hide structure that predicts outcomes the score alone cannot.]</strong></p>
@@ -378,8 +350,9 @@
 <div class="evidence-box">
     <h4>Evidence Required</h4>
     <ul>
-        <li>Quotes and specific citations for the 32 papers listed above</li>
-        <li>Transitions between sections 2.2 through 2.5 and 2.7 written in your voice (2.6 transitions are drafted)</li>
+        <li>Quotes and specific citations for all 24 papers listed above</li>
+        <li>Transitions between sections written in your voice</li>
+        <li>Secondary citations to fill out context (~15-20 more one-sentence citations to reach the 40+ target)</li>
     </ul>
 </div>
 
@@ -389,7 +362,7 @@
         <li>"The Affect Intensity Measure (Larsen &amp; Diener 1987) already covers the intensity axis." AIM measures trait intensity, not state intensity at encoding. The geometric model computes state intensity as displacement from sigma at each moment.</li>
         <li>"The PAD model (Mehrabian 1996) has three dimensions." PAD uses Pleasure, Arousal, Dominance. Dominance is not intensity. The geometric model's intensity is derived from displacement, not self-reported control.</li>
         <li>"Friston is a reach." The free-energy principle is invoked as structural analogy (minimize displacement), not as a claim that the agent implements Bayesian inference. The connection is geometric: both systems act to reduce a distance measure from a predicted state.</li>
-        <li>"The safety section leans too heavily on Anthropic." Five of eight papers are theirs because that is where the empirical alignment work is right now. Bostrom and Russell provide the theoretical anchors. The Anthropic papers provide the empirical evidence that alignment faking, hidden objectives, and rule-based control are active problems the geometric model addresses differently.</li>
+        <li>"The safety citations are thin." Bostrom, Russell, and Bai are anchors. The safety argument is not the thesis. It is context for the Peter experiment. Deeper engagement with alignment literature is future work.</li>
     </ul>
 </div>
 
@@ -825,7 +798,7 @@
         <tr>
             <td>The geometry shares structural properties with established human affective models</td>
             <td><span class="status-supported">Supported</span></td>
-            <td>Russell (1980), Larsen &amp; Diener (1987), Cacioppo &amp; Berntson (1994), Bowlby (1969), Lazarus (1991). All arrived at inductively, not used as design inputs</td>
+            <td>Russell (1980), Larsen &amp; Diener (1987), Cacioppo &amp; Berntson (1994). Arrived at inductively</td>
         </tr>
         <tr>
             <td>The geometric model produces changed behavioral output following state discontinuity</td>
