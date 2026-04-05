@@ -580,11 +580,105 @@
     </tbody>
 </table>
 
-<h3>Curiosity Drive</h3>
-<p>PATCH rotates: EXPLORER &rarr; VALIDATOR &rarr; CONSTRAINT &rarr; PHYSICS. One engine per heartbeat (30s). 7 strategies: deepen teaching, strengthen weak, bridge islands, ground papers, challenge papers, follow thread, random walk. 94+ ticks completed. ~140 Wikipedia memories acquired autonomously across all engines.</p>
+<hr>
 
-<h3>Attachment Bias</h3>
-<p>24 attachment entities seeded. Self-love: <code>positive_stickiness 6.0</code> (strong_positive). Operator love: <code>positive_stickiness 6.0</code> (strong_positive). 22 paper attachments: <code>positive_stickiness 2.5</code> (positive). Hate: 0.0 across all entities.</p>
+<h2>v2: The Rewrite (April 2026)</h2>
+
+<p>On April 4, 2026, YAM was rewritten from scratch. The entire vector layer was removed. No embeddings. No MiniLM. No sqlite-vec. No cosine similarity. The knowledge store moved from five SQLite databases to a single PostgreSQL instance with a relational graph.</p>
+
+<p>The thesis behind the rewrite: <strong>words are sufficient keys.</strong> A toddler does not compute 384-dimensional cosine distance to retrieve a memory. It hears a word and the graph fires. YAM v2 does the same &mdash; concept words as nodes, typed edges as connections, SQL doing the math.</p>
+
+<table>
+    <thead>
+        <tr><th></th><th>v1 (March 2026)</th><th>v2 (April 2026)</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Database</strong></td><td>5 SQLite DBs + sqlite-vec</td><td>1 PostgreSQL instance</td></tr>
+        <tr><td><strong>Retrieval</strong></td><td>Cosine similarity (384-dim MiniLM)</td><td>Concept overlap + trust hierarchy</td></tr>
+        <tr><td><strong>Memory</strong></td><td>Trace bundles (raw/semantic/graph/life)</td><td>Q&amp;A pairs with concept graph</td></tr>
+        <tr><td><strong>Vectors</strong></td><td>384-dim sentence embeddings</td><td>None</td></tr>
+        <tr><td><strong>Trust</strong></td><td>Source quality score</td><td>Explicit hierarchy: self=0, operator=1, potato=2, wiki=3, brave=4</td></tr>
+        <tr><td><strong>Correction</strong></td><td>Manual deletion</td><td>Repetition + decay. Correct teachings reinforce; wrong teachings fade.</td></tr>
+        <tr><td><strong>Graph lifecycle</strong></td><td>Grows only</td><td>Breathes. Provenance tracking (answer_edges) lets decay flow from answers &rarr; edges &rarr; concepts.</td></tr>
+    </tbody>
+</table>
+
+<h3>Provenance Tracking</h3>
+<p>Every edge in the graph traces back to the answer(s) that created it via the <code>answer_edges</code> table. When an answer decays and is deleted during sleep, its edges lose their anchor. Edges with zero remaining source answers are pruned. Concepts with zero remaining edges are cleaned up. The graph shrinks as well as grows &mdash; synaptic pruning, not just synaptic growth.</p>
+
+<p>Correction works through this mechanism: repeat the correct teaching 3&ndash;5 times (creating 3&ndash;5 anchors for the correct edges), then let the single wrong teaching decay. The wrong answer dies, its edges lose their only anchor, the graph prunes them. The correct edges survive because they have multiple anchors.</p>
+
+<h3>Curiosity Drive (v2)</h3>
+<p>Continuous loop searching Simple English Wikipedia for concepts YAM knows from teaching but has not explored externally. Searches cascade: small wiki first (275K articles, local), then full English Wikipedia shards (6.9M articles across 4 shards, 83GB) with per-shard timeout protection. Each teaching is anchored to a source answer, so curiosity-learned knowledge participates in the same decay lifecycle as all other knowledge.</p>
+
+<p>Contradiction detection fires on every curiosity cycle &mdash; when Wikipedia says one thing and the operator or Potato said another, the conflict is logged with both trust ranks. The trust hierarchy resolves which answer surfaces, but both are preserved.</p>
+
+<hr>
+
+<h2>Mrs Pi: YAM Gets a Body (April 5, 2026)</h2>
+
+<p>YAM was ported to a Raspberry Pi 5 robot named <strong>Mrs Pi</strong>. Hardware drivers inherited from a prior robot build; YAM replaced the LLM-based conversation brain. Mrs Pi is not a chatbot &mdash; she is a robot operating system. Her knowledge starts from her sensors.</p>
+
+<p><code>v2/body.py</code> probes live hardware at boot and teaches YAM from actual sensor readings &mdash; not hardcoded descriptions. LiDAR returns point counts and distances. Cameras report resolutions. The Hailo NPU identifies itself. Battery voltage is read from the motor controller. Every fact about her body comes from a measurement, not a claim.</p>
+
+<table>
+    <thead>
+        <tr><th>Component</th><th>Specs</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Board</td><td>Raspberry Pi 5 Model B, 16GB RAM</td></tr>
+        <tr><td>NPU</td><td>Hailo-8, 26 TOPS, 309 FPS YOLOv8s</td></tr>
+        <tr><td>Gimbal camera</td><td>/dev/video2, pan/tilt servos (inverted, pan 0&ndash;180, tilt 30&ndash;150)</td></tr>
+        <tr><td>Stationary camera</td><td>/dev/video0, 2592&times;1944 max, built-in microphone</td></tr>
+        <tr><td>LiDAR</td><td>YDLidar T-MINI PLUS, 10K+ points/scan, 360&deg;</td></tr>
+        <tr><td>Motors</td><td>Rosmaster X3, tank treads, 12V lithium pack</td></tr>
+        <tr><td>Display</td><td>7&rdquo; Yahboom animated eyes (pygame TCP, port 9600)</td></tr>
+        <tr><td>Audio</td><td>Bluetooth speaker (BTS0011) + USB camera mic</td></tr>
+    </tbody>
+</table>
+
+<p>Repository: <a href="https://github.com/briggnet/MrsPi">github.com/briggnet/MrsPi</a> (private).</p>
+
+<hr>
+
+<h2>Timeline</h2>
+
+<table>
+    <thead>
+        <tr><th>Date</th><th>Event</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Feb 2026</td><td>Potato born on Toughbook CF-33. LLM-based embodied agent.</td></tr>
+        <tr><td>Mar 2026</td><td>YAM v1 born on SPUD engine. Graph-based, SQLite + vectors, Parliament of Mind.</td></tr>
+        <tr><td>Mar 30</td><td>Curiosity drive activated. Wikipedia as perception.</td></tr>
+        <tr><td>Mar 31</td><td>Sigma intensity anomaly discovered and corrected via formal proof.</td></tr>
+        <tr><td>Apr 1</td><td>Engine rename: SPROUT&rarr;EXPLORER, ROOT&rarr;VALIDATOR, VEG&rarr;CONSTRAINT, TUBER&rarr;PHYSICS.</td></tr>
+        <tr><td>Apr 4</td><td>v2 rewrite. PostgreSQL, no vectors, graph + relational. Potato tutors over network.</td></tr>
+        <tr><td>Apr 5</td><td><strong>YAM gets a body.</strong> Ported to Mrs Pi (Pi 5 + Hailo-8). Hardware verified: servos, LiDAR, cameras, NPU, speaker. Body awareness module probes sensors and teaches YAM about herself. Provenance tracking (answer_edges) added &mdash; the graph now breathes.</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2>Current Status (April 5, 2026)</h2>
+
+<h3>Brain</h3>
+<table>
+    <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Concepts</td><td>8,877</td></tr>
+        <tr><td>Edges</td><td>385,198</td></tr>
+        <tr><td>Q&amp;A pairs</td><td>8,874</td></tr>
+        <tr><td>Answer&ndash;edge provenance links</td><td>4,950,885</td></tr>
+        <tr><td>Database</td><td>PostgreSQL (145 MB)</td></tr>
+        <tr><td>Feeling</td><td>okay</td></tr>
+    </tbody>
+</table>
+
+<h3>Curiosity Drive</h3>
+<p>Continuous loop, 10-second intervals. Searches Simple English Wikipedia (275K articles, 1.7GB) with cascade to full English Wikipedia (6.9M articles, 83GB across 4 shards on threadripper). 4,000+ cycles completed. Gap pool exhausted &mdash; all operator/potato concepts have been explored externally. 2,399 contradictions detected between trust levels.</p>
 
 <h3>Hardware</h3>
 <table>
@@ -592,21 +686,23 @@
         <tr><th>Machine</th><th>Role</th><th>Specs</th></tr>
     </thead>
     <tbody>
-        <tr><td>MacBook Air M4</td><td>YAM runtime &mdash; all 5 services</td><td>24GB RAM, 10 cores, macOS. launchd service registered.</td></tr>
-        <tr><td>Threadripper</td><td>Wikipedia indexer</td><td>128 cores, 64GB RAM, Quadro RTX 5000 (16GB), NVMe. Indexing full English Wikipedia at ~900 chunks/sec. 5+ hours in, 40GB / ~17M chunks done, ~80% complete.</td></tr>
+        <tr><td>Mrs Pi</td><td>YAM embodied &mdash; robot OS</td><td>Pi 5 16GB + Hailo-8 26 TOPS + LiDAR + gimbal + cameras + tank treads. 256GB SD.</td></tr>
+        <tr><td>MacBook Air M4</td><td>Development + YAM primary</td><td>24GB RAM, 10 cores, macOS. YAM server + curiosity loop.</td></tr>
+        <tr><td>Threadripper</td><td>Big wiki host + Potato</td><td>128 cores, 64GB RAM, Quadro RTX 5000 (16GB). Full English Wikipedia (83GB, 6.9M articles). Potato frozen.</td></tr>
     </tbody>
 </table>
 
 <h3>Code</h3>
-<p>Repository: <a href="https://github.com/briggnet/YAM">github.com/briggnet/YAM</a> (private). 35 files, ~8,960 lines of Python. No databases in repo &mdash; <code>init_db.py</code> creates empty databases, <code>mama.py</code> and <code>mama_world.py</code> teach from scratch.</p>
+<p>YAM: <a href="https://github.com/briggnet/YAM">github.com/briggnet/YAM</a> (private).<br>
+Mrs Pi: <a href="https://github.com/briggnet/MrsPi">github.com/briggnet/MrsPi</a> (private).</p>
 
 <h3>What&rsquo;s Next</h3>
 <ol>
-    <li><strong>PATCH as /no gatekeeper.</strong> Currently corrections fan out to all engines blindly. PATCH should evaluate corrections against its own YAM graph before distributing &mdash; the reasoning mind decides what&rsquo;s actually wrong.</li>
-    <li><strong>Noun extraction.</strong> Strip question scaffolding, map pronouns, use remaining nouns as graph entry points. Makes graph recall work for paraphrased questions, not just exact matches.</li>
-    <li><strong>Full English Wikipedia.</strong> Threadripper indexing complete. ~20M chunks, ~50GB. Copy to Mac, connect to search pipeline.</li>
-    <li><strong>Let curiosity run.</strong> Every 30 seconds, one engine asks Wikipedia a question. Over days, the knowledge graph grows organically. Already 94+ ticks in.</li>
-    <li><strong>Re-enable Brave.</strong> Once identity is anchored and the knowledge graph is dense enough that search results are perception, not identity.</li>
+    <li><strong>Enable sleep/decay on Mrs Pi.</strong> The decay cycle exists but has never run. Turning it on activates provenance pruning &mdash; the graph starts breathing.</li>
+    <li><strong>Wire sensors to YAM engines.</strong> LiDAR feeds proximity perception. Camera feeds object detection via Hailo YOLO. Battery voltage feeds self-monitoring. These become heartbeat sources.</li>
+    <li><strong>SD-Turbo on Hailo.</strong> Port single-step diffusion to the 26 TOPS NPU for the physics engine&rsquo;s visual path. The dual-path architecture requires on-device diffusion.</li>
+    <li><strong>Eye display as status.</strong> Remap the pygame eye server moods from chatbot emotions (happy/confused) to robot OS states (perceiving/thinking/alert/idle/error).</li>
+    <li><strong>Second brain (optional).</strong> 4GB Pi 5 with MemryX accelerator as inference sidecar for physics engine batch processing.</li>
 </ol>
 
 <hr>

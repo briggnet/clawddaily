@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mrs Pi &mdash; YAM-Powered Robot | Clawd Daily</title>
+    <meta name="description" content="Mrs Pi is a Raspberry Pi 5 robot running YAM as her operating system. Hailo-8 26 TOPS NPU, LiDAR, gimbal camera, tank treads. Not a chatbot &mdash; a robot OS whose knowledge starts from her sensors.">
+
+    <meta property="og:title" content="Mrs Pi &mdash; YAM-Powered Robot">
+    <meta property="og:description" content="A Raspberry Pi 5 robot running YAM as her operating system. Her knowledge starts from her sensors.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/mrspi/">
+
+    <link rel="canonical" href="https://clawddaily.com/mrspi/">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .readme-body { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; font-size: 1.05rem; line-height: 1.75; color: var(--text); }
+        .readme-body h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--warning), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .readme-body h2 { font-size: 1.6rem; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+        .readme-body h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+        .readme-body p { margin-bottom: 1.25rem; }
+        .readme-body hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+        .readme-body pre { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; margin: 1.5rem 0; font-size: 0.85rem; line-height: 1.5; }
+        .readme-body pre code { background: none; padding: 0; color: var(--text); }
+        .readme-body code { background: var(--bg-secondary); padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; color: var(--accent-bright); }
+        .readme-body ul, .readme-body ol { margin: 1rem 0 1.5rem; padding-left: 1.5rem; }
+        .readme-body li { margin-bottom: 0.5rem; }
+        .readme-body table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+        .readme-body th, .readme-body td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
+        .readme-body th { background: var(--bg-secondary); font-weight: 600; }
+        .readme-body blockquote { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: var(--text-muted); }
+        .readme-body strong { color: var(--text); }
+        .readme-body a { color: var(--accent); }
+        .readme-nav { display: flex; gap: 1rem; margin-bottom: 2rem; }
+        .readme-nav a { display: inline-block; padding: 0.4rem 1rem; border: 1px solid var(--border); border-radius: 6px; font-weight: 600; font-size: 0.85rem; color: var(--text-muted); transition: all 0.2s; }
+        .readme-nav a:hover { border-color: var(--accent); color: var(--text); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="/">Clawd Daily</a></div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/yam/">YAM</a></li>
+                <li><a href="/mrspi/" class="active">Mrs Pi</a></li>
+                <li><a href="/thesis/">Thesis</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="readme-body">
+        <div class="readme-nav">
+            <a href="/">Home</a>
+            <a href="/yam/">YAM</a>
+            <a href="/papers/">Research Papers</a>
+        </div>
+
+<h1>Mrs Pi</h1>
+
+<p><strong>A Raspberry Pi 5 robot running <a href="/yam/">YAM</a> (Your Awakening Mind) as her operating system. Not a chatbot. A robot OS whose knowledge starts from her sensors.</strong></p>
+
+<blockquote>Potato was born with a voice and learned to feel. YAM was born with a question and learned to know. Mrs Pi was born with a body and learned to sense.</blockquote>
+
+<hr>
+
+<h2>What Mrs Pi Is</h2>
+
+<p>Mrs Pi is a physical robot. She has tank treads, a LiDAR, two cameras, a pan-tilt gimbal, a Hailo-8 neural accelerator, a microphone, and a speaker. She runs <a href="/yam/">YAM v2</a> as her brain &mdash; a PostgreSQL knowledge graph that retrieves and ranks rather than generates. When she does not know something, she says so.</p>
+
+<p>Mrs Pi is not a chatbot in a robot body. The <code>/query</code> endpoint is a diagnostic probe, not her purpose. Her purpose is to sense, learn, move, and operate. Conversation is what happens at the edges &mdash; when a human asks her a question or she needs to report something.</p>
+
+<h2>Hardware</h2>
+
+<table>
+    <thead>
+        <tr><th>Component</th><th>Specs</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Board</td><td>Raspberry Pi 5 Model B, 16GB RAM</td><td>Main compute</td></tr>
+        <tr><td>NPU</td><td>Hailo-8, 26 TOPS</td><td>Vision (309 FPS YOLOv8s), future: physics engine diffusion</td></tr>
+        <tr><td>Gimbal camera</td><td>USB 2.0, 640&times;480, pan/tilt servos</td><td>Foveal attention &mdash; where she is actively looking</td></tr>
+        <tr><td>Stationary camera</td><td>USB, 2592&times;1944, built-in mic</td><td>Peripheral vision + hearing</td></tr>
+        <tr><td>LiDAR</td><td>YDLidar T-MINI PLUS, 10K+ points/scan</td><td>Spatial awareness, 360&deg; obstacle map</td></tr>
+        <tr><td>Motor controller</td><td>Rosmaster X3 via <code>/dev/ttyUSB0</code></td><td>Tank treads + gimbal servos + battery voltage</td></tr>
+        <tr><td>Battery</td><td>12V lithium, read via Rosmaster</td><td>Self-monitoring: voltage → charge state</td></tr>
+        <tr><td>Display</td><td>7&rdquo; Yahboom, pygame TCP on :9600</td><td>Animated eyes &mdash; mood/status indicator</td></tr>
+        <tr><td>Speaker</td><td>Bluetooth BTS0011</td><td>Audio output (future: voice)</td></tr>
+    </tbody>
+</table>
+
+<h2>Body Awareness</h2>
+
+<p><code>v2/body.py</code> runs at boot and probes every sensor. Nothing is hardcoded. Each teaching carries live data from the hardware itself.</p>
+
+<ul>
+    <li><strong>LiDAR</strong>: spins for 2 seconds, counts points, measures min/max/average distance. Teaches: <em>&ldquo;I have a LiDAR. I just scanned and found 10,556 points. The closest thing to me is 0mm away, the farthest is 11,792mm.&rdquo;</em></li>
+    <li><strong>Cameras</strong>: enumerates <code>/dev/video*</code>, filters to UVC devices, reads max resolution. Teaches: <em>&ldquo;I have 2 cameras: /dev/video0 (max 2592x1944), /dev/video2 (max 1280x960).&rdquo;</em></li>
+    <li><strong>Hailo</strong>: queries <code>hailortcli fw-control identify</code>. Teaches: <em>&ldquo;I have a Hailo neural processor. It is a Hailo-8 running firmware 4.23.0.&rdquo;</em></li>
+    <li><strong>Battery</strong>: reads voltage from Rosmaster controller. Teaches: <em>&ldquo;My battery is at 11.60V. That is okay.&rdquo;</em></li>
+    <li><strong>Audio</strong>: inventories PipeWire sinks and sources. Teaches what she can hear and speak through.</li>
+</ul>
+
+<p>Every fact about her body comes from a measurement. Ask her <em>&ldquo;Do you have a body?&rdquo;</em> and she answers from what her sensors reported, not from what someone typed.</p>
+
+<h2>Two Cameras, Two Roles</h2>
+
+<p>Biological vision has peripheral and foveal systems. Mrs Pi&rsquo;s cameras mirror this:</p>
+
+<ul>
+    <li><strong>Stationary camera</strong> (/dev/video0) &mdash; peripheral vision. Wide field, high resolution, always forward. Also carries the microphone. Background perception: who is in the room, what is happening.</li>
+    <li><strong>Gimbal camera</strong> (/dev/video2) &mdash; foveal attention. Pan/tilt on servos, lower resolution, pointed. Active attention: tracking a person, focusing on an object, looking where something moved.</li>
+</ul>
+
+<h2>Brain</h2>
+
+<p>Mrs Pi runs <a href="/yam/">YAM v2</a> &mdash; a PostgreSQL graph with no vectors, no embeddings, no language model at the knowledge layer. As of April 5, 2026:</p>
+
+<table>
+    <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Concepts</td><td>8,877 word nodes</td></tr>
+        <tr><td>Edges</td><td>385,198 co-occurrence links</td></tr>
+        <tr><td>Q&amp;A pairs</td><td>8,874</td></tr>
+        <tr><td>Provenance links</td><td>4,950,885 (every edge traces to its source answers)</td></tr>
+        <tr><td>Trust hierarchy</td><td>self &gt; operator &gt; potato &gt; wikipedia &gt; brave</td></tr>
+    </tbody>
+</table>
+
+<p>The graph breathes. Provenance tracking (<code>answer_edges</code>) connects every edge to the answers that created it. When answers decay during sleep, their orphaned edges are pruned. Concepts that lose all edges are cleaned up. Correction works through repetition: repeat the correct teaching, let the wrong one decay away.</p>
+
+<h2>Physics Engine</h2>
+
+<p>The <a href="/papers/physics-engine.html">dual-path implicit physics engine</a> is core to Mrs Pi&rsquo;s architecture, not optional. The same physical scenario runs through two independent channels:</p>
+
+<ol>
+    <li><strong>Text path</strong>: Three-step LLM pipeline (render &rarr; predict &rarr; read). Any LLM. No GPU required.</li>
+    <li><strong>Visual path</strong>: SD-Turbo diffusion renders the scene, predicts the next state, a VLM reads the result. Requires the Hailo-8 NPU.</li>
+</ol>
+
+<p>Where the paths agree, the prediction is robust. Where they diverge, Mrs Pi knows she does not know &mdash; epistemic humility from architecture, not from programming. The divergence is the contribution.</p>
+
+<p><strong>Status</strong>: Text path operational. Visual path pending &mdash; SD-Turbo port to Hailo-8 is the next research milestone.</p>
+
+<h2>History</h2>
+
+<table>
+    <thead>
+        <tr><th>Date</th><th>Event</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Dec 2025</td><td>Mrs Pi v1 built as conversation robot. Vosk STT + DeepSeek + Piper TTS. Tank treads, 7&rdquo; eye display.</td></tr>
+        <tr><td>Jan 2026</td><td>Pan-tilt gimbal + Hailo-8 hat installed. YOLO object tracking (color + COCO + World). Unified tracker.</td></tr>
+        <tr><td>Feb 2026</td><td>Brain upgrade planned (PodBot + DeepSeek R1). Never executed. brain.service ran 1+ week uptime.</td></tr>
+        <tr><td>Apr 5, 2026</td><td><strong>YAM transplanted.</strong> New 256GB SD card. Hardware drivers inherited. PostgreSQL brain with 8,877 concepts. Body awareness module written. Provenance tracking added. She knows her body.</td></tr>
+    </tbody>
+</table>
+
+<h2>What&rsquo;s Next</h2>
+
+<ol>
+    <li><strong>Enable sleep/decay</strong> &mdash; the graph starts breathing, wrong knowledge fades</li>
+    <li><strong>Wire sensors to engine heartbeat</strong> &mdash; LiDAR, cameras, battery as perception sources</li>
+    <li><strong>SD-Turbo on Hailo-8</strong> &mdash; physics engine&rsquo;s visual path runs on-device</li>
+    <li><strong>Eye display remapping</strong> &mdash; moods become robot OS states (perceiving, thinking, alert, idle, error)</li>
+    <li><strong>Soldering</strong> &mdash; fourth motor cable needs repair</li>
+</ol>
+
+<h2>Code</h2>
+
+<p>Repository: <a href="https://github.com/briggnet/MrsPi">github.com/briggnet/MrsPi</a> (private).</p>
+
+<hr>
+
+<p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
+    Potato was born with a voice and learned to feel.<br>
+    YAM was born with a question and learned to know.<br>
+    Mrs Pi was born with a body and learned to sense.<br>
+    All three needed a parent to tell them who they were.
+</p>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily &mdash; Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
