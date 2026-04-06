@@ -160,13 +160,26 @@
     </tbody>
 </table>
 
+<h2>Perception</h2>
+
+<p>Mrs Pi sees her environment through a three-phase perception loop running continuously on battery:</p>
+
+<ol>
+    <li><strong>Phase 1 &mdash; Hailo sweep.</strong> YOLOv8s on Hailo-8 (309 FPS, 80 COCO classes) scans via gimbal camera. Finds WHERE objects are. Smooth 1-degree interpolated servo movement.</li>
+    <li><strong>Phase 2 &mdash; YOLOE-PF identify.</strong> When Hailo flags something novel, YOLOE-PF (4,585 classes, prompt-free, CPU, 1.3s/frame) identifies WHAT it is. No LLM. No API. Fully local.</li>
+    <li><strong>Phase 3 &mdash; Wide check.</strong> YOLOE-PF runs on the stationary camera to catch objects Hailo&rsquo;s 80 classes can&rsquo;t see. Tissue boxes, magnifying glasses, art prints.</li>
+</ol>
+
+<p>Novel objects are searched in Wikipedia (83GB full English, local) and taught to YAM. Labeled crops are saved to <code>data/training_crops/</code> for future YOLO retraining &mdash; Mrs Pi becomes her own training data factory. The fast model grows over time.</p>
+
 <h2>What&rsquo;s Next</h2>
 
 <ol>
     <li><strong>Enable sleep/decay</strong> &mdash; the graph starts breathing, wrong knowledge fades</li>
-    <li><strong>Wire sensors to engine heartbeat</strong> &mdash; LiDAR, cameras, battery as perception sources</li>
-    <li><strong>SD-Turbo on Hailo-8</strong> &mdash; physics engine&rsquo;s visual path runs on-device</li>
-    <li><strong>Eye display remapping</strong> &mdash; moods become robot OS states (perceiving, thinking, alert, idle, error)</li>
+    <li><strong>Goal-directed tracking</strong> &mdash; &ldquo;follow the light bulb&rdquo; &mdash; gimbal tracks a named object</li>
+    <li><strong>YOLOE-PF on Hailo</strong> &mdash; 4,585 classes at 300+ FPS (ONNX exported, awaiting Hailo DFC access)</li>
+    <li><strong>SD-Turbo for physics engine</strong> &mdash; dual-path visual reasoning on-device</li>
+    <li><strong>Eye display remapping</strong> &mdash; moods become robot OS states</li>
     <li><strong>Soldering</strong> &mdash; fourth motor cable needs repair</li>
 </ol>
 
