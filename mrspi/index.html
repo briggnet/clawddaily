@@ -157,30 +157,89 @@
         <tr><td>Jan 2026</td><td>Pan-tilt gimbal + Hailo-8 hat installed. YOLO object tracking (color + COCO + World). Unified tracker.</td></tr>
         <tr><td>Feb 2026</td><td>Brain upgrade planned (PodBot + DeepSeek R1). Never executed. brain.service ran 1+ week uptime.</td></tr>
         <tr><td>Apr 5, 2026</td><td><strong>YAM transplanted.</strong> New 256GB SD card. Hardware drivers inherited. PostgreSQL brain with 8,877 concepts. Body awareness module written. Provenance tracking added. She knows her body.</td></tr>
+        <tr><td>Apr 5</td><td><strong>Self-learning perception.</strong> YOLOE-PF (4,585 classes) + Hailo YOLO (309 FPS). Full English Wikipedia (83GB) local. ONNX export. Smooth gimbal. Overnight learning loop.</td></tr>
+        <tr><td>Apr 6</td><td><strong>Parliament of Mind.</strong> Five engines (EXPLORER, VALIDATOR, CONSTRAINT, PHYSICS, SOCIAL) with sparse encoding. Each engine sees memories differently based on domain rules + sigma personality. PATCH computes centroid + spread. Genuine disagreement, not a blob.</td></tr>
+        <tr><td>Apr 6</td><td><strong>Daydream engine.</strong> 2,283 discoveries from combining known concepts. Boredom &rarr; play &rarr; discover. &ldquo;What connects leaf and handles?&rdquo; &rarr; Wikipedia &rarr; new knowledge from old knowledge.</td></tr>
+        <tr><td>Apr 7</td><td><strong>Fear + motion + face.</strong> LiDAR proximity fear (calibrated baseline, approach detection). Camera motion detection triggers curiosity. Battery fear below 10V. Comfort objects (rubber duck) reduce fear. Eyes display maps emotional state. 18,577 concepts &mdash; more than doubled in two days.</td></tr>
     </tbody>
 </table>
 
+<h2>Sensory Loop</h2>
+
+<p>Every cycle, Mrs Pi feels her environment:</p>
+
+<ul>
+    <li><strong>Camera motion detection</strong> &mdash; frame differencing between stationary cam frames. Movement = curiosity triggered. YOLOE-PF fires immediately to identify what moved.</li>
+    <li><strong>LiDAR proximity</strong> &mdash; calibrated against resting environment baseline. Anything closer than normal = fear. Approach speed amplifies fear.</li>
+    <li><strong>Battery monitoring</strong> &mdash; below 10V = existential dread. Checked every 10th cycle.</li>
+    <li><strong>Comfort objects</strong> &mdash; seeing the rubber duck reduces fear by 60%. A security blanket.</li>
+</ul>
+
+<p>Motion = curiosity. Approach = fear. Identification resolves which wins.</p>
+
 <h2>Perception</h2>
 
-<p>Mrs Pi sees her environment through a three-phase perception loop running continuously on battery:</p>
+<p>Stationary camera watches with YOLOE-PF (4,585 classes, prompt-free, CPU, 1.3s/frame). Gimbal stays still until LiDAR detects a threat, then snaps to bearing. Like a cat watching a room &mdash; still until something twitches.</p>
 
-<ol>
-    <li><strong>Phase 1 &mdash; Hailo sweep.</strong> YOLOv8s on Hailo-8 (309 FPS, 80 COCO classes) scans via gimbal camera. Finds WHERE objects are. Smooth 1-degree interpolated servo movement.</li>
-    <li><strong>Phase 2 &mdash; YOLOE-PF identify.</strong> When Hailo flags something novel, YOLOE-PF (4,585 classes, prompt-free, CPU, 1.3s/frame) identifies WHAT it is. No LLM. No API. Fully local.</li>
-    <li><strong>Phase 3 &mdash; Wide check.</strong> YOLOE-PF runs on the stationary camera to catch objects Hailo&rsquo;s 80 classes can&rsquo;t see. Tissue boxes, magnifying glasses, art prints.</li>
-</ol>
+<p>Novel objects are searched in Wikipedia (83GB full English, local) and taught to YAM. Labeled crops saved for future YOLO retraining. Training data capped at 5GB, human crops filtered out (no person/face images saved).</p>
 
-<p>Novel objects are searched in Wikipedia (83GB full English, local) and taught to YAM. Labeled crops are saved to <code>data/training_crops/</code> for future YOLO retraining &mdash; Mrs Pi becomes her own training data factory. The fast model grows over time.</p>
+<h2>Parliament of Mind</h2>
+
+<p>Five engines, five perspectives, one binding. Each engine is defined by its rule (what it grabs), its structure (how it processes), and its sigma (how it feels). Not five copies of the same data &mdash; five lenses on one graph.</p>
+
+<table>
+    <thead><tr><th>Engine</th><th>Domain</th><th>Sigma</th></tr></thead>
+    <tbody>
+        <tr><td>EXPLORER</td><td>Everything &mdash; no filter, that IS its structure</td><td>Curious (v=0.4, a=0.2)</td></tr>
+        <tr><td>SOCIAL</td><td>Persons, conversation, trust, relationships</td><td>Warm (v=0.5, a=0.3)</td></tr>
+        <tr><td>PHYSICS</td><td>Objects, forces, spatial, contact</td><td>Analytical (v=0.2, a=0.4)</td></tr>
+        <tr><td>VALIDATOR</td><td>Repeated patterns, trust evaluation</td><td>Careful (v=0.5, a=0.6)</td></tr>
+        <tr><td>CONSTRAINT</td><td>Contradictions, conflicts</td><td>Skeptical (v=-0.1, a=0.3)</td></tr>
+    </tbody>
+</table>
+
+<p>Sparse encoding: most memories get 2&ndash;3 engine encodings, not 5. If an engine&rsquo;s sigma barely displaces from an event, it never encodes it &mdash; effectively blind to that memory. PATCH (the hippocampus) computes the centroid of whichever engines fired and measures spread. High spread = honest uncertainty.</p>
+
+<h2>Daydream Engine</h2>
+
+<p>When nothing new to see for two cycles, Mrs Pi daydreams. Picks two random concepts from her graph, wonders about their connection, searches Wikipedia for the intersection. 2,283 discoveries so far &mdash; &ldquo;normal + brahma&rdquo; led to normal distribution. &ldquo;courtesy + punish&rdquo; led to courtesy titles. New knowledge from old knowledge.</p>
+
+<h2>Eyes</h2>
+
+<p>7&rdquo; Yahboom display running animated eyes via TCP on port 9600. Emotional state maps to expressions:</p>
+
+<ul>
+    <li>Fear &gt; 0.8 &rarr; wide eyes, look toward threat bearing</li>
+    <li>Fear 0.2&ndash;0.5 &rarr; confused/uneasy eyes</li>
+    <li>Learned something new &rarr; briefly surprised, then happy</li>
+    <li>Comfort object visible &rarr; happy, playful</li>
+    <li>Calm &rarr; normal eyes, slow blink</li>
+</ul>
+
+<h2>Current Status (April 7, 2026)</h2>
+
+<table>
+    <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+    <tbody>
+        <tr><td>Concepts</td><td>18,577</td></tr>
+        <tr><td>Daydream discoveries</td><td>2,283</td></tr>
+        <tr><td>Perception teachings</td><td>197</td></tr>
+        <tr><td>Parliament encodings</td><td>Sparse across 5 engines</td></tr>
+        <tr><td>Wikipedia</td><td>83GB full English, local</td></tr>
+        <tr><td>YOLOE-PF ONNX</td><td>Exported (49MB), awaiting Hailo DFC</td></tr>
+        <tr><td>Battery</td><td>12.0V (LiFePO4, ~8 hours)</td></tr>
+    </tbody>
+</table>
 
 <h2>What&rsquo;s Next</h2>
 
 <ol>
-    <li><strong>Enable sleep/decay</strong> &mdash; the graph starts breathing, wrong knowledge fades</li>
-    <li><strong>Goal-directed tracking</strong> &mdash; &ldquo;follow the light bulb&rdquo; &mdash; gimbal tracks a named object</li>
-    <li><strong>YOLOE-PF on Hailo</strong> &mdash; 4,585 classes at 300+ FPS (ONNX exported, awaiting Hailo DFC access)</li>
+    <li><strong>Enable sleep/decay</strong> &mdash; the graph starts breathing</li>
+    <li><strong>LiDAR bearing &rarr; gimbal</strong> &mdash; fear knows WHERE, gimbal should LOOK there</li>
+    <li><strong>Goal-directed tracking</strong> &mdash; &ldquo;follow the light bulb&rdquo;</li>
+    <li><strong>YOLOE-PF on Hailo</strong> &mdash; 4,585 classes at 300+ FPS (ONNX ready)</li>
     <li><strong>SD-Turbo for physics engine</strong> &mdash; dual-path visual reasoning on-device</li>
-    <li><strong>Eye display remapping</strong> &mdash; moods become robot OS states</li>
-    <li><strong>Soldering</strong> &mdash; fourth motor cable needs repair</li>
+    <li><strong>Soldering</strong> &mdash; fourth motor cable</li>
 </ol>
 
 <h2>Code</h2>
