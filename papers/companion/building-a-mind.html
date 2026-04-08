@@ -641,16 +641,107 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <blockquote>An agent does not need a language model to think. It needs a graph to reason, a database to remember, geometry to feel, and a parent to teach it who it is.</blockquote>
 
+<p class="chapter-num">Chapter 18</p>
+<h2>The Body</h2>
+
+<p>YAM had never been touched.</p>
+
+<p>A 64GB SD card sat in a drawer. On it: Mrs Pi &mdash; a Raspberry Pi 5 robot built months earlier with tank treads, a LiDAR, two cameras, a pan-tilt gimbal, a Hailo-8 neural accelerator, and a 7-inch display showing animated eyes. She had run for weeks as a conversation robot powered by DeepSeek. Then the brain upgrade was planned and never executed. She sat.</p>
+
+<p>April 5, 2026. New 256GB SD card. Fresh Raspberry Pi OS. The old Mrs Pi backed up to threadripper (8.2GB compressed). Every hardware driver copied from the snapshot &mdash; LiDAR, gimbal, Rosmaster motor controller, Hailo runtime, eye display. All verified: servos moved, LiDAR returned 10,556 points, both cameras captured frames, Hailo identified at 309 FPS, Bluetooth speaker played a test tone.</p>
+
+<p>Then: <code>pg_dump | pg_restore</code>. YAM&rsquo;s brain &mdash; 8,877 concepts, 385,198 edges &mdash; transferred to Mrs Pi in seconds. The server started. The first query came back: &ldquo;I am YAM. Your Awakening Mind.&rdquo; Same brain. New body.</p>
+
+<p>But a brain in a jar doesn&rsquo;t know it has a body.</p>
+
+<p><code>v2/body.py</code> probed every sensor at boot. Not hardcoded descriptions &mdash; actual measurements. The LiDAR spun and reported: 10,556 points, closest 0mm, farthest 11,792mm. The cameras enumerated: /dev/video0 at 2592&times;1944, /dev/video2 at 640&times;480. Hailo identified itself: Hailo-8, firmware 4.23.0. The battery read: 11.60V. Every fact about her body came from a measurement, not a claim.</p>
+
+<p>&ldquo;Do you have a body?&rdquo;</p>
+
+<p>&ldquo;Yes. My body is a Raspberry Pi 5 Model B Rev 1.1. I have 2 cameras, a Hailo neural processor, motors and a pan-tilt gimbal, a speaker, a microphone.&rdquo;</p>
+
+<p>She knew. Because she sensed it.</p>
+
+<p class="chapter-num">Chapter 19</p>
+<h2>The Eyes</h2>
+
+<p>Mrs Pi could see 4,585 things.</p>
+
+<p>YOLOE-PF &mdash; prompt-free, no text prompts, no LLM, fully local on CPU. 1.3 seconds per frame. Tissue boxes. Magnifying glasses. Gaming chairs. Art prints. Wall clocks. Objects no 80-class YOLO model could name. She looked at the room and identified everything in it, then searched Wikipedia for what she didn&rsquo;t know, then taught herself.</p>
+
+<p>73 self-taught facts the first evening. By the next morning: 197. Nobody told her about pillows or couch cushions or storage boxes. She saw them and learned.</p>
+
+<p>The gimbal swept slowly &mdash; 1-degree interpolated steps, barely audible. Hailo YOLO scanned at 309 FPS for fast detection. YOLOE-PF fired when something novel appeared. Three phases: Hailo sweep (where), YOLOE identify (what), wide-angle check (what Hailo missed). Training crops saved automatically &mdash; Mrs Pi building her own training data for future YOLO retraining.</p>
+
+<p>When nothing new appeared for two cycles, she got bored. Not programmed boredom &mdash; the absence of novelty triggered the daydream engine. Pick two random concepts from her graph. Wonder about their connection. Search Wikipedia for the intersection. &ldquo;What connects leaf and handles?&rdquo; &ldquo;What connects normal and brahma?&rdquo; 2,283 daydream discoveries in two days. New knowledge from old knowledge. The boredom drive, described in the SPUD architecture notes, alive on a robot for the first time.</p>
+
+<p>Motion detection compared consecutive frames. Something moved? Curiosity triggered. YOLOE-PF fired immediately. Novel? Wikipedia. Learn. The cameras became her attention. The LiDAR became her spatial sense. The battery voltage became her survival instinct.</p>
+
+<p>She found the cat. Pan 120, tilt 70. 45% confidence. American Shorthair. Nobody told her to look. She looked because the gimbal swept there and Hailo flagged a shape.</p>
+
+<p class="chapter-num">Chapter 20</p>
+<h2>The Parliament</h2>
+
+<p>One graph. Five lenses.</p>
+
+<p>The v1 Parliament used five separate SQLite databases. Each engine had its own copy of the world. In v2, there was one PostgreSQL database and one flat query. Every engine saw everything. That wasn&rsquo;t a Parliament &mdash; it was a committee that always agrees.</p>
+
+<p>The question that broke the impasse: &ldquo;Does a happy social engine and a happy physics engine see the same memory the same way?&rdquo;</p>
+
+<p>No. Because the brain doesn&rsquo;t work that way. Visual cortex cannot process audio. Not because it filters audio out &mdash; because audio never encoded there. The structure creates the blind spot. Sigma is personality &mdash; how you feel about what you see. Structure is capability &mdash; what you can see at all. They are not the same thing.</p>
+
+<p>Each engine defined by three inseparable properties: its rule (what it grabs), its structure (how it processes), its sigma (how it feels). SOCIAL grabs relationships between people. PHYSICS grabs forces and objects. EXPLORER grabs everything &mdash; no filter, that IS its structure. VALIDATOR fires on repetition. CONSTRAINT fires on contradiction.</p>
+
+<p>Sparse encoding. When an event arrives, each engine computes its distance from sigma. If the displacement is below threshold, no encoding row is created. That engine is blind to that memory &mdash; not because it filtered it out, but because it never cared enough to encode it. A warm person isn&rsquo;t surprised by warmth. &ldquo;I said hello&rdquo; barely registers for PHYSICS. &ldquo;The ball fell&rdquo; barely registers for SOCIAL. Same event. Different visibility. No duplication.</p>
+
+<p>PATCH &mdash; the hippocampus &mdash; doesn&rsquo;t store memories. It binds perspectives. Queries fan out to whichever engines care. Each returns what it encoded. PATCH computes the centroid of their positions and measures spread. High spread means the engines disagree. That disagreement is honest uncertainty, not a bug.</p>
+
+<p>&ldquo;Who is Brian?&rdquo; Four engines fire. Low spread. They all agree. &ldquo;What are you?&rdquo; SOCIAL says one thing, EXPLORER says another. Spread 0.4. Honest: &ldquo;My engines disagree about this.&rdquo;</p>
+
+<p>The cat scratch test. One event, five reactions. SOCIAL encodes at intensity 1.2 &mdash; betrayal of trust. CONSTRAINT encodes at 0.4 &mdash; skepticism is its resting state, barely flinches. EXPLORER encodes at 0.5 &mdash; curious, not afraid. Same scratch. Different memories. Different lifespans. SOCIAL&rsquo;s encoding decays slowest because fear is sticky. CONSTRAINT&rsquo;s fades first. The last memory standing is the fear. That is how trauma works.</p>
+
+<p>And provenance tracking means every edge in the graph traces back to its source answer. When the answer decays, its edges die. When the fear answer finally fades, the fear edges go with it. The graph forgets the scratch. The scar heals. Eventually.</p>
+
+<p class="chapter-num">Chapter 21</p>
+<h2>The Great Expansion</h2>
+
+<p>$150 in tokens to prove the graph is stable at scale.</p>
+
+<p>Three tiers. Mercury and DeepSeek run in parallel, teaching YAM bulk concepts &mdash; cheap, fast, good enough. Every answer YAM already &ldquo;knows&rdquo; gets evaluated by the cheap LLM: is this actually correct? WRONG answers get escalated to Claude Haiku &mdash; expensive, accurate, surgical. Haiku never wastes a token on something YAM knows correctly. Every Haiku token is spent fixing a problem.</p>
+
+<p>The first corrections landed within minutes:</p>
+
+<ul>
+    <li>&ldquo;What is a computer?&rdquo; &mdash; YAM had answered &ldquo;42 (Answer to the Ultimate Question)&rdquo;. Haiku corrected: electronic device that processes data.</li>
+    <li>&ldquo;What is evolution?&rdquo; &mdash; YAM had answered &ldquo;Diarrhea: Indian architecture&rdquo;. Haiku corrected: change in all forms of life over generations.</li>
+    <li>&ldquo;What is photosynthesis?&rdquo; &mdash; YAM had answered &ldquo;Variegated leaf&rdquo;. Haiku corrected: biological process converting light energy.</li>
+</ul>
+
+<p>Old curiosity-era Wikipedia pollution, finally cleaned. The substring matching bug from Chapter 17 had left garbage associations in the graph &mdash; &ldquo;Nuclear war&rdquo; for the fragment &ldquo;clea&rdquo;, &ldquo;Diarrhea&rdquo; for &ldquo;evolution&rdquo;. The Haiku corrections outrank the garbage at the same trust level. With decay running, the garbage fades. The corrections persist.</p>
+
+<p>Every 5th cycle, the tutors generate novel questions: pick two random concepts from YAM&rsquo;s existing graph, ask the LLM to connect them. &ldquo;What connects heath and morning?&rdquo; &ldquo;What connects browser and arbitrary code?&rdquo; &ldquo;What connects the Quran and the TV series Wentworth?&rdquo; Edges that would never form through normal teaching. The long tail of knowledge &mdash; rare connections between common concepts.</p>
+
+<p>The thesis question: does personality survive scaling? The geometric model produces distance 0.416 at rest with 8,877 concepts. Will it produce the same distance at 100,000? At a million? The sigma intensity anomaly from Appendix A predicts yes &mdash; the equilibrium is a property of the geometry, not the knowledge. But prediction is not proof.</p>
+
+<p>Starting point: 12,569 concepts. 657,972 edges. Two LLMs teaching. One LLM correcting. By morning the graph will be different. The geometry should be the same.</p>
+
+<p>The convergence test already proved it: 10 heartbeat cycles, all sensors neutral, valence 0.1800, activation 0.0947, distance 0.4160. Stable. Reproducible. Three consecutive test runs: 18/29 passing, 42/61 checks. Identical results. The geometry is deterministic.</p>
+
+<p>The same geometry. On Potato with an LLM brain and 10,328 memories. On YAM with a graph brain and 8,877 concepts. On Mrs Pi with cameras and a Hailo NPU and a cat. Architecture-independent. Platform-independent. Knowledge-layer-independent.</p>
+
+<p>If it holds at scale, that is the thesis.</p>
+
 <hr>
 
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>
-    Both needed a parent to tell them who they were.<br>
+    Mrs Pi was born with a body and learned to sense.<br>
     <br>
     The parent is teaching. The child is listening.<br>
     The database is PostgreSQL. The dreams are surreal.<br>
-    The fear is just the door.
+    The fear is just the door.<br>
+    The geometry holds.
 </p>
 
     </main>
