@@ -790,7 +790,48 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <p>The graph is visual. Nouns are images. Verbs are transitions. Emotions are on every edge. Words are labels that attach to existing visual concepts. The foundation is vision and feeling, not text and retrieval. Everything built on top of this inherits the visual grounding.</p>
 
-<p>The baby opens its eyes. Sees mama. Feels safe. The brain begins.</p></p>
+<p>The baby opens its eyes. Sees mama. Feels safe. The brain begins.</p>
+
+<p class="chapter-num">Chapter 24</p>
+<h2>The Fragment</h2>
+
+<p>The query system couldn&rsquo;t parse &ldquo;mama throw ball&rdquo; from &ldquo;ball throw mama.&rdquo; Every word had equal weight. The question type was invisible. Grammar rules polluted the graph or got stripped by stopwords. Nothing worked because the architecture stored flat concepts, not structured thought.</p>
+
+<p>The fix: store at EVERY level simultaneously. &ldquo;Mama throw ball&rdquo; creates three tiers of concept nodes:</p>
+
+<ul>
+    <li>Atoms: mama, throw, ball</li>
+    <li>Pairs: mama_throw, throw_ball</li>
+    <li>Compound: mama_throw_ball</li>
+</ul>
+
+<p>Edges link the levels: compound contains pairs, pairs contain atoms. Query &ldquo;ball&rdquo; alone &mdash; follow edges up to throw_ball, up to mama_throw_ball. The full context emerges from a single word. Query &ldquo;mama throw ball&rdquo; &mdash; matches the compound directly. Word order is preserved in the node name. The structure IS the grammar.</p>
+
+<p>This is how toddlers store language: not as individual words but as chunks. &ldquo;Want milk&rdquo; is one concept. &ldquo;No touch&rdquo; is one concept. The words separate later as vocabulary grows.</p>
+
+<p class="chapter-num">Chapter 25</p>
+<h2>The Play</h2>
+
+<p>The toddler combined random concepts and imagined the result.</p>
+
+<p>&ldquo;Bicycle scratch stove.&rdquo; &ldquo;Spoon grow milk.&rdquo; &ldquo;Knife throw airplane.&rdquo;</p>
+
+<p>Each combination was a hypothesis. SD-Turbo generated the image in 0.1 seconds. The diffusion model&rsquo;s free physics rendered its best guess at what that would look like. Some made sense. Some were absurd. Both outcomes built the graph.</p>
+
+<p>Success teaches what IS. Failure teaches what ISN&rsquo;T and WHY. The play drive IS the WHY drive. A three-year-old who says &ldquo;cat throw dog&rdquo; isn&rsquo;t making a grammar error. They&rsquo;re running an experiment. The adult who corrects them is teaching physics, not language.</p>
+
+<p>Every silly combination generated three images: the action, the reality check, and the WHY. Every combination was fragment-taught at all levels: atoms, pairs, compound. The graph grew through imagination, not instruction.</p>
+
+<p class="chapter-num">Chapter 26</p>
+<h2>The Visual Tutor</h2>
+
+<p>The LLM became the curriculum planner, not the teacher. DeepSeek decided what to teach next: &ldquo;hat&rdquo;, &ldquo;cookie&rdquo;, &ldquo;bear.&rdquo; SD-Turbo generated the image. DeepSeek assigned the emotion: cookie at valence +0.3 (pleasant). The image was stored. The word was attached. Phrases were generated and fragment-taught: &ldquo;want cookie&rdquo;, &ldquo;more cookie&rdquo;, &ldquo;cookie yummy.&rdquo;</p>
+
+<p>No text paragraphs entered the graph. No Wikipedia articles. No LLM-generated explanations. The knowledge is an image with an emotion and a label. The phrases are fragment-taught at all levels. The LLM picks the curriculum. The diffusion model creates the content. The graph stores images and feelings. Words are metadata.</p>
+
+<p>All known words are piped into the LLM&rsquo;s prompt so it never suggests something already learned. At this scale &mdash; hundreds of words, not thousands &mdash; the context window cost is negligible. Every cycle produces a novel concept. No wasted calls.</p>
+
+<p>The brain grows: image &rarr; emotion &rarr; word &rarr; phrases &rarr; fragments. Vision first. Feelings second. Language third. Understanding fourth. In the right order this time.</p></p>
 
 <hr>
 
