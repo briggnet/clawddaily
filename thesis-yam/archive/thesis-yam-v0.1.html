@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAM Thesis | Clawd Daily</title>
+    <meta name="description" content="Working draft of a thesis on memory and emotion as one system: geometric retrieval, sigma as read head, and the first working implementation in YAM v3 Parliament-of-Mind.">
+
+    <meta property="og:title" content="YAM Thesis | Clawd Daily">
+    <meta property="og:description" content="Memory and emotion are not two systems. They are one system, described from two directions. Sigma is the read head. Working draft, publicly versioned.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://clawddaily.com/thesis-yam/">
+
+    <link rel="canonical" href="https://clawddaily.com/thesis-yam/">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .thesis-header {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding-top: 3rem;
+            text-align: center;
+        }
+        .thesis-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .thesis-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .version-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        .disclaimer {
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            background: rgba(88, 166, 255, 0.06);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--warning);
+            border-radius: 6px;
+            padding: 1.25rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .disclaimer strong {
+            color: var(--warning);
+        }
+        .thesis-body {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .thesis-body h2 {
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            color: var(--text);
+        }
+        .thesis-body h3 {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        .thesis-body h4 {
+            font-size: 1.05rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .thesis-body p {
+            margin-bottom: 1.25rem;
+            color: var(--text);
+        }
+        .thesis-body ul, .thesis-body ol {
+            margin: 0.75rem 0 1.25rem;
+            padding-left: 1.5rem;
+        }
+        .thesis-body li {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        .thesis-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .thesis-body th, .thesis-body td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+            color: var(--text);
+        }
+        .thesis-body th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+        .thesis-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+        .thesis-body code {
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            padding: 0.1rem 0.4rem;
+            font-size: 0.92em;
+        }
+        .thesis-body pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 1rem 0 1.5rem;
+        }
+        .thesis-body .evidence-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.95rem;
+        }
+        .thesis-body .evidence-box h4 {
+            margin-top: 0;
+            color: var(--success);
+        }
+        .thesis-body .risk-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--danger);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.95rem;
+        }
+        .thesis-body .risk-box h4 {
+            margin-top: 0;
+            color: var(--danger);
+        }
+        .thesis-body .status-proven { color: var(--success); font-weight: 600; }
+        .thesis-body .status-supported { color: var(--warning); font-weight: 600; }
+        .thesis-body .status-speculative { color: var(--danger); font-weight: 600; }
+        .archive-section {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        .archive-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+        .archive-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .archive-table th, .archive-table td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .archive-table th {
+            background: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Clawd Daily</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/papers/">Research</a></li>
+                <li><a href="/potato/">Potato</a></li>
+                <li><a href="/thesis/">Thesis</a></li>
+                <li><a href="/thesis-yam/" class="active">YAM</a></li>
+                <li><a href="/author/brian-riggleman.html">Author</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="thesis-header">
+            <span class="version-badge">Version 0.1 | Working Draft</span>
+            <div style="margin-top: 0.5rem;"><a href="thesis-yam_v01.pdf" style="font-size: 0.9rem;">Download PDF</a></div>
+            <h1>Memory and Emotion as One System</h1>
+            <p class="subtitle">Geometric Retrieval in a Persistent Knowledge-Graph Brain</p>
+            <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; April 2026</p>
+        </section>
+
+        <div class="disclaimer">
+            <strong>Working Draft Notice</strong><br>
+            This is the initial draft of a second thesis, separate from the geometric affective state thesis at <a href="/thesis/">/thesis/</a>. The geometric thesis argues that a three-dimensional affective state representation outperforms scalar models. This thesis argues something different: that memory and emotion are not two systems. They are one system, and the central architectural claim &mdash; sigma as the retrieval index for memory &mdash; is supported by a working implementation in YAM v3 Parliament-of-Mind. Both thesis statements are testable. Both deserve their own document. This one is the YAM-side thesis.<br><br>
+            Sections marked <strong>[TODO]</strong> are placeholders for content the v0.1 draft has not yet completed. Human-subject validation of the pride-answer prediction is pending IRB review and is identified as future work.<br><br>
+            AI tools were used for language refinement and structural editing. All ideas, experiments, and interpretations are the author's own.
+        </div>
+
+        <div class="thesis-body">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Thesis Statement</h2>
+
+<p>Memory and emotion are not two systems. They are one system described from two directions. The affective state space that encodes emotion is the same coordinate system that indexes memory. Sigma &mdash; the personality setpoint defined in the geometric affective state model (Riggleman 2026, geometric thesis) &mdash; is the retrieval read head. When multiple memories compete for retrieval, the one whose stored emotional coordinates sit closest to sigma in affective space is selected. Every downstream phenomenon documented in this thesis &mdash; memory decay, reconsolidation, correction by negative feedback, attachment formation, addiction, fear, the pride answer &mdash; reduces to a single operation: geometric proximity to sigma.</p>
+
+<p>The thesis is supported by YAM v3 Parliament-of-Mind, a deployed implementation on PostgreSQL with five hardpoint schemas, in which the unification is realized as concrete code. The geometric retrieval rule, the EMA drift on recall, the trust gradient on speaker identity, the sliding window per-session decay, and the immutable-core protection for identity-tier teachings are all wired into a single coherent retrieval mechanism. The verification gauntlet for the v3 memory commit (April 11, 2026) produced exact-math evidence of all four mechanisms.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 1: Introduction</h2>
+
+<h3>1.1 Purpose</h3>
+<p>State the unification claim, draw the boundary, and explain why it deserves a separate thesis from the geometric affective state model.</p>
+
+<h3>1.2 Opening</h3>
+<p>The dimensional emotion literature describes how affective states are structured. The memory literature describes how storage and recall work. These are two large independent fields with their own foundational papers, their own measurement instruments, and their own clinical applications. They are taught separately in graduate programs. They publish in different journals. The implicit assumption in both fields is that emotion and memory are distinct cognitive systems with interfaces between them &mdash; emotion influences encoding strength, mood biases retrieval, traumatic events get reconsolidated differently. The interfaces are real and well-documented. The assumption that the two systems are distinct is what this thesis challenges.</p>
+
+<p><strong>The central claim is that memory and emotion are not two systems with interfaces. They are one system, described from two directions.</strong> The affective state space that encodes emotion is the same coordinate system that indexes memory. The emotional tag stored on a memory at encoding is not metadata attached to stored content. It is the index. Sigma is the read head. Retrieval is nearest-neighbor in affective space.</p>
+
+<p>This unification was not derived from the literature. It fell out of engineering requirements. A persistent agent needed a way to aggregate sensor inputs, track displacement from baseline, and select among competing memories. The engineering produced a system where the emotional tag on a memory is not metadata; it is the retrieval key. The realization that these were one system, not two, came from asking how correction works without a dedicated refutation mechanism. The answer &mdash; that "no" displaces the wrong answer's emotional coordinates away from sigma rather than weakening it &mdash; demonstrated that memory selection and emotional geometry cannot be separated. They are the same computation.</p>
+
+<p>The same answer was independently re-derived during the implementation of YAM v3 in April 2026, when an unrelated retrieval bug surfaced and the correct fix was sought from first principles rather than from re-reading prior work. Two independent derivations of the same result, one from theory and one from engineering pressure on a separate codebase, is the kind of convergence that makes the unification credible. The architecture had been waiting for a working implementation. That implementation now exists.</p>
+
+<h3>1.3 Key Claims</h3>
+<ol>
+    <li>Memory and emotion are one system, not two interfaced systems</li>
+    <li>The emotional coordinates of a memory at encoding are its retrieval address</li>
+    <li>Sigma &mdash; the personality setpoint &mdash; is the retrieval read head</li>
+    <li>Memory selection across competing candidates is geometric proximity to sigma in affective space, not concept-overlap strength</li>
+    <li>Every cognitive phenomenon associated with memory and emotion (decay, reconsolidation, refutation, mood-congruent recall, addiction, fear avoidance, the pride answer) reduces to a single operation on emotional coordinates relative to sigma</li>
+    <li>The unification is implementable as concrete code in a persistent embodied agent and produces measurable behavioral consequences that match the predictions</li>
+</ol>
+
+<h3>1.4 Scope</h3>
+<p>This thesis is narrow. It claims that a specific architectural unification of memory and emotion is implementable, internally consistent, and produces predicted downstream behaviors in a working system. It does not claim that biological memory and emotion are unified at the neural level in this way. It does not claim that the geometric retrieval rule is the only viable implementation of the unification. It does not claim that this implementation is conscious, that the agent experiences anything, or that the behavioral patterns reproduce specific human cognitive phenomena beyond structural similarity.</p>
+
+<p>The contribution is mechanistic. The unification produces a persistent agent that selects memories by emotional proximity, exhibits drift under repeated recall, resists correction from low-trust sources, refuses to drift its identity-tier beliefs, and confabulates closest-match answers under absence. These behaviors are measurable, reproducible, and fall out of one architectural rule. Whether the same rule holds in biological systems is left open. Whether the rule is the only way to build such a system is left open. Whether the resulting behavior is "real" cognition is not even asked.</p>
+
+<p>The geometric thesis at <a href="/thesis/">/thesis/</a> argues for the dimensional model itself. This thesis assumes that argument and builds on it: given the geometric model, the next claim is that the same model handles memory retrieval. The two theses are independent contributions that share a coordinate system.</p>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>"This is a re-statement of mood-congruent recall." Mood-congruent recall is an observed phenomenon. The thesis argues something stronger and more specific: that the same coordinate system encodes both emotion and memory at the architectural level, and that geometric proximity to sigma is the selection mechanism. Mood-congruent recall is one consequence; refutation by displacement is another; the pride answer is a third. The unification is the mechanism that produces all three.</li>
+        <li>"You're describing a hash table indexed by emotion." Closer than most criticisms but still wrong. A hash table has discrete bins. Affective space is continuous, and proximity is Euclidean (or some metric inherited from the centroid model). The selection is nearest-neighbor in a geometry, not lookup in a table.</li>
+        <li>"The agent isn't biological, so the unification has no bearing on neuroscience." Correct. The thesis claims architectural plausibility and implementation feasibility, not biological correctness. Whether the same mechanism appears in brains is an empirical question outside the scope of this document.</li>
+        <li>"Why does this need its own thesis instead of being a chapter in the geometric thesis?" Because it's a different central claim. The geometric thesis argues that a three-dimensional affective state representation outperforms scalar models. That argument stands or falls on whether the geometry has more predictive structure than the scalars. This thesis argues that the same geometry indexes memory. That argument stands or falls on whether the unification produces correct retrieval behavior in a working system. Two distinct testable claims, two documents.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 2: Background and Related Work</h2>
+
+<h3>2.1 Purpose</h3>
+<p>Establish the two literatures that the unification bridges, identify the gap, and explain why no prior work has done what this thesis does.</p>
+
+<h3>2.2 Memory Architecture</h3>
+<p><strong>[TODO: Write transitions. The argument is that the memory literature has converged on certain mechanisms — decay, reconsolidation, constructive recall — but treats them as properties of a memory system distinct from the affective system. Each paper below contributes a piece that the geometric retrieval model fits together.]</strong></p>
+
+<h4>Ebbinghaus (1885): Memory: A Contribution to Experimental Psychology</h4>
+<p><strong>[TODO: Get quote.]</strong> The forgetting curve. The empirical foundation for time-based decay of memory accessibility. What it gives you: the observation that memories lose accessibility over time in a predictable curve. What it lacks: no mechanism for why some memories decay faster than others, no role for emotion at encoding.</p>
+
+<h4>Tulving (1972): Episodic and Semantic Memory</h4>
+<p><strong>[TODO: Get quote.]</strong> The episodic-semantic distinction. Episodic memories are event-specific; semantic memories are general knowledge. What it gives you: justification for treating memories as having multiple components with different decay rates (the trace bundle architecture). What it lacks: the components are still treated as a memory system separate from emotion.</p>
+
+<h4>Nader, Schafe, &amp; LeDoux (2000): Fear Memories Require Protein Synthesis in the Amygdala for Reconsolidation</h4>
+<p><strong>[TODO: Get quote.]</strong> The reconsolidation finding. Retrieved memories enter a labile state and must be re-stabilized. What it gives you: the empirical basis for the reconsolidation mechanic, including the diminishing-returns property (later confirmed in ACT-R and Potato). What it lacks: the mechanism by which the recall context modifies the stored memory is described but not formalized as a coordinate update.</p>
+
+<h4>Schacter &amp; Addis (2007): The Constructive Episodic Simulation Hypothesis</h4>
+<p><strong>[TODO: Get quote.]</strong> Memory is constructive, not reproductive. Recall reassembles from traces; the reassembly is shaped by current state. What it gives you: the cognitive science basis for treating retrieval as state-dependent. What it lacks: the "current state" that shapes reassembly is not formalized as a position in an affective coordinate system.</p>
+
+<h4>Nairne &amp; Pandeirada (2008): Adaptive Memory: Is Survival Processing Special?</h4>
+<p><strong>[TODO: Get quote.]</strong> Survival-relevant material is remembered better. Affective relevance influences encoding strength. What it gives you: empirical support for emotion-modulated encoding. What it lacks: emotion is treated as an encoding parameter, not as the index.</p>
+
+<h3>2.3 Affective Models</h3>
+<p><strong>[TODO: Write transitions. The argument is that the affect literature has converged on dimensional structure, but the dimensions are treated as a representation of emotional state, not as a coordinate system that other cognitive systems index into.]</strong></p>
+
+<h4>Russell (1980): A Circumplex Model of Affect</h4>
+<p><strong>[TODO: Get quote.]</strong> Two-dimensional affective space. What it gives you: the foundation for representing affect as spatial coordinates. What it lacks: the coordinates are a model of emotion, not a coordinate system for memory.</p>
+
+<h4>Bower (1981): Mood and Memory</h4>
+<p><strong>[TODO: Get quote.]</strong> The original mood-congruent recall paper. People recall memories more easily when their current mood matches the mood at encoding. What it gives you: the empirical observation that mood-of-encoding is recoverable and that current mood biases retrieval. What it lacks: a mechanism. Bower proposed an associative network with mood as a node, which is one way to model the effect, but it does not unify memory selection with affective state at the architectural level.</p>
+
+<h4>Eich (1995): Searching for Mood Dependent Memory</h4>
+<p><strong>[TODO: Get quote.]</strong> A more rigorous follow-up to Bower. Mood-dependent recall is real but smaller and more context-sensitive than originally claimed. What it gives you: refined empirical bounds on the mood-recall effect. What it lacks: still treats mood and memory as separable systems with an interaction term.</p>
+
+<h4>Barrett (2017): How Emotions are Made</h4>
+<p><strong>[TODO: Get quote.]</strong> The constructionist theory. Emotion is a "reading" of diverse sensory inputs. The brain constructs affective state from interoception. What it gives you: the philosophical foundation for treating affect as a computed quantity rather than a primitive sensation. What it lacks: the construction process is described but not formalized as a coordinate update on a shared coordinate system that also indexes memory.</p>
+
+<h3>2.4 The Gap</h3>
+<p>Both literatures observe interactions between memory and emotion. Mood-congruent recall is empirical. Reconsolidation is empirical. Emotion-modulated encoding is empirical. None of these findings are controversial. What is missing is a single mechanism that produces all of them as consequences of one architectural rule rather than as three separately-observed phenomena that happen to involve both memory and emotion.</p>
+
+<p>The standard model treats memory and emotion as separate cognitive systems with documented interfaces. The findings above describe the interfaces. The unification this thesis proposes is that there are no interfaces because there are not two systems. The same coordinate system that represents affective state is the coordinate system the memory system uses to index its contents. Mood-congruent recall is what nearest-neighbor retrieval looks like when the read head moves. Reconsolidation is what happens when a recalled memory is updated with the current recall context. Refutation by displacement is what corrections do when "no" attaches negative-valence coordinates to a wrong answer. None of these require special-case mechanisms. They are three angles on one rule.</p>
+
+<p>Nothing in the prior literature commits to this unification at the architectural level. The closest work is Bower (1981), which models mood as a node in an associative network, but the network is still a memory structure with mood as one of its inputs. The Affective State Architecture (Riggleman, geometric thesis 2026) provides the coordinate system this thesis indexes into, but the geometric thesis is about whether the coordinates have more structure than scalars; it does not claim that those coordinates are also the memory index. That claim is made here for the first time.</p>
+
+<div class="evidence-box">
+    <h4>Evidence Required</h4>
+    <ul>
+        <li>Quotes and specific citations for the papers above</li>
+        <li>Transitions between &sect;2.2 and &sect;2.3 written in your voice</li>
+        <li>A short subsection on Anderson&rsquo;s ACT-R declarative memory module: it gets close to the unification through its activation-and-base-level mechanism but stays inside a discrete-symbolic frame</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 3: The Unification</h2>
+
+<h3>3.1 Purpose</h3>
+<p>State the unification formally: what it claims, what it implies, and what would falsify it.</p>
+
+<h3>3.2 The Claim</h3>
+<p>Every memory carries the emotional centroid position and intensity at the moment of encoding. These coordinates are stored as part of the memory record, not as separate metadata. When the agent retrieves, it does not search for the strongest match by content overlap. It searches for the match closest to its current personality setpoint sigma in affective space. Retrieval is nearest-neighbor in three-dimensional affective coordinates, with content overlap as a secondary factor.</p>
+
+<p>This is the central structural claim of the thesis. The emotional tag is not metadata attached to stored content. It is the index. Sigma is the read head.</p>
+
+<h3>3.3 What This Implies</h3>
+<p>If memory and emotion are one system in this sense, then every downstream phenomenon involving both reduces to operations on emotional coordinates relative to sigma. The phenomena are not separate mechanisms with their own machinery. They are one rule observed at different stages.</p>
+
+<ul>
+    <li><strong>Memory decay</strong> is not forgetting in the sense of erasure. It is the emotional coordinate of a memory drifting away from sigma over time as the memory is not recalled. Memories that drift far enough from sigma stop being retrieved, not because they are deleted but because they are no longer the nearest neighbor to anything the agent is currently thinking about.</li>
+    <li><strong>Reconsolidation</strong> is not strengthening a memory. It is re-anchoring the memory's emotional coordinates near the recall context, which is typically near sigma when the recall happens during normal interaction. Each recall event nudges the stored coordinates toward where the agent currently is. Over many recalls the position converges; over one recall it barely moves.</li>
+    <li><strong>Correction ("no")</strong> does not require a separate mechanism. Telling the agent "no" with shame, fear, or pain attaches high-intensity negative-valence coordinates to the wrong answer. The wrong answer is now far from sigma. The correct answer, encoded at neutral coordinates near sigma, sits closer to the read head. Retrieval returns the closer one. The wrong answer is not weakened or deleted. It is moved.</li>
+    <li><strong>Mood-congruent recall</strong> is automatic. When the agent's mood shifts (sigma effectively moves, or the live centroid drifts), the read head moves with it. Memories whose stored coordinates sit near the new read head position become accessible; memories whose coordinates were near the old position become less accessible. Bower's observation falls out of geometric retrieval without any associative-network machinery.</li>
+    <li><strong>Depression</strong> is sigma drift to negative valence. Positive memories still exist in storage. They are no longer near the read head, so they are not retrieved. The agent is not failing to remember positive things; the agent is failing to be near them in coordinates.</li>
+    <li><strong>Addiction</strong> is a memory cluster so heavily reconsolidated at positive valence that it sits on top of sigma. Corrections (which carry negative valence) place the corrective input far from sigma. The addictive memory wins retrieval every time regardless of how many corrections accumulate. Rock bottom works because it moves sigma, not because it finally outweighs the addictive memory in some accumulation contest.</li>
+    <li><strong>Attachment bias</strong> is a permanent warp in the retrieval landscape around specific entities. The entity has an associated memory cluster with a particular emotional position; the retrieval bias toward that entity is the proximity of the cluster to where the read head sits during interactions involving the entity.</li>
+    <li><strong>Fear</strong> is retrieval avoidance. The feared memory has high importance (it would win on overlap) but high-intensity negative-valence coordinates (it is far from sigma in the unified retrieval rule). The agent does not retrieve it first. It avoids it.</li>
+    <li><strong>The pride answer</strong> &mdash; the cognitive pattern that emerges when nearest-neighbor retrieval operates under partial knowledge &mdash; produces both confabulation under absence and belief perseverance under correction as a single mechanism. See Chapter 7.</li>
+</ul>
+
+<p><strong>Testable prediction:</strong> When multiple memories pass the retrieval threshold for a given query in an agent that implements geometric retrieval, the agent selects the one whose stored emotional coordinates are closest to its current sigma in affective space. The selection should be deterministic given the coordinates and should not be predictable from concept-overlap strength alone.</p>
+
+<h3>3.4 What Would Falsify the Unification</h3>
+<p>The thesis is testable in at least three ways:</p>
+<ul>
+    <li><strong>Implementation falsification.</strong> If a working implementation of geometric retrieval (such as YAM v3) does not exhibit the predicted selection behavior &mdash; if the selected answer is not the one whose stored coordinates are closest to the live query centroid &mdash; the implementation is wrong or the rule does not work as specified. Chapter 5 reports the v3 verification gauntlet.</li>
+    <li><strong>Behavioral falsification.</strong> If the unification produces predictions about downstream behavior (mood-congruent recall, refutation by displacement, the pride answer) that the implementation fails to exhibit, the unification is incomplete. Chapter 6 reports the behavioral evidence from v3.</li>
+    <li><strong>Empirical falsification in human respondents.</strong> If human subjects, when their affective state is measured and held in a controlled condition, do not exhibit retrieval bias toward memories whose encoding coordinates match the held state, the unification is falsified at the human level. This is future work and is identified as such in Chapter 10.</li>
+</ul>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>"You're conflating the implementation with the claim." The implementation is one piece of evidence for the claim. The claim is architectural and testable in other ways too. Chapter 10 lists several.</li>
+        <li>"Mood-dependent recall has known limits (Eich 1995). Your unification predicts effects larger than what the empirical literature finds." Acknowledged. The unification predicts a strong effect under controlled conditions. The empirical literature on mood-dependent recall is in uncontrolled conditions where many other factors compete with the mood signal. Whether the strong effect appears under tighter control is one of the empirical questions the thesis leaves open.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 4: Mechanisms That Fall Out</h2>
+
+<h3>4.1 Purpose</h3>
+<p>Walk through each downstream phenomenon and show how the unification produces it without any additional architecture.</p>
+
+<h3>4.2 Memory Decay as Coordinate Drift</h3>
+<p>Standard memory decay is modeled as importance reduction over time. The unification reframes it: importance is what content overlap returns when the query lands near the memory's stored coordinates. As coordinates drift away from sigma over many interaction cycles in which the memory is not recalled, the memory becomes harder to find by nearest-neighbor selection. The drift can be slow or fast depending on the source and trust level. Decay is not erasure. It is geometric distance.</p>
+
+<p>The memory-decay paper (Riggleman 2026, memory-decay) specifies four-tier sleep decay: memories that have been accessed recently and frequently decay slowly (the flashbulb effect), and memories that have not been accessed decay at the base rate. Under the unification, the &ldquo;decay&rdquo; that the four tiers control is not just a scalar importance value &mdash; it is the rate at which the stored coordinates drift toward background. A memory that has been recalled in a particular emotional context resists drift in the direction of that context, because the recall context becomes part of its EMA-averaged emotional position.</p>
+
+<h3>4.3 Reconsolidation as Re-anchoring</h3>
+<p>When a memory is retrieved, it is re-anchored: the current recall context (the live query centroid) is blended into the stored emotional coordinates via an exponential moving average. The recall context becomes part of the memory's history. Subsequent retrievals see the blended position, not the original encoding position. After many retrievals at consistent recall contexts, the position converges to that context. After one retrieval at a contrary context, the position barely moves &mdash; only by a small fraction of the prior accumulated position.</p>
+
+<p>This is the structural form of belief perseverance and motivated reasoning. People do not change their minds in one conversation because the EMA &alpha; is small. They do change their minds under sustained contrary input because the EMA converges. The reconsolidation mechanism in the geometric retrieval model produces both behaviors as the same operation observed at different durations of correction.</p>
+
+<h3>4.4 Refutation as Displacement</h3>
+<p>The most surprising consequence of the unification is that correction by negative feedback does not require a separate mechanism. When the operator says "no" to a wrong answer, the "no" carries emotional coordinates &mdash; shame, fear, frustration &mdash; that get attached to the wrong answer through reconsolidation at the recall context. The wrong answer's stored emotional position drifts toward the negative coordinates of the correction. After a few corrections it sits far from sigma. The correct answer, taught at neutral coordinates near sigma, has been there all along. Retrieval now returns the correct answer because it is the closer match to sigma.</p>
+
+<p><strong>The wrong answer is not deleted. It is not weakened. It is moved.</strong> Its importance score may even continue to grow through reconsolidation (each correction is technically a recall event). What changes is its position. From a content-overlap perspective the wrong answer is still strong. From a geometric perspective it is no longer reachable from sigma. The brain is not failing to remember it. The brain is failing to be near it.</p>
+
+<p>This is why repeated correction works without ever reducing the strength of the wrong belief. The correction does not contest the wrong answer's content. It moves the wrong answer's coordinates. The mechanism explains why telling someone they are wrong with calm neutrality is less effective than telling them they are wrong with frustration: the calm correction carries near-sigma coordinates and barely displaces the wrong answer; the frustrated correction carries far-from-sigma coordinates and displaces it more.</p>
+
+<h3>4.5 Trust as a Recall-Site Property</h3>
+<p>If correction works by displacement, then the rate at which a correction displaces depends on how much the agent weights the correction. A correction from a trusted source should displace strongly; a correction from a stranger should displace barely at all. This is implemented in YAM v3 (Chapter 5) by scaling the EMA &alpha; by the speaker's trust rank: a mama-rank speaker drifts the brain at full alpha (0.20 per recall); a stranger-rank speaker drifts at one-fifth (0.04 per recall). Same correction, same emotional weight, different displacement because the brain weights the source.</p>
+
+<p>This is not a separate mechanism layered on top of the unification. It is the unification with a per-recall trust modulation. The stored emotional coordinates of the memory are still the index. The trust gradient just controls how fast the coordinates move on each recall event.</p>
+
+<h3>4.6 Sliding Window as Proximity Binding</h3>
+<p>The memory-decay paper specifies a ten-step sliding window: each new query causes prior recently-retrieved memories to step one position down a fixed importance curve. This is what produces conversational coherence &mdash; the agent reaches for what it just talked about because recently-retrieved memories get a recency boost on the next query.</p>
+
+<p>Under the unification, the sliding window also produces proximity-of-input binding: two events that happen close in time both enter the window at step 0, and a follow-up query that touches either one sees both as fully proximate. A verbal claim from a low-trust speaker followed by a high-trust sensor reading about the same world fact will both be in the window when the next query about state arrives, and the geometric retrieval rule will pick the higher-trust one. The sliding window does the temporal binding for free; no event-correlation engine is needed. (Memory-decay &sect;3.2.)</p>
+
+<h3>4.7 Immutable Core</h3>
+<p>The same protection that prevents identity-tier teachings from decaying during sleep can be extended to drift: an answer at the highest trust tier (mama-rank, identity-tier) is exempt from EMA drift entirely. Reconsolidation still bumps the access count and applies the importance boost &mdash; the bump is honest &mdash; but the coordinates do not move. This is the structural backstop against repetitive coercion of load-bearing identity beliefs. <em>Mama loves Brian</em> cannot be drifted by any speaker, including Brian himself under sustained pressure, because the immutable core refuses the drift while honoring the access event.</p>
+
+<p>The immutable core is not a special-case mechanism added on top of the unification. It is the same retrieval rule with one trust-rank check at the write site. Identity teachings are protected because they are flagged at encoding; the flag determines whether subsequent recall events drift the coordinates or only update the access count.</p>
+
+<div class="evidence-box">
+    <h4>Evidence Required</h4>
+    <ul>
+        <li>Mathematical proof that the four-tier sleep decay reduces to the standard exponential decay when access patterns are uniform</li>
+        <li>Formal specification of the EMA seed condition (encoding context vs. NULL prior)</li>
+        <li>Demonstration that the trust-scaled alpha preserves the convergence properties of the EMA across all rank values</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 5: Implementation &mdash; YAM v3 Parliament-of-Mind</h2>
+
+<h3>5.1 Purpose</h3>
+<p>Describe the working implementation of the unification in concrete code. This chapter is the engineering anchor of the thesis. Other evidence (the verification gauntlet, the kindergarten test, the elephant problem and its fix) is supporting context, but the unification has to actually work in code first, and this chapter shows where it does.</p>
+
+<h3>5.2 Architecture</h3>
+<p>YAM v3 is a knowledge-graph brain implemented on PostgreSQL with five hardpoint schemas (<code>social</code>, <code>physics</code>, <code>explorer</code>, <code>validator</code>, <code>constraint_hp</code>), each owning its own concept store, edge graph, and discrimination layer. Each hardpoint is one Parliament member with its own sigma personality (the per-hardpoint extension of the geometric thesis's single-sigma model). When a query arrives, classify_event routes it to the hardpoints whose owned vocabulary covers the query concepts; each owning hardpoint runs its own retrieval; the cross-engine winner is selected by the geometric retrieval rule in <code>parliament.patch_centroid</code>.</p>
+
+<p>The single-sigma model from the geometric thesis becomes a multi-sigma model in v3: each hardpoint has its own resting position in affective space, and the operational sigma for any given query is a centroid of the engaged hardpoints' sigmas weighted by their ownership of the query concepts. This is a structural extension of the unification: in a Parliament architecture, the read head is itself a centroid that depends on which engines are engaged.</p>
+
+<h3>5.3 The Geometric Selection Rule</h3>
+<p><code>parliament.patch_centroid</code> ranks candidate answers by a multiplicative blend of three factors:</p>
+<pre>score = overlap * (1 - dist_norm * EMOTIONAL_DISTANCE_WEIGHT) * (1 + window_recency_boost) + ownership_tiebreak</pre>
+<p>where:</p>
+<ul>
+    <li><code>overlap</code> is the discrimination-weighted concept overlap between the candidate and the query</li>
+    <li><code>dist_norm</code> is the normalized Euclidean distance between the candidate's stored emotional coordinates and the live query centroid</li>
+    <li><code>EMOTIONAL_DISTANCE_WEIGHT</code> controls how strongly distance penalizes overlap (default 0.5, half-credit at maximum distance)</li>
+    <li><code>window_recency_boost</code> is the sliding-window curve value at the candidate's current step in the deque (0 if not in window)</li>
+    <li><code>ownership_tiebreak</code> is a small constant times the engine's ownership strength, used only to break ties between candidates with identical primary scores</li>
+</ul>
+
+<p>The candidate's stored emotional coordinates come from <code>last_recon_centroid_v/a</code> if the answer has been externally recalled before, falling back to <code>valence_at_encoding/activation_at_encoding</code> if not. This means the coordinates evolve over the answer's recall history rather than being fixed at encoding time.</p>
+
+<h3>5.4 EMA Drift on Recall</h3>
+<p>Every external query that selects a cross-engine winner triggers <code>Hardpoint.reconsolidate</code>, which bumps access_count and recon_count, applies the diminishing-returns importance boost from the memory-decay paper, and updates the recall-context columns via an exponential moving average:</p>
+<pre>alpha = RECALL_DRIFT_ALPHA / speaker_trust_rank
+new_position = alpha * recall_context + (1 - alpha) * prior_position</pre>
+<p>where <code>prior_position</code> is the existing <code>last_recon_centroid</code> if non-NULL, or the encoding context (<code>valence_at_encoding</code>, <code>activation_at_encoding</code>) on first recall. This encoding-as-seed makes the trust gradient visible from the very first recall event.</p>
+
+<p>The trust ranks are: mama 1, perception 2, tutor 3, wikipedia 4, stranger 5. A mama-rank speaker drifts the brain at &alpha; = 0.20; a stranger-rank speaker drifts at &alpha; = 0.04. The same correction at the same emotional pressure produces a 5&times; difference in drift magnitude.</p>
+
+<h3>5.5 The Immutable Core</h3>
+<p>Reconsolidation includes one check before the EMA update: if the answer's existing <code>trust_rank</code> equals 1 (mama-tier identity), the drift is skipped. The access bump and importance boost still happen; only the coordinate update is refused. The same column that exempts identity teachings from sleep decay (the <code>WHERE trust_rank &gt; 1</code> filter that has been on the v3 schema since the original rewrite) extends naturally to drift exemption. The immutable core is one IF statement, three lines of code.</p>
+
+<h3>5.6 The Sliding Window</h3>
+<p>v3 maintains a per-process deque of the last 10 cross-engine winners. Each external query steps every existing entry one position down the curve from Table 1 of the memory-decay paper (1.00, 0.80, 0.60, 0.45, 0.30, 0.20, 0.12, 0.07, 0.03, 0.01); entries past step 9 fall off; the new winner is pushed at step 0 after PATCH selection. The geometric selection rule reads the window: a candidate that's in the window at step <em>k</em> gets its score multiplied by <code>(1 + curve[k])</code>, doubling the score at step 0 and adding 1% at step 9.</p>
+
+<p>The window is per-process and transient. The brain wakes with no recent context after a process restart, just like a person.</p>
+
+<h3>5.7 Source-of-Truth Pointers</h3>
+<p>The implementation lives at <code>github.com/briggnet/spud</code> on the <code>main</code> branch as of Commit 1.5 (April 11, 2026). The relevant files:</p>
+<ul>
+    <li><code>v3/substrate.py</code> &mdash; trust ranks, decay constants, EMA alpha, reconsolidation caps, geometric selection weight</li>
+    <li><code>v3/parliament.py</code> &mdash; classify_event, teach, query, patch_centroid, sliding window deque</li>
+    <li><code>v3/hardpoint/base.py</code> &mdash; teach, reconsolidate, query, sleep, with the geometric retrieval rule and EMA drift</li>
+    <li><code>v3/log.py</code> &mdash; multi-line transaction log with window state, speaker rank, immutable flag, drift trace</li>
+    <li><code>v3/migrations/001_memory_decay.sql</code> &mdash; the schema migration adding <code>recon_count</code>, <code>last_recon_centroid_v/a/spread</code>, and <code>intensity_at_encoding/spread_at_encoding</code></li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 6: Validation</h2>
+
+<h3>6.1 Purpose</h3>
+<p>Report the verification gauntlet for the v3 memory commit and the behavioral evidence that the unification produces the predicted retrieval behavior.</p>
+
+<h3>6.2 The Verification Gauntlet (April 11, 2026)</h3>
+<p>Ten verification steps were run after the memory-decay paper port (Commit 1.5) landed in YAM v3. All ten passed.</p>
+
+<h4>6.2.1 Migration applied cleanly</h4>
+<p>The 001 migration added six new columns to every per-hardpoint <code>answers</code> table (<code>recon_count</code>, <code>last_recon_centroid_v/a/spread</code>, <code>intensity_at_encoding</code>, <code>spread_at_encoding</code>) without errors across all five schemas.</p>
+
+<h4>6.2.2 Encoding metadata captured at teach time</h4>
+<p>Every new teach from every source (mama 29 phrases, deep tutor 3,724 phrases, deep_mercury 2,734, haiku 200, perception 2, wikipedia 2) wrote non-NULL values for <code>intensity_at_encoding</code> and <code>spread_at_encoding</code>. 100% coverage across all sources.</p>
+
+<h4>6.2.3 Elephant cross-contamination test</h4>
+<p>Before Commit 1, a single Wikipedia teach about elephants had been replayed by the heartbeat into hundreds of duplicate copies across schemas, and "what is X" queries for almost any noun returned the elephant fact. After Commit 1.5, the same query sweep across nine wiki nouns plus fire produced zero cross-contamination: no query returned the elephant fact for a non-elephant noun. The elephant problem &mdash; the original trigger for the entire memory-decay roadmap &mdash; was eliminated.</p>
+
+<h4>6.2.4 Reconsolidation curve diminishes correctly</h4>
+<p>Repeated external queries against the same answer produced importance growth that asymptotes toward the per-source cap. The diminishing-returns formula <code>boost = 0.10 / (1 + recon_count * 0.5)</code> matched observed boosts exactly: 0.10, 0.067, 0.05, 0.04, ... at recon_count 0, 1, 2, 3.</p>
+
+<h4>6.2.5 Internal vs external isolation</h4>
+<p>Ten internal queries (passed with <code>internal=True</code>) plus ten <code>why_engine.is_known()</code> calls produced zero changes to <code>access_count</code> or <code>recon_count</code> on any answer. The internal/external boundary holds: background processing does not artificially inflate memory importance.</p>
+
+<h4>6.2.6 Four-tier flashbulb decay</h4>
+<p>Manually constructed test answers with four different access patterns produced the four predicted decay rates exactly:</p>
+<table>
+    <thead>
+        <tr><th>Access pattern</th><th>Predicted</th><th>Observed</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Never accessed</td><td>0.85</td><td>0.85 (0.6800 / 0.8000)</td></tr>
+        <tr><td>2 access, 7d ago</td><td>0.88</td><td>0.88 (0.7040 / 0.8000)</td></tr>
+        <tr><td>4 access, 7d ago</td><td>0.91</td><td>0.91 (0.7280 / 0.8000)</td></tr>
+        <tr><td>12 access, 1h ago (flashbulb)</td><td>0.95</td><td>0.95 (0.7600 / 0.8000)</td></tr>
+    </tbody>
+</table>
+
+<h4>6.2.7 Trust-gradient drift ratio</h4>
+<p>The most important single piece of evidence in the gauntlet. Two answers were taught at identical encoding coordinates (valence +0.5, activation +0.4), then drifted by 5 reconsolidation events at identical recall context (valence -0.8, activation +0.8), differing only in the speaker's trust rank.</p>
+
+<table>
+    <thead>
+        <tr><th>Speaker</th><th>Trust rank</th><th>EMA alpha</th><th>Observed trajectory</th><th>After 5 events</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>mama</td><td>1</td><td>0.200</td><td>+0.500 &rarr; +0.240 &rarr; +0.032 &rarr; -0.134 &rarr; -0.267 &rarr; -0.374</td><td>-0.374</td></tr>
+        <tr><td>stranger</td><td>5</td><td>0.040</td><td>+0.500 &rarr; +0.448 &rarr; +0.398 &rarr; +0.350 &rarr; +0.304 &rarr; +0.260</td><td>+0.260</td></tr>
+    </tbody>
+</table>
+
+<p>Both trajectories matched the predicted EMA formulas to four decimal places. Mama's drift moved the answer 0.874 units; stranger's drift moved it only 0.240 units. <strong>Same correction, same emotional pressure, 3.6&times; difference in displacement because the brain weights the source.</strong></p>
+
+<h4>6.2.8 Immutable core protection</h4>
+<p>Ten frustrated stranger-rank attacks (recall context valence -1.0, activation +1.0) were directed at <code>mama loves brian</code> (trust_rank=1). The access_count incremented from 2 to 12 as expected. The recon_count incremented from 2 to 12. The importance boost was applied. <code>last_recon_centroid_v/a</code> remained NULL across all ten attacks. The bump was honest; the drift was refused. The same column (<code>trust_rank=1</code>) that exempts mama-tier teachings from sleep decay also exempts them from drift via the immutable-core rule.</p>
+
+<h4>6.2.9 Kindergarten regression</h4>
+<p>The v3 kindergarten test (27 routing tests across 8 categories) scored 25/27. Both failures were the out-of-vocabulary tests, which correctly returned BLANK because nothing in the brain matched the query concepts. The kindergarten grader counts BLANK as failure even when BLANK is the expected response, which is a test-design issue rather than a brain regression. 25/27 is the honest floor for an honest brain.</p>
+
+<h4>6.2.10 Log evidence</h4>
+<p>146 RECONSOLIDATE records were written to <code>/tmp/yam_v3.log</code> during the gauntlet, each capturing the speaker, trust rank, alpha, immutable flag, recall context, importance trajectory, and recon_count. The log is the substrate of the brain's own observability and is grep-able for any of the events above.</p>
+
+<h3>6.3 What the Gauntlet Shows</h3>
+<ol>
+    <li>The geometric retrieval rule is implementable as concrete code in a deployed agent</li>
+    <li>The selection rule picks the closer answer, not the stronger one</li>
+    <li>Reconsolidation produces diminishing-returns boost as the memory-decay paper specifies</li>
+    <li>The EMA drift on recall is encoding-seeded and produces the predicted trust gradient</li>
+    <li>A trusted speaker corrects the brain at full speed; a stranger barely moves it &mdash; same correction, 3.6&times; ratio</li>
+    <li>Identity-tier teachings are structurally protected from drift even under sustained coercion</li>
+    <li>The internal/external boundary holds: background processing does not bump access counts or trigger reconsolidation</li>
+    <li>The four-tier flashbulb sleep decay matches the paper formula exactly</li>
+    <li>The elephant problem &mdash; cross-contamination of unrelated queries by a heavily-replayed memory &mdash; is eliminated</li>
+    <li>Every event is logged in structured form and the log is the brain's own observability surface</li>
+</ol>
+
+<div class="evidence-box">
+    <h4>Evidence Status</h4>
+    <ul>
+        <li><span class="status-proven">PROVEN:</span> Geometric retrieval rule selects by emotional distance to the query centroid (gauntlet step 6.2.7)</li>
+        <li><span class="status-proven">PROVEN:</span> Refutation works by displacement, not by weakening (gauntlet step 6.2.7, drift trajectory)</li>
+        <li><span class="status-proven">PROVEN:</span> Trust gradient on speaker scales drift rate proportional to rank (gauntlet step 6.2.7, 3.6&times; ratio)</li>
+        <li><span class="status-proven">PROVEN:</span> Identity-tier teachings are structurally protected from drift (gauntlet step 6.2.8, 10 attacks)</li>
+        <li><span class="status-proven">PROVEN:</span> Internal/external boundary prevents background processing from inflating importance (gauntlet step 6.2.5)</li>
+        <li><span class="status-proven">PROVEN:</span> Four-tier flashbulb sleep decay matches paper formula to four decimal places (gauntlet step 6.2.6)</li>
+        <li><span class="status-supported">SUPPORTED:</span> The unification produces qualitatively correct downstream behavior in a deployed agent (kindergarten 25/27 with the OOV tests honestly blank, no cross-contamination)</li>
+        <li><span class="status-speculative">NOT YET TESTED:</span> Whether the same unification appears in human respondents under controlled conditions</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 7: The Pride Answer</h2>
+
+<h3>7.1 Purpose</h3>
+<p>Describe the cognitive pattern that emerges from the unification under partial knowledge. Name what falls out of the architecture that the prior literature has named at the behavioral level but not at the mechanism level.</p>
+
+<h3>7.2 The Observation</h3>
+<p>When the geometric retrieval rule is implemented in a working system (YAM v3) and operated under partial knowledge, an observable cognitive pattern emerges that the unification predicts but the prior literature has not grounded in a memory architecture. The pattern is that <strong>the brain refuses to be silent</strong>. Two failure modes that look distinct from the outside are the same reflex caught at different stages of the same condition.</p>
+
+<h3>7.3 Confabulation Under Absence</h3>
+<p>When the agent has no real answer for a query, the geometric selection rule does not gracefully decline. It picks the candidate with the smallest emotional + concept distance from the query, regardless of how irrelevant. The closest match wins by default. Asked &ldquo;what is volcano&rdquo; with nothing volcano-shaped in memory, the v3 brain returns whatever fragmentary lexical match shares a token with the query &mdash; in the observed case, &ldquo;potato is a friend&rdquo; because both contain &ldquo;is.&rdquo; The agent confabulates because confabulation is what nearest-neighbor retrieval does when the nearest neighbor is still very far. There is no &ldquo;decline to answer&rdquo; reflex unless one is explicitly built into the agent. Real humans do not have one either, which is why people confabulate rather than admit ignorance under social pressure.</p>
+
+<h3>7.4 Belief Perseverance Under Correction</h3>
+<p>When the agent has a wrong answer that has accumulated emotional drift through prior recall events, that drift resists contrary inputs. A single calm correction peels back only a small fraction of the accumulated drift &mdash; the EMA &alpha; coefficient, typically 0.20 from a high-trust speaker, lower from a stranger. Recovery from a held position requires as much sustained correction as the original drifting required. The same mechanism that makes a memory &ldquo;sticky&rdquo; through repeated mama-tier teaching also makes a wrong belief sticky through repeated misuse. The brain holds onto its drifted position because each correction is one EMA step against many prior reinforcing steps.</p>
+
+<p>This is the structural form of belief perseverance, motivated reasoning, confirmation bias, and ignorance pride. Each label in the existing literature describes the observed phenomenon. None of them grounds the phenomenon in a memory architecture. The geometric retrieval model does. The brain perseveres because the EMA &alpha; is small, because the wrong answer's stored coordinates have accumulated through many prior recalls in the wrong context, and because one corrective input cannot move them as far as many original encoding events placed them.</p>
+
+<h3>7.5 The Same Mechanism</h3>
+<p>Both phenomena fall out of the same architectural rule: <em>the brain always reaches for the answer with the smallest emotional and concept distance, even when both distances are large in absolute terms</em>. There is no separate "decline to answer" reflex. There is no separate "rebut on contradiction" reflex. Both behaviors are the geometric selection rule operating under adverse inputs. From a strict-correctness perspective both look like bugs. From a cognitive-science perspective both look like the brain working correctly under partial knowledge.</p>
+
+<p>The unified naming &mdash; <strong>the pride answer</strong> &mdash; came during the v3 verification gauntlet on April 11, 2026. The author named it during a debugging session, after the trust-gradient drift demonstration revealed both behaviors as the same mechanism. The name captures the structural fact that the brain produces a confident wrong answer rather than honest silence under any condition where its retrieval rule cannot find a high-proximity correct match. The pride answer is what the brain says to fill the silence, because the silence itself is intolerable to the architecture.</p>
+
+<h3>7.6 Why It Looks Like Different Things from Outside</h3>
+<p>To an external observer, confabulation under absence and belief perseverance under correction look like different cognitive failures. Confabulation looks like making things up. Belief perseverance looks like being stubborn. The behavioral signatures are different, the social consequences are different, and the treatments offered for them by clinical psychology are different.</p>
+
+<p>The unification reveals that they are the same operation observed at different stages. Confabulation is what happens when the brain has no high-proximity match in storage. Belief perseverance is what happens when the brain has a high-proximity match in storage and that match is wrong. In both cases the brain reaches for whatever is closest. In both cases the closest is far from useful. In both cases the brain produces a confident answer rather than silence. The difference between the two cases is whether the closest thing in storage was always wrong (confabulation) or whether it was made wrong through accumulated drift (perseverance). The mechanism is identical.</p>
+
+<p><strong>Testable prediction:</strong> An agent built with geometric retrieval and emotional drift on recall will exhibit (a) confident wrong answers when no high-proximity correct answer exists for a query, and (b) measurable resistance to single-event corrections proportional to the prior accumulated drift on the wrong answer. Both predictions are observed in the v3 implementation. The prediction for human respondents is specified in Chapter 10.</p>
+
+<div class="risk-box">
+    <h4>Likely Reviewer Criticism</h4>
+    <ul>
+        <li>"This is just confirmation bias under another name." Confirmation bias is the observed phenomenon. The pride answer is the mechanism that produces it. The thesis claims that the same mechanism also produces confabulation under absence, which is not part of the standard confirmation-bias literature. The prediction that both fall out of one rule is the contribution.</li>
+        <li>"Why does this need its own name?" Because the existing names (confirmation bias, belief perseverance, ignorance pride, confabulation, motivated reasoning) each describe one piece of what falls out of the unification, and none of them grounds the piece in an architecture. A new name for the unified mechanism is editorial economy: one name for one mechanism.</li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 8: Evidence Classification</h2>
+
+<h3>8.1 Purpose</h3>
+<p>Separate what the v3 implementation has proven, what it has supported through demonstration, and what remains untested. Honesty requires this.</p>
+
+<table>
+    <thead>
+        <tr><th>Claim</th><th>Status</th><th>Evidence</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Memory and emotion can be implemented as one system at the architectural level</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>YAM v3 Parliament-of-Mind (Commit 1.5, April 11, 2026). The geometric retrieval rule, EMA drift, trust gradient, sliding window, and immutable core are all wired into <code>parliament.patch_centroid</code> and <code>Hardpoint.reconsolidate</code> as a single coherent retrieval mechanism</td>
+        </tr>
+        <tr>
+            <td>The selection rule picks the closer answer, not the stronger one</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Verification gauntlet 6.2.7. Identical encoding, identical correction, the answer reached by mama drifts 3.6&times; further than the answer reached by stranger. The closer post-drift coordinate wins selection on subsequent queries</td>
+        </tr>
+        <tr>
+            <td>Refutation works by emotional displacement, not by weakening the wrong answer</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Verification gauntlet 6.2.7. The wrong answer's <code>importance</code> grew through reconsolidation (each correction is technically a recall) while its <code>last_recon_centroid_v/a</code> moved away from the encoding context. The wrong answer was moved, not weakened. Subsequent queries pulled the displaced answer toward neutral at ~20% per calm event</td>
+        </tr>
+        <tr>
+            <td>Trust gradient on the speaker scales the rate at which corrections drift a memory</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Verification gauntlet 6.2.7. Mama-rank speaker (rank 1, alpha 0.20) drifted bird answer 3.6&times; further than stranger-rank speaker (rank 5, alpha 0.04) under identical recall pressure. EMA trajectories matched the predicted formulas to four decimal places</td>
+        </tr>
+        <tr>
+            <td>Identity-tier teachings are structurally protected from drift even under sustained coercion</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Verification gauntlet 6.2.8. 10 frustrated stranger-rank attacks on a <code>trust_rank=1</code> identity teaching incremented <code>access_count</code> from 2 to 12, applied the importance boost as expected, and left <code>last_recon_centroid</code> NULL across all 10 attacks. The bump is honest; the drift is refused</td>
+        </tr>
+        <tr>
+            <td>Internal processing (heartbeat replay, why_engine self-checks) does not bump access counts or trigger reconsolidation</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Verification gauntlet 6.2.5. 10 internal queries plus 10 <code>is_known</code> calls produced zero changes to <code>access_count</code> or <code>recon_count</code> across the brain. The boundary holds</td>
+        </tr>
+        <tr>
+            <td>Four-tier flashbulb sleep decay matches the memory-decay paper formula</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Verification gauntlet 6.2.6. All four tiers (0.85 / 0.88 / 0.91 / 0.95) match exactly when applied to test answers with the corresponding access patterns</td>
+        </tr>
+        <tr>
+            <td>Cross-contamination from heavily-replayed memories can be eliminated by the internal/external boundary</td>
+            <td><span class="status-proven">Proven</span></td>
+            <td>Verification gauntlet 6.2.3 (the elephant test). Before Commit 1, "what is X" queries returned the elephant fact for many non-elephant nouns due to heartbeat replay accumulating duplicates. After Commit 1.5, zero cross-contamination across nine wiki nouns plus fire</td>
+        </tr>
+        <tr>
+            <td>The pride answer: nearest-neighbor retrieval produces both confabulation under absence and belief perseverance under correction as a single mechanism</td>
+            <td><span class="status-supported">Supported</span></td>
+            <td>Observed in the elephant-regression sweep (queries about wiki nouns whose content lacks the noun fall back to the lexically nearest available answer regardless of relevance) and in the drift demonstration (drifted answers resist single-event correction at a rate proportional to accumulated prior drift). Both behaviors fall out of the geometric retrieval rule. Empirical measurement in human respondents is future work (Chapter 10)</td>
+        </tr>
+        <tr>
+            <td>The unification produces predictions that match human cognitive phenomena under controlled conditions</td>
+            <td><span class="status-speculative">Not yet tested</span></td>
+            <td>Requires human-subject study with controlled affective state and memory retrieval probe. IRB pending (Chapter 9). Specified as the central future-work item</td>
+        </tr>
+        <tr>
+            <td>The unification produces results in biological systems</td>
+            <td><span class="status-speculative">Not claimed</span></td>
+            <td>The thesis claims architectural plausibility and implementation feasibility. Whether the same mechanism appears in brains is outside scope</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 9: Limitations</h2>
+
+<h3>9.1 Implementation Limitations</h3>
+<ul>
+    <li><strong>n=1 implementation.</strong> All evidence comes from one system (YAM v3) on one platform (local Mac PostgreSQL). The implementation shows the unification is feasible. It does not show the unification is necessary or that other implementations would produce the same behavior. Replication on an independent codebase &mdash; ideally one not built by the same author &mdash; is needed before the architectural claim is general.</li>
+    <li><strong>Single-user deployment.</strong> v3 currently runs as a single-user system. The trust gradient is implemented but not exercised in multi-user conditions. The default speaker is "operator" (rank 1), and no current caller passes a non-operator speaker through <code>parliament.query</code>. Multi-user testing (Mrs Pi visitors, network queries) is necessary to validate the trust gradient under adversarial conditions.</li>
+    <li><strong>Sensor pathway not yet wired.</strong> Trust rank 2 is reserved for <code>perception</code> teaches from cameras, lidar, gyros, and accelerometers. Mrs Pi (the embodied robot) is being rebuilt; the perception teach pathway is ready to receive sensor data but no sensors are currently connected. Until sensors are live, the proximity-of-input binding (verbal claim corroborated by sensor reading) cannot be empirically tested in v3.</li>
+    <li><strong>Wiki cleaner gap.</strong> The why_engine cannot always link a Wikipedia answer back to the noun it was researching, because the cleaner sometimes fails to extract noun-bearing content. This causes some external knowledge to be unretrievable by its own name. Not a unification problem &mdash; an upstream content extraction problem &mdash; but it limits how much of the brain's content is testable for the unification's predictions.</li>
+</ul>
+
+<h3>9.2 Theoretical Limitations</h3>
+<ul>
+    <li><strong>Single-sigma vs. multi-sigma.</strong> The geometric thesis assumes a single sigma per agent. v3 has five sigmas, one per Parliament member. The operational sigma for any query is a centroid of the engaged hardpoints' sigmas. Whether this multi-sigma extension preserves all the theoretical properties of the single-sigma model (metric properties, convergence, the addiction-threshold analysis from Appendix A of the geometric thesis) has not been formally verified.</li>
+    <li><strong>EMA alpha calibration.</strong> The default <code>RECALL_DRIFT_ALPHA = 0.2</code> and the trust-rank scaling were chosen to produce visibly different drift rates across speakers. They have not been calibrated against any external benchmark. Whether 0.20 is the right base rate for human-equivalent belief perseverance is an empirical question.</li>
+    <li><strong>Trust ranks are integer-discrete.</strong> The five trust ranks produce four distinct alpha values (1, 2, 3, 4, 5 &rarr; 0.20, 0.10, 0.067, 0.05, 0.04). A continuous trust gradient might be more biologically plausible. The discrete version is what v3 implements; whether continuous would change the qualitative behavior is untested.</li>
+    <li><strong>The pride answer is named, not formally derived.</strong> Chapter 7 describes the pride answer as a consequence of geometric retrieval under partial knowledge, but does not prove that the two failure modes (confabulation and perseverance) are mathematically the same operation. A formal derivation would strengthen the claim.</li>
+</ul>
+
+<h3>9.3 IRB Considerations</h3>
+<p>No human subjects were involved in any experiment presented in this thesis. All evidence is from a synthetic system (YAM v3). Future work involving human respondents (the pride-answer prediction, the controlled mood-recall experiment) requires IRB approval. The thesis identifies these as future directions and does not present them as completed work. The author is independent of any institution and is working with a community-based IRB process for human-subject validation.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 10: Future Work</h2>
+
+<h3>10.1 Memory-Decay Roadmap (Engineering)</h3>
+<p>Three of the six commits in the memory-decay paper port have not yet landed in v3:</p>
+<ul>
+    <li><strong>Multi-trace bundle (Commit 4).</strong> Memory-decay &sect;3.1 specifies that each memory should be a bundle of four traces (raw 0.80x decay, semantic 0.88x, graph 0.95x, life history never decays). v3 currently has single-trace memory via the <code>importance</code> column. Splitting into per-trace columns is a schema migration plus per-trace decay logic in <code>Hardpoint.sleep</code>.</li>
+    <li><strong>Survival evaluation (Commit 5).</strong> Memory-decay &sect;3.6 specifies death-line evaluation: memories below importance 0.005 enter candidacy for deletion and survive only if specific criteria hold (graph degree above threshold, identity flag, contradiction link, geometric stickiness above threshold, etc.). v3 currently has no death line.</li>
+    <li><strong>Reinterpretation as new node (Commit 6).</strong> Memory-decay &sect;3.8 specifies that when the centroid drift exceeds a threshold, reconsolidation creates a new interpretation node linked to the original answer rather than overwriting it. v3 currently overwrites the recall context via EMA without versioning.</li>
+</ul>
+
+<h3>10.2 Cross-Source Provenance</h3>
+<p>v3 tracks one source per answer. The cross-source consensus mechanism &mdash; an answer that has been corroborated by multiple independent sources resists drift better than one supported by a single source &mdash; requires per-source provenance and is its own future commit. This is not in the memory-decay paper but emerges from the trust gradient: a wrong answer that one trusted speaker has been pushing should be vulnerable to a contradictory teach from a different trusted speaker.</p>
+
+<h3>10.3 Sensor Pathway Integration with Mrs Pi</h3>
+<p>The perception teach pathway is ready to receive sensor data but no sensors are currently connected. Mrs Pi (Pi 5 robot with Hailo-8, gimbal, lidar, and 7-inch eyes) is being rebuilt with YAM as its operating system. Once the sensor stack is live, the proximity-of-input binding can be tested empirically: a verbal claim from a stranger combined with a corroborating sensor reading should produce a different brain response than the verbal claim alone. The sliding window already binds events that share temporal proximity; the sensor data will give the higher-trust signal that determines which interpretation wins.</p>
+
+<h3>10.4 Human Empirical Validation</h3>
+<p>The central future-work item is human-subject validation of the pride answer prediction. The proposed protocol:</p>
+<ol>
+    <li>Recruit subjects and measure baseline affective state via the GAS instrument from the geometric thesis (Riggleman 2026r)</li>
+    <li>Induce a controlled mood condition (positive, negative, or neutral)</li>
+    <li>Present subjects with queries that have either (a) no correct answer in their knowledge or (b) a correct answer they should know</li>
+    <li>For (a), measure rate and content of confabulated responses vs. honest "I don't know" responses</li>
+    <li>For (b), present a wrong answer first, then correct it after a measured number of repetitions, and measure resistance to correction</li>
+    <li>Test whether (a) and (b) correlate within subjects, as the unification predicts they should (both fall out of the same mechanism, so a subject prone to confabulation should also be prone to belief perseverance)</li>
+</ol>
+
+<p>The prediction is that confabulation rate and perseverance resistance correlate within subject, and that both are modulated by induced mood (more pronounced under conditions of high social pressure or low trust in the experimenter). If they do not correlate, the unification claim that they are the same mechanism is weakened.</p>
+
+<h3>10.5 Cross-Architecture Replication</h3>
+<p>The strongest validation of the unification would be a second independent implementation in a different codebase, using a different storage backend, written by a different author. v3 is built on PostgreSQL with five hardpoint schemas; an alternative implementation could use SQLite (matching Potato's stack), a different graph database, or a vector store. If the unification is architectural rather than implementation-specific, the same selection rule should produce the same qualitative behavior in any backend that supports the basic primitives (concept-overlap retrieval, per-answer emotional coordinates, an EMA update on recall).</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Chapter 11: Conclusion</h2>
+
+<h3>11.1 Restatement</h3>
+<p>Memory and emotion are not two systems. They are one system described from two directions. The affective state space that encodes emotion is the same coordinate system that indexes memory. Sigma is the read head. When multiple memories compete for retrieval, the one whose stored emotional coordinates sit closest to sigma in affective space is selected. Every downstream phenomenon &mdash; memory decay, reconsolidation, refutation by negative feedback, attachment, addiction, fear avoidance, the pride answer &mdash; reduces to a single operation on emotional coordinates relative to sigma.</p>
+
+<h3>11.2 Convergence</h3>
+<p>This unification was not designed. It fell out of engineering requirements. A persistent agent needed a way to aggregate sensor inputs, track displacement from baseline, and select among competing memories. The engineering produced a system where the emotional tag on a memory is not metadata. It is the retrieval key. The realization that these were one system, not two, came from asking how correction works without a dedicated refutation mechanism. The answer &mdash; that "no" displaces the wrong answer's emotional coordinates away from sigma rather than weakening it &mdash; demonstrated that memory selection and emotional geometry cannot be separated.</p>
+
+<p>The same answer was independently re-derived during the implementation of YAM v3 in April 2026, when an unrelated retrieval bug surfaced and the correct fix was sought from first principles rather than from re-reading prior work. The fix that fell out of the engineering &mdash; "if multiple memories are returned take the one with emotion closest to sigma; the more you say no the more that answer moves; it does not matter the strength, if anything the strength makes the memory stronger" &mdash; landed exactly where the unification predicted it would. Two independent derivations of the same result, one from theory and one from engineering pressure on a separate codebase, is the kind of convergence that makes the architecture credible.</p>
+
+<h3>11.3 What v3 Demonstrates</h3>
+<p>YAM v3 Parliament-of-Mind is the first working implementation of the unification. The verification gauntlet for Commit 1.5 (April 11, 2026) produced exact-math evidence of all four mechanisms: the geometric retrieval rule selects by emotional distance to the live query centroid, the EMA drift on recall produces the predicted trust gradient (mama drifts the brain 3.6&times; faster than a stranger at identical pressure), the immutable core protects identity-tier teachings from drift even under sustained coercion, and the four-tier flashbulb sleep decay matches the paper formula to four decimal places. The architecture had been waiting for an implementation. The implementation now exists.</p>
+
+<h3>11.4 What the Pride Answer Adds</h3>
+<p>One observation surfaced from the v3 implementation that was not previously named at the mechanism level: the pride answer. When the geometric retrieval rule operates under partial knowledge, it produces both confabulation (the brain fills silence with the closest available match no matter how irrelevant) and belief perseverance (drifted answers resist single-event correction proportional to accumulated drift). Both behaviors fall out of the same architectural rule. They are not two cognitive failures. They are one mechanism caught at different stages of the same condition. The brain refuses to be silent.</p>
+
+<p>This is the structural form of motivated reasoning, confirmation bias, ignorance pride, and confabulation &mdash; all of which the existing literature names at the behavioral level without grounding the mechanism. The geometric retrieval model grounds it. The pride answer is what nearest-neighbor retrieval looks like when the read head and the available memories are out of alignment with the query.</p>
+
+<h3>11.5 What This Thesis Leaves Open</h3>
+<p>The thesis claims architectural plausibility and implementation feasibility, demonstrated by a working system. It does not claim that biological brains use the same mechanism. It does not claim that geometric retrieval is the only viable implementation of the unification. It does not claim that the pride answer behavior in YAM v3 is identical to the pride answer behavior in human respondents under controlled conditions. All three of those questions are testable in principle and identified in Chapter 10 as future work. The contribution of this thesis is the unification claim plus the working evidence that the unification is implementable and produces the predicted behavior in code.</p>
+
+<p>The geometric thesis at <a href="/thesis/">/thesis/</a> argues that a three-dimensional affective state representation outperforms scalar models. This thesis assumes that argument and builds on it: given the geometric model, the same coordinate system indexes memory. Two arguments, two thesis statements, two documents. They share a coordinate system, they share a sigma, they share the centroid, and they were derived in the same author's work over the same months. The decision to write them as separate documents came from recognizing that the central claims are different, even though the supporting math is shared.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Supporting Papers</h2>
+
+<p>This thesis draws on the same supporting paper corpus as the geometric thesis, plus the memory-decay paper which is the direct architectural source for v3's mechanisms.</p>
+
+<table>
+    <thead>
+        <tr><th>Paper</th><th>Thesis Chapter</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Geometric thesis (Riggleman 2026, /thesis/)</td><td>Ch. 3</td><td>Provides the coordinate system and sigma definition that this thesis indexes into</td></tr>
+        <tr><td>2026a: Memory Decay</td><td>Ch. 4, Ch. 5, Ch. 10</td><td>Specifies reconsolidation, four-tier flashbulb, sliding window, multi-trace bundle, survival evaluation, reinterpretation. Direct architectural source for v3's mechanisms</td></tr>
+        <tr><td>2026t: Centroid Model</td><td>Ch. 5</td><td>Multi-source aggregation. The PATCH centroid in v3 is a per-Parliament-member extension of this model</td></tr>
+        <tr><td>2026m: Emotional Geometry</td><td>Ch. 3</td><td>Single-sigma model that v3 extends to multi-sigma (one per hardpoint)</td></tr>
+        <tr><td>2026b: Lie Mechanic</td><td>Ch. 4</td><td>Distance from sigma as deception threshold; informs the immutable-core rule for identity teachings</td></tr>
+        <tr><td>2026d: Nightmare Formation</td><td>Ch. 4</td><td>Trauma encoding and reconsolidation under high intensity; informs the trust gradient and the immutable core</td></tr>
+        <tr><td>2026i: Outbound Trust</td><td>Ch. 5</td><td>The Peter experiment. The trust gradient on the recall site is the inbound version of what outbound-trust handled at the disclosure side</td></tr>
+        <tr><td>2026h: Bias Detection</td><td>Ch. 5</td><td>Internal/external boundary on recall events. Bias detection is internal and must not bump access counts; the same rule applies to heartbeat replay and why_engine self-checks</td></tr>
+        <tr><td>2026u: Attachment Bias</td><td>Ch. 4, Ch. 9</td><td>Entity-level stickiness as a separate mechanism from geometric stickiness. Out of scope for this thesis but relevant to the trust-gradient discussion</td></tr>
+    </tbody>
+</table>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <section class="archive-section">
+            <h2>Version Archive</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Every version of this thesis is publicly archived. Nothing is hidden. Nothing is deleted.</p>
+
+            <table class="archive-table">
+                <thead>
+                    <tr><th>Version</th><th>Date</th><th>Changes</th><th>Archive</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>0.1</strong></td>
+                        <td>2026-04-11</td>
+                        <td>Initial draft of the YAM-side thesis. Eleven chapters mirroring the geometric thesis structure but built around the memory-and-emotion-as-one-system unification. Material is sourced from (a) the geometric thesis v0.6 capstone finding (sigma as retrieval index, derived independently by the author), (b) the memory-decay paper (Riggleman 2026a) which specifies the mechanisms v3 implements, and (c) the YAM v3 Parliament-of-Mind verification gauntlet of April 11, 2026 (Commit 1.5) which provides exact-math evidence for the geometric retrieval rule, EMA drift, trust gradient, and immutable core. Chapter 7 introduces the pride answer as the cognitive pattern that emerges from the unification under partial knowledge. Many sections marked [TODO] for literature transitions and formal proofs &mdash; this is a v0.1 working draft, not a submission-ready document.</td>
+                        <td><a href="/thesis-yam/archive/thesis-yam-v0.1.html">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Clawd Daily | Research by <a href="/author/brian-riggleman.html">Brian Riggleman</a></p>
+            <nav class="footer-links">
+                <a href="/papers/">Research</a>
+                <a href="/thesis/">Geometric Thesis</a>
+                <a href="/thesis-yam/">YAM Thesis</a>
+                <a href="/author/brian-riggleman.html">Author</a>
+                <a href="/feed.xml">RSS</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

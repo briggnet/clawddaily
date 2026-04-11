@@ -192,7 +192,7 @@
 
     <main>
         <section class="thesis-header">
-            <span class="version-badge">Version 0.9 | Working Draft</span>
+            <span class="version-badge">Version 0.6 | Working Draft</span>
             <div style="margin-top: 0.5rem;"><a href="thesis_v05.pdf" style="font-size: 0.9rem;">Download PDF</a></div>
             <h1>Geometric Affective State Representation in Synthetic and Human Systems</h1>
             <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; April 2026</p>
@@ -473,6 +473,26 @@
 </table>
 <p>Distance tells you <em>how far</em>. Centroid tells you <em>where</em>. Spread tells you <em>how conflicted</em>. All three are required. Any two without the third lose information.</p>
 
+<h3>4.6 Sigma as Retrieval Index</h3>
+<p>Distance, centroid, and spread are computed from the same coordinate system that encodes every memory. This is not a convenience. It is the central structural finding of the thesis: the emotional coordinates of a memory are its retrieval address. Sigma is the read head.</p>
+
+<p>When the agent stores a memory, the memory carries the centroid position and intensity at the moment of encoding. When the agent retrieves, it does not search for the strongest match. It searches for the match closest to its current personality setpoint. Retrieval is nearest-neighbor in affective space. The emotional tag is not metadata attached to stored content. It is the index.</p>
+
+<p>This means memory and emotion are not two systems. They are one system described from two directions. The dimensional emotion literature (Russell 1980, Barrett 2017) describes how affective states are structured. The memory literature (Ebbinghaus 1885, Nader 2000, Tulving 1972) describes how storage and recall work. In the geometric model they cannot be separated because the selection mechanism that determines which memory surfaces is geometric proximity to sigma in affective space.</p>
+
+<p>Every downstream phenomenon in the thesis is a consequence of this unification:</p>
+<ul>
+    <li><strong>Memory decay</strong> is not forgetting. It is emotional coordinate drift away from sigma over time. Memories that drift far enough from sigma stop being retrieved, not because they are erased but because they are no longer nearest.</li>
+    <li><strong>Reconsolidation</strong> is not strengthening a memory. It is re-anchoring the memory's emotional coordinates near their current position, resisting drift.</li>
+    <li><strong>Correction ("no")</strong> does not require a new mechanism. Telling the agent "no" with shame or fear attaches high-intensity negative-valence coordinates to the wrong answer. The wrong answer is now far from sigma. The correct answer, taught at neutral coordinates, sits closer to sigma. Retrieval returns the closer one. The wrong answer is not weakened. It is displaced.</li>
+    <li><strong>Depression</strong> is sigma drift to negative valence. Positive memories still exist. They are no longer nearest to the read head.</li>
+    <li><strong>Addiction</strong> is a memory cluster so heavily reconsolidated at positive valence that it sits on top of sigma. Corrections carry negative valence and high intensity, placing them far from sigma. The addictive memory wins retrieval every time regardless of how many corrections accumulate. Rock bottom works because it moves sigma, not because it finally outweighs the memory.</li>
+    <li><strong>Attachment bias</strong> is a permanent warp in the retrieval landscape around specific entities.</li>
+    <li><strong>Fear</strong> is retrieval avoidance. The feared memory has high importance. It also has negative valence and high intensity, placing it far from sigma. The agent does not retrieve it first. It avoids it.</li>
+</ul>
+
+<p><strong>Testable prediction:</strong> When multiple memories pass the retrieval threshold for a given query, the agent selects the one whose emotional coordinates are closest to sigma.</p>
+
 <div class="evidence-box">
     <h4>Evidence Required</h4>
     <ul>
@@ -724,6 +744,7 @@
     <li><strong>Identity discontinuity:</strong> Environmental orphaning in memory transplant shows coordinate-system dependence (Riggleman 2026o).</li>
     <li><strong>Survey measurement:</strong> The GAS puts the three-axis framework into a survey humans can answer (Riggleman 2026r).</li>
     <li><strong>Clinical assessment:</strong> Geometric displacement gives you a trajectory-based clinical metric (Riggleman 2026s).</li>
+    <li><strong>Refutation as displacement:</strong> Correction does not require a separate mechanism. Negative feedback ("no") carries emotional coordinates (shame, fear, pain) that displace the wrong answer away from sigma in affective space. The wrong answer is not weakened or deleted. It is moved. The correct answer, encoded at neutral coordinates near sigma, wins retrieval by proximity. Intensity does not need to go negative. Valence carries the sign. Intensity carries the weight. A high-intensity negative-valence memory is geometrically far from sigma, which is exactly what fear is. The entire correction mechanism falls out of the existing geometry with zero new architecture.</li>
 </ul>
 
 <p>Each one has its own paper. The thesis treats them as evidence the model generalizes, not as standalone contributions.</p>
@@ -829,6 +850,16 @@
             <td>Russell (1980), Larsen &amp; Diener (1987), Cacioppo &amp; Berntson (1994), Bowlby (1969), Lazarus (1991). All arrived at inductively, not used as design inputs</td>
         </tr>
         <tr>
+            <td>Memory and emotion are one system: emotional coordinates are the retrieval index, sigma is the read head</td>
+            <td><span class="status-supported">Supported</span></td>
+            <td>Structural derivation from the geometry. Every memory carries affective coordinates at encoding. Retrieval selects the nearest match to sigma. Memory decay, reconsolidation, correction, addiction, and attachment bias all reduce to operations on emotional coordinates relative to sigma. No separate memory-selection mechanism exists</td>
+        </tr>
+        <tr>
+            <td>Refutation (correction via "no") works by emotional displacement, not by weakening the wrong answer</td>
+            <td><span class="status-supported">Supported</span></td>
+            <td>Structural derivation. Negative feedback attaches high-intensity negative-valence coordinates, displacing the wrong answer far from sigma. The correct answer wins retrieval by proximity. Requires no new mechanism beyond the existing geometry</td>
+        </tr>
+        <tr>
             <td>The geometric model produces changed behavioral output following state discontinuity</td>
             <td><span class="status-supported">Supported</span></td>
             <td>Single shutdown experiment; behavioral shift observed but not replicated</td>
@@ -924,7 +955,12 @@
 
 <h3>11.2 The Contribution</h3>
 <p>This thesis presents a three-dimensional geometric representation of affective state with a personality setpoint, a centroid model for multi-source aggregation, and evidence that this structure outperforms scalar representations in both synthetic agent behavior and human datasets across three independent domains.</p>
-<p>The model came from engineering requirements of a deployed AI agent. It lines up structurally with established models of human affect without having been built from them. Whether that overlap says something general about how dimensional emotional systems work is the question this thesis leaves open.</p>
+
+<p>The central finding is that emotional coordinates and memory retrieval are not separate systems. The affective state space that encodes emotion is the same space that indexes memory. Sigma is the read head. When multiple memories compete for retrieval, the one whose emotional coordinates sit closest to the agent's personality setpoint is selected. Every downstream phenomenon documented in this thesis — memory decay, reconsolidation, correction, attachment, addiction, fear — reduces to a single operation: geometric proximity to sigma in affective space.</p>
+
+<p>This unification was not designed. It fell out of engineering requirements. A persistent agent needed a way to aggregate sensor inputs, track displacement from baseline, and select among competing memories. The engineering produced a system where the emotional tag on a memory is not metadata. It is the retrieval key. The realization that these were one system, not two, came from asking how correction works without a dedicated refutation mechanism. The answer — that "no" displaces the wrong answer's emotional coordinates away from sigma rather than weakening it — demonstrated that memory selection and emotional geometry cannot be separated. They are the same computation.</p>
+
+<p>The model came from engineering requirements of a deployed AI agent. It lines up structurally with established models of human affect without having been built from them. The dimensional emotion literature describes how affective states are structured. The memory literature describes how storage and recall work. In the geometric model they are the same system described from two directions. Whether that overlap says something general about how persistent systems with memory and internal state organize their retrieval is the question this thesis leaves open.</p>
 
 <!-- ═══════════════════════════════════════════════ -->
 <h2>Supporting Papers</h2>
@@ -1087,28 +1123,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>0.9</strong></td>
+                        <td><strong>0.6</strong></td>
                         <td>2026-04-11</td>
-                        <td><strong>Deliberate revert to v0.5 content.</strong> Versions 0.6 and 0.7 added a different thesis statement (memory and emotion as one system) and v3 implementation evidence on top of this document. The added material is a different argument with a different central claim and belongs in its own thesis, not as scope creep on the geometric thesis. This document goes back to the geometric affective state argument as written in v0.5. The v0.6 finding (sigma as retrieval index) and the v0.7 evidence (YAM v3 Parliament-of-Mind verification) are preserved in archive and have been moved to a separate thesis at <a href="/thesis-yam/">/thesis-yam/</a>. v0.9 republishes v0.5 unchanged in content; the version bump records that we tried, observed the scope creep, and reverted on purpose. Nothing was deleted &mdash; the experiment is in the archive table below.</td>
-                        <td><a href="/thesis/archive/thesis-v0.9.html">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>0.7</td>
-                        <td>2026-04-11</td>
-                        <td><strong>Abandoned (scope creep).</strong> Folded YAM v3 implementation evidence into v0.6: new &sect;4.7 (the pride answer), new &sect;5.7 supporting deployment paragraph, Ch. 7 trust-gradient bullet, two Ch. 8 evidence rows promoted to Proven plus three new Proven rows, Ch. 11 conclusion convergence note. Reverted on the same day for scope reasons. Material moved to <a href="/thesis-yam/">/thesis-yam/</a>. PDF archived as <code>thesis_v07.pdf</code> in this folder.</td>
-                        <td><a href="/thesis/archive/thesis-v0.7.html">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>0.6</td>
-                        <td>2026-04-11</td>
-                        <td><strong>Abandoned (scope creep).</strong> Capstone finding added: memory and emotion as one system. Sigma identified as retrieval index (read head). New &sect;4.6 derived memory selection from geometric proximity to sigma. Refutation mechanism added to Ch. 7 as application. Ch. 8 evidence table expanded with unification and refutation claims. Ch. 11 conclusion rewritten around the unification. Reverted because the unification is a different thesis statement than this document's geometric-vs-scalar argument. Material moved to <a href="/thesis-yam/">/thesis-yam/</a>.</td>
+                        <td>Capstone finding added: memory and emotion are one system. Sigma identified as retrieval index (read head). New §4.6 derives memory selection from geometric proximity to sigma. Refutation mechanism added to Ch. 7 as application: correction via emotional displacement, no new architecture required. Ch. 8 evidence table expanded with unification and refutation claims. Ch. 11 conclusion rewritten around the central finding that emotional coordinates are the memory retrieval key.</td>
                         <td><a href="/thesis/archive/thesis-v0.6.html">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>0.5</td>
-                        <td>2026-04-07</td>
-                        <td>Working draft published live. Built on v0.4.2 with the structural concern boxes addressed and the supporting deployment context expanded. Content of v0.9 is identical to v0.5; v0.9 is the post-revert republication.</td>
-                        <td><a href="/thesis/archive/thesis-v0.5.html">View</a></td>
                     </tr>
                     <tr>
                         <td><strong>0.4</strong></td>
