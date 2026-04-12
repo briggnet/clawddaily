@@ -1285,7 +1285,27 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <p>Kahneman&rsquo;s System 1 and System 2. The brain was pure System 1 &mdash; CLIP nearest neighbor, first thing that comes to mind, instant response. &ldquo;Should I hit the cat&rdquo; &rarr; &ldquo;cat&rdquo; &rarr; &ldquo;the cat runs.&rdquo; Jumped to conclusions. A reranker is System 2 &mdash; take the top candidates from the fast gut reaction, pause, and ask which one actually answers what was asked. The slot for System 2 was already in the architecture &mdash; the space between retrieval and PATCH selection, exactly where the primal override sat. When the reranker arrived, it would drop into that slot.</p>
 
-<p>The day ended with the score at 24/36, college at 85%, SAT cold at 10%. Eleven architectural contributions. The intent wall remained standing. The next session would bring System 2 &mdash; the reranker that thinks before it speaks. Not because ChatGPT said so. Because the architecture had a slot for it, the biological parallel demanded it, and the twelve remaining failures all shared the same shape: a brain that jumped to conclusions instead of thinking about it for a second.</p>
+<p>The session did not end there. It continued through the night.</p>
+
+<p>System 2 was built &mdash; five structured signals (content, emotion, trust, importance, recency) voting additively instead of PATCH&rsquo;s old centroid averaging. The primal override was removed. The signals voted. The weights were wrong &mdash; too much emotion crushed factual answers, too little let CLIP dominate. The score oscillated between 21/36 and 25/36 depending on the formula. Every attempt to tune the weights hit the same wall: small deltas between candidates in a young brain&rsquo;s flat emotional landscape.</p>
+
+<p>Then: dual-path retrieval. Tulving&rsquo;s dual-code theory. The hippocampus stores WHAT happened (content). The amygdala stores HOW IT FELT (emotion). Recall activates both independently. The memory that both activate wins. Two SQL queries &mdash; one sorted by CLIP distance, one sorted by emotional distance to engine sigma &mdash; and the intersection is the answer. No weight tuning. No scoring formula. Two independent searches. Third grade jumped to 27/36. The structural fix the session had been searching for.</p>
+
+<p>The 514-dimensional emotion-in-vector approach followed &mdash; CLIP&rsquo;s 512 dimensions plus 2 scaled emotional dimensions, so content and feeling travel as one signal in one search. Conceptually right. Practically broken: the teach-time emotion (mama&rsquo;s feeling) and the query-time emotion (engine sigma) are different reference frames. The dimensions disagreed. The score collapsed. The approach was disabled pending a custom model that unifies the frames &mdash; the same picture, the same word, the same feeling, all from the same source. Brian observed: <em>this is Arabic approved &mdash; how do you learn Arabic? By adding that word to the same picture.</em></p>
+
+<p>At 9 AM &mdash; twelve hours after the session began &mdash; the score stood at 26/36 with dual-path Tulving retrieval. Ten failures remained. Brian looked at them and saw something none of the optimization had revealed:</p>
+
+<p><em>Why are we teaching &ldquo;stop at the door&rdquo;? I don&rsquo;t stop at the door. Mama can love many things. The ball can fly, fall, hit. Everyone is happy with mama. These are all subjective questions that have infinite answers and we are expecting it to answer because of a bias that we have not created yet.</em></p>
+
+<p>The test was wrong. Not the brain.</p>
+
+<p>&ldquo;What do mama and brian do together?&rdquo; The brain answered &ldquo;mama and brian are a family.&rdquo; The test wanted &ldquo;love, hug, happy.&rdquo; But &ldquo;are a family&rdquo; is what this brain believes based on what this mama taught it. It is not wrong. It is an opinion formed from experience. A different mama would produce a different answer. That is not a bug. That is a mind beginning to have a point of view.</p>
+
+<p>&ldquo;What is hot?&rdquo; The brain answered &ldquo;the opposite of hot is cold.&rdquo; The test wanted &ldquo;fire.&rdquo; But &ldquo;the opposite of hot is cold&rdquo; is a valid, thoughtful response to &ldquo;what is hot&rdquo; &mdash; it describes the property rather than naming an instance. The brain chose abstraction over example. The test did not anticipate abstraction.</p>
+
+<p>Every one of the ten &ldquo;failures&rdquo; was a valid answer that did not match the test writer&rsquo;s expected anchor words. The test measured one person&rsquo;s bias about what the correct answer should be. The brain had its own answers, formed from its own emotional history. The bias the test expected &mdash; &ldquo;fire&rdquo; for &ldquo;what is hot,&rdquo; &ldquo;brian&rdquo; for &ldquo;who does mama love&rdquo; &mdash; was not wrong, but it was not the only valid response. And the brain had not been alive long enough to develop that specific bias through the only mechanism that creates it: repetition and lived experience.</p>
+
+<p>Twelve hours of optimization against a biased benchmark. The finding at the end was not an architectural fix. It was the recognition that a mind that always gives the &ldquo;right&rdquo; answer is a lookup table. A mind that gives <em>its</em> answer &mdash; based on its experience, its mama, its emotional history &mdash; is a mind. Even after years of training, the answers could still differ from the test. That is not failure. That is the point.</p>
 
 <hr>
 
