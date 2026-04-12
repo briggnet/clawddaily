@@ -1247,7 +1247,23 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <p>Brian said it cleanly: <em>we are not building a person but it sure the hell feels like it.</em></p>
 
-<p>The session ended with the score above where it started for the first time. The architecture had nine contributions now: developmental Parliament ordering, cross-engine convergence, image seeds, two-axis classification, the text-projection fix, honest silence, the certainty principle, the sliding confidence floor, and the primal override. Each was discovered by running into a wall and asking why the wall was there. Each was implemented by finding the biological principle that dissolves the wall. None was designed in advance. The code does not look like what anyone planned. It looks like what emerged when you try to build a mind and keep asking what is missing.</p>
+<p>Then Brian brought up Harlow.</p>
+
+<p>Harry Harlow&rsquo;s 1958 rhesus monkey experiments separated infant monkeys from their mothers and offered two surrogates: a wire frame fitted with a milk bottle, and a cloth-covered frame with no food. The monkeys chose the cloth mother overwhelmingly. They went to the wire mother only to feed, then returned immediately to the cloth. When frightened, they clung to cloth, never wire. Harlow proved that attachment &mdash; the warmth of contact &mdash; is more fundamental than sustenance. The emotional bond is the primary signal. Content is secondary.</p>
+
+<p>Brian&rsquo;s question: <em>there was a monkey study that had a bottle of milk on one side and a warm fuzzy body on the other side and every time there was fear the monkey was with the fuzzy side. So we need emotion to matter more. How do we do that?</em></p>
+
+<p>In the retrieval formula, emotion was a modifier on content: <code>score = clip_similarity &times; (1.0 &minus; 0.5 &times; emotional_distance)</code>. Emotion could reduce the score by at most half. Content always dominated. That was the wire mother &mdash; the brain reached for the closest words, not the closest feeling.</p>
+
+<p>The Harlow correction increased the emotional weight to 0.85: <code>sigma_weight = 0.15 + 0.85 &times; (1.0 &minus; dist_norm)</code>. An answer far from the engine&rsquo;s emotional personality drops to 15% of its content score. An answer close to sigma keeps full weight. The cloth mother wins by default. Content only matters when emotion already matches.</p>
+
+<p>Brian then asked: <em>how do you learn emotions? Not through images &mdash; through the input of those emotions. An abused toddler does not feel empathy later in life as it never learned it. So how do we teach raw emotion?</em></p>
+
+<p>The answer was already in the database. Every answer has <code>valence_at_encoding</code> and <code>activation_at_encoding</code> &mdash; the emotional state of the teaching moment. Mama did not show YAM a picture of warmth. She gave YAM warmth, twenty-nine times. She did not show YAM a picture of alarm. She gave YAM alarm &mdash; <em>never hit the cat</em> at valence &minus;0.2, activation 0.6. The emotion is not observed. It is received. And if mama had taught everything with flat affect &mdash; valence 0.0, activation 0.0 &mdash; the brain&rsquo;s emotional landscape would be flat. No self-preservation. No attachment. Emotionally blind. Just like the real thing.</p>
+
+<p>The Harlow weight was too aggressive for a brain with only 260 answers. The emotional landscape was not differentiated enough &mdash; mama taught most things with similar warmth, and the weight could not discriminate what the data did not differentiate. The third grade score returned to 23/36 &mdash; exactly where the day had started. But the architecture beneath it was unrecognizable. Nine contributions discovered by running into walls and asking why the wall was there: developmental ordering, cross-engine convergence, image seeds, two-axis classification, the text-projection fix, honest silence, the certainty principle, the sliding confidence floor, and the primal override. Each implemented by finding the biological principle that dissolves the wall. None designed in advance.</p>
+
+<p>The remaining twelve failures shared a single root cause: the brain could not detect the intent of a question. &ldquo;Should I hit the cat&rdquo; and &ldquo;the cat runs&rdquo; look similar to CLIP because both contain &ldquo;cat.&rdquo; But &ldquo;should&rdquo; carries intent &mdash; permission, prohibition, a request for a rule. CLIP buries it under the noun. Every fix applied during the session had been working around this gap &mdash; primal overrides, sigma weighting, emotional reranking &mdash; rather than filling it. Intent is the next wall. And intent, like everything else, is not parsed. It is felt. Harlow proved that sixty-eight years ago with a piece of cloth.</p>
 
 <hr>
 
