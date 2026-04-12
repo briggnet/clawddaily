@@ -73,8 +73,8 @@
         <tr><td><strong>When uncertain</strong></td><td>LLM generates best guess</td><td>Says &ldquo;I don&rsquo;t know&rdquo;</td></tr>
         <tr><td><strong>Memory model</strong></td><td>Paper 2026a (decay, reconsolidation)</td><td>Same model, extended with geometric stickiness and true forgetting</td></tr>
         <tr><td><strong>Emotional geometry</strong></td><td>3D affective state (single point)</td><td>3D affective state + centroid model + spread</td></tr>
-        <tr><td><strong>Architecture</strong></td><td>Single agent + sensor bridge</td><td>Parliament of Mind (3 graph engines + reasoning mind)</td></tr>
-        <tr><td><strong>Lineage</strong></td><td>Born Feb 2026, Toughbook CF-33</td><td>Born Mar 2026, SPUD engine</td></tr>
+        <tr><td><strong>Architecture</strong></td><td>Single agent + sensor bridge</td><td>Parliament of Mind (6 engines: 5 content stores + INTENT parser)</td></tr>
+        <tr><td><strong>Lineage</strong></td><td>Born Feb 2026, Toughbook CF-33</td><td>Born Mar 2026, SPUD engine; v5 April 2026</td></tr>
     </tbody>
 </table>
 
@@ -92,59 +92,105 @@
 
 <hr>
 
-<h2>Architecture</h2>
+<h2>Architecture &mdash; v5 Parliament of Mind</h2>
 
-<h3>The Parliament of Mind</h3>
-
-<p>YAM runs on the SPUD engine (Self-developing Perceptual Understanding Drive). The Parliament is not four language model personas with different system prompts. It is four different graph operations running on the same data structure. Each engine is a SQLite knowledge graph with sqlite-vec vector embeddings. In the current architecture, the engines do not use language models for text generation or token prediction. Each engine traverses, validates, constrains, or evaluates physical plausibility of a graph.</p>
+<p>YAM runs on the SPUD engine. Parliament is <strong>six specialized engines</strong> &mdash; five content stores and one parser &mdash; plus a retrieval coordinator. Each content engine owns a PostgreSQL schema with CLIP-embedded answers tagged by emotion. INTENT parses queries by reading word-emotional centroids learned from teachings. Nothing is an LLM. Nothing generates text. Answers are retrieved from memory and ranked.</p>
 
 <table>
     <thead>
-        <tr><th>Component</th><th>Graph Operation</th><th>What It Does</th><th>Port</th></tr>
+        <tr><th>Engine</th><th>Role</th><th>Sigma (valence, activation)</th><th>Origin</th></tr>
     </thead>
     <tbody>
         <tr>
-            <td><strong>EXPLORER</strong></td>
-            <td>Exploratory traversal</td>
-            <td>Follows edges outward from the query node. Finds what is connected. Returns the subgraph reachable within N hops. Answers the question: &ldquo;What else is linked to this?&rdquo;</td>
-            <td>8001</td>
+            <td><strong>PHYSICS</strong></td>
+            <td>Objects, forces, motion, material properties</td>
+            <td>(+0.20, +0.40) &mdash; measured, neutral-active</td>
+            <td>Innate (Spelke core knowledge)</td>
         </tr>
         <tr>
-            <td><strong>VALIDATOR</strong></td>
-            <td>Path validation</td>
-            <td>Checks whether the path from query to answer is grounded. Evaluates edge weights, source provenance, node importance, and trust scores along the retrieval path. Answers the question: &ldquo;Is this path solid?&rdquo;</td>
-            <td>8002</td>
+            <td><strong>SOCIAL</strong></td>
+            <td>Attachment, relationships, emotions, caregiving</td>
+            <td>(+0.50, +0.30) &mdash; warm, calm</td>
+            <td>Innate (face preference from birth)</td>
+        </tr>
+        <tr>
+            <td><strong>EXPLORER</strong></td>
+            <td>Novelty, discovery, curiosity, bridging</td>
+            <td>(+0.40, +0.20) &mdash; curious, low activation</td>
+            <td>Orienting reflex from birth, ramps over year one</td>
         </tr>
         <tr>
             <td><strong>CONSTRAINT</strong></td>
-            <td>Constraint &amp; contradiction detection</td>
-            <td>Compares retrieved nodes via cosine similarity and flags low-agreement pairs. Detects conflicts between sources, weak edges, and paths that violate known constraints. Answers the question: &ldquo;What is wrong with this answer?&rdquo;</td>
-            <td>8003</td>
+            <td>Rules, prohibition, sequencing, permission</td>
+            <td>(&minus;0.10, +0.30) &mdash; on edge</td>
+            <td>Reflexive early, rules learned later</td>
         </tr>
         <tr>
-            <td><strong>PHYSICS</strong></td>
-            <td>Physics &amp; material constraint</td>
-            <td>Evaluates whether proposed states, relations, and scenarios are physically plausible. Checks support, balance, containment, collision, stability, and likely next state. Operates on object-surface-contact graph structure. Answers the question: &ldquo;Could this actually happen?&rdquo;</td>
-            <td>8004</td>
+            <td><strong>VALIDATOR</strong></td>
+            <td>Truth, convergence, contradiction detection</td>
+            <td>(+0.50, +0.60) &mdash; alert, positive</td>
+            <td><strong>Born blind.</strong> Learns from cross-engine agreement during sleep (Piaget's concrete operations, age 7+)</td>
         </tr>
         <tr>
-            <td><strong>PATCH/YAM</strong></td>
-            <td>Integration &amp; reasoning</td>
-            <td>The fifth graph. Receives outputs from all four engines. Computes the centroid of their positions. Integrates consistent answers into its own graph. Detects ambiguity when engines disagree. Asks for help when it does not know.</td>
-            <td>8000</td>
+            <td><strong>INTENT</strong></td>
+            <td>Pragmatics &mdash; reads what kind of answer a question wants</td>
+            <td>(+0.30, +0.60) &mdash; alert, attentive</td>
+            <td><strong>Born blind.</strong> Learns word-emotion centroids from mama's teachings (theory of mind, age 4-5)</td>
         </tr>
     </tbody>
 </table>
 
-<p>Each engine maintains its own SQLite database containing: a <code>memories</code> table for content with trace bundle support, a <code>vec_memories</code> virtual table (sqlite-vec, 384-dimensional cosine distance) for semantic search, a <code>nodes</code> table for graph entities, an <code>edges</code> table for weighted directed relationships, a <code>gaps</code> table for detected WHY questions, a <code>traces</code> table for per-trace-type content with independent decay, an <code>interpretations</code> table for versioned readings, a <code>world_entities</code> table for known entities, and an <code>attachment_bias</code> table for entity-specific affective weights. Every engine is a graph database with vector search and structured memory lifecycle. Not a language model. Not a prompt.</p>
+<h3>Visual Seeds, Pre-Linguistic Identity</h3>
 
-<p>The engines share the same seed knowledge (22 research papers) but encode it at different affective intensities because their sigma values differ. Over time, their graphs diverge as each engine searches for different things based on its gap priorities.</p>
+<p>Each content engine's domain is defined by <strong>image seeds</strong>, not English word lists. At generation time we wrote 423 SD-Turbo prompts paired with emotional weights. "A cliff edge with a steep dangerous drop" was tagged (v=&minus;0.3, a=0.7); "a mother gently holding her small child" was tagged (v=0.9, a=0.3). Low resolution (256x256) by design &mdash; the diffuser produces structural scenes that CLIP reads for domain, not photos that confound with irrelevant detail. The emotion came from intent of description, not from pixels.</p>
 
-<p>PATCH is not a router. PATCH is the mind. It has its own graph &mdash; the YAM graph &mdash; which stores integrated knowledge from consulting the three engines. It checks its own graph before consulting the Parliament. Over time, PATCH answers more questions from its own knowledge and consults the Parliament less.</p>
+<p>VALIDATOR has zero seeds. It learns truth by detecting cross-engine convergence during sleep &mdash; when PHYSICS and SOCIAL both store the same content with high importance, a <code>cross_edges</code> row forms. VALIDATOR fires for queries whose content engines agree with each other.</p>
 
-<h3>What This Is Not</h3>
+<h3>Intent as a Learned Parser</h3>
 
-<p>This is not a multi-agent LLM framework. In the current implementation, the engines execute graph queries rather than language model inference: vector similarity search (cosine distance on 384-dimensional embeddings), edge traversal (SQL recursive CTEs), and node comparison (pairwise cosine similarity for contradiction detection). The output is retrieved content ranked by a four-factor formula. A language model could be added as an output formatting layer without changing the underlying graph architecture, but the current design presents retrieved content directly to preserve traceability between the response and the stored knowledge that produced it.</p>
+<p>INTENT has no hardcoded marker table. Every word that appears in mama's teachings accumulates an emotional centroid &mdash; the average (valence, activation) across all the contexts it has appeared in. "Never" co-occurs with alarm in "do not touch the fire"; "touch" co-occurs with negative valence in prohibitions. At query time INTENT tokenizes the query and averages the centroids of its known words. The result is the query's inferred emotion &mdash; the axis bare CLIP cannot see.</p>
+
+<p>Arabic test passes at the substrate level: each language's mama produces her language's intent markers through her own teachings. Swap the language pack, not the substrate.</p>
+
+<h3>Dual-Path Retrieval (Tulving's Dual-Code)</h3>
+
+<p>Every engine's query runs <strong>two independent searches</strong>:</p>
+
+<ol>
+    <li><strong>Content path (hippocampus):</strong> CLIP cosine distance sorts by semantic similarity to the query.</li>
+    <li><strong>Emotion path (amygdala):</strong> distance from each answer's stored emotion to the engine's sigma sorts by personality match.</li>
+</ol>
+
+<p>The <strong>intersection</strong> is what comes to mind. An answer must be close on both content AND emotion to be recalled. This is how memory actually works &mdash; memory activates both semantically and emotionally, and what both systems agree on is what you remember.</p>
+
+<h3>PATCH Compares; It Does Not Measure</h3>
+
+<p>Each engine already scored its answers (dual-path retrieval). PATCH's job is to compare the engines' top offerings, not to re-score them with its own formula. The engine with the highest <code>ownership &times; answer_confidence &times; importance</code> speaks. Ownership comes from routing. Confidence comes from the engine's own retrieval. Importance comes from sleep decay &mdash; mama-tier teachings stay at 0.80, forgotten tutor phrases decay toward 0.01. Decayed noise automatically loses to remembered truth.</p>
+
+<h3>Three Kinds of Honest Response</h3>
+
+<table>
+    <thead>
+        <tr><th>Response</th><th>Trigger</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>[the answer]</strong></td><td>Winning engine's score crosses the 0.88 confidence floor</td></tr>
+        <tr><td><strong>"I don't know."</strong></td><td>Best score below 0.88; why engine also couldn't find better via dictionary cascade</td></tr>
+        <tr><td><strong>"Can you be more specific?"</strong></td><td>Top two engines within 5% of each other with different answers &mdash; genuinely ambiguous</td></tr>
+    </tbody>
+</table>
+
+<p>The confidence floor is <strong>fixed at 0.88 forever</strong>. The brain grows by learning more things that cross the bar, not by lowering the bar.</p>
+
+<h3>Why Engine &mdash; Research, Don't Guess</h3>
+
+<p>When the floor rejects an answer, the brain doesn't just say "I don't know" &mdash; it researches. The why engine queries a cascade of dictionaries: WordNet (117K synsets) first, then Wiktionary (745K definitions), then simple Wikipedia, then full Wikipedia shards. Anything retrieved is taught through <code>parliament.teach</code> at trust_rank 4, then the query is re-run. If it now crosses the floor, the answer speaks. If not, honest silence stands.</p>
+
+<h3>Sleep and Dreams, Folded Together</h3>
+
+<p>Sleep_cycle runs nightly via cron. In one pass it decays un-accessed answers, recomputes importance, detects cross-engine convergence (VALIDATOR's training data), refreshes INTENT's word-centroid cache, and runs one daydream &mdash; the brain walks random concepts it knows, looks up related concepts it doesn't, and learns through the why engine's path. Biology puts REM and non-REM in the same sleep cycle; so does YAM.</p>
+
+<p>Idle-time daydreaming uses an idempotent single-sleeper timer. Every external query/teach kills the previous boredom sleeper and starts a new one. Latest event resets the clock. One timer alive at a time.</p>
 
 <h3>Search as Perception</h3>
 

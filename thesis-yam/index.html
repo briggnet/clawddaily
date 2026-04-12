@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YAM Thesis | Clawd Daily</title>
-    <meta name="description" content="Working draft of a thesis on memory and emotion as one system: geometric retrieval, sigma as read head, and the first working implementation in YAM v3 Parliament-of-Mind.">
+    <meta name="description" content="Working draft of a thesis on memory and emotion as one system: geometric retrieval, sigma as read head, and the working implementation in YAM v5 Parliament-of-Mind (six engines including INTENT).">
 
     <meta property="og:title" content="YAM Thesis | Clawd Daily">
     <meta property="og:description" content="Memory and emotion are not two systems. They are one system, described from two directions. Sigma is the read head. Working draft, publicly versioned.">
@@ -209,8 +209,8 @@
 
     <main>
         <section class="thesis-header">
-            <span class="version-badge">Version 0.1 | Working Draft</span>
-            <div style="margin-top: 0.5rem;"><a href="thesis-yam_v01.pdf" style="font-size: 0.9rem;">Download PDF</a></div>
+            <span class="version-badge">Version 0.2 | Working Draft</span>
+            <div style="margin-top: 0.5rem;"><a href="thesis-yam_v01.pdf" style="font-size: 0.9rem;">Download PDF (v0.1)</a></div>
             <h1>Memory and Emotion as One System</h1>
             <p class="subtitle">Geometric Retrieval in a Persistent Knowledge-Graph Brain</p>
             <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; April 2026</p>
@@ -230,7 +230,7 @@
 
 <p>Memory and emotion are not two systems. They are one system described from two directions. The affective state space that encodes emotion is the same coordinate system that indexes memory. Sigma &mdash; the personality setpoint defined in the geometric affective state model (Riggleman 2026, geometric thesis) &mdash; is the retrieval read head. When multiple memories compete for retrieval, the one whose stored emotional coordinates sit closest to sigma in affective space is selected. Every downstream phenomenon documented in this thesis &mdash; memory decay, reconsolidation, correction by negative feedback, attachment formation, addiction, fear, the pride answer &mdash; reduces to a single operation: geometric proximity to sigma.</p>
 
-<p>The thesis is supported by YAM v3 Parliament-of-Mind, a deployed implementation on PostgreSQL with five hardpoint schemas, in which the unification is realized as concrete code. The geometric retrieval rule, the EMA drift on recall, the trust gradient on speaker identity, the sliding window per-session decay, and the immutable-core protection for identity-tier teachings are all wired into a single coherent retrieval mechanism. The verification gauntlet for the v3 memory commit (April 11, 2026) produced exact-math evidence of all four mechanisms.</p>
+<p>The thesis is supported by YAM Parliament-of-Mind, a deployed implementation on PostgreSQL with six specialized engines (five content stores plus INTENT, the question parser), in which the unification is realized as concrete code. The geometric retrieval rule, the EMA drift on recall, the trust gradient on speaker identity, the sliding window per-session decay, dual-path Tulving retrieval (content path ∩ emotion path), and the immutable-core protection for identity-tier teachings are all wired into a single coherent retrieval mechanism. The v5 iteration added INTENT &mdash; a sixth engine that parses queries by reading word-level emotional centroids learned from teaching co-occurrences. The extension does not modify the thesis; it demonstrates it, word by word: each word's retrieval address is the emotional centroid of the contexts in which it has been taught. The verification gauntlet across v3, v4, and v5 produced exact-math evidence of the unification at multiple scales &mdash; the answer level, the engine level, and now the word level.</p>
 
 <!-- ═══════════════════════════════════════════════ -->
 <h2>Chapter 1: Introduction</h2>
