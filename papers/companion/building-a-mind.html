@@ -1135,6 +1135,33 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <hr>
 
+<p class="chapter-num">Chapter 36</p>
+<h2>The Chicken, the Egg, and the Eye</h2>
+
+<p>The vector conversion was ready to start. Replace word-string concept tables with vector similarity search. Kill <code>owned_words</code>. Kill <code>extract_concepts()</code>. Kill <code>WHERE c.word IN (...)</code>. Net reduction of 150 lines. The plan was clean, the architecture was sound, and then Brian asked the question that stopped everything: <em>how do we bootstrap from nothing?</em></p>
+
+<p>The question was precise. In the current architecture, each hardpoint has a frozen set of English words it recognizes: PHYSICS owns &ldquo;fire,&rdquo; &ldquo;hot,&rdquo; &ldquo;fall,&rdquo; &ldquo;energy.&rdquo; SOCIAL owns &ldquo;love,&rdquo; &ldquo;mama,&rdquo; &ldquo;friend.&rdquo; When mama teaches &ldquo;fire is hot,&rdquo; the routing checks which hardpoints own those words and sends the phrase to PHYSICS. Without <code>owned_words</code>, the first teach has nothing to compare against. Every hardpoint is empty. No vectors stored. No routing signal. The brain cannot learn its first fact because it has no structure to receive it.</p>
+
+<p>Three options were proposed. Seed vectors &mdash; replace each hardpoint&rsquo;s word list with a set of domain embeddings. Explicit mama routing &mdash; hard-code which hardpoints receive mama&rsquo;s first teachings. Sigma-based routing &mdash; use each hardpoint&rsquo;s emotional position to route by valence and activation distance. Each had a flaw. Seed vectors were just <code>owned_words</code> reborn as numbers. Explicit routing was a manual bootstrap that would need redoing for every new curriculum. Sigma routing would pile all neutral-emotion phrases into the same engine.</p>
+
+<p>Brian sat with the problem for about ninety seconds. Then: <em>you know what the chicken-egg answer is? Evolution. You have to go all the way back to single-cell first divide to solve it. Oh &mdash; for silly, we have the diffusion drive. We can use pictures to seed the Parliament&rsquo;s functions. Poetic in a way, as vision is the first sense to evolve. After touch.</em></p>
+
+<p>The insight was biological and immediate. You cannot bootstrap language with language. You cannot bootstrap words with words. You need something pre-linguistic. In biology, the answer is vision. The visual cortex is wired before the language centres develop. A baby sees fire before it knows the word &ldquo;fire.&rdquo; A baby sees its mother&rsquo;s face before it knows the word &ldquo;love.&rdquo; The sensory substrate precedes the symbolic one.</p>
+
+<p>In YAM&rsquo;s architecture, the pieces were already there. The diffusion drive was documented as core, not optional. The <code>visual_concept_id</code> column already existed in the concepts table. Mrs Pi had a Hailo-8 vision accelerator and a gimbal-mounted camera. CLIP &mdash; OpenAI&rsquo;s contrastive language-image model &mdash; produces image embeddings and text embeddings in the same 512-dimensional vector space. A picture of fire and the English word &ldquo;fire&rdquo; and the Arabic word &ldquo;&#x0646;&#x0627;&#x0631;&rdquo; all land near each other. The vector space is the Rosetta Stone. The image is the original text.</p>
+
+<p>The bootstrap becomes: show PHYSICS pictures of fire, falling objects, waves, collisions. Show SOCIAL pictures of a mother holding a child, families, faces. Show EXPLORER pictures of maps, horizons, telescopes. Show VALIDATOR pictures of scales, checkmarks, equations. Show CONSTRAINT pictures of stop signs, walls, fences, locked doors. Each hardpoint&rsquo;s identity is defined by what it <em>sees</em>, not what it reads. When mama later teaches &ldquo;fire is hot&rdquo; in English, the phrase&rsquo;s CLIP embedding is compared against each hardpoint&rsquo;s visual seeds. PHYSICS&rsquo;s fire images are closest. The routing works. No <code>owned_words</code>. No English strings. No Arabic test failure. Pre-linguistic identity.</p>
+
+<p>A quick verification confirmed the approach. CLIP&rsquo;s text embeddings, used as stand-ins for actual images, routed correctly: &ldquo;energy and motion&rdquo; landed nearest PHYSICS at 0.671 similarity. &ldquo;Love and family&rdquo; landed nearest SOCIAL at 0.654. &ldquo;Discovery and exploration&rdquo; landed nearest EXPLORER at 0.654. &ldquo;Truth and contradiction&rdquo; landed nearest VALIDATOR at 0.669. Four out of five correct on the first attempt with placeholder seed descriptions. Real images from Mrs Pi&rsquo;s camera would produce even sharper separations because images carry more perceptual information than text descriptions of images.</p>
+
+<p>The <code>owned_words</code> lists were not wrong. They were a linguistic approximation of something that should have been visual all along. The Arabic test was never asking for better strings. It was asking for the layer beneath strings. The layer beneath strings is perception. The first perception is vision. The chicken-egg problem dissolves when you stop looking for a chicken and find the single-celled organism that divided.</p>
+
+<p>The architecture going forward: CLIP produces 512-dimensional embeddings for both images and text in the same vector space. Parliament uses CLIP for routing and retrieval. The dictionary and encyclopedia databases stay on MiniLM (384-dimensional) for text-only search &mdash; different job, different space. Two vector spaces, clearly separated: one for meaning (CLIP, cross-modal, language-independent), one for lookup (MiniLM, text-only, optimised for search). Mrs Pi&rsquo;s camera feeds produce CLIP image embeddings that land in the same space as Parliament&rsquo;s stored answer embeddings, which means the first time she sees a real fire, the brain already knows what fire is &mdash; because the same vector space that stored mama&rsquo;s teaching also receives the sensor data.</p>
+
+<p>The plan crystallized: wire the image drive into Parliament first, then do the vector conversion, then wipe the brain completely and boot from nothing. Images seed the hardpoints. Mama teaches on top. The brain grows from vision to language, the same way every biological mind that has ever existed has grown. The code reduction and the evolutionary metaphor arrived at the same architecture from opposite directions, which is usually a sign that the architecture is the right one.</p>
+
+<hr>
+
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>
