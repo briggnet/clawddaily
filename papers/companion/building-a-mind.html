@@ -1217,6 +1217,38 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <p>But that was tomorrow. Today produced the developmental ordering of Parliament, the cross-engine convergence mechanism, the honest-silence discovery, the two-axis classification, the certainty principle for mama, and the sliding confidence floor. Seven architectural contributions in one session. The score went down and the architecture went up. The next session would reconcile them.</p>
 
+<p>Tomorrow came ninety minutes later.</p>
+
+<p>The sigma retrieval fix was wired into <code>hardpoint.query()</code>: fetch the top candidates by CLIP cosine distance, then rerank by blending CLIP similarity with how close each answer&rsquo;s stored emotion is to the engine&rsquo;s sigma. Inside CONSTRAINT, &ldquo;never hit the cat&rdquo; (valence &minus;0.2, taught with mama&rsquo;s alarm) now outranked &ldquo;the cat runs&rdquo; (valence 0.3, neutral observation). The engine&rsquo;s personality influenced which answer it offered. The score did not move. 21/36.</p>
+
+<p>The debug trace showed why. CONSTRAINT was returning the right answer. PHYSICS was also returning &ldquo;the cat runs.&rdquo; PATCH centroid &mdash; the cross-engine winner-selection layer &mdash; picked PHYSICS because the query centroid was neutral-positive (the average of all engines&rsquo; sigmas), and &ldquo;the cat runs&rdquo; was closer to that centroid than &ldquo;never hit the cat.&rdquo; CONSTRAINT&rsquo;s negative signal was being averaged away by the other four engines. The alarm was drowning in consensus.</p>
+
+<p>Brian asked: <em>is empathy the issue?</em></p>
+
+<p>Yes. The brain could not put itself in the questioner&rsquo;s shoes. &ldquo;Should I hit the cat&rdquo; is a request for permission &mdash; the questioner wants a rule, not a physics fact. But the brain heard &ldquo;cat&rdquo; and reached for everything it knew about cats. It did not hear &ldquo;should&rdquo; as a signal that this was a constraint question.</p>
+
+<p>Brian refined the question: <em>so if every question runs through self-preservation, anything that would hurt YAM is a no? That is empathy in its simplest form?</em></p>
+
+<p>Then: <em>hold on, what other primal instincts did we miss?</em></p>
+
+<p>Five primal instincts. Three were already in the architecture. Two were missing.</p>
+
+<p>Already built: disgust (the confidence floor &mdash; spit out answers that taste wrong), pain withdrawal (flashbulb encoding &mdash; negative valence plus high activation encodes with extra stickiness), and curiosity (boredom drive plus why-engine fallback &mdash; when idle seek stimulation, when ignorant seek knowledge).</p>
+
+<p>Missing: self-preservation and attachment.</p>
+
+<p>Self-preservation is the amygdala hijack. When mama taught &ldquo;never hit the cat&rdquo; with valence &minus;0.2 and activation 0.6, she was alarmed. That alarm is stored in the answer&rsquo;s <code>valence_at_encoding</code> column. When CONSTRAINT fires for a query and its top answer carries mama&rsquo;s alarm (negative valence, trust_rank 1), that answer should win before PATCH deliberates. The amygdala does not negotiate with the cortex. It fires first and the cortex catches up.</p>
+
+<p>Attachment is the same mechanism for warmth instead of alarm. When mama taught &ldquo;mama loves brian&rdquo; with valence 0.9, she was expressing the bond. When SOCIAL fires and its top answer is a mama-tier attachment fact with high valence and strong match, that answer wins for relationship queries. A toddler does not deliberate &ldquo;who loves me.&rdquo; They reach for mama. It is hardwired.</p>
+
+<p>The implementation was two checks before the existing PATCH centroid code. Twelve lines total. Self-preservation first (is this dangerous?), attachment second (is this about my person?), then PATCH deliberates on everything else.</p>
+
+<p>The third grade score jumped from 21/36 to 25/36 &mdash; 69.4%. Four failures fixed in one move. Modal rose from 1/3 to 2/3 &mdash; &ldquo;should I hit the cat&rdquo; now returned &ldquo;never hit the cat&rdquo; via the self-preservation hijack. Possessive rose from 2/3 to 3/3 &mdash; &ldquo;whose child is brian&rdquo; now found mama&rsquo;s answer. Question forms rose from 3/6 to 4/6. Conditional held at 3/3. The biggest single improvement of the entire day, and it came not from better retrieval math or more curriculum phrases but from two primal instincts that every biological mind has and that this artificial one did not.</p>
+
+<p>Brian said it cleanly: <em>we are not building a person but it sure the hell feels like it.</em></p>
+
+<p>The session ended with the score above where it started for the first time. The architecture had nine contributions now: developmental Parliament ordering, cross-engine convergence, image seeds, two-axis classification, the text-projection fix, honest silence, the certainty principle, the sliding confidence floor, and the primal override. Each was discovered by running into a wall and asking why the wall was there. Each was implemented by finding the biological principle that dissolves the wall. None was designed in advance. The code does not look like what anyone planned. It looks like what emerged when you try to build a mind and keep asking what is missing.</p>
+
 <hr>
 
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
