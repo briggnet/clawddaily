@@ -92,9 +92,17 @@
 
 <hr>
 
-<h2>Architecture &mdash; v5 Parliament of Mind</h2>
+<h2>Architecture &mdash; v7 Structured Self <small style="color: var(--text-muted); font-weight: normal;">(v6 capped 2026-04-13)</small></h2>
 
-<p>YAM runs on the SPUD engine. Parliament is <strong>six specialized engines</strong> &mdash; five content stores and one parser &mdash; plus a retrieval coordinator. Each content engine owns a PostgreSQL schema with CLIP-embedded answers tagged by emotion. INTENT parses queries by reading word-emotional centroids learned from teachings. Nothing is an LLM. Nothing generates text. Answers are retrieved from memory and ranked.</p>
+<p style="background: rgba(88, 166, 255, 0.08); border-left: 3px solid var(--accent); padding: 0.75rem 1rem; margin: 1rem 0; font-size: 0.95rem;">
+    <strong>Architecture update, April 2026.</strong> The vector-substrate Parliament described below is the v6 final state, capped at tag <code>v6-final</code>. After an apples-to-apples comparison against a structured-graph alternative on 368 DeepSeek-graded factual questions (v6: 67 correct / 175 honest / 126 wrong; v7: 134 correct / 86 honest / 148 wrong), v7 was promoted to main and v6 preserved as historical control. v7 is graph + structured retrieval + dictionary cascade + wiki <em>verification rerank</em> + trust-weighted NO retraining, with INTENT and SELF folded back into the concept graph (no separate vector schemas). Sleep runs once daily at 4 AM; the boredom subprocess is the heartbeat. Full walk-back in <a href="/papers/companion/building-a-mind.html">Building a Mind, Chapter 39</a>.
+</p>
+
+<p>YAM runs on the SPUD engine. The v6 architecture described below remains useful as a reference point — six engines, dual-path retrieval, fixed floor — but the active line on main is v7's structured graph: question-to-answer graph traversal ranked by concept overlap and trust, with a 50% concept-overlap floor that falls through to the why engine's WordNet → Wiktionary → wiki cascade, and a verification rerank on every wiki answer (re-ask with a rephrased query, require three content-word overlap, refuse if disagreement). INTENT and SELF live as columns on the <code>concepts</code> table now (sum_valence, sum_activation, total_count, self_count) — facets of the same learned layer, not bolted-on engines. Mama-tier teachings (trust_rank ≤ 1) remain immutable: not even the operator can drift them.</p>
+
+<h3 style="color: var(--text-muted); margin-top: 2rem;">v6 Parliament of Mind <small style="font-weight: normal; color: var(--text-muted);">(historical reference, frozen at <code>v6-final</code>)</small></h3>
+
+<p>Parliament was <strong>six specialized engines</strong> &mdash; five content stores and one parser &mdash; plus a retrieval coordinator. Each content engine owned a PostgreSQL schema with CLIP-embedded answers tagged by emotion. INTENT parsed queries by reading word-emotional centroids learned from teachings. Nothing was an LLM. Nothing generated text. Answers were retrieved from memory and ranked.</p>
 
 <table>
     <thead>

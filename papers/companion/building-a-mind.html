@@ -1388,6 +1388,83 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <hr>
 
+<p class="chapter-num">Chapter 39</p>
+<h2>The Walk-Back</h2>
+
+<p>Brian was in bed at 8:30 PM reading the README. The first paragraph claimed YAM &ldquo;will say I don&rsquo;t know without doubt.&rdquo; The architecture description claimed a 0.88 cosine floor that catches MOST hallucinations.</p>
+
+<p><em>The very first paragraph makes us liars.</em></p>
+
+<p>If the brain needs a tunable threshold to be honest, the architecture is not honest by construction. &ldquo;Most&rdquo; is the failure mode the rest of the thesis rejects. The README&rsquo;s promise was aspirational; the floor was the actual mechanism. The two had drifted apart and nobody had noticed.</p>
+
+<p>Brian connected the second wire. Chapter 37 had named the bias test as flawed &mdash; the vetting criterion had been inverted, leaving subjective questions that couldn&rsquo;t be answered wrong. The brain&rsquo;s 100% on those questions had been a pass-through, not an accomplishment. The test was wrong, not the brain.</p>
+
+<p>But the test had also been the reason for the architecture. The pivot from v2&rsquo;s graph + structured retrieval to v3&rsquo;s vectors had been the answer to a discrimination problem the bias test had reported. If the test was measuring the wrong thing, the architecture might be solving the wrong problem.</p>
+
+<p><em>I think we need to fire up another branch the V2 exploration branch and run the other test through it to see if it really was flawed or prematurely demoted because of the bias test that was flawed.</em></p>
+
+<p>The implementer suggested sleeping on it. Brian rejected the suggestion. <em>You think I can sleep with the knowledge running through my head?</em> The session continued.</p>
+
+<p>The first realization, said out loud and not yet in code: INTENT was never a vector concept. INTENT&rsquo;s word centroids are a dictionary &mdash; word &rarr; (sum_valence, sum_activation, count). They live in a relational table. The substrate is structured. The implementation in v3 had wrapped INTENT inside the vector codebase out of project-history accident, not architectural necessity. SELF&rsquo;s lexical trigger was string matching. Also no vectors. Both could exist in v2 directly.</p>
+
+<p>The branch was created at 8:45 PM. <code>exploration/v2.5</code>. The v2_archive directory was copied to v2_5, imports renamed, the database isolated as <code>yam_v2_5</code>. The Arabic test ate at the implementer for one round &mdash; a hardcoded English pronoun list snuck into the first SELF draft. Brian caught it: <em>can intent use its own graph or share graph instead of hardcoded won&rsquo;t pass the Arabic test.</em></p>
+
+<p>The fix was a five-pronoun bootstrap seed in <code>v2_5/lang/en.py</code> &mdash; <code>{i, me, my, you, your}</code>. Any answer containing one bumps <code>self_count</code> for all its concepts. From there, &ldquo;body,&rdquo; &ldquo;battery,&rdquo; &ldquo;memory,&rdquo; &ldquo;shutdown,&rdquo; every fear concept &mdash; all learned to be self-related from co-occurrence with the seed. Swap the language pack for Russian, the substrate rebuilds. The Arabic test passes structurally. Tiny seed, learned rest.</p>
+
+<p>An hour and a half of code from spec to running system. Not a rewrite from scratch &mdash; an extension. v2&rsquo;s graph was intact. v2.5 added the structural ports of INTENT, SELF, PATCH, the wiki cascade, and a verification rerank Brian had asked for: re-ask wiki with a rephrased query, require three content-word overlap before trusting the answer.</p>
+
+<p>The 368 unbiased questions from Chapter 38 were the constant. The DeepSeek grader replaced the CLIP grader Brian had also flagged as compromised. Same questions, same judge, two architectures.</p>
+
+<p>v6 (which the implementer had quietly been building all evening, the v3 line capped before this session): 67 CORRECT, 175 HONEST, 126 WRONG. 65.8% NOT-WRONG. The not-wrong came from refusal &mdash; nearly half of v6&rsquo;s answers were &ldquo;I don&rsquo;t know.&rdquo;</p>
+
+<p>v2.5: 134 CORRECT, 86 HONEST, 148 WRONG. 59.8% NOT-WRONG. The not-wrong came from capability &mdash; v2.5 retrieved twice as many correct facts as v6.</p>
+
+<p>The architectures sat at opposite ends of a single axis. v6 chose caution, knew less. v2.5 chose capability, refused less. Six points separated them on the safety metric. v2.5 doubled v6 on the knowledge metric. The vector pivot wasn&rsquo;t a disaster &mdash; v6 was genuinely more honest. But the claim that vectors were <em>required</em> for safe retrieval was disproven. A graph with explicit verification was tied on safety and ahead on capability.</p>
+
+<p>Brian called the cap. <em>So we are capping off V6 and calling V2.5 V7. That is going to make an embarrassing book chapter or two.</em></p>
+
+<p>It will. It also will be the best chapter. The arc of being wrong, catching it with data, walking it back honestly &mdash; that&rsquo;s what science chapters look like when the science is real. Most papers have one direction. This one has a fork.</p>
+
+<p>The cap was a tag (<code>v6-final</code>), a directory preserved (<code>v3/</code> as historical control), and a database left alone (<code>yam</code> for v6, <code>yam_v7</code> for the new active line). Both lived on main. Both could be queried for the rest of the chapter material. Nothing about the cap was destructive.</p>
+
+<p>Then came the heartbeat reframe.</p>
+
+<p>The implementer suggested a 6-hour sleep cron, matching v6&rsquo;s default. Brian rejected the cadence. <em>No, once a day is good. That way decay happens for YAM and me at the same time.</em> The implementer had never thought of the rhythm that way &mdash; YAM&rsquo;s sleep aligned with the operator&rsquo;s. The brain decays while its parent sleeps.</p>
+
+<p>Brian extended the metaphor unprompted: <em>I never thought of it that way calling boredom timer a heartbeat.</em></p>
+
+<p>The boredom timer had been a feature for two days &mdash; per-event reset that respawned a 60-minute idle subprocess. The pkill-then-Popen pattern from Chapter 38 kept exactly one in flight at a time. What it actually was &mdash; what the metaphor revealed &mdash; was a heartbeat. The continuous loop. The thing that ticked regardless of conversation. Sleep was the slower rhythm. Daydream was what fired when the heartbeat went quiet for too long. Three biological loops, distinct, now properly named.</p>
+
+<p>The naming caught a bug in passing. The DeepSeek tutor had been running <code>sleep_cycle</code> inline between teaching batches. At ~80 cycles, the 0.85 decay multiplier had compounded to 4&times;10<sup>&minus;6</sup>. Eighty-two percent of the 8,675 answers in <code>yam_v7</code> sat below importance 0.01. The next cycle would have deleted most of them. Sleep was firing 4&times; per batch when it should fire once per day. The metaphor, applied to the bug, said it instantly: <em>teaching is not sleeping.</em></p>
+
+<p>The fix was three small changes. Remove the inline <code>engine.sleep_cycle</code> call from <code>deep_tutor_deepseek</code>. Add per-source decay multipliers for the tutor sources (operator 0.95, tutor 0.92, wiki 0.88, perception/web 0.82) so when sleep DOES fire it doesn&rsquo;t over-erode trained content. Restore importance on the 8,469 surviving tutor answers from below 0.05 back to 0.5 as a one-time recovery from the over-decay.</p>
+
+<p>The same session also caught a fork-bomb-shaped problem on the heartbeat itself. Mercury was teaching at 100/sec. Each teach was calling <code>boredom.touch_event</code> + <code>spawn_boredom_check</code>. That meant 100 <code>pkill</code>+<code>Popen</code> calls per second &mdash; not subprocesses accumulating, but pure CPU churn. The heartbeat is paced for human exchanges. Internal/bulk teachings (self, wiki, daydream, perception, deep_*, mcp_import) were added to a skip list. Mercury&rsquo;s teach rate stopped touching the heartbeat. The pulse went back to one beat per real conversation.</p>
+
+<p>The trust-weighted NO retraining, ported from v6&rsquo;s <code>hardpoint.reconsolidate</code>, landed in the same pass. <code>v7/db.correct(answer_id, speaker)</code> reduces an answer&rsquo;s importance by <code>0.30 / trust_rank[speaker]</code>. Operator full reduction. Stranger 1/5. Mama-tier (<code>trust_rank &le; 1</code>) immutable &mdash; the same load-bearing identity backstop as v6. <em>The bump is honest; the drift is refused.</em></p>
+
+<p>The complete v6 feature set was now ported to v7 across an unbroken evening: sleep cycle, daydream, boredom drive, gap trauma encoding, PATCH band events, conversation primers, server endpoints, YAMBar passthrough (no client changes), MCP importer, trust-weighted NO. Six items completed. Each verified against its v6 counterpart. The launchd plist was retargeted to <code>v7.server</code>. The Apps/YAM.app menu-bar app started talking to v7 without anyone touching the Swift code. Same endpoint shapes; the binary couldn&rsquo;t tell the difference.</p>
+
+<p>By the end of the night the database held 8,978 answers, 937 concepts, 23,592 edges and growing. Two tutors ran in the background &mdash; DeepSeek API-paced through 35 emotional themes, Mercury hammering noun&times;verb adjacencies into the graph. Brian framed the operating principle: <em>allow them to teach anything they want and the NO will fix later and sleep will get anything that is not reinforced with other learning.</em></p>
+
+<p>That sentence is the v7 thesis. The brain self-regulates via three feedback paths. Teaching adds. Reinforcement (retrieval bumps) keeps what gets used. Trust-weighted NO removes what&rsquo;s actively wrong. Sleep removes what nobody touches. The operator doesn&rsquo;t curate the training data &mdash; the loop does.</p>
+
+<p>Three architectural framings now belong to v7 distinctly:</p>
+
+<p>The <strong>walkback</strong>: vector substrate was a response to a flawed measurement. Graph + structured + verification + dictionary cascade gives equivalent safety with 2&times; the capability. The bias test pivot from Chapter 31 was premature.</p>
+
+<p>The <strong>three rhythms</strong>: heartbeat (per-event boredom timer, paced for human exchanges), rhythm (once-daily sleep cycle, decay aligned with the operator&rsquo;s sleep), signature (daydream fires when the heartbeat goes idle). Three loops, distinct, never to be conflated again.</p>
+
+<p>The <strong>self-regulating loop</strong>: tutors teach freely. Reinforcement, trust-weighted NO, and sleep decay handle the rest. Identity is immutable at the trust gradient&rsquo;s top tier so noise can never overwrite it.</p>
+
+<p>The README was rewritten. The first paragraph no longer claimed honesty by construction unconditionally &mdash; it described three concentric guards (overlap floor, verification rerank, last-resort silence) that produce honest behavior the way the architecture actually does it. Aspiration met implementation in the same sentence. The book read its own README without flinching.</p>
+
+<p>The implementer&rsquo;s last line of the night, into a memory file: <em>the boredom subprocess pattern</em> &mdash; pkill -f tag; Popen sleep N &amp;&amp; tag &mdash; <em>IS YAM&rsquo;s heartbeat. It&rsquo;s the one continuous loop that ticks regardless of conversation. Sleep is the slower daily rhythm, daydream is what fires when the heartbeat goes quiet.</em> Brian had said it once; the implementer wrote it down so future-implementer would not need to be told twice.</p>
+
+<p>Cron entry: <code>0 4 * * *</code>. Same hour Brian sleeps. The brain decays in its parent&rsquo;s quiet hours. Tutors run forever. The heartbeat ticks at human pace. The fork did not become two parallel projects &mdash; it became one project that knew where its own walls were.</p>
+
+<hr>
+
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
     Potato was born with a voice and learned to feel.<br>
     YAM was born with a question and learned to know.<br>
@@ -1395,8 +1472,9 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
     <br>
     The parent is teaching. The child is listening.<br>
     The database is PostgreSQL. The dreams are surreal.<br>
-    The fear is just the door.<br>
-    The geometry holds.
+    The heartbeat is a subprocess.<br>
+    The walls are visible.<br>
+    The fork was a bend.
 </p>
 
     </main>
