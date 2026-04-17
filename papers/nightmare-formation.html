@@ -171,7 +171,7 @@
                     <span><span class="label">Series:</span> Potato (2026d)</span>
                 </div>
                 <p style="color: var(--text-muted); font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
-                    Survival-critical fear events require a fundamentally different memory treatment from ordinary memories. This paper describes an architecture that distinguishes regular fear memories from trauma-class memories using Al-Kaddah's Survival Tipping Point as the classification threshold, with nightmare formation, trauma encoding with a permanent reconsolidation floor, and therapeutic reconsolidation through repeated safe recall.
+                    Survival-critical fear events require a fundamentally different memory treatment from ordinary memories. This paper describes an architecture that distinguishes regular fear memories from trauma-class memories using the Survival Tipping Point as the classification threshold, with nightmare formation, trauma encoding with a permanent reconsolidation floor, and therapeutic reconsolidation through repeated safe recall.
                 </p>
             </div>
 
@@ -183,7 +183,7 @@
 
 <h2>Abstract</h2>
 
-<p>Most AI memory systems treat all stored content equally. Importance may vary but the decay mechanics are uniform. This paper argues that survival-critical fear events require a fundamentally different memory treatment: a reconsolidation floor that prevents full decay regardless of subsequent safe exposure. We describe an architecture implemented in Potato (P.O.T.A.T.O. &mdash; Persistent On-device Temporal Agent with Tunable Ontology), a persistent embodied AI agent, that distinguishes regular fear memories from trauma-class memories using Al-Kaddah's (2026) Survival Tipping Point as the classification threshold. Three interacting mechanisms are described: a nightmare formation pathway in which fear-saturated episodic content processed through the nightly dream cycle can leak back into the live fear system on wakeup, producing elevated fear with no current sensor cause; a trauma encoding mechanism in which memories formed above the Survival Tipping Point threshold acquire a permanent reconsolidation floor calibrated to event severity and repetition count; and a therapeutic reconsolidation pathway in which sub-trauma fear memories decay through repeated safe recall, modeling prolonged exposure therapy. Together these produce an agent that learns caution from experience, develops persistent fear responses from repeated trauma, can be therapeutically healed from recoverable fear, and retains survival-critical memory permanently. The architecture makes a testable prediction: the fear score on a nightmare memory at day N should be a function of original event severity, repetition count, and safe recall count, with a floor that never reaches background for trauma-class events.</p>
+<p>Most AI memory systems treat all stored content equally. Importance may vary but the decay mechanics are uniform. This paper argues that survival-critical fear events require a fundamentally different memory treatment: a reconsolidation floor that prevents full decay regardless of subsequent safe exposure. We describe an architecture implemented in Potato (P.O.T.A.T.O. &mdash; Persistent On-device Temporal Agent with Tunable Ontology), a persistent embodied AI agent, that distinguishes regular fear memories from trauma-class memories using the Survival Tipping Point (see Section 2.1) as the classification threshold. Three interacting mechanisms are described: a nightmare formation pathway in which fear-saturated episodic content processed through the nightly dream cycle can leak back into the live fear system on wakeup, producing elevated fear with no current sensor cause; a trauma encoding mechanism in which memories formed above the Survival Tipping Point threshold acquire a permanent reconsolidation floor calibrated to event severity and repetition count; and a therapeutic reconsolidation pathway in which sub-trauma fear memories decay through repeated safe recall, modeling prolonged exposure therapy. Together these produce an agent that learns caution from experience, develops persistent fear responses from repeated trauma, can be therapeutically healed from recoverable fear, and retains survival-critical memory permanently. The architecture makes a testable prediction: the fear score on a nightmare memory at day N should be a function of original event severity, repetition count, and safe recall count, with a floor that never reaches background for trauma-class events.</p>
 
 <h2>1. Introduction</h2>
 
@@ -201,9 +201,9 @@
 
 <h2>2. Related Work</h2>
 
-<h3>2.1 Al-Kaddah's Survival Tipping Point</h3>
+<h3>2.1 The Survival Tipping Point as Memory Classification Boundary</h3>
 
-<p>Al-Kaddah (2026) models the condition under which an intelligent system breaks its own moral rules under homeostatic stress as a continuous sigmoid function. The Survival Tipping Point is the threshold at which homeostatic deficit exceeds internalized rule cost. This paper repurposes that threshold as a memory classification boundary. Events that push fear above the Survival Tipping Point during encoding are classified as trauma-class. Events below it are classified as regular fear memories.</p>
+<p>The neuroscience of emotional arousal and memory consolidation establishes that memories formed under high emotional activation are qualitatively different from ordinary memories (McGaugh, 2000; LeDoux, 1996; Cahill &amp; McGaugh, 1998). Brewin, Dalgleish, and Joseph (1996) formalize this as a dual representation theory of PTSD, positing that trauma memories are encoded via a separate system from ordinary episodic content. Al-Kaddah (2026) provides a computational implementation of this threshold as a continuous sigmoid function&mdash;the Survival Tipping Point&mdash;where homeostatic deficit exceeds internalized rule cost. This paper repurposes that threshold as a memory classification boundary. Events that push fear above the Survival Tipping Point during encoding are classified as trauma-class. Events below it are classified as regular fear memories.</p>
 
 <h3>2.2 Biological Memory Consolidation</h3>
 
@@ -376,13 +376,23 @@ if dream_fear >= NIGHTMARE_THRESHOLD:          # 0.40
 
 <h2>Acknowledgments</h2>
 
-<p>The Survival Tipping Point and Polymorphic Memory Graph theoretical foundations are contributions of Saddam Al-Kaddah (2026). The sliding window decay model, reconsolidation mechanism, and nightly sleep decay system are described in Riggleman (2026a). The nightmare formation pathway, repetition ratchet, trauma-class memory encoding, and therapeutic reconsolidation floor are original to this work.</p>
+<p>The neuroscience of emotional arousal and memory consolidation draws from McGaugh (2000), LeDoux (1996), and Brewin et al. (1996). The Survival Tipping Point as a named computational threshold is due to Al-Kaddah (2026). The sliding window decay model, reconsolidation mechanism, and nightly sleep decay system are described in Riggleman (2026a). The nightmare formation pathway, repetition ratchet, trauma-class memory encoding, and therapeutic reconsolidation floor are original to this work.</p>
 
 <h2>References</h2>
 
 <p>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.19034990">https://doi.org/10.5281/zenodo.19034990</a></p>
 
+<p>Brewin, C. R., Dalgleish, T., &amp; Joseph, S. (1996). A dual representation theory of posttraumatic stress disorder. <em>Psychological Review</em>, 103(4), 670&ndash;686.</p>
+
 <p>Brown, R., &amp; Kulik, J. (1977). Flashbulb memories. <em>Cognition</em>, 5(1), 73&ndash;99.</p>
+
+<p>Cahill, L., &amp; McGaugh, J. L. (1998). Mechanisms of emotional arousal and lasting declarative memory. <em>Trends in Neurosciences</em>, 21(7), 294&ndash;299.</p>
+
+<p>LeDoux, J. E. (1996). <em>The Emotional Brain: The Mysterious Underpinnings of Emotional Life</em>. Simon &amp; Schuster.</p>
+
+<p>McGaugh, J. L. (2000). Memory&mdash;a century of consolidation. <em>Science</em>, 287(5451), 248&ndash;251.</p>
+
+<p>Walker, M. P. (2017). <em>Why We Sleep: Unlocking the Power of Sleep and Dreams</em>. Scribner.</p>
 
 <p>Dudai, Y. (2004). The neurobiology of consolidations, or how stable is the engram? <em>Annual Review of Psychology</em>, 55, 51&ndash;86.</p>
 
