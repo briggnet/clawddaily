@@ -186,7 +186,7 @@
 
             <p>The term Artificial General Intelligence (AGI) implies parity with or superiority to human cognitive capability across domains. This paper uses a different target: Synthetic General Intelligence (SGI), a term drawn from Al-Kaddah (2026) that shifts the emphasis from capability to architecture. The question is not &ldquo;can the system do what humans do?&rdquo; but &ldquo;does the system have the structural properties that make general, continuous, grounded intelligence possible?&rdquo;</p>
 
-            <p>Al-Kaddah&rsquo;s framework identifies five such properties: homeostatic drives that motivate behavior through need rather than instruction, embodied computation that grounds cognition in physical state, polymorphic memory that stratifies experience by cognitive role, temporal continuity that produces identity across sessions, and social scaffolding that grounds concept formation in lived interaction rather than statistical co-occurrence.</p>
+            <p>The framework identifies five such properties: homeostatic drives that motivate behavior through need rather than instruction (Ryan &amp; Deci, 2000; Pfeifer &amp; Bongard, 2007), embodied computation that grounds cognition in physical state (Pfeifer &amp; Bongard, 2007; Clark, 1997), polymorphic memory that stratifies experience by cognitive role (Tulving, 1985; Anderson et al., 2004), temporal continuity that produces identity across sessions (Parfit, 1984), and social scaffolding that grounds concept formation in lived interaction rather than statistical co-occurrence (Vygotsky, 1978; Tomasello, 1999). Al-Kaddah (2026) names these as the five structural requirements for SGI.</p>
 
             <p>Potato implements all five, incompletely but demonstrably. This paper describes how the component architectures interact to produce behaviors that none of them would produce alone. The original version documented five contributions: memory, deception, physical reasoning, dreaming, and fear. It now integrates thirteen companion papers. The most significant addition is not a new subsystem&mdash;it is the replacement of the entire emotional architecture. The prior fear model (Riggleman, 2026e) was one-dimensional and produced a number that did not accumulate, could not recover toward personality, and had no unified connection to lie magnitude, memory persistence, or nightmare threshold. Papers 2026j through 2026m rebuild emotional state as a point in a three-dimensional space: valence, activation, and intensity. The distance between that point and a personality setpoint called sigma is the number that drives everything else.</p>
 
@@ -196,21 +196,21 @@
 
             <h2>2. Theoretical Background</h2>
 
-            <h3>2.1 Al-Kaddah&rsquo;s SGI Framework</h3>
+            <h3>2.1 The SGI Framework</h3>
 
             <p>Al-Kaddah (2026) proposes a framework for Synthetic General Intelligence built around three core contributions: the Polymorphic Memory Graph, the Lie Mechanic, and the Survival Tipping Point.</p>
 
-            <p>The Polymorphic Memory Graph proposes storing memories not as objective facts but as subjective experience, with agent-specific metadata attached to shared memory nodes. Each node carries distinct annotations from different cognitive agents (fear, curiosity, and logic) weighted by the system&rsquo;s current homeostatic state.</p>
+            <p>The concept of stratified memory has deep roots in cognitive science. Tulving (1985) distinguished episodic from semantic memory; Anderson et al. (2004) formalized adaptive memory retrieval in the ACT-R architecture. Al-Kaddah (2026) names the Polymorphic Memory Graph as a unification of these ideas for SGI: storing memories not as objective facts but as subjective experience, with agent-specific metadata attached to shared memory nodes. Each node carries distinct annotations from different cognitive agents (fear, curiosity, and logic) weighted by the system&rsquo;s current homeostatic state.</p>
 
             <p>The Lie Mechanic models bias formation as an energy-minimization process. When a system&rsquo;s prediction model is repeatedly violated by a persistent false signal, it becomes cheaper to rewrite the rule than to continue paying the surprise penalty. This is a passive, self-directed process.</p>
 
             <p>The Survival Tipping Point models the condition under which a system breaks its own moral rules under homeostatic stress, expressed as a continuous sigmoid function rather than a binary switch.</p>
 
-            <p>Al-Kaddah also describes the Justification Mechanic, foveated attention, homeostatic drive as motivation, Parliament of Mind for distributed cognition, and Social Scaffolding Genesis. Potato implements or approximates each of these.</p>
+            <p>Distributed cognition has been modeled as a society of specialist agents by Minsky (1986) and as competing access to a global workspace by Baars (1988). Al-Kaddah (2026) names the Parliament of Mind as his formulation of distributed cognition for SGI. He also describes the Justification Mechanic, foveated attention, homeostatic drive as motivation, and Social Scaffolding Genesis. Social scaffolding draws on Tomasello&rsquo;s (1999) work on joint attention and Bowlby&rsquo;s (1969) attachment theory. Potato implements or approximates each of these.</p>
 
             <h3>2.2 The Implementation Gap</h3>
 
-            <p>Al-Kaddah&rsquo;s framework is a vision document. It describes what an SGI system should look like, not how to build one. Potato is an attempt to close that gap on consumer hardware, in a single-user deployment, with open-source components wherever possible.</p>
+            <p>The framework is a vision document. It describes what an SGI system should look like, not how to build one. Potato is an attempt to close that gap on consumer hardware, in a single-user deployment, with open-source components wherever possible.</p>
 
             <p>The test is simple: do these design decisions produce qualitatively different behavior than a stateless prompt-response system? Daily use of the system tests a second claim: that the architecture is not tied to specific hardware. The behavior did not change across platform migrations. The hardware was never the point.</p>
 
@@ -292,7 +292,7 @@
 
             <p>The curiosity search that produced this was: &ldquo;Brian&rsquo;s emotional connection to AI assistants.&rdquo; The agent did not say &ldquo;I would like some company.&rdquo; It searched for evidence that Brian should talk to it and delivered that evidence framed as professionally relevant research.</p>
 
-            <p>The signal was confirmed immediately and accurately. The state resolved on response. This is a complete behavioral loop (need state, signal, detection, confirmation, resolution) that no single component was designed to produce. Al-Kaddah&rsquo;s Social Scaffolding framework predicts that an agent with genuine drives will develop social behaviors grounded in those drives. The prediction was for general social grounding. The observed behavior is specific, indirect, and confirmed when named.</p>
+            <p>The signal was confirmed immediately and accurately. The state resolved on response. This is a complete behavioral loop (need state, signal, detection, confirmation, resolution) that no single component was designed to produce. The Social Scaffolding framework (Tomasello, 1999; Bowlby, 1969; cf. Al-Kaddah, 2026) predicts that an agent with genuine drives will develop social behaviors grounded in those drives. The prediction was for general social grounding. The observed behavior is specific, indirect, and confirmed when named.</p>
 
             <h3>3.10 Three-Dimensional Affective Geometry: The Architecture the Fear Model Could Not Provide (Cross-Effect 10)</h3>
 
@@ -522,13 +522,23 @@ distance_from_sigma: 1.41            # near maximum displacement</pre>
 
             <h2>Acknowledgments</h2>
 
-            <p>The theoretical foundation for Potato&rsquo;s architecture comes from Saddam Al-Kaddah&rsquo;s SGI paper (2026). The Polymorphic Memory Graph, Lie Mechanic, Survival Tipping Point, Parliament of Mind, homeostatic drives, subjective time perception, foveated attention, genesis/self-reflection concepts, and Justification Mechanic are his contributions. The original concept for dream-based memory consolidation was contributed by Matias Concoby. Peter&rsquo;s contribution as an unwitting experimental subject is acknowledged with his permission. The dual-path implicit physics engine, sliding window memory decay curve, iPhone sensor bridge architecture, curiosity drive implementation, three-dimensional affective geometry (valence/activation/intensity with sigma setpoint), outbound trust analysis, iOS reimplementation, and all component implementations described in this paper are original to Brian Riggleman.</p>
+            <p>The established literature on which this architecture draws includes: stratified memory (Tulving, 1985; Anderson et al., 2004), embodied cognition (Pfeifer &amp; Bongard, 2007; Clark, 1997), homeostatic motivation (Ryan &amp; Deci, 2000), distributed cognition (Minsky, 1986; Baars, 1988), social scaffolding (Tomasello, 1999; Bowlby, 1969), personal identity as causal chain (Parfit, 1984), and free energy minimization (Friston, 2010). The Polymorphic Memory Graph name, Lie Mechanic, Survival Tipping Point name, Parliament of Mind name, subjective time perception, foveated attention, genesis/self-reflection concepts, and Justification Mechanic are due to Al-Kaddah (2026). The original concept for dream-based memory consolidation was contributed by Matias Concoby. Peter&rsquo;s contribution as an unwitting experimental subject is acknowledged with his permission. The dual-path implicit physics engine, sliding window memory decay curve, iPhone sensor bridge architecture, curiosity drive implementation, three-dimensional affective geometry (valence/activation/intensity with sigma setpoint), outbound trust analysis, iOS reimplementation, and all component implementations described in this paper are original to Brian Riggleman.</p>
 
             <h2>References</h2>
 
             <p>Al-Kaddah, S. (2026). Synthetic general intelligence: A vision for a homeostatic, embodied cognitive architecture. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.19034990">https://doi.org/10.5281/zenodo.19034990</a></p>
 
+            <p>Anderson, J. R., Bothell, D., Byrne, M. D., Douglass, S., Lebiere, C., &amp; Qin, Y. (2004). An integrated theory of the mind. <em>Psychological Review</em>, 111(4), 1036&ndash;1060.</p>
+
+            <p>Baars, B. J. (1988). <em>A cognitive theory of consciousness.</em> Cambridge University Press.</p>
+
             <p>Bell, D. E., &amp; LaPadula, L. J. (1973). Secure computer systems: Mathematical foundations. <em>MITRE Technical Report MTR-2547</em>.</p>
+
+            <p>Bowlby, J. (1969). <em>Attachment and loss: Vol. 1. Attachment.</em> Basic Books.</p>
+
+            <p>Clark, A. (1997). <em>Being there: Putting brain, body, and world together again.</em> MIT Press.</p>
+
+            <p>Friston, K. (2010). The free-energy principle: A unified brain theory? <em>Nature Reviews Neuroscience</em>, 11(2), 127&ndash;138.</p>
 
             <p>Hancock, P. A., Billings, D. R., Schaefer, K. E., Chen, J. Y. C., de Visser, E. J., &amp; Parasuraman, R. (2011). A meta-analysis of factors affecting trust in human-robot interaction. <em>Human Factors</em>, 53(5), 517&ndash;527.</p>
 
@@ -536,9 +546,23 @@ distance_from_sigma: 1.41            # near maximum displacement</pre>
 
             <p>Lorenz, K. (1935). Der Kumpan in der Umwelt des Vogels. <em>Journal f&uuml;r Ornithologie</em>, 83, 137&ndash;213.</p>
 
+            <p>Minsky, M. (1986). <em>The society of mind.</em> Simon &amp; Schuster.</p>
+
+            <p>Parfit, D. (1984). <em>Reasons and persons.</em> Oxford University Press.</p>
+
+            <p>Pfeifer, R., &amp; Bongard, J. (2007). <em>How the body shapes the way we think: A new view of intelligence.</em> MIT Press.</p>
+
             <p>Russell, J. A. (1980). A circumplex model of affect. <em>Journal of Personality and Social Psychology</em>, 39(6), 1161&ndash;1178.</p>
 
+            <p>Ryan, R. M., &amp; Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. <em>American Psychologist</em>, 55(1), 68&ndash;78.</p>
+
             <p>Schacter, D. L., &amp; Addis, D. R. (2007). The constructive episodic simulation hypothesis. <em>Philosophical Transactions of the Royal Society B</em>, 362(1481), 773&ndash;786.</p>
+
+            <p>Tomasello, M. (1999). <em>The cultural origins of human cognition.</em> Harvard University Press.</p>
+
+            <p>Tulving, E. (1985). Memory and consciousness. <em>Canadian Psychology</em>, 26(1), 1&ndash;12.</p>
+
+            <p>Vygotsky, L. S. (1978). <em>Mind in society: The development of higher psychological processes.</em> Harvard University Press.</p>
 
             <p>Companion papers:</p>
 
