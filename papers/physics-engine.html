@@ -141,12 +141,7 @@
             
             <div class="article-content">
                 
-<p class="p1"><b>A Dual-Path Implicit Physics Engine:</b></p>
-<p class="p2"><b>Measuring the Boundary Where Language Fails</b></p>
-<p class="p3">Brian Riggleman</p>
-<p class="p4"><i>Independent Researcher</i></p>
-<p class="p5">March 2026</p>
-<p class="p6">Abstract</p>
+<p class="p6"><b>Abstract</b></p>
 <p class="p7">This paper describes a dual-path implicit physics engine. The same physical scenario is evaluated through two independent channels: a text physics path where a language model renders, predicts, and reads a scene entirely in language, and a visual physics path where a diffusion model renders the scene as pixels, predicts the next physical state as frames, and a vision-language model reads the result. The delta between the two outputs is not noise. It is a measurement. Where the paths agree, the prediction is robust. Where they diverge, the system has found a scenario where language is not a sufficient proxy for physical reasoning. This delta, accumulated over time, becomes a self-generated dataset that maps the limits of language as a physics model. The architecture was discovered by accident: a misunderstood implementation suggestion produced a text-only fallback pipeline that turned out to be the baseline a physics comparison requires.</p>
 <p class="p6">1. Introduction</p>
 <p class="p7">A physics engine takes initial conditions and returns what happens next. That is the whole definition. Whether it uses Newton’s laws integrated forward in time, a learned neural simulation, or a statistical model over visual outcomes does not matter. The function is what matters.</p>
