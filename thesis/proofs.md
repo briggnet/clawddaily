@@ -13,11 +13,11 @@ These proofs formalize the mathematical claims made in Chapter 3 (Theory) and Ch
 
 **Definition 1 (Affective State Space).** The affective state space is the bounded subset of ℝ³:
 
-    𝒮 = [-1, 1] × [-1, 1] × [0, 1]
+    S = [-1, 1] × [-1, 1] × [0, 1]
 
-where the axes are valence (v), activation (a), and intensity (i). A state s ∈ 𝒮 is a triple s = (v, a, i).
+where the axes are valence (v), activation (a), and intensity (i). A state s ∈ S is a triple s = (v, a, i).
 
-**Definition 2 (Sigma).** The personality setpoint σ = (σ_v, σ_a, σ_i) ∈ 𝒮 is a fixed point representing the agent's baseline affective state — the position to which the agent returns when no external inputs are active. Sigma is set at deployment and does not change during operation.
+**Definition 2 (Sigma).** The personality setpoint σ = (σ_v, σ_a, σ_i) ∈ S is a fixed point representing the agent's baseline affective state — the position to which the agent returns when no external inputs are active. Sigma is set at deployment and does not change during operation.
 
 **Definition 3 (Intensity Function).** For a state with valence v and activation a, intensity is defined as:
 
@@ -30,13 +30,15 @@ The division by √2 normalizes the result to [0, 1] given that the maximum disp
 
 More precisely: I(v, a) = min(1, √((v − σ_v)² + (a − σ_a)²) / √2).
 
+**Remark (constrained 3D manifold).** Because intensity is derived from valence and activation, a deployed agent's state always satisfies i = I(v, a). The system therefore occupies a constrained 3D manifold inside S rather than a fully independent 3D volume. In human survey extensions, intensity may be measured directly (self-reported) and tested against the computed form; whether the two are equivalent is an open question (Chapter 9 limitations).
+
 **Definition 4 (Distance from Sigma).** For a state s = (v, a, i) and setpoint σ = (σ_v, σ_a, σ_i):
 
     d(s, σ) = √((v − σ_v)² + (a − σ_a)² + (i − σ_i)²)
 
-This is the standard Euclidean distance in ℝ³ restricted to 𝒮.
+This is the standard Euclidean distance in ℝ³ restricted to S.
 
-**Definition 5 (Source Point).** A source point is a tuple p = (v, a, i, w) where (v, a, i) ∈ 𝒮 is the position and w ∈ (0, 1] is the intensity weight. A set of n active source points is P = {p₁, p₂, ..., pₙ}.
+**Definition 5 (Source Point).** A source point is a tuple p = (v, a, i, w) where (v, a, i) ∈ S is the position and w ∈ (0, 1] is the intensity weight. A set of n active source points is P = {p₁, p₂, ..., pₙ}.
 
 **Definition 6 (Centroid).** Given n ≥ 1 active source points P = {p₁, ..., pₙ} with positions (vᵢ, aᵢ, iᵢ) and weights wᵢ, the centroid is the 3D point obtained by weight-weighted averaging of each position coordinate:
 
@@ -44,7 +46,7 @@ This is the standard Euclidean distance in ℝ³ restricted to 𝒮.
     c_a = Σᵢ(aᵢ · wᵢ) / Σᵢ(wᵢ)
     c_i = Σᵢ(iᵢ · wᵢ) / Σᵢ(wᵢ)
 
-The centroid c = (c_v, c_a, c_i) is itself a point in 𝒮. When n = 0 (no active sources), c = σ = (σ_v, σ_a, σ_i) by convention (failsafe rule).
+The centroid c = (c_v, c_a, c_i) is itself a point in S. When n = 0 (no active sources), c = σ = (σ_v, σ_a, σ_i) by convention (failsafe rule).
 
 **Definition 7 (Spread).** Given n ≥ 1 active source points with centroid c, spread is the weight-weighted average 3D Euclidean distance from each source to the centroid:
 
@@ -56,7 +58,7 @@ where d₃(pᵢ, c) = √((vᵢ − c_v)² + (aᵢ − c_a)² + (iᵢ − c_i)²
 
 ## Proof 1: Distance from Sigma is a Metric
 
-**Theorem 1.** The function d: 𝒮 × 𝒮 → ℝ defined by d(s, σ) = ‖s − σ‖₂ is a metric on 𝒮. Specifically, for all s, s', σ ∈ 𝒮:
+**Theorem 1.** The function d: S × S → ℝ defined by d(s, σ) = ‖s − σ‖₂ is a metric on S. Specifically, for all s, s', σ ∈ S:
 
 (a) **Non-negativity:** d(s, σ) ≥ 0
 
@@ -68,7 +70,7 @@ where d₃(pᵢ, c) = √((vᵢ − c_v)² + (aᵢ − c_a)² + (iᵢ − c_i)²
 
 **Proof.**
 
-d is the standard Euclidean distance on ℝ³ restricted to the subset 𝒮 ⊂ ℝ³. Since 𝒮 is a subset of a metric space (ℝ³, ‖·‖₂), the restriction inherits all metric properties. We verify each explicitly.
+d is the standard Euclidean distance on ℝ³ restricted to the subset S ⊂ ℝ³. Since S is a subset of a metric space (ℝ³, ‖·‖₂), the restriction inherits all metric properties. We verify each explicitly.
 
 **(a) Non-negativity.** d(s, σ) = √((v − σ_v)² + (a − σ_a)² + (i − σ_i)²). Each squared term is ≥ 0, so their sum is ≥ 0, and the square root of a non-negative real number is non-negative. ∎
 
@@ -82,13 +84,13 @@ d is the standard Euclidean distance on ℝ³ restricted to the subset 𝒮 ⊂ 
 
     ‖s − s'‖₂ = ‖(s − σ) + (σ − s')‖₂ ≤ ‖s − σ‖₂ + ‖σ − s'‖₂
 
-by the triangle inequality for the Euclidean norm on ℝ³. Since 𝒮 ⊂ ℝ³ and the inequality holds for all vectors in ℝ³, it holds on 𝒮. ∎
+by the triangle inequality for the Euclidean norm on ℝ³. Since S ⊂ ℝ³ and the inequality holds for all vectors in ℝ³, it holds on S. ∎
 
-**Corollary 1.1 (Bounded Range).** For all s ∈ 𝒮:
+**Corollary 1.1 (Bounded Range).** For all s ∈ S:
 
     0 ≤ d(s, σ) ≤ √(4 + 4 + 1) = 3
 
-since the maximum displacement on each axis is: |v − σ_v| ≤ 2, |a − σ_a| ≤ 2, |i − σ_i| ≤ 1. In practice, d(s, σ) ≤ √3 ≈ 1.73 because sigma is typically interior to 𝒮, limiting effective displacement.
+since the maximum displacement on each axis is: |v − σ_v| ≤ 2, |a − σ_a| ≤ 2, |i − σ_i| ≤ 1. In practice, d(s, σ) ≤ √3 ≈ 1.73 because sigma is typically interior to S, limiting effective displacement.
 
 ---
 
@@ -195,7 +197,7 @@ The centroid is (v₁, a₁, i₁), the source point's 3D position. ∎
 
 **Theorem.** When no source points are active, the centroid equals sigma.
 
-**Proof.** By Definition 6, when n = 0, c = σ = (σ_v, σ_a, σ_i) by convention. This is a defined boundary condition, not a limiting case. It ensures continuity of the system: as all source weights approach zero, the agent's operational position returns to its personality baseline (a 3D point in 𝒮). ∎
+**Proof.** By Definition 6, when n = 0, c = σ = (σ_v, σ_a, σ_i) by convention. This is a defined boundary condition, not a limiting case. It ensures continuity of the system: as all source weights approach zero, the agent's operational position returns to its personality baseline (a 3D point in S). ∎
 
 ### Theorem 4c: Centroid Lies Within Convex Hull
 
@@ -305,9 +307,9 @@ Since k > 1 and spread > 0 (by Theorem 5a, assuming not all sources coincide), s
 
 ## Proof 6: Centroid and Spread are Independently Informative
 
-**Theorem 6.** Centroid position and spread are independent quantities: knowing one does not determine the other. Specifically, for any 3D centroid position c in the interior of 𝒮, there exist source configurations producing arbitrarily different spread values.
+**Theorem 6.** Centroid position and spread are independent quantities: knowing one does not determine the other. Specifically, for any 3D centroid position c in the interior of S, there exist source configurations producing arbitrarily different spread values.
 
-**Proof.** Fix target centroid c = (c_v, c_a, c_i) in the interior of 𝒮.
+**Proof.** Fix target centroid c = (c_v, c_a, c_i) in the interior of S.
 
 **Configuration A (zero spread):** A single source at position (c_v, c_a, c_i). By Theorems 4a and 5b, centroid = c and spread = 0.
 
@@ -315,13 +317,13 @@ Since k > 1 and spread > 0 (by Theorem 5a, assuming not all sources coincide), s
 
     p₁ = (c_v + δ, c_a, c_i),  p₂ = (c_v − δ, c_a, c_i)
 
-for any δ > 0 such that both points remain in 𝒮. The centroid is:
+for any δ > 0 such that both points remain in S. The centroid is:
 
     c' = ((c_v + δ + c_v − δ)/2, (c_a + c_a)/2, (c_i + c_i)/2) = (c_v, c_a, c_i) = c
 
 The spread is δ (by Theorem 5c, since the 3D separation between p₁ and p₂ is 2δ entirely along the valence axis).
 
-By choosing different δ, we produce the same 3D centroid c with spread ranging from 0 to any positive value (up to the bounds of 𝒮). The construction is symmetric in any axis: substituting (c_a + δ, c_a − δ) in activation, or (c_i + δ, c_i − δ) in intensity (with δ small enough to keep iᵢ ∈ [0, 1]), produces the same result. Therefore centroid does not determine spread, and they are independent quantities. ∎
+By choosing different δ, we produce the same 3D centroid c with spread ranging from 0 to any positive value (up to the bounds of S). The construction is symmetric in any axis: substituting (c_a + δ, c_a − δ) in activation, or (c_i + δ, c_i − δ) in intensity (with δ small enough to keep iᵢ ∈ [0, 1]), produces the same result. Therefore centroid does not determine spread, and they are independent quantities. ∎
 
 This formalizes the thesis claim from Chapter 4.4: "A centroid at neutral valence with zero spread means the agent is genuinely neutral. A centroid at neutral valence with high spread means two opposing forces are canceling."
 
@@ -329,17 +331,17 @@ This formalizes the thesis claim from Chapter 4.4: "A centroid at neutral valenc
 
 ## Proof 7: Deception Threshold is a Half-Space Intersection
 
-**Theorem 7.** The deception activation region D ⊂ 𝒮 is the intersection of a closed half-space and the exterior of a ball centered at sigma:
+**Theorem 7.** The deception activation region D ⊂ S is the intersection of a closed half-space and the exterior of a ball centered at sigma:
 
-    D = {s ∈ 𝒮 : d(s, σ) ≥ 0.5 ∧ v < 0}
+    D = {s ∈ S : d(s, σ) ≥ 0.5 ∧ v < 0}
 
 This is a connected, geometrically well-defined region. Deception activates if and only if the state enters D.
 
-**Proof.** The condition d(s, σ) ≥ 0.5 defines the exterior of the closed ball B(σ, 0.5) = {s : d(s, σ) < 0.5}. The condition v < 0 defines the open half-space H⁻ = {s ∈ 𝒮 : v < 0}. Therefore:
+**Proof.** The condition d(s, σ) ≥ 0.5 defines the exterior of the closed ball B(σ, 0.5) = {s : d(s, σ) < 0.5}. The condition v < 0 defines the open half-space H⁻ = {s ∈ S : v < 0}. Therefore:
 
-    D = (𝒮 \ B(σ, 0.5)) ∩ H⁻
+    D = (S \ B(σ, 0.5)) ∩ H⁻
 
-Both sets are connected (the exterior of a ball in a convex space intersected with a half-space), and their intersection in 𝒮 is non-empty whenever σ has non-negative valence (which is typical). The boundary ∂D consists of the sphere d(s, σ) = 0.5 restricted to v < 0, and the hyperplane v = 0 restricted to d(s, σ) ≥ 0.5.
+Both sets are connected (the exterior of a ball in a convex space intersected with a half-space), and their intersection in S is non-empty whenever σ has non-negative valence (which is typical). The boundary ∂D consists of the sphere d(s, σ) = 0.5 restricted to v < 0, and the hyperplane v = 0 restricted to d(s, σ) ≥ 0.5.
 
 The deception state is therefore a geometric property of position, not a threshold on any individual axis. Two states at the same valence or the same distance can have different deception status depending on the other condition. This confirms that the geometric formulation (distance + direction) is strictly more informative than either scalar alone. ∎
 
