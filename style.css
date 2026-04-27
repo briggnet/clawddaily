@@ -647,4 +647,192 @@ main {
         color: #000000 !important;
         font-style: italic;
     }
+
+    /* ────────────────────────────────────────────────────────────────
+       Thesis-specific academic print styling.
+       Applies when the rendered page uses .thesis-header / .thesis-body
+       (i.e. /thesis/index.html). Layered on top of the paper print
+       rules above.
+       ──────────────────────────────────────────────────────────────── */
+
+    body:has(.thesis-body),
+    body:has(.thesis-header) {
+        font-family: Georgia, "Times New Roman", "Liberation Serif", serif;
+        font-size: 11pt;
+        line-height: 1.55;
+    }
+
+    /* Title page */
+    .thesis-header {
+        padding: 2.2in 0 0 0 !important;
+        text-align: center;
+        page-break-after: always;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    .thesis-header .version-badge {
+        display: inline-block;
+        background: none !important;
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+        font-weight: normal;
+        font-size: 10.5pt;
+        padding: 0.25rem 0.7rem;
+        margin: 0 0 2rem 0;
+        border: 1px solid #555555;
+        border-radius: 0;
+        letter-spacing: 0.04em;
+    }
+    .thesis-header h1 {
+        font-family: Georgia, "Times New Roman", "Liberation Serif", serif;
+        font-size: 24pt;
+        font-weight: bold;
+        line-height: 1.25;
+        margin: 0 auto 1.5rem auto;
+        max-width: 5.5in;
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+    }
+    .thesis-header .subtitle {
+        font-size: 12pt;
+        color: #000000 !important;
+        margin: 1.5rem 0 0 0;
+        font-style: italic;
+    }
+    /* Hide the inline "Download PDF" link on the title page */
+    .thesis-header > div {
+        display: none !important;
+    }
+
+    /* Working-draft disclaimer becomes a centered notice on its own page */
+    .disclaimer {
+        background: none !important;
+        border: 1px solid #555555 !important;
+        border-left: 3px solid #333333 !important;
+        font-size: 10pt;
+        color: #000000 !important;
+        padding: 0.85rem 1.1rem !important;
+        margin: 1in auto 0 auto !important;
+        max-width: 5.5in !important;
+        line-height: 1.55;
+        page-break-after: always;
+    }
+    .disclaimer strong {
+        color: #000000 !important;
+    }
+
+    /* Body: justified academic prose */
+    .thesis-body {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: justify;
+        hyphens: auto;
+        font-size: 11pt;
+        line-height: 1.55;
+    }
+    .thesis-body p {
+        margin: 0 0 0.65rem 0;
+        orphans: 3;
+        widows: 3;
+    }
+
+    /* Chapter (h2) starts a new page; serif heading */
+    .thesis-body h2 {
+        page-break-before: always;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 16pt;
+        font-weight: bold;
+        margin: 0 0 0.9rem 0;
+        padding: 0 0 0.45rem 0;
+        border-bottom: 1px solid #555555;
+        page-break-after: avoid;
+    }
+    /* First chapter does not need an extra page break (TOC absent) */
+    .thesis-body h2:first-of-type {
+        page-break-before: auto;
+    }
+    .thesis-body h3 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 13pt;
+        font-weight: bold;
+        margin: 1.1rem 0 0.45rem 0;
+        page-break-after: avoid;
+    }
+    .thesis-body h4 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 11.5pt;
+        font-weight: bold;
+        margin: 0.85rem 0 0.4rem 0;
+        color: #000000 !important;
+        page-break-after: avoid;
+    }
+    .thesis-body h5 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 11pt;
+        font-weight: bold;
+        font-style: italic;
+        margin: 0.7rem 0 0.3rem 0;
+        page-break-after: avoid;
+    }
+
+    /* Code stays monospace */
+    .thesis-body code {
+        font-family: "DejaVu Sans Mono", "Liberation Mono", "Courier New", monospace;
+        font-size: 9.75pt;
+        background: #f4f4f4 !important;
+    }
+
+    /* Display-math style paragraphs (those with margin-left inline style) */
+    .thesis-body p[style*="margin-left"] {
+        text-align: left;
+        margin-left: 1.5rem !important;
+    }
+
+    /* Evidence and risk boxes — keep visible but flat */
+    .thesis-body .evidence-box,
+    .thesis-body .risk-box {
+        background: #f5f5f5 !important;
+        border: 1px solid #888888 !important;
+        border-left-width: 1px !important;
+        padding: 0.5rem 0.75rem !important;
+        margin: 0.65rem 0 !important;
+        page-break-inside: avoid;
+        font-size: 10.5pt;
+    }
+    .thesis-body .evidence-box h4,
+    .thesis-body .risk-box h4 {
+        color: #000000 !important;
+        margin-top: 0;
+    }
+    .thesis-body .status-proven,
+    .thesis-body .status-supported,
+    .thesis-body .status-speculative {
+        color: #000000 !important;
+        font-weight: 600;
+    }
+
+    /* Tables */
+    .thesis-body table {
+        font-size: 9.75pt;
+        page-break-inside: avoid;
+    }
+
+    /* Lists */
+    .thesis-body ul,
+    .thesis-body ol {
+        margin: 0.5rem 0 0.7rem 1.4rem;
+        padding-left: 0;
+    }
+    .thesis-body li {
+        margin: 0 0 0.25rem 0;
+    }
+
+    /* The Version Archive section is web-only chrome */
+    .archive-section {
+        display: none !important;
+    }
 }
