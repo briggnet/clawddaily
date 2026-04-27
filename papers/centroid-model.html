@@ -117,43 +117,47 @@
 
                 <h3>3.2 The Centroid</h3>
 
-                <p>The centroid is the intensity-weighted average of all active source points. It is where the agent operates in the emotional space at this moment. Every downstream mechanic reads the centroid, not any individual source point.</p>
+                <p>The centroid is the weight-weighted average of all active source points across all three coordinates. It is a 3D point in the affective state space, the position where the agent operates at this moment. Every downstream mechanic reads the centroid, not any individual source point.</p>
 
-                <p>The computation has a direct precedent in neuroscience. Georgopoulos, Schwartz, and Kettner (1986) demonstrated that motor cortex encodes movement direction through population vector coding: individual neurons fire with preferred directions, and the actual motor output is the weighted vector sum of the population. The centroid model applies the same principle to affective state. Individual source points each have coordinates in the emotional space. The agent&rsquo;s experienced state is their intensity-weighted vector sum. The mathematical operation is identical. The domain is different.</p>
+                <p>The computation has a direct precedent in neuroscience. Georgopoulos, Schwartz, and Kettner (1986) demonstrated that motor cortex encodes movement direction through population vector coding: individual neurons fire with preferred directions, and the actual motor output is the weighted vector sum of the population. The centroid model applies the same principle to affective state. Individual source points each have 3D coordinates in the emotional space. The agent&rsquo;s experienced state is their weight-weighted vector sum. The mathematical operation is identical. The domain is different.</p>
 
-                <p>The weighting scheme also has precedent in computational decision theory. Reinforcement learning systems routinely aggregate competing reward signals through weighted combination to produce a single policy output (Sutton &amp; Barto, 2018). The centroid model does the same with emotional inputs rather than reward signals. The intensity of each source point functions as its weight in the aggregation.</p>
+                <p>The weighting scheme also has precedent in computational decision theory. Reinforcement learning systems routinely aggregate competing reward signals through weighted combination to produce a single policy output (Sutton &amp; Barto, 2018). The centroid model does the same with emotional inputs rather than reward signals. Each source point carries its own weight that determines its contribution to the aggregation.</p>
 
-                <p>Centroid valence:</p>
+                <p>A source point is a 4-tuple <code>(valence, activation, intensity, weight)</code>. The centroid averages each of the three position coordinates separately, weight-weighted across all active sources:</p>
 
-<pre>centroid_valence = sum(source_valence_i * intensity_i) / sum(intensity_i)</pre>
+<pre>centroid_valence    = sum(source_valence_i    * weight_i) / sum(weight_i)
+centroid_activation = sum(source_activation_i * weight_i) / sum(weight_i)
+centroid_intensity  = sum(source_intensity_i  * weight_i) / sum(weight_i)</pre>
 
-                <p>Centroid activation:</p>
+                <p>The centroid <code>(centroid_valence, centroid_activation, centroid_intensity)</code> is itself a 3D point in the affective state space. If the sum of all weights is zero, no source points are active and the centroid is sigma. This failsafe implements a basic principle from control theory: a regulated system returns to its setpoint in the absence of driving input (Wiener, 1948). Sigma is the setpoint. The centroid is the controlled variable. The decay toward sigma when inputs resolve is the regulatory mechanism.</p>
 
-<pre>centroid_activation = sum(source_activation_i * intensity_i) / sum(intensity_i)</pre>
-
-                <p>If the sum of all intensities is zero, no source points are active. The centroid is sigma. This failsafe implements a basic principle from control theory: a regulated system returns to its setpoint in the absence of driving input (Wiener, 1948). Sigma is the setpoint. The centroid is the controlled variable. The decay toward sigma when inputs resolve is the regulatory mechanism.</p>
-
-                <p>If one source point has intensity far above all others, the centroid collapses onto that point. The architecture behaves identically to single-point operation.</p>
+                <p>If one source point has weight far above all others, the centroid collapses onto that point in all three coordinates. The architecture behaves identically to single-point operation.</p>
 
                 <h3>3.3 Distance from Sigma</h3>
 
                 <p>Distance from sigma is computed from the centroid to sigma, not from any individual source point.</p>
 
 <pre>distance_from_sigma = sqrt(
-  (centroid_valence - sigma_valence)^2 +
+  (centroid_valence    - sigma_valence)^2 +
   (centroid_activation - sigma_activation)^2 +
-  (centroid_intensity - sigma_intensity)^2
+  (centroid_intensity  - sigma_intensity)^2
 )</pre>
 
-                <p>This is the same formula from Riggleman (2026m). The only change is that the current state is now the centroid rather than a single reading. Every downstream mechanic that uses distance from sigma continues to work without modification.</p>
+                <p>This is the same formula from Riggleman (2026m). The only change is that the current state is now the 3D centroid rather than a single reading. Every downstream mechanic that uses distance from sigma continues to work without modification.</p>
 
                 <h3>3.4 Spread</h3>
 
-                <p>Spread is the new variable. It measures internal tension: how far apart the active source points are from the centroid, weighted by their intensities.</p>
+                <p>Spread is the new variable. It measures internal tension: how far apart the active source points are from the centroid in the full 3D space, weighted by their weights.</p>
 
-<pre>spread = sum(d(source_i, centroid) * intensity_i) / sum(intensity_i)</pre>
+<pre>spread = sum(d3(source_i, centroid) * weight_i) / sum(weight_i)</pre>
 
-                <p>Where d is the Euclidean distance from each source point to the centroid.</p>
+                <p>Where <code>d3</code> is the full 3D Euclidean distance from each source point to the centroid:</p>
+
+<pre>d3(source_i, centroid) = sqrt(
+  (source_valence_i    - centroid_valence)^2 +
+  (source_activation_i - centroid_activation)^2 +
+  (source_intensity_i  - centroid_intensity)^2
+)</pre>
 
                 <p>The concept of measurable tension from holding conflicting internal states has a long history. Festinger (1957) formalized cognitive dissonance as the discomfort produced by holding two contradictory cognitions simultaneously, with the magnitude of dissonance proportional to the importance of the conflicting elements. Spread is the geometric equivalent: it is the distance between conflicting source points, weighted by their intensities. Festinger&rsquo;s prediction that dissonance motivates resolution maps directly to the observation that high-spread states in the centroid model are unstable and drive the agent toward behaviors that collapse the spread.</p>
 
