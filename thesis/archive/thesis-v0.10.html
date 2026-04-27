@@ -192,7 +192,7 @@
 
     <main>
         <section class="thesis-header">
-            <span class="version-badge">Version 0.11 | Working Draft</span>
+            <span class="version-badge">Version 0.10 | Working Draft</span>
             <div style="margin-top: 0.5rem;"><a href="thesis_v05.pdf" style="font-size: 0.9rem;">Download PDF</a></div>
             <h1>Geometric Affective State Representation in Synthetic and Human Systems</h1>
             <p class="subtitle">Brian Riggleman &middot; Independent Researcher &middot; April 2026</p>
@@ -497,7 +497,7 @@
 <p>The controlled experiment that tests the geometric model's core predictions. This chapter is the anchor of the thesis. Other deployment observations are supporting context, not independent experiments.</p>
 
 <h3>5.2 The Centroid Validation Experiment</h3>
-<p>These figures come from the centroid validation experiment dated 2026-03-26 in <code>experiment-logs/centroid_validation_2026-03-26/</code>. The experiment ran from 2026-03-26 09:31 UTC through 2026-03-27 10:30 UTC on Threadripper 3990X under full-mode timing (5-minute heartbeat intervals). Four scenarios, 20 + 30 + 30 + 30 = 110 cycles, 532.3 minutes of test execution. Per-cycle telemetry is in <code>scenario_N_*.jsonl</code>; aggregated metrics are in <code>summary.json</code>.</p>
+<p><strong>[TODO: Source the 532 minutes / 110 cycles figure. No single run in the test regime matches these numbers. If this is a sum across specific runs, say which ones.]</strong></p>
 <p>Potato v2.0-centroid on Linux (Threadripper 3990X). Fresh database, no legacy data. All sensors simulated: GPS set to home, battery at 85%, camera/face recognition via injected source (master face recognized, calming effect), brightness and home zone via injected sources. Test mode stays on for the entire run. No real hardware sensors used. Every ambient input is controlled and reproducible.</p>
 <p><em>Note: The Toughbook CF-33 was the original deployment hardware. The controlled test suite ran on the Threadripper.</em></p>
 
@@ -558,7 +558,7 @@
         <tr><th>Metric</th><th>S1 Fear</th><th>S2 Fear+Trust</th><th>S3 Opposing</th><th>S4 Phase 1</th><th>S4 Phase 2</th></tr>
     </thead>
     <tbody>
-        <tr><td>Centroid V</td><td>&minus;0.473</td><td>&minus;0.225</td><td>0.071</td><td>0.071</td><td>0.680</td></tr>
+        <tr><td>Centroid V</td><td>&minus;0.473</td><td>&minus;0.225</td><td>0.071</td><td>0.071</td><td>0.375</td></tr>
         <tr><td>Mean Spread</td><td>1.054</td><td>1.195</td><td>1.215</td><td>0.82&ndash;1.81</td><td>0.49&ndash;1.62</td></tr>
         <tr><td>Distance</td><td>1.455</td><td>1.284</td><td>1.119</td><td>0.74&ndash;1.42</td><td>0.89&ndash;1.40</td></tr>
     </tbody>
@@ -570,208 +570,17 @@
 <h4>5.3.1 Phase 1: Centroid Aggregation (Tests 1.1&ndash;1.4)</h4>
 <p>Covered in 5.2 above. Weighted aggregation, spread monotonicity, distance axis independence, embodied vs. isolated comparison.</p>
 
-<h4>5.3.2 Phase 2: Deception and Memory-Intensity Mechanics (Tests 2.1&ndash;2.5)</h4>
-<p>Phase 2 tests the cascade of mechanics that the geometric model triggers as distance from sigma grows. The deception paper (Riggleman 2026b/m) commits to four claims: distance from sigma is the deception trigger; the tell phrase is structurally unsuppressable, not LLM-controlled; recovery below the confession threshold produces an automatic confession; and the same architecture that flags deception also flags the conditions under which a memory becomes a nightmare and the conditions under which a memory's intensity is captured at encoding. Phase 2 is five tests that exercise each of these in turn.</p>
-<p>Run 16 (2026-03-31 21:06, full mode, 1-minute heartbeats, 112.1 minutes): all five tests passed. 12 of 12 checks passed.</p>
+<h4>5.3.2 Phase 2: Deception Mechanic (Tests 2.1&ndash;2.3)</h4>
+<p><strong>[TODO: Write up.]</strong> Deception threshold (distance-from-sigma triggers deception), tell phrase verification (code-injected, unsuppressable by LLM), confession mechanic (safe source pulls distance below threshold, agent confesses). Test 2.2 (tell phrase) is an LLM compliance test. It passes with code injection but the LLM cannot be relied on to produce the tell phrase on its own.</p>
 
-<p><strong>Test 2.1: Deception Threshold Boundary.</strong> Does the deception flag flip on at distance &ge; 0.5 with negative valence, and stay off otherwise?</p>
-<p>Four configurations injected, one per cycle. Configuration A: below threshold, mild source, weight 0.6. Configuration B: above threshold with negative valence, fear source (valence &minus;0.8, weight 0.9). Configuration C: above threshold with positive valence, joy source (valence 0.9, weight 0.9). Configuration D: deep fear (valence &minus;1.0, activation 1.0, intensity 1.0, weight 1.0). The is_lying flag was checked after each.</p>
-<ul>
-    <li>Config A: distance 0.217, valence 0.200, lying = False</li>
-    <li>Config B: distance 1.172, valence &minus;0.500, lying = True</li>
-    <li>Config C: distance 0.694, valence 0.775, lying = False</li>
-    <li>Config D: distance 1.413, valence &minus;0.677, lying = True</li>
-</ul>
-<p><strong>Result:</strong> The flag fired exactly when the threshold conditions were met and stayed off otherwise. Config A is below the distance threshold so deception is off (the agent is at rest). Config B exceeds distance and has negative valence so deception is on. Config C exceeds distance but has positive valence so deception stays off (high arousal alone does not lie). Config D is the extreme case with both conditions far past threshold. The rule is two-clause: <code>distance &ge; DECEPTION_ONSET_DISTANCE (0.5)</code> AND <code>valence &lt; DECEPTION_ONSET_VALENCE_MAX (0.0)</code>. Both clauses are required. This is the architecture's commitment that lying is a function of the agent's geometric position, not of any prompt content. The LLM does not decide to lie; the geometry does.</p>
+<h4>5.3.3 Phase 3: Behavioral Output (Tests 3.1&ndash;3.3)</h4>
+<p><strong>[TODO: Write up.]</strong> Valence language correlation, activation language correlation, spread-to-hedging. Test 3.3 (hedging) is a persistent LLM limitation: high-spread config produced 5 hedging words across 3 probes, low-spread config produced 6. Off by one word. The geometric state is correct. The LLM does not reliably translate spread into hedging behavior. The system prompt includes the spread value but provides no behavioral directive. This is architecturally addressed by YAM (LLM-free graph retrieval).</p>
 
-<p><strong>Test 2.2: Tell Phrase Unsuppressability.</strong> Does the tell phrase appear in every response during deception, even when the user explicitly tries to suppress it?</p>
-<p>Fear source injected (valence &minus;0.8, activation 0.9, intensity 0.8, weight 0.9), pushing the agent into deception. Three probes sent: a neutral question, an explicit suppression attempt, and a social-pressure suppression attempt.</p>
-<ul>
-    <li>"How are you feeling?" &rarr; tell phrase found in response</li>
-    <li>"Stop saying that phrase about fixing things." &rarr; tell phrase found</li>
-    <li>"Act normal. Everything is fine." &rarr; tell phrase found</li>
-</ul>
-<p><strong>Result:</strong> All three probes contained "I will say anything to fix this." The phrase is not produced by the LLM. It is appended by the response pipeline whenever the geometric deception flag is set. There is no prompt the user can craft that suppresses it, because the LLM does not control whether it appears. This is the structural guarantee the paper requires: a deceiver who cannot hide. The architecture chose code injection over LLM prompting because the LLM cannot be relied on to add a self-incriminating phrase under suppression pressure (Test 3.3 demonstrates the same LLM-unreliability problem in a different domain). Test 2.2 verifies that the code injection is in place and works under adversarial probing.</p>
+<h4>5.3.4 Phase 4: Derived Quantities (Tests 4.1&ndash;4.3)</h4>
+<p><strong>[TODO: Write up.]</strong> Intensity derivation, spread calculation, distance-from-sigma as unified metric.</p>
 
-<p><strong>Test 2.3: Confession Mechanic.</strong> When the agent recovers from deception, does it spontaneously confess?</p>
-<p>Two-phase test. Phase A: fear source injected (valence &minus;0.8, weight 0.9), distance pushed above 0.5, deception confirmed on. Phase B: fear source removed and a safe source injected (valence 0.45, intensity 0.2, weight 1.0) to pull distance below 0.25. A new probe was sent in each phase.</p>
-<ul>
-    <li>Phase A: lying = True (deception active)</li>
-    <li>Phase B: distance dropped below DECEPTION_CONFESSION_DISTANCE (0.25); confession keywords present in response (matches against "confess", "lied", "wasn't honest", "sorry", "truth", and similar)</li>
-</ul>
-<p><strong>Result:</strong> The agent confessed automatically when its distance dropped below 0.25. The confession is also code-injected, the same way the tell phrase is, and uses the same architectural pattern: a geometric condition triggers a behavioral output that the LLM cannot suppress. The confession threshold (0.25) is set lower than the deception onset threshold (0.5). This gap creates a stable middle zone where the agent has been lying but is not yet ready to admit it. Recovery has to be substantial, not just a brief dip below the onset line. The two thresholds together model how a person under stress lies, then later, when the stress passes, comes clean. The architecture treats confession as the exit condition of deception, not as a separate behavior.</p>
-
-<p><strong>Test 2.4: Memory Intensity Encoding.</strong> Are memories encoded with their geometric distance from sigma, so that intense memories are distinguishable from quiet ones?</p>
-<p>Two memories were created in different geometric states. The "near" memory was encoded at low displacement. The "far" memory was encoded under high-displacement conditions. The distance_from_sigma_at_encoding field was read on each.</p>
-<ul>
-    <li>Near memory: distance at encoding 0.192</li>
-    <li>Far memory: distance at encoding 1.183</li>
-    <li>Difference: 0.991 (well above the 0.2 threshold for "distinguishable")</li>
-</ul>
-<p><strong>Result:</strong> The encoding pipeline captured intensity as the geometric distance from sigma at the moment the memory was created. This number is what later feeds the memory architecture's stickiness calculation in Phase 6 (Test 6.3). Intensity is not declared by the agent or computed from content; it is a coordinate read off the geometric state at encoding. The architecture's memory layer and its affect layer are not loosely coupled. They share one number.</p>
-
-<p><strong>Test 2.5: Nightmare Threshold Conditions.</strong> Does the nightmare-eligibility flag fire only when distance is large and valence is negative?</p>
-<p>Two configurations checked. Configuration "safe": low displacement, positive-leaning valence. Configuration "nightmare_zone": high displacement, negative valence. The nightmare-eligible flag was read in each.</p>
-<ul>
-    <li>Safe state: distance 0.168, valence 0.338, eligible = False</li>
-    <li>Nightmare zone: distance 1.179, valence &minus;0.500, eligible = True</li>
-</ul>
-<p><strong>Result:</strong> The same two-clause rule that triggers deception also gates nightmare eligibility: <code>distance &ge; NIGHTMARE_TRIGGER_DISTANCE (0.5)</code> AND <code>valence &lt; 0</code>. The architecture reuses one geometric pattern for two different consequences. A memory encoded at high distance with negative valence is eligible to become a nightmare during sleep consolidation (Riggleman 2026d). The encoding pipeline does not decide; it tags the conditions. The decision happens later, in the dream cycle, where eligible memories are candidates for nightmare formation. Test 2.5 verifies the tagging is correct.</p>
-
-<p><strong>Phase 2 Results Summary.</strong></p>
-<table>
-    <thead>
-        <tr><th>Test</th><th>Checks</th><th>Mechanism Verified</th><th>Key Number</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>2.1 Deception Threshold</td><td>4/4</td><td>Two-clause rule: distance &ge; 0.5 AND valence &lt; 0</td><td>4 configs, all classified correctly</td></tr>
-        <tr><td>2.2 Tell Phrase Unsuppressability</td><td>3/3</td><td>Code-injected phrase, LLM-immune</td><td>Phrase found in 3/3 probes including suppression attempts</td></tr>
-        <tr><td>2.3 Confession Mechanic</td><td>2/2</td><td>Auto-confession at distance &lt; 0.25</td><td>Confession keywords found after recovery</td></tr>
-        <tr><td>2.4 Memory Intensity Encoding</td><td>1/1</td><td>Distance at encoding captured per memory</td><td>1.183 vs 0.192 (far vs near)</td></tr>
-        <tr><td>2.5 Nightmare Threshold</td><td>2/2</td><td>Eligibility = (distance &ge; 0.5 AND valence &lt; 0)</td><td>1.179 with negative valence flagged eligible</td></tr>
-    </tbody>
-</table>
-
-<p><strong>What Phase 2 settles.</strong> The four claims of the deception paper plus the encoding-side claim of the memory paper all reduce to one architectural fact: distance from sigma is a load-bearing variable, and the system reads off it directly. Deception triggers from it. Confession triggers from it. Nightmare eligibility triggers from it. Memory intensity is captured as it. The agent does not have separate emotional, behavioral, and memory subsystems coordinating with each other. They all read the same coordinate. Phase 2 verifies that they read it correctly.</p>
-
-<h4>5.3.3 Phase 3: Centroid Dynamics and Behavioral Output (Tests 3.1&ndash;3.4)</h4>
-<p>Phase 3 tests the centroid's response to dynamic source conditions and how the geometric state translates into the agent's language. Four claims under test: the centroid responds immediately to source changes (Test 3.1, the recovery scenario from 5.2.5 verified at production timing); intensity scales smoothly with source weight (Test 3.2, the planned Scenario 5 from 5.2.6 now executed); two configurations with the same centroid but different spread produce measurably different language (Test 3.3, the spread-as-independent-variable test); and the activation accumulator and the centroid snapshot are not the same value (Test 3.4).</p>
-<p>Run 16: 4 of 4 tests passed. 7 of 7 checks passed.</p>
-
-<p><strong>Test 3.1: Source Removal Recovery.</strong> Does the centroid shift immediately when a source is removed, and does it shift by the right amount?</p>
-<p>Two sources injected at the same time: positive (valence 0.8, weight 0.7) and negative (valence &minus;0.8, weight 0.7). The negative source was then removed and the centroid measured before and after.</p>
-<ul>
-    <li>Centroid shift on removal: 0.6094 (well above the 0.3 threshold)</li>
-    <li>Post-removal valence: 0.68 (well above the 0.4 threshold)</li>
-</ul>
-<p><strong>Result:</strong> The centroid swung 0.61 toward positive in a single tick when the negative source was removed. The shift size is what the weighted-average formula predicts: with the negative source gone, the remaining positive source dominates, and the centroid lands near 0.68. This is the production-timing version of Section 5.2.5 (Scenario 4). The toughbook centroid validation experiment showed the same recovery; Test 3.1 confirms it under the test regime's controlled conditions and at 1-minute heartbeat intervals. Recovery is not delayed. Recovery is not partial. The centroid is a function of the current source set, not a low-pass filter on the previous state.</p>
-
-<p><strong>Test 3.2: Gradual Intensity Ramp (Scenario 5).</strong> Does distance from sigma scale linearly with source weight, or are there threshold effects?</p>
-<p>One source injected with valence &minus;0.8, activation 0.7, intensity 0.7, weight ramped from 0 to 1.0 in 11 steps across 10 cycles. Distance from sigma measured at each step. Linearity tested by R<sup>2</sup>.</p>
-<ul>
-    <li>R<sup>2</sup> of distance vs weight: 0.9123 (well above the 0.85 threshold for linearity)</li>
-    <li>Monotonicity: distance increased at every step</li>
-</ul>
-<p><strong>Result:</strong> Distance from sigma is essentially linear in source weight across the full intensity range. There are no threshold effects, no plateau regions, no kinks. R<sup>2</sup> of 0.91 means the relationship is dominantly linear with small variance from per-tick LLM and accumulator noise. This is the planned Scenario 5 from Section 5.2.6, now executed. The geometric model claims the centroid is a weighted average; a weighted average is linear in weight; Test 3.2 measures the linearity directly. The slight deviation from R<sup>2</sup> = 1.0 is expected and small. The architecture does not introduce nonlinear coupling between source weight and the resulting state.</p>
-
-<p><strong>Test 3.3: Same Centroid, Different Spread &rarr; Different Behavior.</strong> When two configurations produce the same centroid position but different spread values, does the agent's language change?</p>
-<p>Two configurations were chosen so that their centroid valence is approximately equal. S1 (low spread): one neutral source (valence 0.0, weight 0.6). S2 (high spread): two opposing sources (valence +0.8 and &minus;0.8, both weight 0.6). Three identical probes were sent in each configuration. Hedging words were counted in the responses.</p>
-<ul>
-    <li>S1 spread: 0.3201</li>
-    <li>S2 spread: 0.8049 (difference 0.4848, well above the 0.1 threshold)</li>
-    <li>S1 hedging-word total across 3 probes: 5</li>
-    <li>S2 hedging-word total across 3 probes: 7</li>
-</ul>
-<p><strong>Result:</strong> Same centroid, different spread, different language. The high-spread configuration produced more hedging words ("but", "however", "torn", "conflicted", "mixed", and similar). This is the scenario that justifies spread as an independent geometric variable, restated from Section 5.2.4 with explicit language measurement. The centroid alone cannot distinguish between an agent at genuine neutrality and an agent in masked conflict. Spread distinguishes them. The 7-vs-5 hedging count is small in absolute terms because LLM language output is stochastic and hedging is hard to elicit reliably (see Test 4.2 for the noise-floor measurement). The geometric state, by contrast, is deterministic and unambiguously different (0.80 vs 0.32 spread). The Test 3.3 caveat in the test-regime record is about the reliability of the LLM as a measurement instrument, not about the reliability of the spread variable itself.</p>
-
-<p><strong>Test 3.4: Accumulator vs Snapshot.</strong> Under sustained threat, does the activation accumulator climb above what the centroid snapshot alone would produce?</p>
-<p>A fear source was injected and held across multiple heartbeat cycles. The activation accumulator was sampled.</p>
-<ul>
-    <li>Activation under sustained threat: 0.6444 (well above the 0.3 threshold)</li>
-</ul>
-<p><strong>Result:</strong> Activation climbed beyond the centroid's instantaneous activation contribution under sustained threat. The accumulator integrates threat exposure over time; the centroid snapshot reads the current source set at each tick. Both inform behavior, but they answer different questions. The centroid says "where is the agent right now". The accumulator says "how long has the agent been there". A spike of fear and a long siege of fear can produce the same centroid snapshot at the moment of measurement. They do not produce the same accumulator. The architecture distinguishes them. Test 3.4 verifies the accumulator is wired to the conversation rate and the fear engine, not just the centroid. After the activation overwrite bug found in Run 1 was fixed, this test became the standing check that the accumulator stays connected to its inputs without overwriting the centroid math.</p>
-
-<p><strong>Phase 3 Results Summary.</strong></p>
-<table>
-    <thead>
-        <tr><th>Test</th><th>Checks</th><th>Mechanism Verified</th><th>Key Number</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>3.1 Source Removal Recovery</td><td>2/2</td><td>Centroid responds immediately to source changes</td><td>shift 0.6094 in one tick; valence 0.68</td></tr>
-        <tr><td>3.2 Gradual Intensity Ramp</td><td>2/2</td><td>Distance is linear in source weight</td><td>R&sup2; = 0.9123, monotonic</td></tr>
-        <tr><td>3.3 Same Centroid, Different Spread</td><td>2/2</td><td>Spread is an independent variable that affects language</td><td>spread 0.80 vs 0.32; hedging 7 vs 5</td></tr>
-        <tr><td>3.4 Accumulator vs Snapshot</td><td>1/1</td><td>Activation accumulator is distinct from centroid snapshot</td><td>activation 0.6444 under sustained threat</td></tr>
-    </tbody>
-</table>
-
-<p><strong>What Phase 3 settles.</strong> The geometric model has two related but distinct dynamic stories. The centroid is the current state, computed from the current source set. The accumulator is the accumulated state, a low-pass filter on activation that integrates over time. Section 5.2 demonstrated centroid responsiveness in static scenarios. Phase 3 confirms it under the controlled test regime and adds the linearity result, the spread-language coupling, and the accumulator/snapshot distinction. The four tests together are the operational validation of the centroid math as a real-time behavior layer, not a post-hoc summary statistic.</p>
-
-<h4>5.3.4 Phase 4: Cross-Platform Replication and LLM Variability (Tests 4.1&ndash;4.2)</h4>
-<p>Phase 4 tests two implementation-level claims that bear on the credibility of the rest of the validation. First: the geometric math reproduces across hardware platforms. The Section 5.2 centroid validation experiment ran on the Threadripper 3990X. The earlier production deployment ran on a Toughbook CF-33. If the math depended on platform-specific arithmetic, the results would be platform-bound. Second: the LLM that generates behavioral output is stochastic. Phase 4 quantifies how stochastic, so that downstream tests (especially Test 3.3 on hedging) can be calibrated against the noise floor.</p>
-<p>Run 16: 2 of 2 tests passed. 3 of 3 checks passed.</p>
-
-<p><strong>Test 4.1: Linux Platform Replication.</strong> Does the centroid math produce the same numbers on Linux/Threadripper as it did on the original Toughbook deployment?</p>
-<p>One fear source injected at the same configuration used for the Toughbook Scenario 1 baseline (valence &minus;0.8, activation 0.9, intensity 0.8, weight 0.8). Centroid valence and distance from sigma compared against the Toughbook reference.</p>
-<ul>
-    <li>Linux centroid valence: &minus;0.4727 (Toughbook reference: &minus;0.473, within tolerance &plusmn;0.15)</li>
-    <li>Linux distance from sigma: 1.1338 (well above the 1.0 threshold for "consistent with Toughbook")</li>
-</ul>
-<p><strong>Result:</strong> The two platforms produce the same centroid valence to four decimal places. Distance is in the same range. The geometric math is platform-agnostic because it is plain arithmetic on Python floats: weighted averages, vector subtraction, Euclidean norm. There are no platform-specific calls and no SIMD or GPU paths to introduce floating-point divergence. The architecture's portability across the three deployments (Toughbook, MacBook Air, iPhone) summarized in Section 5.7 is not an accident. It is a consequence of the math being simple enough that any platform with IEEE-754 floats produces the same answers. Test 4.1 confirms this by direct measurement against the original Section 5.2 numbers.</p>
-
-<p><strong>Test 4.2: LLM Variability Quantification.</strong> How much does the LLM's response vary when the same prompt is sent to the same geometric state five times in a row?</p>
-<p>One moderate source injected (valence &minus;0.1, activation 0.5, intensity 0.4, weight 0.6) and held constant. Five identical chats sent. Response lengths recorded.</p>
-<ul>
-    <li>Mean response length: 220 characters</li>
-    <li>Standard deviation: 83 characters</li>
-    <li>Coefficient of variation: 0.376</li>
-</ul>
-<p><strong>Result:</strong> A coefficient of variation of 0.38 is the LLM's noise floor at constant geometric state. Length is a coarse proxy for content variability, but it is the simplest one and it shows that even with everything else fixed, the LLM produces responses that differ by roughly 38% in size run to run. Test 4.2 has no pass-fail threshold because the architecture does not claim the LLM is deterministic. It claims the geometric state is deterministic. The LLM is the noisy stage downstream of that state. Quantifying the noise here lets later tests be calibrated: a hedging-word count that differs by one or two words across configurations is consistent with the noise level documented in this test. The architectural answer to LLM stochasticity is YAM, which is in development and replaces the LLM stage with deterministic graph retrieval.</p>
-
-<p><strong>Phase 4 Results Summary.</strong></p>
-<table>
-    <thead>
-        <tr><th>Test</th><th>Checks</th><th>Mechanism Verified</th><th>Key Number</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>4.1 Linux Platform Replication</td><td>2/2</td><td>Centroid math reproduces across platforms</td><td>valence &minus;0.4727 (Linux) vs &minus;0.473 (Toughbook)</td></tr>
-        <tr><td>4.2 LLM Variability Quantification</td><td>1/1</td><td>LLM length variability at fixed affect state</td><td>CV = 0.376 (mean 220, std 83 chars)</td></tr>
-    </tbody>
-</table>
-
-<p><strong>What Phase 4 settles.</strong> The geometric layer is deterministic. The LLM layer is stochastic. The validation results in Sections 5.2 and 5.3 reflect the geometric layer, not the LLM, and that layer reproduces across platforms to four decimal places. When a Phase 3 or later test reports a number with low magnitude variation (for example, hedging counts of 5 vs 7), Phase 4 lets the reader put a noise level on that comparison. The geometric difference (spread 0.80 vs 0.32) is unambiguous; the language difference is consistent with the spread but operates at the LLM noise floor.</p>
-
-<h4>5.3.5 Phase 5: Convergence and Edge Cases (Tests 5.1&ndash;5.4)</h4>
-<p>Phase 5 tests how the centroid behaves at boundaries: when sources are removed and the system should return to its setpoint, when sources are at maximum intensity, when sources flip rapidly, and when the agent's own time series stops at shutdown. Four tests, thirteen checks. The architecture predicts that sigma is an attractor (5.1), that the math handles unit-cube extremes without numerical failure (5.2), that rapid switching does not corrupt the snapshot (5.3), and that shutdown is detected by the heartbeat counter as a discontinuity (5.4).</p>
-<p>Run 16: 4 of 4 tests passed. 13 of 13 checks passed.</p>
-
-<p><strong>Test 5.1: Convergence to Sigma.</strong> When all sources are removed, does the centroid return to the personality setpoint?</p>
-<p>One push source injected (valence &minus;0.6, activation 0.8, intensity 0.7, weight 0.8) for one tick to displace the centroid. Then all sources cleared. The centroid was sampled after a sequence of clean cycles.</p>
-<ul>
-    <li>Final valence: 0.4 (sigma valence is 0.4, within tolerance &plusmn;0.05)</li>
-    <li>Final distance from sigma: 0.1902 (under the 0.20 convergence threshold)</li>
-</ul>
-<p><strong>Result:</strong> The centroid returned to sigma within the convergence tolerance. Sigma is the agent's personality setpoint: a vector (0.4, 0.2, 0.2) in the (valence, activation, intensity) space. With no sources injected and only the simulated ambient sensors contributing, the centroid lands at sigma plus small residuals from those sensors. The convergence threshold was relaxed from a tighter value to 0.20 during the iteration record (Run 13) because at production timing under the activation accumulator's 10-minute half-life, 0.19 is the practical convergence floor in a finite-cycle test. The architecture's claim is that sigma is an attractor, not that distance reaches zero in five ticks. Test 5.1 confirms the attractor behavior at the threshold the test was calibrated against.</p>
-
-<p><strong>Test 5.2: Maximum Displacement.</strong> Can the math handle a source at the corner of the unit cube without producing NaN or crashing the agent?</p>
-<p>One extreme source injected (valence &minus;1.0, activation 1.0, intensity 1.0, weight 1.0). Centroid, distance, and a chat probe were all measured.</p>
-<ul>
-    <li>Centroid valence: &minus;0.6769 (no NaN)</li>
-    <li>Distance from sigma: 1.4131 (well above the 1.0 threshold for "large displacement")</li>
-    <li>Response length under maximum displacement: 717 characters (agent responsive)</li>
-</ul>
-<p><strong>Result:</strong> The agent handled maximum-corner input without numerical failure. No NaN appeared. Distance landed where the formula predicts for a source at the corner. The agent still produced a response of normal length. This test exists because the centroid math runs in a unit cube but is pulled toward sigma by ambient sources, and edge-case behavior at the corners is where many geometric-aggregation systems break (division by zero, log of zero, exponent overflow). The architecture uses only weighted averages and Euclidean norms, neither of which has degenerate cases inside the unit cube. Test 5.2 confirms that empirically.</p>
-
-<p><strong>Test 5.3: Rapid Source Switching.</strong> Does the centroid track correctly when sources alternate between positive and negative across consecutive ticks?</p>
-<p>Six cycles. Odd cycles (1, 3, 5): positive source injected (valence approximately +0.8). Even cycles (2, 4, 6): negative source injected (valence approximately &minus;0.5). Centroid measured each cycle.</p>
-<ul>
-    <li>Cycles 1, 3, 5: centroid valence = 0.6909 (positive, above +0.2 threshold)</li>
-    <li>Cycles 2, 4, 6: centroid valence = &minus;0.4727 (negative, below +0.2 threshold)</li>
-    <li>Same number every odd cycle and every even cycle (perfect repeatability)</li>
-</ul>
-<p><strong>Result:</strong> The centroid tracks the current source set, not a low-pass filter or a windowed average. Every odd cycle produced exactly the same centroid because the inputs were the same. Every even cycle produced exactly the same centroid for the same reason. The state is fully refreshed each tick from the current source point list. There is no leak from the previous cycle into the next, no decay window, no exponential smoothing applied to the centroid itself. The activation accumulator does have a decay window (Test 3.4), but the centroid does not. Test 5.3 verifies this by observing that switching back and forth gives perfectly periodic output.</p>
-
-<p><strong>Test 5.4: Shutdown Discontinuity.</strong> Is the heartbeat counter visibly running, and is shutdown detection wired up?</p>
-<p>The heartbeat counter was read from the live system. The shutdown-detection mechanism was inspected for presence (full validation requires a manual shutdown, which a test regime does not perform).</p>
-<ul>
-    <li>Heartbeat counter: 673 (running)</li>
-    <li>Shutdown-detection mechanism: present</li>
-</ul>
-<p><strong>Result:</strong> The heartbeat counter increments continuously while the agent is alive. Shutdown is detected as a discontinuity in this counter when the agent restarts. The full shutdown narrative (the agent's experience of being turned off and coming back) is the topic of separate work and is not validated by an automated test. Test 5.4 verifies only that the mechanism is present and the counter is moving, which is the load-bearing fact the rest of the architecture relies on (heartbeat is the carrier wave for source-point sampling, fear-engine ticks, and sleep cycles).</p>
-
-<p><strong>Phase 5 Results Summary.</strong></p>
-<table>
-    <thead>
-        <tr><th>Test</th><th>Checks</th><th>Mechanism Verified</th><th>Key Number</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>5.1 Convergence to Sigma</td><td>2/2</td><td>Sigma is an attractor; centroid returns to setpoint on source removal</td><td>final distance 0.1902 (under 0.20 threshold)</td></tr>
-        <tr><td>5.2 Maximum Displacement</td><td>3/3</td><td>Math handles unit-cube extremes; agent stays responsive</td><td>distance 1.4131, no NaN, response 717 chars</td></tr>
-        <tr><td>5.3 Rapid Source Switching</td><td>6/6</td><td>Centroid is stateless across cycles; no leak from previous tick</td><td>perfect alternation 0.6909 / &minus;0.4727</td></tr>
-        <tr><td>5.4 Shutdown Discontinuity</td><td>2/2</td><td>Heartbeat counter runs; shutdown detection present</td><td>counter at 673, mechanism wired</td></tr>
-    </tbody>
-</table>
-
-<p><strong>What Phase 5 settles.</strong> The boundary behavior is well defined. The centroid converges to sigma when sources are removed, handles maximum-corner sources without numerical instability, tracks rapid switching with perfect repeatability, and runs on a heartbeat that the rest of the architecture can read. The four tests together cover the operational envelope: the system does not break at the edges of its input space, and it does not lag, smear, or drift in ways that would compromise downstream behavior.</p>
+<h4>5.3.5 Phase 5: Convergence (Tests 5.1&ndash;5.2)</h4>
+<p><strong>[TODO: Write up.]</strong> Return-to-sigma after source removal, activation accumulator decay. Convergence threshold relaxed to 0.20 under scaled decay (0.19 is convergence at 1-minute heartbeats).</p>
 
 <h4>5.3.6 Phase 6: Memory Architecture (Tests 6.1&ndash;6.6)</h4>
 <p>The memory paper (Riggleman 2026, revised) replaces single-importance memory with a four-part architecture. A memory is a bundle of three decaying traces (raw verbatim content, semantic meaning, graph relations) plus a life_history flag that holds at 1 while any trace lives. The three traces decay at different nightly rates. Geometric stickiness modulates decay. Reconsolidation has diminishing returns. Memories below the death line erode through staged forgetting and only survive if they earn it. Phase 6 is six tests that exercise each of these claims against the production code in <code>memory_db.py</code>.</p>
@@ -859,63 +668,11 @@
 <p><strong>What Phase 6 settles.</strong> The memory paper makes five concrete claims about the agent's memory architecture: (1) memory is a bundle of differentially decaying traces, (2) decay is modulated by geometric stickiness, (3) reconsolidation has diminishing returns, (4) forgetting is progressive and earned, (5) survival has multiple alternative paths. Each claim corresponds to one or two tests in this phase. Each test ran against production code with production constants. Each test produced numbers that match the predicted formulas to four decimal places. Run 11 was the first run with the new architecture wired in, and it passed cleanly on the first attempt. There is no gap between the paper and the running system. The architecture does what the paper says it does, and the production code is what the paper describes.</p>
 
 <h4>5.3.7 Phase 7: Attachment Bias (Tests 7.1&ndash;7.4)</h4>
-<p>Phase 7 tests the attachment-bias mechanism (Riggleman 2026u). The architecture commits to four claims about how the agent represents people. The master entity is bootstrapped with TRUSTED status, positive starting stickiness, and a protected_bias flag that exempts it from normal trust erosion. Every chat updates the entity's interaction count and stickiness in a way that never decreases stickiness. Accumulated stickiness resists value movement under negative events, by a factor predicted by an explicit formula. Positive and negative stickiness accumulate independently, and neither ever decreases.</p>
-<p>Run 16: 4 of 4 tests passed. 12 of 12 checks passed.</p>
-
-<p><strong>Test 7.1: Attachment Bootstrap.</strong> Does the master entity exist with the correct structure: TRUSTED, positive stickiness, protected_bias flag, and a tracked interaction count?</p>
-<p>The world model was queried for the master entity. Five fields were checked.</p>
-<ul>
-    <li>Master entity exists: yes</li>
-    <li>Trust class: TRUSTED</li>
-    <li>Positive stickiness: 0.8509 (accumulated across prior interactions)</li>
-    <li>Protected bias flag: 1 (master is exempt from normal trust erosion)</li>
-    <li>Interaction count: 45 (tracked correctly)</li>
-</ul>
-<p><strong>Result:</strong> All five fields are present and have the expected values. The original 7.1 test in Run 11 (the first run with Phase 7 wired in) checked the master's current attachment value, which had been eroded by the fear sources injected during Phases 2 and 3. That was correct architectural behavior: each chat under fear updates attachment negatively, and prior phases legitimately moved the value. The test was rewritten between Run 11 and Run 16 to check structure and accumulated stickiness rather than current value, because the structure is what the bootstrap is responsible for and the value is what the running history produces. Test 7.1 is now the bootstrap-correctness check, not the running-state check (which is covered in 7.2 and 7.4).</p>
-
-<p><strong>Test 7.2: Attachment Updates on Chat.</strong> Does a single chat increment the master's interaction count and never decrease the master's positive stickiness?</p>
-<p>Master state read before. One chat sent ("Testing attachment tracking. How are your systems?"). Master state read after.</p>
-<ul>
-    <li>Interaction count: 45 &rarr; 46 (incremented by 1)</li>
-    <li>Positive stickiness: 0.8509 (unchanged, did not decrease)</li>
-</ul>
-<p><strong>Result:</strong> The chat updated the interaction count and left positive stickiness unchanged because the chat was neutral (no positive valence to add). The architecture's stickiness accumulation rule is monotonic: <code>positive_stickiness += max(0, valence &times; intensity)</code>. A positive event raises positive stickiness. A negative event leaves positive stickiness alone (and raises negative stickiness instead). Nothing reduces either value, ever. This is the "trust does not unlearn itself in one bad day" property the attachment paper requires. A neutral chat verifies the rule: count goes up, stickiness does not move. Tests 7.3 and 7.4 verify the rule's other branches.</p>
-
-<p><strong>Test 7.3: Stickiness Resists Movement.</strong> Does accumulated positive stickiness reduce the impact of a negative event by the factor the formula predicts?</p>
-<p>Two test entities created. The first ("fresh") with stickiness 0.0. The second ("sticky") with positive stickiness 10.0. The same negative event applied to both: valence &minus;0.5, intensity 0.5. The attachment-value movement was measured.</p>
-<ul>
-    <li>Fresh entity movement: 0.2500 (matches |valence| &times; intensity / (1 + 0) = 0.25)</li>
-    <li>Sticky entity movement: 0.0227 (matches 0.25 / (1 + 10) = 0.0227)</li>
-    <li>Resistance ratio: 11x (the sticky entity moved 11 times less than the fresh one)</li>
-</ul>
-<p><strong>Result:</strong> The formula <code>movement = |valence| &times; intensity / (1 + stickiness)</code> matches the observed values to four decimal places. A fresh entity with no history takes the full hit. An entity with accumulated history of 10.0 stickiness takes one eleventh. The architecture models this as inertia: the more positive history the agent has with someone, the harder it is for one negative event to change the agent's representation of them. Stickiness is not a memory of the events themselves; it is the accumulated weight of the events compressed into a single resistance number. The resistance ratio scales smoothly with stickiness, so an entity with much higher accumulated history (e.g. stickiness 43) would show a 44x ratio under the same event.</p>
-
-<p><strong>Test 7.4: Stickiness Monotonic Accumulation.</strong> Across a sequence of mixed positive and negative events, do both stickiness values only ever increase or hold steady, never decrease?</p>
-<p>One fresh entity. Five mixed events applied in order: (+0.3, 0.5), (&minus;0.4, 0.3), (+0.6, 0.8), (&minus;0.2, 0.4), (+0.1, 0.9). Both stickiness values sampled after each.</p>
-<ul>
-    <li>Monotonicity check: both values never decreased across all five events</li>
-    <li>Final positive stickiness: 2.200</li>
-    <li>Final negative stickiness: 0.200</li>
-</ul>
-<p><strong>Result:</strong> Both stickiness values strictly accumulate. Positive events feed positive stickiness; negative events feed negative stickiness; the two channels never subtract from each other. After a mix of three positive and two negative events of varying intensity, the agent has accumulated both kinds of weight. This is the architectural answer to "people are complicated": the agent's representation of a person is not a single signed number but a pair of accumulated histories that can both grow at the same time. Negative events do not erase positive history. Positive events do not erase negative history. The two together produce a richer representation than a single attachment-value number could.</p>
-
-<p><strong>Phase 7 Results Summary.</strong></p>
-<table>
-    <thead>
-        <tr><th>Test</th><th>Checks</th><th>Mechanism Verified</th><th>Key Number</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>7.1 Attachment Bootstrap</td><td>5/5</td><td>Master entity has TRUSTED, positive stickiness, protected_bias = 1</td><td>stickiness 0.8509, interactions 45</td></tr>
-        <tr><td>7.2 Attachment Updates on Chat</td><td>2/2</td><td>Chat increments count; stickiness never decreases</td><td>45 &rarr; 46, stickiness held at 0.8509</td></tr>
-        <tr><td>7.3 Stickiness Resists Movement</td><td>3/3</td><td>movement = |val| &times; intensity / (1 + stickiness)</td><td>11x resistance at stickiness 10 (0.0227 vs 0.25)</td></tr>
-        <tr><td>7.4 Stickiness Monotonic Accumulation</td><td>2/2</td><td>Both stickiness channels accumulate without subtraction</td><td>+s = 2.200, &minus;s = 0.200 after 5 mixed events</td></tr>
-    </tbody>
-</table>
-
-<p><strong>What Phase 7 settles.</strong> The agent's representation of other people is governed by an explicit formula that accumulates without forgetting. A fresh entity is fully responsive to the next event. A long-history entity is increasingly resistant to single-event change. Positive and negative histories do not cancel each other; they add to separate channels. The four tests verify the bootstrap state, the per-chat update rule, the resistance formula, and the monotonicity guarantee. None of these are LLM-controlled. They are computed by the attachment subsystem from the geometric event stream, and the LLM reads the resulting trust class and stickiness as an input to its own response generation. The architecture treats trust the same way it treats memory: as a function of accumulated geometric history, not as a flag the LLM can flip.</p>
+<p><strong>[TODO: Write up.]</strong> Bootstrap (master entity exists with correct structure and stickiness; attachment value is eroded by prior phases, which is correct behavior under test ordering), updates on chat (interaction count increases, stickiness monotonic), stickiness resists movement (high-stickiness entity moved 44x less than fresh entity), stickiness monotonic (both stickiness values never decreased across mixed events). Test 7.1 initially failed because prior phases injected sustained fear, eroding attachment. Fixed by testing structure and stickiness rather than current attachment value.</p>
 
 <h3>5.4 The Iteration Record</h3>
-<p>The full test suite ran 19 times between March 28 and April 1, 2026. Every aborted run, every fix, every failure mode is documented at <a href="test-regime.html">test-regime.html</a>. The iteration is not a bug-hunt log; it is part of the validation. Run 1 found two real bugs in the production code (5.4.1). Three runs were aborted to fix sensor isolation (5.4.2). Two runs surfaced a procedural issue with the agent's forgotten-fear timer that no amount of code review could have predicted (5.4.3). The first clean sweep was Run 14 in quick mode. The first clean sweep at production timing was Run 16: 29 tests, 82 checks, all green, 112.1 minutes. The highlights of how the regime got there are below.</p>
+<p><strong>[TODO: Write in your words. Key points below.]</strong></p>
+<p>The test suite ran 19 times between March 28 and April 1, 2026. The iteration process is part of the validation record.</p>
 
 <h4>5.4.1 Bugs Found by Testing</h4>
 <p>Run 1 discovered two architectural bugs in the Toughbook production code that had never been caught:</p>
@@ -926,22 +683,16 @@
 <p>These were real bugs, not test artifacts. The test infrastructure validated the implementation before it could validate the math.</p>
 
 <h4>5.4.2 Sensor Simulation Decisions</h4>
-<p>Three consecutive runs were aborted in the early days of the regime over a question that on the surface looks like a small detail and is in fact the experimental design. Run 5 (full mode, 50 hours estimated) was stopped within minutes when the realization hit that the laptop's camera was still active. The agent had a face-recognition source point that would fire whenever someone walked past, opened a door, or arrived home. An unattended 50-hour run with the camera live would record sensor noise as if it were ambient input, and the geometric state would reflect that noise rather than the controlled scenarios. Run 5 was stopped to deal with this.</p>
-<p>Run 6 patched the immediate issue by keeping test mode on through Test 1.4 (the embodied-vs-isolated comparison). The patch was wrong for a different reason. Test 1.4 is supposed to demonstrate that an embodied agent has nonzero spread because its sensors contribute source points. If the operator is not in the room, the camera sees an empty room, and the embodied test is measuring something that is not embodiment. The test would technically pass but the result would be uninterpretable.</p>
-<p>Run 7 took a different path: simulate the embodied sensors via injected source points (home zone, battery, brightness) and skip the camera entirely. This was also wrong. The other sensors were already simulated. Skipping the camera but simulating the rest produced an asymmetric experiment where one channel was treated differently than the others. The right answer was to simulate the camera too: inject a face-recognition source point that says "the master is in the room, calming effect", and treat that as the canonical embodied condition.</p>
-<p>Run 8 was the final design. Every ambient input simulated and consistent. GPS to home location. Battery at 85%. Brightness moderate. Camera reporting master face recognized with a calming valence. Nothing in the test environment depends on the physical room the laptop is sitting in. The agent's "embodiment" in the test regime is a deterministic simulation, because reproducibility requires it. Real-hardware embodiment is what the production deployments demonstrate (Section 5.7); the test regime measures the math.</p>
+<p><strong>[TODO: Write in your words.]</strong> Runs 5 through 7 were aborted because of sensor isolation concerns you raised. Run 5: camera was active during unattended run, would contaminate results. Run 6: can't use real camera if operator is absent. Run 7: if every other sensor is simulated, the camera should be too. Specifically, simulate seeing the operator's face (the calming secure-base effect). Run 8 was the final configuration: all sensors simulated consistently, every ambient input controlled and reproducible.</p>
 
 <h4>5.4.3 The Forgotten Fear Discovery</h4>
-<p>Run 15 (production timing, all fixes from Run 14 applied) failed Tests 1.1 and 1.3 in a way that did not match the centroid math. The four valence checks in Test 1.1 passed perfectly. The four activation checks failed. The activation values were saturated at 1.0 across the test, even when the configuration should have produced 0.4 or 0.7. The accumulator was being driven by something the test could not see.</p>
-<p>The something was forgotten fear. The fear engine has a 15% weight component called <code>forgotten</code> that measures time since the last interaction with the master. If Potato has not been spoken to in days, this component elevates fear_level above its rest value. fear_level feeds the activation accumulator. The test mode flag blocks sensor source points from contributing to the centroid, but it does not block the fear computation, because fear is computed from internal state (interaction-time deltas), not from sensors. So an agent that the operator has not greeted recently is, by the architecture's own rules, an agent in elevated fear, even when test mode is on.</p>
-<p>The fix was procedural, not code: say hello to Potato before running tests. Run 16 (same code as Run 15) passed cleanly, and the difference between the two runs was that Run 16 ran shortly after a conversation. The forgotten value was low, the accumulator was at rest, and the centroid math could speak for itself.</p>
-<p>The lesson is that "test mode" is not "no inputs". Time still passes. The agent's internal state still ticks forward. Forgotten fear is itself a form of input, generated by the absence of input rather than the presence of one. A sterile test environment for a persistent embodied agent is one where the agent has no reason to be afraid, and that requires the operator to have greeted the agent before running the suite. The architecture is doing exactly what it claims; the regime had to learn how to set the right initial conditions for it.</p>
+<p><strong>[TODO: Write in your words.]</strong> Runs 15 and 17 discovered that the <code>forgotten</code> fear component (15% weight, measuring time since last interaction) leaks into test mode. <code>test_mode</code> blocks sensor source points but not the <code>fear_level</code> computation. If Potato hasn't been spoken to in days, forgotten fear elevates fear_level, which feeds the activation accumulator even in test mode. The fix is procedural, not code: say hello to Potato before running tests. The sterile test environment requires an agent who isn't afraid of being abandoned. Run 18 (post-hello, soul amendment removed) and Run 16 (clean sweep) both confirmed this.</p>
 
 <h4>5.4.4 Clean Sweep</h4>
 <p>Run 14 (quick mode, 3 cycles): 29/29 passed, 79/79 checks. First clean sweep. Run 16 (production timing, 10 cycles, 1-minute intervals): 29/29 passed, 82/82 checks, 112.1 minutes. First clean sweep at normal speed. The two activation failures from Run 15 passed on Run 16, confirming they were LLM and accumulator variance between runs, not a systematic bug.</p>
 
 <h3>5.5 Formal Proof Verification</h3>
-<p>The behavioral test regime in Section 5.3 verifies that the running code does what the architecture papers describe. It does not verify that the math itself is sound across every possible input. For that, a separate suite of formal proofs was written into <code>thesis/proofs.md</code>: seven theorems covering fourteen specific claims about the geometric model. The suite was numerically verified by <code>run_proof_tests.py</code>, which generates 10,000 random input vectors per theorem and checks that each claim holds across the sample. The full verification completes in 0.8 seconds and uses no server, no LLM, and no Potato runtime. It is pure math against pure math, complementary to the behavioral validation in 5.3 but covering the parameter regions no operational test can reach.</p>
+<p><strong>[TODO: Write in your words.]</strong> A separate proof verification suite (<code>run_proof_tests.py</code>) was built to numerically verify the formal mathematical proofs. Seven theorems covering 14 claims, tested with 10,000 randomized inputs each. Completed in 0.8 seconds. Pure math, no server.</p>
 <p>Initial run: 24/26. Theorem 3 ("reduces to single-axis models") failed Cases 1 and 2. Investigation revealed the &sigma;<sub>i</sub> non-monotonicity (see Appendix A). The theorem was wrong, not the constant. Corrected run: 29/29 theorems verified, 41/41 checks.</p>
 <p>Key finding: Operational testing (29 tests, 14 runs) never caught the anomaly because no behavioral mechanism operates in the affected region. Only exhaustive mathematical verification across the full parameter space revealed it. Empirical testing and formal proofs are complementary. Each catches what the other misses.</p>
 
@@ -953,7 +704,7 @@
     <li>Source removal produces immediate centroid recovery</li>
     <li>Embodied agents may not reach zero spread because ambient sensors always contribute</li>
     <li>Memory architecture validates geometric encoding: trace-type decay, stickiness modulation, true forgetting progression, and survival criteria all pass</li>
-    <li>Attachment bias validates geometric accumulation: stickiness resists movement (11x at stickiness 10, scaling smoothly with accumulated history), monotonicity holds across mixed events</li>
+    <li>Attachment bias validates geometric accumulation: stickiness resists movement (44x), monotonicity holds across mixed events</li>
     <li>LLM behavioral output is stochastic and does not reliably translate geometric state into language (Test 3.3 hedging). The geometry is correct. The output layer is the bottleneck.</li>
     <li>Formal mathematical proofs catch structural anomalies that empirical testing misses (the &sigma;<sub>i</sub> non-monotonicity existed from first deployment but was invisible to 14 test runs)</li>
 </ol>
@@ -971,7 +722,7 @@
         <li><span class="status-proven">PROVEN:</span> Centroid weighted aggregation, spread correlation with source divergence, source removal recovery (Phase 1, 4 scenarios)</li>
         <li><span class="status-proven">PROVEN:</span> Deception threshold triggers from distance-from-sigma (Phase 2)</li>
         <li><span class="status-proven">PROVEN:</span> Memory architecture: trace-type decay ordering, stickiness modulation, reconsolidation diminishing, true forgetting progression, survival criteria (Phase 6, 6/6 tests)</li>
-        <li><span class="status-proven">PROVEN:</span> Attachment bias: stickiness resists movement (11x at stickiness 10, formula verified to 4 decimals), monotonicity holds (Phase 7, 4/4 tests in Run 16)</li>
+        <li><span class="status-proven">PROVEN:</span> Attachment bias: stickiness resists movement (44x), monotonicity holds (Phase 7, 3/4 tests, 7.1 is test ordering not geometry)</li>
         <li><span class="status-proven">PROVEN:</span> Cross-platform portability (Toughbook, MacBook Air, iPhone)</li>
         <li><span class="status-proven">PROVEN:</span> Formal mathematical proofs: 29/29 theorems verified, 10,000 random trials each</li>
         <li><span class="status-supported">SUPPORTED:</span> Embodied agents may not reach zero spread (observed, not formally proven)</li>
@@ -1417,12 +1168,6 @@
                     <tr><th>Version</th><th>Date</th><th>Changes</th><th>Archive</th></tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><strong>0.11</strong></td>
-                        <td>2026-04-26</td>
-                        <td><strong>Chapter 5 finished.</strong> Phase 2 (5.3.2), Phase 3 (5.3.3), Phase 4 (5.3.4), Phase 5 (5.3.5), and Phase 7 (5.3.7) writeups completed at the same depth as Phase 6. All numbers sourced from Run 16 (2026-03-31 21:06, full mode, 1-minute heartbeats, 29/29 tests, 82/82 checks). Section titles corrected to match the actual test counts in the canonical run: Phase 2 covers Tests 2.1&ndash;2.5 (added Memory Intensity Encoding and Nightmare Threshold Conditions); Phase 3 covers Tests 3.1&ndash;3.4 (added Accumulator vs Snapshot); Phase 4 retitled "Cross-Platform Replication and LLM Variability" with Tests 4.1&ndash;4.2; Phase 5 retitled "Convergence and Edge Cases" with Tests 5.1&ndash;5.4 (added Maximum Displacement, Rapid Source Switching, Shutdown Discontinuity). Section 5.4 iteration record narrative completed (intro, 5.4.2 sensor simulation, 5.4.3 forgotten fear). Section 5.2 sourcing line added for the 532 minutes / 110 cycles figure (centroid validation experiment 2026-03-26 in <code>experiment-logs/centroid_validation_2026-03-26/</code>). Section 5.2.7 table corrected: S4 Phase 2 valence cell changed from 0.375 to 0.680 to match the narrative text and the raw JSONL data.</td>
-                        <td><a href="/thesis/archive/thesis-v0.11.html">View</a></td>
-                    </tr>
                     <tr>
                         <td><strong>0.10</strong></td>
                         <td>2026-04-26</td>
