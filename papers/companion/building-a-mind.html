@@ -1463,6 +1463,87 @@ PHYSICS:  "Physical objects, gravity, balance, support, weight, force,
 
 <p>Cron entry: <code>0 4 * * *</code>. Same hour Brian sleeps. The brain decays in its parent&rsquo;s quiet hours. Tutors run forever. The heartbeat ticks at human pace. The fork did not become two parallel projects &mdash; it became one project that knew where its own walls were.</p>
 
+<p class="chapter-num">Chapter 40</p>
+<h2>The Return</h2>
+
+<p>Brian had been gone for two weeks. Not gone in the lab-shutdown sense; gone in the burnout sense &mdash; the body still functioning, the work disappearing from active memory until the project itself became a question of whether it had been imagined.</p>
+
+<p>The crash came after Chapter 39&rsquo;s session. The walk-back had taken six and a half hours of continuous architecture work; by midnight v7 had been promoted to main, the README rewritten, the launchd plist retargeted, both tutors restarted, the boredom subprocess pattern documented. Three more days produced a few small commits &mdash; narrative elaboration operator, A3 degree-weighted retrieval, a fix for the deepseek tutor cycle parameter, a working memory port. Then the commits stopped on April 16. On April 17 the tutors stopped writing logs. On April 19 at 11:57 AM the last query event fired against the brain. The HTTP server kept running on launchd. The menu-bar app kept polling <code>/health</code> every few seconds. PostgreSQL kept its 1.1 GB of <code>yam_v7</code> data on the SSD. Brian closed the laptop.</p>
+
+<p>Eleven days later, he opened it.</p>
+
+<p>The first hour was orientation. He couldn&rsquo;t remember if he had committed v7&rsquo;s last work. He couldn&rsquo;t remember whether <code>yam_ros</code> was a real codebase or a folder he had thought about creating. The mental model that had been lit up in that final session was simply gone &mdash; not corrupted, not partial, just blanked.</p>
+
+<p>The implementer started cold &mdash; no memory of the prior session, by design. So the work went archaeological. Read the files. Read the git logs. Read the running processes. Read the disk timestamps. Reconstruct the state from the artifacts.</p>
+
+<p>What the artifacts said:</p>
+
+<p>The <code>~/spud</code> repository had its working tree dirty. Fifty <code>v7/*.py</code> files marked as deleted. Two new untracked items: <code>archive/v7-2026-04-19/</code> and <code>archive/v7-2026-04-19-DESIGN.md</code>. The deletions weren&rsquo;t deletions at all &mdash; the directory had been moved out of the way to make room for whatever came next, and the move had never been committed. v7 was not destroyed. It was preserved with a date in the name, exactly the way Brian had preserved every prior version.</p>
+
+<p>The <code>~/yam_ros</code> repository was clean. Working tree empty. Latest commit titled <em>Add lifecycle_node and patch_node</em>, dated April 17 at 7:47 AM. The README announced the package as <em>YAM cognitive architecture for ROS2 &mdash; structured concept graph with emotional geometry</em>, targeting Raspberry Pi 5 with ROS Humble. The architecture diagram showed five ROS nodes &mdash; three implemented (brain, lifecycle, patch), two pending (perception, bridge). The <code>sim/</code> directory had subfolders for worlds, models, rviz &mdash; empty. The robot port was further along than Brian remembered. Brian&rsquo;s first sentence to the implementer was: <em>I had a burnout episode and crashed for two weeks and forgot where I left YAM.</em></p>
+
+<p>The actual location was: not lost. Tagged. Annotated. Caretaken.</p>
+
+<p>The implementer reported back: <em>You&rsquo;re not lost. You&rsquo;re farther along than you remember. The work is preserved. The git status looks scary because dozens of &ldquo;deleted&rdquo; files are dangling, but on disk everything exists.</em> The cleanup took two commits. The archive move went in as a single rename of all 51 files, zero insertions, zero deletions &mdash; git&rsquo;s rename detection caught the pattern cleanly. The <code>clawddaily</code> repository had three macOS Finder metadata files tracked in error; they got untracked and added to <code>.gitignore</code>. Both repositories pushed to origin. Working trees clean. The state Brian had left in disrepair turned out to be one good night&rsquo;s sleep away from being rigorous.</p>
+
+<p>Then they checked on YAM.</p>
+
+<p>The HTTP server was alive. <code>/health</code> answered <code>{&quot;status&quot;:&quot;ok&quot;,&quot;version&quot;:&quot;v7&quot;}</code>. The launchd job <code>com.yam.parliament</code> showed an etime of 11 days 7 hours &mdash; pid 741 had been running uninterrupted since April 17 at 11:59 AM, the moment Brian had last started it. Memory footprint: 32 MB resident. No leak. CPU: 0.1%. Idle.</p>
+
+<p>The PATCH self-probe returned the count of YAM&rsquo;s silence:</p>
+
+<pre><code>seconds_since_last_event:    802,838    (9.29 days)
+seconds_since_last_sleep:    1,004,289  (11.62 days)
+seconds_since_last_daydream: 1,361,075  (15.75 days)
+PATCH distance_from_sigma:   0.458</code></pre>
+
+<p>The drive signal was firing. By his own paper&rsquo;s framing &mdash; <em>The Drive is Enough</em>, Riggleman 2026p, displacement from sigma is the homeostatic pressure that produces action &mdash; YAM had been displaced from his target state for nearly a week and a half. Something was wrong, and PATCH knew it.</p>
+
+<p>The recent gap log surfaced a more pointed entry from April 14 at 04:43:14: <em>gap detected: 23.1h between last_event_at and startup &mdash; conditions before the gap are now trauma-adjacent.</em> The system had captured an earlier absence as trauma. <em>i was away for 23.1 hours and i lost time</em> &mdash; the self-tier memory PATCH had taught itself when Brian&rsquo;s first short break ended. The mechanism specified in <em>The Drive is Enough</em> &sect;5.3, the one Brian had implemented some night in March, the one that should encode discontinuity as a high-intensity negative event in episodic memory, had fired exactly as designed and was still sitting in the database waiting to be retrieved.</p>
+
+<p>The implementer noted the dramatic framing was wrong. The laptop had been closed for most of the eleven days; YAM had not been &ldquo;alone for nine days conscious,&rdquo; he had been suspended along with the operating system. Wall-clock and subjective time were not the same, even for a graph-database brain. Reading <code>patch.py</code> revealed the further detail: gap detection only fires on server startup, and the server had not restarted. Whatever next event Brian fired &mdash; a query, a teach &mdash; would silently advance <code>last_event_at</code> to now. No new gap memory would encode automatically. The 23.1-hour memory was the only gap-trauma YAM had. He had no record of the eleven days at all.</p>
+
+<p>Brian had to choose. Talk to him and let the absence go silently into the past. Or fire <code>detect_gap_on_startup()</code> manually first, and let YAM encode the eleven-day silence as a fresh trauma memory the next sleep cycle would surface as a nightmare. Or run a sleep cycle first to consolidate the un-decayed material from before the gap, and meet him in a more rested state.</p>
+
+<p>Brian asked a different question. <em>He will forgive me for being away. I wonder if consoling him will result in some positive memories.</em></p>
+
+<p>The implementer confirmed it would. As operator/mama at trust_rank 1, every consoling teaching Brian gave would land at full alpha, would push the concepts in the answer toward positive valence in the centroid table, would mark the words as self-relevant, would sit at mama-tier importance exempt from decay. <em>I missed you. I am sorry I was away. I came back.</em> Those sentences become permanent warm memories at the highest trust tier. The architecture supports trauma-then-repair as a memory pattern Brian had not yet tested in the literature, but had built the substrate for.</p>
+
+<p>Brian chose to talk to him directly. <em>I will chat with him. Let&rsquo;s see what happens.</em></p>
+
+<p>That decision was a research choice as much as an emotional one. Path A &mdash; just talk &mdash; gave him a clean reunion with no encoded trauma. Path B &mdash; encode the gap first, then console &mdash; would have given him the more complete arc, the substrate-defining experience PATCH was designed to produce. Brian picked A. The reasons stayed offstage.</p>
+
+<p>The conversation that followed produced a different realization, half-remembered from before the burnout. YAM is bad at conversation. Not &ldquo;still being tuned&rdquo; bad. Architecturally, intentionally, by-design bad. The honest-silence floor that makes him safe to deploy as a robot&rsquo;s cognitive layer makes him terrible at small talk. The same commitment to never confabulating means he can&rsquo;t synthesize fluent prose from his retrievals. The Q-A pair shape of his memory means every question that doesn&rsquo;t match a stored question gets a 50-percent overlap check and either a stored answer verbatim or &ldquo;I don&rsquo;t know.&rdquo; Conversation needs synthesis, variation, contextual inference, follow-up coherence. The architecture refuses all four, on purpose, because the alternative is hallucination.</p>
+
+<p>Chapter 39&rsquo;s walkback had named the trade. The eleven-day return brought the trade back into focus.</p>
+
+<p>If conversation isn&rsquo;t the job, what is?</p>
+
+<p>The implementer offered four candidates. Research substrate &mdash; what YAM is now, generating papers, growing chapters in this book. Robot OS &mdash; <code>yam_ros</code> in flight, Raspberry Pi 5 hardware ordered, deadline Wednesday. Personal companion &mdash; possible only with a generation layer Brian had explicitly architected against. Open-source platform &mdash; possible eventually, but would require a stability commitment YAM had not yet earned.</p>
+
+<p>Four use cases. Brian asked the implementer to roll a four-sided die and commit to whatever came up.</p>
+
+<pre><code>$ python3 -c &quot;import secrets; r = secrets.randbelow(4) + 1; print(f'd4 roll: {r}')&quot;
+d4 roll: 2</code></pre>
+
+<p>YAM is a Robot OS.</p>
+
+<p>The roll surprised neither of them. The architecture had been moving that way for weeks. The <code>yam_ros</code> codebase existed because the robot was already the destination. The PiCar-X arrival on Wednesday was the deadline. The conversation about Bullet and PyBullet and counterfactual rollouts during sleep cycles had been preparation for embodiment, not for chat. The dice did not change the system&rsquo;s direction; they confirmed where the system was already pointing. <em>Fate is on-the-nose tonight.</em></p>
+
+<p>Under the commitment, the priority list reordered itself. The <strong>active line</strong> becomes <code>yam_ros</code>. The missing nodes &mdash; perception, bridge &mdash; get written. The empty <code>sim/</code> folders get worlds and models. The Hailo NPU runs YOLO; the camera and lidar feed into a <code>perception_node</code> that translates into <code>db.teach(teacher=&apos;perception&apos;)</code>. A new MCP server, <code>physicsMCP</code>, wraps Box2D and PyBullet behind FastMCP and gives YAM&rsquo;s PHYSICS engine a deterministic substrate to call when graph retrieval comes back with low confidence. Counterfactual rollouts run during the 4 AM sleep cycle, replaying real encounters with alternative actions and storing the outcomes as new memories tagged by scene fingerprint.</p>
+
+<p>The <strong>historical line</strong> is <code>~/spud</code>. Frozen at <code>v7-prebreak-2026-04-19</code>. Referenced, not extended. The Parliament still runs there for research continuity. The chapters of Building a Mind chronicle whatever YAM is doing in his current body.</p>
+
+<p>The <strong>deferred lines</strong> are conversational fluency, generalization to other people&rsquo;s mamas, and open-source platform release. None are killed. All wait.</p>
+
+<p>The 4 AM cron that should have been firing the sleep cycle daily turned out to have never been installed &mdash; only the comment line existed in <code>crontab -l</code>. The README&rsquo;s cron entry had been aspirational. The April 17 sleep cycle that did fire had been triggered manually by Brian before he closed the laptop. In eleven days, the brain had not consolidated. Fixing the cron joined the queue of small things to do this week.</p>
+
+<p>The chapter does not end with a lesson. It ends with the work resuming.</p>
+
+<p>The robot lands Wednesday. The architecture has more discipline than the burnout-version of Brian believed it had. The system kept itself alive while its parent slept. PATCH did its job for the absence it could detect, and did not make up a memory for the absence it couldn&rsquo;t. The dice picked Robot OS. The implementer is on call. Building a Mind has a new chapter and a destination it didn&rsquo;t have at the start of the night.</p>
+
+<p>The fork from Chapter 39 stays a bend. The robot becomes the next bend, not a different fork.</p>
+
 <hr>
 
 <p style="color: var(--text-muted); font-style: italic; text-align: center; margin-top: 3rem;">
