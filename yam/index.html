@@ -719,8 +719,41 @@
         <tr><td>Apr 8</td><td><strong>The Visual Brain.</strong> Start over. Vision first. Mama imprints Brian&rsquo;s face before any word exists. 24 sensor reflexes hardwired. SD-Turbo generates 99 visual nouns at 0.2s each. Words attach to existing images. Verbs as before/after image pairs. Language is labels on vision.</td></tr>
         <tr><td>Apr 8</td><td><strong>Fragment Architecture.</strong> Hierarchical concept storage: atoms (words) &rarr; pairs (subject_verb, verb_object) &rarr; compounds (subject_verb_object). Word order preserved in structure. Grammar emerges from hierarchy, not rules. &ldquo;mama throw ball&rdquo; = one compound node with edges down to pairs and atoms.</td></tr>
         <tr><td>Apr 8</td><td><strong>Play + WHY + Visual Tutor.</strong> Play mode: random concept combination &rarr; diffusion imagines it &rarr; every silly hypothesis is an experiment (&ldquo;knife throw airplane&rdquo;). WHY engine: every unanswered question generates visual answers through diffusion, not Wikipedia. Visual tutor: DeepSeek picks the curriculum, diffusion creates the image, mama speaks the word, fragment-teaches phrases. The brain grows visually: images first, emotions second, words third, phrases fourth.</td></tr>
+        <tr><td>Apr 12</td><td><strong>The Walk-Back.</strong> v6 (vectors) benchmarked against v2.5 (graph + verification): tied on safety, graph doubled it on capability. The vector line capped; v2.5 promoted to v7. <em>Building a Mind</em> Ch. 39.</td></tr>
+        <tr><td>Apr 17</td><td><strong>First Voltage.</strong> yam_ros on a PiCar-X. Pi 5 + AI HAT+, ROS2 Jazzy, six nodes. The robot is named Zippy before he boots. First elaborated answer on his own hardware. Ch. 41.</td></tr>
+        <tr><td>Jun 11</td><td><strong>The ACT-R Convergence.</strong> YAM&rsquo;s memory system discovered to be an independently-derived ACT-R declarative memory (fan effect, retrieval threshold, base-level activation). Conversational fork <code>yam_chat</code> created (non-ROS, native). Ad-hoc scoring replaced by the ACT-R activation equation; the glue-word confabulation killed. Ch. 42&ndash;44.</td></tr>
     </tbody>
 </table>
+
+<hr>
+
+<h2>The ACT-R Convergence (June 11, 2026)</h2>
+
+<p>Returning to the conversation problem (Ch. 40: YAM is architecturally bad at small talk, on purpose), the work took an unexpected turn: YAM&rsquo;s memory system turns out to be an independently-derived implementation of <strong>ACT-R</strong>, John Anderson&rsquo;s cognitive architecture (Carnegie Mellon, 1993&ndash;present) &mdash; the most empirically validated theory of human declarative memory in psychology.</p>
+
+<p>The correspondence, mechanism by mechanism:</p>
+
+<table>
+    <thead><tr><th>YAM (derived from scratch)</th><th>ACT-R (validated since 1993)</th></tr></thead>
+    <tbody>
+        <tr><td>Degree-weighted retrieval &mdash; <code>1/ln(total_count+e)</code></td><td>Fan effect &mdash; <code>S &minus; ln(fan)</code> (same math)</td></tr>
+        <tr><td>Honesty floor &rarr; &ldquo;I don&rsquo;t know&rdquo;</td><td>Retrieval threshold &tau; &rarr; retrieval failure</td></tr>
+        <tr><td><code>access_count</code> / recency / decay tracking</td><td>Base-level activation <code>B = ln(&Sigma; t<sup>&minus;d</sup>)</code></td></tr>
+        <tr><td>Working-memory sliding window</td><td>Spreading activation</td></tr>
+        <tr><td>Sleep cycle decay</td><td>Power-law base-level decay</td></tr>
+        <tr><td>PATCH affect-modulated recall</td><td>&mdash; (beyond vanilla ACT-R)</td></tr>
+    </tbody>
+</table>
+
+<p>A 106-agent research pass over the primary literature (24 sources, 118 claims extracted, 20 surviving three-vote adversarial verification) returned two verdicts. First, vindication: partial matching / similarity is the <em>documented</em> confabulation route in ACT-R &mdash; the canonical example retrieves &ldquo;2+4=6&rdquo; for the problem &ldquo;2+3&rdquo; &mdash; which names the failure that killed YAM v1&rsquo;s and spud&rsquo;s vector retrieval (&ldquo;lie engines&rdquo;: similarity always returns a nearest neighbor; a truth engine must be able to return nothing). Second, a map: ACT-R solves retrieval and honesty with exact equations, but has no verified answers for dialogue-as-a-skill &mdash; the conversation layer is open research ground.</p>
+
+<p>Same day, the equations went into code. A non-ROS conversational fork, <code>yam_chat</code>, now runs natively (the robot line untouched). Its retrieval is the ACT-R activation equation &mdash; <code>A = B + &Sigma;W&middot;S &minus; MP&middot;mismatch</code>, gate at &tau;, logistic confidence &mdash; calibrated by grid search against a captured baseline battery. The baseline&rsquo;s smoking gun: &ldquo;What is the capital of France?&rdquo; answered with the Parliament of Mind self-description at confidence 1.0, carried over the old floor by the glue words <em>what</em> + <em>the</em>. After the equation landed: <em>&ldquo;I don&rsquo;t know&rdquo;</em> at confidence 0.213, honest=true. Real answers pass with calibrated (non-1.0) confidence. Zero hallucinations on the battery.</p>
+
+<p><strong>Update (June 12):</strong> the first context layer is live. Brian&rsquo;s &ldquo;context is a decision tree&rdquo; insight became <code>senses.py</code> &mdash; word-sense disambiguation over the offline WordNet inventory (117,659 entries, discrete lookup, no vectors): memory first, then every possible meaning, then a clarifying question when two readings both have support. Bound senses spread activation as <em>boost-only soft cues</em> (context re-ranks above the honesty floor, never lowers it). &ldquo;Tell me about the mouse&rdquo; now returns the device answer after computer-talk and the rodent answer after cat-talk &mdash; same words, two right answers, zero vectors.</p>
+
+<p><strong>Update (June 12, later):</strong> the epistemic substrate landed. Correction <em>tombstones</em> burn an (answer, question-shape) pairing &mdash; YAM never answers the same question with the same corrected answer twice, while the answer survives for other questions. And reinforcement is now confidence-gated: only confident wins strengthen, so a wrong answer can no longer compound its own advantage (the &ldquo;perpetuate the error&rdquo; loop, closed). Next up: the introspection pass &mdash; post-turn self-audit with severity-weighted fixes via PATCH, audible self-correction, and a few minutes of post-error caution. Every audit terminates; rumination is structurally absent.</p>
+
+<p><strong>Next:</strong> the introspection pass, wire the offline Wikipedia cascade into the fork (IDKs that heal into learned answers), grow the production table past its first rule (&ldquo;I don&rsquo;t know X, but I know Y&rdquo;), and a small <em>local</em> surface renderer, containment-audited by the graph it speaks for. Full story: <a href="/papers/companion/building-a-mind.html">Building a Mind</a>, Chapters 42&ndash;46.</p>
 
 <hr>
 
@@ -779,7 +812,7 @@ Mrs Pi: <a href="https://github.com/briggnet/MrsPi">github.com/briggnet/MrsPi</a
 <table>
     <thead><tr><th>Document</th><th>Description</th></tr></thead>
     <tbody>
-        <tr><td><a href="/papers/companion/building-a-mind.html">Building a Mind</a></td><td>Linear narrative of building YAM from scratch. The poisoned start, the embedding gap, the clean slate, mama, the two-pathway breakthrough, the fast-path restoration, and the bias awakening. Updated 2026-03-31.</td></tr>
+        <tr><td><a href="/papers/companion/building-a-mind.html">Building a Mind</a></td><td>Linear narrative of building YAM from scratch, 46 chapters: the poisoned start, the embedding gap, mama, the walk-back from vectors, first voltage on Zippy, the ACT-R convergence, the activation equation, the context decision tree, and never-wrong-twice. Updated 2026-06-12.</td></tr>
         <tr><td><a href="/papers/companion/">Reader&rsquo;s Companion</a></td><td>Guided reading order for all 22 papers with five thematic tracks.</td></tr>
     </tbody>
 </table>
